@@ -4,6 +4,3 @@ __email__ = "zhenyuwei99@gmail.com"
 __copyright__ = "Copyright 2021-2021, Southeast University and Zhenyu Wei"
 __license__ = "MIT"
 
-from .pdbReporter import PDBReporter
-
-__all__ = ['PDBReporter']
