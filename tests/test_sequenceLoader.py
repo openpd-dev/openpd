@@ -1,11 +1,13 @@
+import sys, os
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import sys
-sys.path.append('/Users/zhenyuwei/Programs/openpd/')
+cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
+openpd_dir = os.path.join(cur_dir, '..')
+sys.path.append(openpd_dir)
 from openpd import SequenceLoader
 
-loader = SequenceLoader('/Users/zhenyuwei/Programs/openpd/tests/sequence.json', is_single_letter=False)
-
+loader = SequenceLoader(os.path.join(cur_dir, 'sequence.json'), is_single_letter=False)
+print(loader.sequence_dict)
 system = loader.createSystem()
 
 for peptide in system.getPeptides():

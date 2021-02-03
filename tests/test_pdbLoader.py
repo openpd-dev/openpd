@@ -1,10 +1,13 @@
-import sys
+import sys, os
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-sys.path.append('/Users/zhenyuwei/Programs/openpd/')
+cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
+openpd_dir = os.path.join(cur_dir, '..')
+sys.path.append(openpd_dir)
+
 from openpd import PDBLoader
 
-loader = PDBLoader('/Users/zhenyuwei/Programs/openpd/tests/sequence.pdb')
+loader = PDBLoader(os.path.join(cur_dir, 'sequence.pdb'))
 
 system = loader.createSystem(is_extract_coordinate=True)
 for peptide in system.getPeptides():
