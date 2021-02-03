@@ -2,7 +2,7 @@ from . import CONST_CA_SC_DISTANCE
 import json, codecs
 import numpy as np
 from numpy import pi, cos, sin
-from .. import Peptide, Chain, System, single_letter_abbreviation, triple_letter_abbreviation
+from .. import Peptide, Chain, System, single_letter_abbreviation, triple_letter_abbreviation, findFirst
 
 class SequenceLoader(object):
     def __init__(self, sequence_file, is_single_letter=False) -> None:
@@ -24,7 +24,17 @@ class SequenceLoader(object):
                             raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
                                  %(peptide_type, single_letter_abbreviation))
                         else:
-                            self.sequence_dict[key][i] = triple_letter_abbreviation[single_letter_abbreviation==peptide_type.upper()]
+                            self.sequence_dict[key][i] = triple_letter_abbreviation[findFirst(peptide_type.upper(), single_letter_abbreviation)]
+        else:
+            for key, value in self.sequence_dict.items():
+                if key.upper().startswith('CHAIN'):
+                    for i, peptide_type in enumerate(value):
+                        if peptide_type in single_letter_abbreviation:
+                            raise ValueError('Peptide type %s is a single letter abbreviation, try to use loader=SequenceLoader(file, is_single_letter=True)' 
+                                %(peptide_type))
+                        if not peptide_type in triple_letter_abbreviation:
+                            raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
+                                 %(peptide_type, single_letter_abbreviation))
 
     def createSystem(self):
         self.system = System()

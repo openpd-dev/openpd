@@ -37,7 +37,7 @@ class Atom(object):
         return self._peptide_type
 
     @peptide_type.setter
-    def peptide_type(self, peptide_type:str):
+    def peptide_type(self, peptide_type:str):    
         self._peptide_type = peptide_type
     
     @property
@@ -46,6 +46,8 @@ class Atom(object):
 
     @coordinate.setter
     def coordinate(self, coordinate):
+        if len(coordinate) != 3:
+            raise ValueError('Dimension of coordinate should be 3')
         for (i, j) in enumerate(coordinate):
             self._coordinate[i] = j
 
@@ -55,5 +57,7 @@ class Atom(object):
 
     @velocity.setter
     def velocity(self, velocity):
+        if len(velocity) != 3:
+            raise ValueError('Dimension of velocity should be 3')
         for (i, j) in enumerate(velocity):
             self._velocity[i] = j

@@ -1,6 +1,8 @@
 import numpy as np
 from copy import deepcopy
+
 from . import Chain, Topology
+from .. import isArrayEqual
 
 class System(object):
     def __init__(self) -> None:
@@ -11,6 +13,7 @@ class System(object):
         self._num_atoms = 0
         self._num_peptides = 0
         self._num_chains = 0
+        self._cooridnate_shape = list(self.coordinate.shape)
 
     def __repr__(self) -> str:
         return ('<System object: %d chains, %d peptides, %d atoms at 0x0x%x>' 
@@ -29,11 +32,12 @@ class System(object):
             atom.atom_id = self._num_atoms
             self._num_atoms += 1
         self._num_chains += 1
-        self._topology.addChain(self._chains[-1])
+        self._topology._addChain(self._chains[-1])
 
     def addChains(self, chain_vec):
         for chain in chain_vec:
             self._addChain(chain)
+        self._cooridnate_shape = list(self.coordinate.shape)
 
     @property
     def num_atoms(self):
@@ -75,3 +79,13 @@ class System(object):
         for atom in self.atoms:
             coord.append(atom.coordinate)
         return np.array(coord)
+
+    @coordinate.setter
+    def coordinate(self, coord):
+        coord = np.array(coord)
+        if not isArrayEqual(coord.shape, self._cooridnate_shape):
+            raise ValueError('Dimension of input %s is different from dimension of coordinate matrix %s' 
+                %(coord.shape, self._cooridnate_shape))
+
+        for i, atom in enumerate(self.atoms):
+            atom.coordinate = coord[i, :]

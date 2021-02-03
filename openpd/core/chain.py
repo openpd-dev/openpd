@@ -30,7 +30,7 @@ class Chain(object):
     
     @property
     def chain_id(self):
-        return self.chain_id
+        return self._chain_id
 
     @chain_id.setter
     def chain_id(self, chain_id:int):

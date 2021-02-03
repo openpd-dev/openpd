@@ -1,9 +1,8 @@
 from openpd.core import atom, peptide
 import numpy as np
 from numpy import pi, cos, sin
-from numpy.lib.arraysetops import unique
 from . import CONST_CA_SC_DISTANCE
-from .. import Peptide, Chain, System, triple_letter_abbreviation
+from .. import Peptide, Chain, System, triple_letter_abbreviation, uniqueList, mergeSameNeighbor, findAll
 
 back_bone_atom = ['N', 'C', 'O', 'CA', 'H', 'H1', 'H2']
 element_mass = {
@@ -46,7 +45,6 @@ class PDBLoader(object):
                 data[i] = value
         return data
     
-    @staticmethod
     def _parseAtomLine(self, line):
         data = []
         data.append(int(line[6:11]))
@@ -118,13 +116,12 @@ class PDBLoader(object):
             self._raw_data[i].append(self._mass[i][0])
         self.num_res = np.unique(self._res_id).shape[0]
         self._num_atoms = len(self._atom_name)
-        self._res_id = [np.where(unique(self._res_id)==i)[0][0] for i in self._res_id] # Sort _res_id start from 0 and increase evenly for extractCoordinate
+        self._res_id = [np.where(uniqueList(self._res_id)==i)[0][0] for i in self._res_id] # Sort _res_id start from 0 and increase evenly for extractCoordinate
 
     def loadSequence(self):
         self.sequence_dict = {}
-        for chain in unique(self._chain_name):
-            sequence = unique([self._res_name[i] for i, j in 
-            enumerate(self._chain_name) if j==chain])
+        for chain in mergeSameNeighbor(self._chain_name):
+            sequence = mergeSameNeighbor([self._res_name[i] for i, j in enumerate(self._chain_name) if j==chain])
             for peptide in sequence:
                 if not peptide in triple_letter_abbreviation:
                     raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
@@ -139,18 +136,18 @@ class PDBLoader(object):
                 chain.addPeptides([Peptide(peptide_type)])
             self.system.addChains([chain])
         if is_extract_coordinate:
-            self.extractCoordinate()
+            self._extractCoordinates()
         else:
-            self.guessCoordinate()
+            self._guessCoordinates()
         return self.system
 
-    def guessCoordinate(self):
+    def _guessCoordinates(self):
         for i, chain in enumerate(self.system.chains):
             init_point = np.random.random(3) + np.array([0, i*5, i*5])
             for j, peptide in enumerate(chain.peptides):
                 ca_coord = init_point + np.array([j*CONST_CA_SC_DISTANCE, 0, 0])
                 theta = np.random.rand(1)[0] * 2*pi - pi
-                sc_coord = ca_coord + np.array([0, peptide.ca_sc_dist*cos(theta), peptide.ca_sc_dist*sin(theta)])
+                sc_coord = ca_coord + np.array([0, peptide._ca_sc_dist*cos(theta), peptide._ca_sc_dist*sin(theta)])
                 peptide.atoms[0].coordinate = ca_coord
                 peptide.atoms[1].coordinate = sc_coord
 
@@ -166,11 +163,11 @@ class PDBLoader(object):
         return coord_ca, coord_sc
 
 
-    def extractCoordinate(self):
+    def _extractCoordinates(self):
         peptide_id = 0
-        for i, chain in enumerate(self.system.chains):
-            for j, peptide in enumerate(chain.peptides):
-                index = [i for i, j in enumerate(self._res_id) if j==peptide_id]
+        for chain in self.system.chains:
+            for peptide in chain.peptides:
+                index = findAll(peptide_id, self._res_id)
                 atom_name = self._atom_name[index[0]:index[-1]+1]
                 coord = self._coord[index[0]:index[-1]+1, :]
                 _mass = self._mass[index[0]:index[-1]+1]

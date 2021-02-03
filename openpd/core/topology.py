@@ -16,7 +16,7 @@ class Topology(object):
 
     __str__ = __repr__
 
-    def addChain(self, chain:Chain):
+    def _addChain(self, chain:Chain):
         for i, peptide in enumerate(chain.peptides[:-1]):
             self._bonds.append([peptide.atoms[0], peptide.atoms[1]]) # Ca-Sc bond
             self._bonds.append([peptide.atoms[0], chain.peptides[i+1].atoms[0]]) # Ca- Ca bond
