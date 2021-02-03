@@ -16,13 +16,13 @@ chain1.addPeptides([peptide0, peptide1, peptide0])
 system = System()
 system.addChains([chain0, chain1])
 
-for atom in system.getAtoms():
+for atom in system.atoms:
     print(atom)
 
-for peptide in system.getPeptides():
+for peptide in system.peptides:
     print(peptide)
 
-for chain in system.getChains():
+for chain in system.chains:
     print(chain)
 
 for bond in system.topology.bonds:

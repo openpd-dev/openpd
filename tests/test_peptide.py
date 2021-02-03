@@ -6,9 +6,8 @@ sys.path.append(openpd_dir)
 from openpd import Peptide
 
 peptide = Peptide('ASN')
-print(peptide)
+print(peptide.peptide_type)
 
-print(peptide.ca_sc_dist)
 
 for atom in peptide.atoms:
     print(atom.mass)

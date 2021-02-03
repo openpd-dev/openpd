@@ -10,21 +10,21 @@ loader = SequenceLoader(os.path.join(cur_dir, 'sequence.json'), is_single_letter
 print(loader.sequence_dict)
 system = loader.createSystem()
 
-for peptide in system.getPeptides():
+for peptide in system.peptides:
     print(peptide)
 
-for chain in system.getChains():
+for chain in system.chains:
     print(chain)
 
 print(system)
 print(system.topology)
 
 
-coord = system.getCoordinate()
+coord = system.coordinate
 fig = plt.figure()
 ax = Axes3D(fig)
 color = []
-for peptide in system.getPeptides():
+for peptide in system.peptides:
     color.extend(['navy', 'brown'])
 ax.scatter(coord[:, 0], coord[:, 1], coord[:, 2], c=color)
 for bond in system.topology.bonds:

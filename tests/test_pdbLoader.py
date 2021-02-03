@@ -10,20 +10,24 @@ from openpd import PDBLoader
 loader = PDBLoader(os.path.join(cur_dir, 'sequence.pdb'))
 
 system = loader.createSystem(is_extract_coordinate=True)
-for peptide in system.getPeptides():
+for peptide in system.peptides:
     print(peptide)
 
-for chain in system.getChains():
+for atom in system.atoms:
+    pass
+    #print(atom.coordinate)
+
+for chain in system.chains:
     print(chain)
 
 print(system)
 print(system.topology)
 
-coord = system.getCoordinate()
+coord = system.coordinate
 fig = plt.figure()
 ax = Axes3D(fig)
 color = []
-for peptide in system.getPeptides():
+for peptide in system.peptides:
     color.extend(['navy', 'brown'])
 ax.scatter(coord[:, 0], coord[:, 1], coord[:, 2], c=color)
 for bond in system.topology.bonds:

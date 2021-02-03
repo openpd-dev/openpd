@@ -13,8 +13,8 @@ chain.addPeptides([peptide0, peptide1, peptide0])
 
 print(chain)
 
-for atom in chain.getAtoms():
+for atom in chain.atoms:
     print(atom)
 
-for peptide in chain.getPeptides():
+for peptide in chain.peptides:
     print(peptide)
