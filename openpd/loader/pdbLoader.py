@@ -46,6 +46,7 @@ class PDBLoader(object):
                 data[i] = value
         return data
     
+    @staticmethod
     def _parseAtomLine(self, line):
         data = []
         data.append(int(line[6:11]))
@@ -79,7 +80,7 @@ class PDBLoader(object):
             self._line_ATOMEND = line
             return line
     
-    def _getMass(self, atom_name):
+    def _matchMass(self, atom_name):
         keys = element_mass.keys()
         atom_name = atom_name.upper()
         if len(atom_name) >= 2:
@@ -113,7 +114,7 @@ class PDBLoader(object):
             self._chain_name.append(data[3])
             self._res_id[i] = int(data[4])
             self._coord[i, :] = data[5:8]
-            self._mass[i] = self._getMass(data[1])
+            self._mass[i] = self._matchMass(data[1])
             self._raw_data[i].append(self._mass[i][0])
         self.num_res = np.unique(self._res_id).shape[0]
         self._num_atoms = len(self._atom_name)
@@ -146,12 +147,12 @@ class PDBLoader(object):
     def guessCoordinate(self):
         for i, chain in enumerate(self.system.chains):
             init_point = np.random.random(3) + np.array([0, i*5, i*5])
-            for j, peptide in enumerate(chain.getPeptides()):
+            for j, peptide in enumerate(chain.peptides):
                 ca_coord = init_point + np.array([j*CONST_CA_SC_DISTANCE, 0, 0])
                 theta = np.random.rand(1)[0] * 2*pi - pi
                 sc_coord = ca_coord + np.array([0, peptide.ca_sc_dist*cos(theta), peptide.ca_sc_dist*sin(theta)])
-                peptide.atoms[0].setCoordinate(ca_coord)
-                peptide.atoms[1].setCoordinate(sc_coord)
+                peptide.atoms[0].coordinate = ca_coord
+                peptide.atoms[1].coordinate = sc_coord
 
     def _extractCoordinate(self, atom_name, coord, _mass):
         coord_ca = coord[atom_name.index('CA')]
@@ -174,6 +175,6 @@ class PDBLoader(object):
                 coord = self._coord[index[0]:index[-1]+1, :]
                 _mass = self._mass[index[0]:index[-1]+1]
                 coord_ca, coord_sc = self._extractCoordinate(atom_name, coord, _mass)
-                peptide.atoms[0].setCoordinate(coord_ca)
-                peptide.atoms[1].setCoordinate(coord_sc)
+                peptide.atoms[0].coordinate = coord_ca
+                peptide.atoms[1].coordinate = coord_sc
                 peptide_id += 1

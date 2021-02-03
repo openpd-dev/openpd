@@ -40,9 +40,9 @@ class SequenceLoader(object):
     def guessCoordinate(self):
         for i, chain in enumerate(self.system.chains):
             init_point = np.random.random(3) + np.array([0, i*5, i*5])
-            for i, peptide in enumerate(chain.getPeptides()):
+            for i, peptide in enumerate(chain.peptides):
                 ca_coord = init_point + np.array([i*CONST_CA_SC_DISTANCE, 0, 0])
                 theta = np.random.rand(1)[0] * 2*pi - pi
-                sc_coord = ca_coord + np.array([0, peptide.ca_sc_dist*cos(theta), peptide.ca_sc_dist*sin(theta)])
-                peptide.atoms[0].setCoordinate(ca_coord)
-                peptide.atoms[1].setCoordinate(sc_coord)
+                sc_coord = ca_coord + np.array([0, peptide._ca_sc_dist*cos(theta), peptide._ca_sc_dist*sin(theta)])
+                peptide.atoms[0].coordinate = ca_coord
+                peptide.atoms[1].coordinate = sc_coord
