@@ -26,9 +26,9 @@ ax = Axes3D(fig)
 color = []
 for peptide in system.peptides:
     color.extend(['navy', 'brown'])
-ax.scatter(coord[:, 0], coord[:, 1], coord[:, 2], c=color)
+ax.scatter(coord[:, 0], coord[:, 1], coord[:, 2], c=color, lw=10)
 for bond in system.topology.bonds:
     ax.plot([bond[0].coordinate[0], bond[1].coordinate[0]],
             [bond[0].coordinate[1], bond[1].coordinate[1]],
-            [bond[0].coordinate[2], bond[1].coordinate[2]], c='teal')
+            [bond[0].coordinate[2], bond[1].coordinate[2]], c='teal', lw=2)
 plt.show()
