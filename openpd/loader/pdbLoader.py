@@ -171,7 +171,6 @@ class PDBLoader(object):
         for i, chain_name in enumerate(self.chain_names):
             # Extrat each peptides' corresponding res_id in the pdb file to extract the coordinate
             res_id = self.sequence_dict[chain_name + 'res_id'] 
-            print(res_id)
             for (i, peptide) in enumerate(self.system.chains[i].peptides):
                 index = findAll(res_id[i], self._res_id)
                 atom_name = self._atom_name[index[0]:index[-1]+1]
