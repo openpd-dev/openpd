@@ -1,9 +1,6 @@
-import sys, os, pytest
+import pytest
 
-cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
-openpd_dir = os.path.join(cur_dir, '../..')
-sys.path.append(openpd_dir)
-from openpd import Peptide, Chain
+from .. import Peptide, Chain
 
 class TestChain:
     def setup(self):

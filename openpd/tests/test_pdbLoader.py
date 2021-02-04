@@ -1,12 +1,11 @@
 from openpd.core.peptide import Peptide
-import sys, os, pytest
+import os, pytest
 import numpy as np
 
+from .. import PDBLoader, bond
+from ..loader import CONST_CA_SC_DISTANCE
+
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
-openpd_dir = os.path.join(cur_dir, '../..')
-sys.path.append(openpd_dir)
-from openpd import PDBLoader, bond
-from openpd.loader import CONST_CA_SC_DISTANCE
 
 class TestPDBLoader:
     def setup(self):

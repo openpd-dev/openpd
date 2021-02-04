@@ -1,10 +1,7 @@
-import os, sys, pytest
+import pytest
 import numpy as np
 
-cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
-openpd_dir = os.path.join(cur_dir, '../..')
-sys.path.append(openpd_dir)
-from openpd import Atom, Peptide, Chain, System, Topology
+from .. import Peptide, Chain, System
 
 class TestSystem:
     def setup(self):

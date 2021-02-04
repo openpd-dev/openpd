@@ -1,11 +1,9 @@
-import sys, os, pytest
-import numpy as np
+import os, pytest
 
-cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
-openpd_dir = os.path.join(cur_dir, '../..')
-sys.path.append(openpd_dir)
 from openpd import SequenceLoader, Peptide, bond
 from openpd.loader import CONST_CA_SC_DISTANCE
+
+cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
 class TestPDBLoader:
     def setup(self):
