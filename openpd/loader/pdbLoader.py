@@ -120,19 +120,23 @@ class PDBLoader(object):
 
     def loadSequence(self):
         self.sequence_dict = {}
-        for chain in mergeSameNeighbor(self._chain_name):
-            sequence = mergeSameNeighbor([self._res_name[i] for i, j in enumerate(self._chain_name) if j==chain])
+        self.chain_names = uniqueList(self._chain_name)
+        for chain_name in self.chain_names:
+            sequence = mergeSameNeighbor([self._res_name[i] for i, j in enumerate(self._chain_name) if j==chain_name])
+            sequence_res_id = mergeSameNeighbor([self._res_id[i] for i, j in enumerate(self._chain_name) if j==chain_name])
             for peptide in sequence:
                 if not peptide in triple_letter_abbreviation:
                     raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
                     %(peptide, triple_letter_abbreviation))
-            self.sequence_dict[chain] = sequence
+            self.sequence_dict[chain_name] = sequence
+            self.sequence_dict[chain_name + 'res_id'] = sequence_res_id
 
     def createSystem(self, is_extract_coordinate=True):
         self.system = System()
-        for _, value in self.sequence_dict.items():
+        for chain_name in self.chain_names:
             chain = Chain()
-            for peptide_type in value:
+            sequence = self.sequence_dict[chain_name]
+            for peptide_type in sequence:
                 chain.addPeptides(Peptide(peptide_type))
             self.system.addChains(chain)
         if is_extract_coordinate:
@@ -164,14 +168,15 @@ class PDBLoader(object):
 
 
     def _extractCoordinates(self):
-        peptide_id = 0
-        for chain in self.system.chains:
-            for peptide in chain.peptides:
-                index = findAll(peptide_id, self._res_id)
+        for i, chain_name in enumerate(self.chain_names):
+            # Extrat each peptides' corresponding res_id in the pdb file to extract the coordinate
+            res_id = self.sequence_dict[chain_name + 'res_id'] 
+            print(res_id)
+            for (i, peptide) in enumerate(self.system.chains[i].peptides):
+                index = findAll(res_id[i], self._res_id)
                 atom_name = self._atom_name[index[0]:index[-1]+1]
                 coord = self._coord[index[0]:index[-1]+1, :]
                 _mass = self._mass[index[0]:index[-1]+1]
                 coord_ca, coord_sc = self._extractCoordinate(atom_name, coord, _mass)
                 peptide.atoms[0].coordinate = coord_ca
                 peptide.atoms[1].coordinate = coord_sc
-                peptide_id += 1

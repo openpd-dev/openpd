@@ -20,9 +20,14 @@ class TestPDBLoader:
 
     def test_loadSequence(self):
         assert self.loader.sequence_dict['A'] == [
-                'ASN', 'LEU', 'TYR', 'ILE', 'GLN',
-                'TRP', 'LEU', 'LYS', 'ASP', 'GLY'
-            ]
+            'ASN', 'LEU', 'TYR', 'ILE', 'GLN',
+            'TRP', 'LEU', 'LYS', 'ASP', 'GLY'
+        ]
+
+        self.loader = PDBLoader(os.path.join(cur_dir, 'data/multiChain.pdb'))
+        assert self.loader.sequence_dict['B'] == [
+            'TRP', 'LEU', 'LYS'
+        ]
 
     def test_createSystem(self):
         system = self.loader.createSystem()
@@ -39,8 +44,13 @@ class TestPDBLoader:
     def test_extractCoordinates(self):
         system = self.loader.createSystem(is_extract_coordinate=True)
         assert np.array_equal(system.atoms[0].coordinate, np.array([-8.608, 3.135, -1.618]))
-
         assert np.array_equal(system.atoms[2].coordinate, np.array([-4.923, 4.002, -2.452]))
+
+        # Avoiding coordinate assigning issue when the peptide of one chain is discontinuous
+        self.loader = PDBLoader(os.path.join(cur_dir, 'data/multiChain.pdb'))
+        system = self.loader.createSystem(is_extract_coordinate=True)
+        assert np.array_equal(system.chains[1].atoms[0].coordinate, np.array([-0.716, -0.631, -0.993]))
+        assert np.array_equal(system.chains[1].atoms[2].coordinate, np.array([-1.641, -2.932, 1.963]))
 
     def test_guessCoordinates(self):
         system = self.loader.createSystem(is_extract_coordinate=False)
