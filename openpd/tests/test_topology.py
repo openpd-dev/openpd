@@ -31,6 +31,12 @@ class TestTopology:
         
         with pytest.raises(AttributeError):
             self.topology.bonds = 1
+
+        with pytest.raises(AttributeError):
+            self.topology.num_angles = 1
+        
+        with pytest.raises(AttributeError):
+            self.topology.angles = 1
         
         with pytest.raises(AttributeError):
             self.topology.num_torsions = 1
@@ -40,22 +46,25 @@ class TestTopology:
 
     def test_addChain(self):
         chain = Chain(0)
-        chain.addPeptides([Peptide('ASN'), Peptide('ALA')])
+        chain.addPeptides([Peptide('ASN'), Peptide('ALA'), Peptide('ASN')])
 
         self.topology._addChain(chain)
 
-        assert self.topology.num_atoms == 4
-        assert self.topology.num_bonds == 3
-        assert self.topology.num_torsions == 1
-
-        self.topology._addChain(chain)
-
-        assert self.topology.num_atoms == 8
-        assert self.topology.num_bonds == 6
+        assert self.topology.num_atoms == 6
+        assert self.topology.num_bonds == 5
+        assert self.topology.num_angles == 4
         assert self.topology.num_torsions == 2
+
+        self.topology._addChain(chain)
+
+        assert self.topology.num_atoms == 12
+        assert self.topology.num_bonds == 10
+        assert self.topology.num_angles == 8
+        assert self.topology.num_torsions == 4
 
         for i in range(50):
             self.topology._addChain(chain)
-        assert self.topology.num_atoms == 4 * 52
-        assert self.topology.num_bonds == 3 * 52
-        assert self.topology.num_torsions == 1 * 52
+            assert self.topology.num_atoms == 12 + (i+1) * 6
+            assert self.topology.num_bonds == 10 + (i+1) * 5
+            assert self.topology.num_angles == 8 + (i+1) * 4
+            assert self.topology.num_torsions == 4 + (i+1) * 2

@@ -47,12 +47,14 @@ class TestPDBLoader:
         system = loader.createSystem()
         assert system.topology.num_atoms == 18
         assert system.topology.num_bonds == 9 + 7
+        assert system.topology.num_angles == 8 + 6
         assert system.topology.num_torsions == 4 + 3
 
         loader = SequenceLoader(os.path.join(cur_dir, 'data/triple_normal.json'), is_single_letter=False)
         system = loader.createSystem()
         assert system.topology.num_atoms == 30
         assert system.topology.num_bonds == 19 + 9
+        assert system.topology.num_angles == 18 + 8
         assert system.topology.num_torsions == 9 + 4
 
     def test_guessCoordinates(self):

@@ -22,6 +22,7 @@ class TestSystem:
 
         assert self.system.topology.num_atoms == 0
         assert self.system.topology.num_bonds == 0
+        assert self.system.topology.num_angles == 0
         assert self.system.topology.num_torsions == 0
 
         assert len(self.system.coordinate) == 0
@@ -72,6 +73,7 @@ class TestSystem:
             assert peptide.chain_id == 0
         assert self.system.topology.num_atoms == 6
         assert self.system.topology.num_bonds == 5
+        assert self.system.topology.num_angles == 4
         assert self.system.topology.num_torsions == 2
 
     def test_addChains(self):
@@ -99,6 +101,7 @@ class TestSystem:
 
         assert self.system.topology.num_atoms == 12
         assert self.system.topology.num_bonds == 10
+        assert self.system.topology.num_angles == 8
         assert self.system.topology.num_torsions == 4
 
         for i in range(50):
@@ -108,4 +111,5 @@ class TestSystem:
 
             assert self.system.topology.num_atoms == 12 + (i+1) * 6
             assert self.system.topology.num_bonds == 10 + (i+1) * 5
+            assert self.system.topology.num_angles == 8 + (i+1) * 4
             assert self.system.topology.num_torsions == 4 + (i+1) * 2

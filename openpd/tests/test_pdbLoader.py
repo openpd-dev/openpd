@@ -33,6 +33,7 @@ class TestPDBLoader:
 
         assert system.topology.num_atoms == 20
         assert system.topology.num_bonds == 19
+        assert system.topology.num_angles == 18
         assert system.topology.num_torsions == 9
 
     def test_extractCoordinates(self):
