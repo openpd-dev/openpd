@@ -46,7 +46,7 @@ class TestPeptide:
 
     def test_addAtoms(self):
         atom = Atom('CA', 12)
-        self.peptide.addAtoms(atom, atom, atom)
+        self.peptide.addAtoms(*[atom, atom, atom])
         assert self.peptide.num_atoms == 5
         for atom in self.peptide.atoms:
             assert atom.peptide_type == 'ASN'

@@ -5,6 +5,7 @@ def uniqueList(list):
             res.append(i)
     return res
 
+# Use in PDBLoader
 def mergeSameNeighbor(list):
     res = [list[0]]
     for i in list:

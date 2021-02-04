@@ -2,7 +2,7 @@ from openpd.core.peptide import Peptide
 import os, pytest
 import numpy as np
 
-from .. import PDBLoader, bond
+from .. import PDBLoader, getBond
 from ..loader import CONST_CA_SC_DISTANCE
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
@@ -55,6 +55,6 @@ class TestPDBLoader:
     def test_guessCoordinates(self):
         system = self.loader.createSystem(is_extract_coordinate=False)
 
-        assert bond(system.atoms[0].coordinate, system.atoms[1].coordinate) == pytest.approx(Peptide('ASN')._ca_sc_dist)
+        assert getBond(system.atoms[0].coordinate, system.atoms[1].coordinate) == pytest.approx(Peptide('ASN')._ca_sc_dist)
 
-        assert bond(system.atoms[0].coordinate, system.atoms[2].coordinate) == pytest.approx(CONST_CA_SC_DISTANCE)
+        assert getBond(system.atoms[0].coordinate, system.atoms[2].coordinate) == pytest.approx(CONST_CA_SC_DISTANCE)

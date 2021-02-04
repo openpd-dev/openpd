@@ -4,14 +4,14 @@ __email__ = "zhenyuwei99@gmail.com"
 __copyright__ = "Copyright 2021-2021, Southeast University and Zhenyu Wei"
 __license__ = "MIT"
 
-from .geometry import bond, angle, torsion
-from .judgement import isArrayEqual
+from .geometry import getBond, getAngle, getTorsion
+from .judgement import isArrayEqual, isArrayAlmostEqual
 from .unique import uniqueList, mergeSameNeighbor
-from .find import findFirst, findAll
+from .locate import findFirst, findAll, binarySearch
 
 __all__ = [
-    'bond', 'angle', 'torsion',
-    'isArrayEqual',
+    'getBond', 'getAngle', 'getTorsion',
+    'isArrayEqual', 'isArrayAlmostEqual',
     'uniqueList', 'mergeSameNeighbor',
-    'findFirst', 'findAll'
+    'findFirst', 'findAll', 'binarySearch'
 ]
