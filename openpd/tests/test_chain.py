@@ -52,3 +52,10 @@ class TestChain:
         assert self.chain.num_atoms == 4
         for peptide in self.chain.peptides:
             assert peptide.chain_id == 0
+
+        for i in range(50):
+            self.chain.addPeptides([peptide1, peptide2])
+            assert self.chain.num_peptides == 2 + (i+1) * 2
+            assert self.chain.num_atoms == 4 + (i+1) * 4
+            for peptide in self.chain.peptides[-2:]:
+                assert peptide.chain_id == 0
