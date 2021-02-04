@@ -42,8 +42,8 @@ class SequenceLoader(object):
             if key.upper().startswith('CHAIN'):
                 chain = Chain()
                 for peptide_type in value:
-                    chain.addPeptides([Peptide(peptide_type)])
-                self.system.addChains([chain])
+                    chain.addPeptides(Peptide(peptide_type))
+                self.system.addChains(chain)
         self.guessCoordinate()
         return self.system
 

@@ -24,8 +24,8 @@ class Chain(object):
             self._num_atoms += 1
         self._num_peptides += 1
 
-    def addPeptides(self, peptide_vec):
-        for peptide in peptide_vec:
+    def addPeptides(self, *peptides):
+        for peptide in peptides:
             self._addPeptide(peptide)
     
     @property

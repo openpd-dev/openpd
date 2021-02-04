@@ -40,19 +40,19 @@ class TestPeptide:
 
     def test_addAtom(self):
         atom = Atom('CA', 12)
-        self.peptide.addAtoms([atom])
+        self.peptide.addAtoms(atom)
         assert self.peptide.num_atoms == 3
         assert self.peptide.atoms[0].peptide_type == 'ASN'
 
     def test_addAtoms(self):
         atom = Atom('CA', 12)
-        self.peptide.addAtoms([atom, atom, atom])
+        self.peptide.addAtoms(atom, atom, atom)
         assert self.peptide.num_atoms == 5
         for atom in self.peptide.atoms:
             assert atom.peptide_type == 'ASN'
 
         for i in range(50):
-            self.peptide.addAtoms([atom, atom, atom])
+            self.peptide.addAtoms(atom, atom, atom)
             assert self.peptide.num_atoms == 5 + (i+1) * 3
             for atom in self.peptide.atoms[-3:]:
                 assert atom.peptide_type == 'ASN'

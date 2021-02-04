@@ -41,8 +41,8 @@ class Peptide(object):
         self._atoms[-1].atom_id = self._num_atoms
         self._num_atoms += 1
     
-    def addAtoms(self, atom_vec):
-        for atom in atom_vec:
+    def addAtoms(self, *atoms):
+        for atom in atoms:
             self._addAtom(atom)
 
     @property

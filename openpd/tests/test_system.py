@@ -60,9 +60,9 @@ class TestSystem:
         peptide1 = Peptide('ALA')
 
         chain = Chain(0)
-        chain.addPeptides([peptide1, peptide1, peptide0])
+        chain.addPeptides(peptide1, peptide1, peptide0)
         
-        self.system.addChains([chain])
+        self.system.addChains(chain)
 
         assert self.system.num_atoms == 6
         assert self.system.num_peptides == 3
@@ -83,10 +83,10 @@ class TestSystem:
         chain0 = Chain(0)
         chain1 = Chain(2)
 
-        chain0.addPeptides([peptide1, peptide1, peptide0])
-        chain1.addPeptides([peptide0, peptide1, peptide0])
+        chain0.addPeptides(peptide1, peptide1, peptide0)
+        chain1.addPeptides(peptide0, peptide1, peptide0)
 
-        self.system.addChains([chain0, chain1])
+        self.system.addChains(chain0, chain1)
 
         assert self.system.num_atoms == 12
         assert self.system.num_peptides == 6
@@ -105,7 +105,7 @@ class TestSystem:
         assert self.system.topology.num_torsions == 4
 
         for i in range(50):
-            self.system.addChains([chain0])
+            self.system.addChains(chain0)
             for peptide in self.system.chains[-1].peptides:
                 assert peptide.chain_id == i + 2
 

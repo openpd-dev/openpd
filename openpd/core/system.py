@@ -34,8 +34,8 @@ class System(object):
         self._num_chains += 1
         self._topology._addChain(self._chains[-1])
 
-    def addChains(self, chain_vec):
-        for chain in chain_vec:
+    def addChains(self, *chains):
+        for chain in chains:
             self._addChain(chain)
         self._cooridnate_shape = list(self.coordinate.shape)
 

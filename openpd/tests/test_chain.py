@@ -37,7 +37,7 @@ class TestChain:
 
     def test_addPeptide(self):
         peptide = Peptide('ASN')
-        self.chain.addPeptides([peptide])
+        self.chain.addPeptides(peptide)
         
         assert self.chain.num_peptides == 1
         assert self.chain.num_atoms == 2
@@ -46,7 +46,7 @@ class TestChain:
     def test_addPeptides(self):
         peptide1 = Peptide('ASN')
         peptide2 = Peptide('ALA')
-        self.chain.addPeptides([peptide1, peptide2])
+        self.chain.addPeptides(peptide1, peptide2)
 
         assert self.chain.num_peptides == 2
         assert self.chain.num_atoms == 4
@@ -54,7 +54,7 @@ class TestChain:
             assert peptide.chain_id == 0
 
         for i in range(50):
-            self.chain.addPeptides([peptide1, peptide2])
+            self.chain.addPeptides(peptide1, peptide2)
             assert self.chain.num_peptides == 2 + (i+1) * 2
             assert self.chain.num_atoms == 4 + (i+1) * 4
             for peptide in self.chain.peptides[-2:]:

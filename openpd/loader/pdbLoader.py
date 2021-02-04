@@ -133,8 +133,8 @@ class PDBLoader(object):
         for _, value in self.sequence_dict.items():
             chain = Chain()
             for peptide_type in value:
-                chain.addPeptides([Peptide(peptide_type)])
-            self.system.addChains([chain])
+                chain.addPeptides(Peptide(peptide_type))
+            self.system.addChains(chain)
         if is_extract_coordinate:
             self._extractCoordinates()
         else:
