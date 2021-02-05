@@ -4,38 +4,53 @@ from . import Peptide
 class Chain(object):
     def __init__(self, chain_id=0):
         super().__init__()
-        self.chain_id = chain_id
-        self.peptides = []
-        self.num_atoms = 0
-        self.num_peptides = 0
+        self._chain_id = chain_id
+        self._peptides = []
+        self._num_atoms = 0
+        self._num_peptides = 0
 
     def __repr__(self) -> str:
-        return ('<Chain object: id %d at 0x%x>' 
-            %(self.chain_id, id(self)))
+        return ('<Chain object: id %d, with %d peptides, at 0x%x>' 
+            %(self._chain_id, self._num_peptides, id(self)))
 
     __str__ = __repr__
 
     def _addPeptide(self, peptide:Peptide):
-        self.peptides.append(deepcopy(peptide))
-        self.peptides[-1].setChainId(self.chain_id)
-        self.peptides[-1].setPeptideId(self.num_peptides)
-        for atom in self.peptides[-1].getAtoms():
-            atom.setAtomId(self.num_atoms)
-            self.num_atoms += 1
-        self.num_peptides += 1
+        self._peptides.append(deepcopy(peptide))
+        self._peptides[-1].chain_id = self._chain_id
+        self._peptides[-1].peptide_id = self._num_peptides
+        for atom in self._peptides[-1].atoms:
+            atom.atom_id = self._num_atoms
+            self._num_atoms += 1
+        self._num_peptides += 1
 
-    def addPeptides(self, peptide_vec):
-        for peptide in peptide_vec:
+    def addPeptides(self, *peptides):
+        for peptide in peptides:
             self._addPeptide(peptide)
     
-    def setChainId(self, chain_id):
-        self.chain_id = chain_id
+    @property
+    def chain_id(self):
+        return self._chain_id
 
-    def getAtoms(self):
+    @chain_id.setter
+    def chain_id(self, chain_id:int):
+        self._chain_id = chain_id
+
+    @property
+    def num_atoms(self):
+        return self._num_atoms
+
+    @property 
+    def num_peptides(self):
+        return self._num_peptides
+
+    @property
+    def atoms(self):
         atoms = []
-        for peptide in self.peptides:
-            atoms.extend(peptide.getAtoms())
+        for peptide in self._peptides:
+            atoms.extend(peptide.atoms)
         return atoms
 
-    def getPeptides(self):
-        return self.peptides
+    @property
+    def peptides(self):
+        return self._peptides

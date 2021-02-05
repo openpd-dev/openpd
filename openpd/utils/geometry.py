@@ -2,7 +2,7 @@
 import numpy as np
 from numpy.lib.scimath import arccos
 
-def bond(coord0:list, coord1:list):
+def getBond(coord0:list, coord1:list):
     """bond Calculate the bond length from coordinate of two atoms
 
     :param coord0: coordinate of atom 0
@@ -19,7 +19,7 @@ def bond(coord0:list, coord1:list):
     
     return np.linalg.norm(v0)
 
-def angle(coord0:list, coord1:list, coord2:list, is_angular=True):
+def getAngle(coord0:list, coord1:list, coord2:list, is_angular=True):
     """angle Calculate the angle from the coordinate of three atoms
 
     :param coord0: coordinate of atom 0
@@ -47,7 +47,7 @@ def angle(coord0:list, coord1:list, coord2:list, is_angular=True):
     else:
         return arccos(cos_phi) / np.pi * 180
 
-def torsion(coord0:list, coord1:list, coord2:list, coord3:list, is_angular=True):
+def getTorsion(coord0:list, coord1:list, coord2:list, coord3:list, is_angular=True):
     """torsion Calculate the torsion from the coordinate of four atoms
     
         Method details: 

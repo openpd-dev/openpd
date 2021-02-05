@@ -5,3 +5,6 @@ class Simulation(object):
         self.topology = topology
         self.system = system
         self.integrator = integrator
+
+    def step(self, num_steps):
+        pass

@@ -7,7 +7,12 @@ Description: In User Settings Edit
 FilePath: /openpd/openpd/force/__init__.py
 '''
 from .force import Force
+from .rigidBondForce import RigidBondForce
 from .pdffNonBondedForce import PDFFNonbondedForce
 from .pdffTorsionForce import PDFFTorsionForce
 
-__all__ = ['Force', 'PDFFNonbondedForce', 'PDFFTorsionForce']
+__all__ = [
+    'Force', 
+    'RigidBondForce',
+    'PDFFNonbondedForce', 'PDFFTorsionForce'
+]
