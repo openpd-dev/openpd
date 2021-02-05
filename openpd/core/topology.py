@@ -1,5 +1,5 @@
 from . import Chain
-
+from .. import CONST_CA_CA_DISTANCE
 class Topology(object):
     def __init__(self) -> None:
         super().__init__()
@@ -18,10 +18,11 @@ class Topology(object):
 
     __str__ = __repr__
 
+    # note: Topology only record the topology information, didn't change any instance attributes
     def _addChain(self, chain:Chain):
         for i, peptide in enumerate(chain.peptides[:-1]):
-            self._bonds.append([peptide.atoms[0], peptide.atoms[1]]) # Ca-Sc bond
-            self._bonds.append([peptide.atoms[0], chain.peptides[i+1].atoms[0]]) # Ca- Ca bond
+            self._bonds.append([peptide.atoms[0], peptide.atoms[1], peptide.ca_sc_dist]) # Ca-Sc bond
+            self._bonds.append([peptide.atoms[0], chain.peptides[i+1].atoms[0], CONST_CA_CA_DISTANCE]) # Ca- Ca bond
             self._num_bonds += 2
 
             self._angles.append([peptide.atoms[1], peptide.atoms[0], chain.peptides[i+1].atoms[0]]) # Sc - Ca - Ca
@@ -30,10 +31,14 @@ class Topology(object):
 
             self._torsions.append([peptide.atoms[1], peptide.atoms[0], chain.peptides[i+1].atoms[0], chain.peptides[i+1].atoms[1]])
             self._num_torsions += 1
-        self._bonds.append([chain.peptides[-1].atoms[0], chain.peptides[-1].atoms[1]]) 
+        self._bonds.append([chain.peptides[-1].atoms[0], chain.peptides[-1].atoms[1], chain.peptides[-1].ca_sc_dist]) 
         self._num_bonds += 1
         self._atoms.extend(chain.atoms)
         self._num_atoms += chain.num_atoms
+
+    def _addChains(self, chains):
+        for chain in chains:
+            self._addChain(chain)
 
     @property
     def num_atoms(self):
