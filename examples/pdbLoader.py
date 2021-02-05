@@ -5,7 +5,7 @@ sys.path.append(openpd_dir)
 
 from openpd import PDBLoader, SystemVisualizer, visualizer
 
-loader = PDBLoader(os.path.join(cur_dir, 'sequence.pdb'))
+loader = PDBLoader(os.path.join(cur_dir, 'demo.pdb'))
 
 system = loader.createSystem(is_extract_coordinate=True)
 for peptide in system.peptides:
