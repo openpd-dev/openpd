@@ -1,19 +1,23 @@
-'''
-Author: your name
-Date: 2021-01-31 21:33:31
-LastEditTime: 2021-01-31 21:34:48
-LastEditors: your name
-Description: In User Settings Edit
-FilePath: /openpd/openpd/force/force.py
-'''
+
+# note: Evergy force has a force_id and an affiliated force_group
 class Force(object):
     def __init__(self, force_id, force_group) -> None:
         super().__init__()
-        self.force_id = force_id
-        self.force_group = force_group
+        self._force_id = force_id
+        self._force_group = force_group
 
-    def getForceGroup(self):
-        return self.force_group
+    @property
+    def force_id(self):
+        return self._force_id
 
-    def setForceGroup(self, force_group):
-        self.force_group = force_group
+    @force_id.setter
+    def force_id(self, force_id:int):
+        self._force_id = force_id
+
+    @property
+    def force_group(self):
+        return self._force_group
+
+    @force_group.setter
+    def force_group(self, force_group:int):
+        self._force_group = force_group
