@@ -72,3 +72,7 @@ class Peptide(object):
     @property
     def num_atoms(self):
         return self._num_atoms
+
+    @property
+    def ca_sc_dist(self):
+        return self._ca_sc_dist
