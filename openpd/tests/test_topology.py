@@ -1,6 +1,7 @@
 import pytest
 
 from .. import Peptide, Chain, Topology
+from .. import CONST_CA_CA_DISTANCE
 
 class TestTopology:
     def setup(self):
@@ -51,7 +52,10 @@ class TestTopology:
         self.topology._addChain(chain)
 
         assert self.topology.num_atoms == 6
+        assert self.topology.atoms == chain.atoms
         assert self.topology.num_bonds == 5
+        assert self.topology.bonds[0][2] == chain.peptides[0].ca_sc_dist
+        assert self.topology.bonds[1][2] == CONST_CA_CA_DISTANCE
         assert self.topology.num_angles == 4
         assert self.topology.num_torsions == 2
 
