@@ -1,8 +1,8 @@
-from . import CONST_CA_SC_DISTANCE
 import json, codecs
 import numpy as np
 from numpy import pi, cos, sin
-from .. import Peptide, Chain, System, single_letter_abbreviation, triple_letter_abbreviation, findFirst
+from .. import Peptide, Chain, System
+from .. import CONST_CA_CA_DISTANCE, single_letter_abbreviation, triple_letter_abbreviation, findFirst
 
 class SequenceLoader(object):
     def __init__(self, sequence_file, is_single_letter=False) -> None:
@@ -51,7 +51,7 @@ class SequenceLoader(object):
         for i, chain in enumerate(self.system.chains):
             init_point = np.random.random(3) + np.array([0, i*5, i*5])
             for i, peptide in enumerate(chain.peptides):
-                ca_coord = init_point + np.array([i*CONST_CA_SC_DISTANCE, 0, 0])
+                ca_coord = init_point + np.array([i*CONST_CA_CA_DISTANCE, 0, 0])
                 theta = np.random.rand(1)[0] * 2*pi - pi
                 sc_coord = ca_coord + np.array([0, peptide._ca_sc_dist*cos(theta), peptide._ca_sc_dist*sin(theta)])
                 peptide.atoms[0].coordinate = ca_coord

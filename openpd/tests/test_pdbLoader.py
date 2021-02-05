@@ -3,7 +3,7 @@ import os, pytest
 import numpy as np
 
 from .. import PDBLoader, getBond
-from ..loader import CONST_CA_SC_DISTANCE
+from .. import CONST_CA_CA_DISTANCE
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
@@ -57,4 +57,4 @@ class TestPDBLoader:
 
         assert getBond(system.atoms[0].coordinate, system.atoms[1].coordinate) == pytest.approx(Peptide('ASN')._ca_sc_dist)
 
-        assert getBond(system.atoms[0].coordinate, system.atoms[2].coordinate) == pytest.approx(CONST_CA_SC_DISTANCE)
+        assert getBond(system.atoms[0].coordinate, system.atoms[2].coordinate) == pytest.approx(CONST_CA_CA_DISTANCE)

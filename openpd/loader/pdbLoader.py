@@ -1,8 +1,7 @@
-from openpd.core import atom, peptide
 import numpy as np
 from numpy import pi, cos, sin
-from . import CONST_CA_SC_DISTANCE
-from .. import Peptide, Chain, System, triple_letter_abbreviation, uniqueList, mergeSameNeighbor, findAll
+from .. import Peptide, Chain, System
+from .. import CONST_CA_CA_DISTANCE, triple_letter_abbreviation, uniqueList, mergeSameNeighbor, findAll
 
 back_bone_atom = ['N', 'C', 'O', 'CA', 'H', 'H1', 'H2']
 element_mass = {
@@ -149,7 +148,7 @@ class PDBLoader(object):
         for i, chain in enumerate(self.system.chains):
             init_point = np.random.random(3) + np.array([0, i*5, i*5])
             for j, peptide in enumerate(chain.peptides):
-                ca_coord = init_point + np.array([j*CONST_CA_SC_DISTANCE, 0, 0])
+                ca_coord = init_point + np.array([j*CONST_CA_CA_DISTANCE, 0, 0])
                 theta = np.random.rand(1)[0] * 2*pi - pi
                 sc_coord = ca_coord + np.array([0, peptide._ca_sc_dist*cos(theta), peptide._ca_sc_dist*sin(theta)])
                 peptide.atoms[0].coordinate = ca_coord

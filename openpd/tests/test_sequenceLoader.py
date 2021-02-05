@@ -1,7 +1,7 @@
 import os, pytest
 
-from openpd import SequenceLoader, Peptide, bond
-from openpd.loader import CONST_CA_SC_DISTANCE
+from .. import SequenceLoader, Peptide, getBond
+from .. import CONST_CA_CA_DISTANCE
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
@@ -61,14 +61,14 @@ class TestPDBLoader:
         loader = SequenceLoader(os.path.join(cur_dir, 'data/singleNormal.json'), is_single_letter=True)
         system = loader.createSystem()
 
-        assert bond(system.atoms[0].coordinate, system.atoms[1].coordinate) == pytest.approx(Peptide('ALA')._ca_sc_dist)
+        assert getBond(system.atoms[0].coordinate, system.atoms[1].coordinate) == pytest.approx(Peptide('ALA')._ca_sc_dist)
 
-        assert bond(system.atoms[0].coordinate, system.atoms[2].coordinate) == pytest.approx(CONST_CA_SC_DISTANCE)
+        assert getBond(system.atoms[0].coordinate, system.atoms[2].coordinate) == pytest.approx(CONST_CA_CA_DISTANCE)
 
         loader = SequenceLoader(os.path.join(cur_dir, 'data/tripleNormal.json'), is_single_letter=False)
         system = loader.createSystem()
 
-        assert bond(system.atoms[0].coordinate, system.atoms[1].coordinate) == pytest.approx(Peptide('ALA')._ca_sc_dist)
+        assert getBond(system.atoms[0].coordinate, system.atoms[1].coordinate) == pytest.approx(Peptide('ALA')._ca_sc_dist)
 
-        assert bond(system.atoms[0].coordinate, system.atoms[2].coordinate) == pytest.approx(CONST_CA_SC_DISTANCE)
+        assert getBond(system.atoms[0].coordinate, system.atoms[2].coordinate) == pytest.approx(CONST_CA_CA_DISTANCE)
 
