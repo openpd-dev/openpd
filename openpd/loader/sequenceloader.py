@@ -2,7 +2,7 @@ import json, codecs
 import numpy as np
 from numpy import pi, cos, sin
 from .. import Peptide, Chain, System
-from .. import CONST_CA_CA_DISTANCE, single_letter_abbreviation, triple_letter_abbreviation, findFirst
+from .. import CONST_CA_CA_DISTANCE, SINGLE_LETTER_ABBREVIATION, TRIPLE_LETTER_ABBREVIATION, findFirst
 
 class SequenceLoader(object):
     def __init__(self, sequence_file, is_single_letter=False) -> None:
@@ -20,21 +20,21 @@ class SequenceLoader(object):
             for key, value in self.sequence_dict.items():
                 if key.upper().startswith('CHAIN'):
                     for i, peptide_type in enumerate(value):
-                        if not peptide_type.upper() in single_letter_abbreviation:
+                        if not peptide_type.upper() in SINGLE_LETTER_ABBREVIATION:
                             raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
-                                 %(peptide_type, single_letter_abbreviation))
+                                 %(peptide_type, SINGLE_LETTER_ABBREVIATION))
                         else:
-                            self.sequence_dict[key][i] = triple_letter_abbreviation[findFirst(peptide_type.upper(), single_letter_abbreviation)]
+                            self.sequence_dict[key][i] = TRIPLE_LETTER_ABBREVIATION[findFirst(peptide_type.upper(), SINGLE_LETTER_ABBREVIATION)]
         else:
             for key, value in self.sequence_dict.items():
                 if key.upper().startswith('CHAIN'):
                     for i, peptide_type in enumerate(value):
-                        if peptide_type in single_letter_abbreviation:
+                        if peptide_type in SINGLE_LETTER_ABBREVIATION:
                             raise ValueError('Peptide type %s is a single letter abbreviation, try to use loader=SequenceLoader(file, is_single_letter=True)' 
                                 %(peptide_type))
-                        if not peptide_type in triple_letter_abbreviation:
+                        if not peptide_type in TRIPLE_LETTER_ABBREVIATION:
                             raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
-                                 %(peptide_type, single_letter_abbreviation))
+                                 %(peptide_type, SINGLE_LETTER_ABBREVIATION))
 
     def createSystem(self):
         self.system = System()

@@ -11,7 +11,7 @@ __license__ = "MIT"
 
 CONST_CA_CA_DISTANCE = 3.85
 
-triple_letter_abbreviation = [
+TRIPLE_LETTER_ABBREVIATION = [
     'ALA', 'ARG', 'ASN', 'ASP',
     'CYS', 'GLN', 'GLU', 'GLY',
     'HIS', 'ILE', 'LEU', 'LYS',
@@ -19,7 +19,7 @@ triple_letter_abbreviation = [
     'THR', 'TRP', 'TYR', 'VAL'
 ]
 
-single_letter_abbreviation = [
+SINGLE_LETTER_ABBREVIATION = [
     'A', 'R', 'N', 'D',
     'C', 'Q', 'E', 'G',
     'H', 'I', 'L', 'K',

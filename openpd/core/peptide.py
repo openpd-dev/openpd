@@ -1,7 +1,7 @@
 import json, codecs, os
 from copy import deepcopy
 from . import Atom
-from .. import triple_letter_abbreviation
+from .. import TRIPLE_LETTER_ABBREVIATION
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 template_dir = os.path.join(cur_dir, '../data/template/')
@@ -9,9 +9,9 @@ template_dir = os.path.join(cur_dir, '../data/template/')
 class Peptide(object):
     def __init__(self, peptide_type:str, peptide_id=0, chain_id=0): 
         super().__init__()
-        if not peptide_type.upper() in triple_letter_abbreviation:
+        if not peptide_type.upper() in TRIPLE_LETTER_ABBREVIATION:
             raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
-                %(peptide_type, triple_letter_abbreviation))
+                %(peptide_type, TRIPLE_LETTER_ABBREVIATION))
         self._peptide_type = peptide_type
         self._peptide_id = peptide_id
         self._chain_id = chain_id

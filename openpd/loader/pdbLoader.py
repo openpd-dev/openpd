@@ -1,7 +1,7 @@
 import numpy as np
 from numpy import pi, cos, sin
 from .. import Peptide, Chain, System
-from .. import CONST_CA_CA_DISTANCE, triple_letter_abbreviation, uniqueList, mergeSameNeighbor, findAll
+from .. import CONST_CA_CA_DISTANCE, TRIPLE_LETTER_ABBREVIATION, uniqueList, mergeSameNeighbor, findAll
 
 back_bone_atom = ['N', 'C', 'O', 'CA', 'H', 'H1', 'H2']
 element_mass = {
@@ -124,9 +124,9 @@ class PDBLoader(object):
             sequence = mergeSameNeighbor([self._res_name[i] for i, j in enumerate(self._chain_name) if j==chain_name])
             sequence_res_id = mergeSameNeighbor([self._res_id[i] for i, j in enumerate(self._chain_name) if j==chain_name])
             for peptide in sequence:
-                if not peptide in triple_letter_abbreviation:
+                if not peptide in TRIPLE_LETTER_ABBREVIATION:
                     raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
-                    %(peptide, triple_letter_abbreviation))
+                    %(peptide, TRIPLE_LETTER_ABBREVIATION))
             self.sequence_dict[chain_name] = sequence
             self.sequence_dict[chain_name + 'res_id'] = sequence_res_id
 
