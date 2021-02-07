@@ -1,7 +1,7 @@
 import numpy as np
 
 def isAlmostEqual(num1, num2, tolerance=1e-5):
-    if np.abs(num1 - num2) > num1 * tolerance:
+    if np.abs(num1 - num2) > (num1 if num1!=0 else 1) * tolerance :
         return False 
     else:
         return True
@@ -18,6 +18,6 @@ def isArrayAlmostEqual(array1, array2, tolerance=1e-5):
     if len(array1) != len(array2):
         return False
     for index, element in enumerate(array1):
-        if np.abs(element-array2[index]) > element*tolerance:
+        if np.abs(element-array2[index]) > (element if element!=0 else 1) * tolerance:
             return False
     return True

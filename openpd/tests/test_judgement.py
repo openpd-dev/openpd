@@ -8,6 +8,10 @@ def test_isAlmostEqual():
     assert not isAlmostEqual(a, a+0.2*a, tolerance=0.1)
     assert not isAlmostEqual(a, a+1e-5*a)
 
+    b = 0
+    assert isAlmostEqual(b, 1e-6)
+    assert isAlmostEqual(b, 1e-5, tolerance=1e-5)
+
 def test_isArrayEqual():
     list1 = [1, 2, 3, 4.5, 6]
     list2 = [1, 2, 3, 4.5, 6]
