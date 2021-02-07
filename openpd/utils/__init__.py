@@ -5,13 +5,13 @@ __copyright__ = "Copyright 2021-2021, Southeast University and Zhenyu Wei"
 __license__ = "MIT"
 
 from .geometry import getBond, getAngle, getTorsion
-from .judgement import isArrayEqual, isArrayAlmostEqual
+from .judgement import isAlmostEqual, isArrayEqual, isArrayAlmostEqual
 from .unique import uniqueList, mergeSameNeighbor
 from .locate import findFirst, findAll, binarySearch
 
 __all__ = [
     'getBond', 'getAngle', 'getTorsion',
-    'isArrayEqual', 'isArrayAlmostEqual',
+    'isAlmostEqual', 'isArrayEqual', 'isArrayAlmostEqual',
     'uniqueList', 'mergeSameNeighbor',
     'findFirst', 'findAll', 'binarySearch'
 ]
