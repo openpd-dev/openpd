@@ -32,6 +32,8 @@ rigistered_force_filed_list = [
 ]
 
 from openpd.utils import *
+from openpd.unit import *
+
 from openpd.core import Topology, Atom, Peptide, Chain, System
 from openpd.loader import PDBLoader, SequenceLoader
 
