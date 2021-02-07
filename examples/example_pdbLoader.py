@@ -3,9 +3,9 @@ cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 openpd_dir = os.path.join(cur_dir, '..')
 sys.path.append(openpd_dir)
 
-from openpd import PDBLoader, SystemVisualizer, visualizer
+from openpd import PDBLoader, SystemVisualizer
 
-loader = PDBLoader(os.path.join(cur_dir, 'demo.pdb'))
+loader = PDBLoader(os.path.join(cur_dir, 'data/demo.pdb'))
 
 system = loader.createSystem(is_extract_coordinate=True)
 for peptide in system.peptides:

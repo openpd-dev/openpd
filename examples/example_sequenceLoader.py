@@ -4,7 +4,7 @@ openpd_dir = os.path.join(cur_dir, '..')
 sys.path.append(openpd_dir)
 from openpd import SequenceLoader, SystemVisualizer
 
-loader = SequenceLoader(os.path.join(cur_dir, 'sequence.json'), is_single_letter=False)
+loader = SequenceLoader(os.path.join(cur_dir, 'data/sequence.json'), is_single_letter=False)
 print(loader.sequence_dict)
 system = loader.createSystem()
 
