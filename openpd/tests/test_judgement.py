@@ -1,5 +1,12 @@
 import numpy as np
-from .. import isArrayEqual, isArrayAlmostEqual
+from .. import isAlmostEqual, isArrayEqual, isArrayAlmostEqual
+
+def test_isAlmostEqual():
+    a = 1
+    assert isAlmostEqual(a, a+0.1*a, tolerance=0.11)
+    assert isAlmostEqual(a, a+1e-6*a)
+    assert not isAlmostEqual(a, a+0.2*a, tolerance=0.1)
+    assert not isAlmostEqual(a, a+1e-5*a)
 
 def test_isArrayEqual():
     list1 = [1, 2, 3, 4.5, 6]
