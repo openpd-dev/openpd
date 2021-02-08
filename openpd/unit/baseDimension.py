@@ -1,3 +1,5 @@
+from .. import uniqueList
+
 class BaseDimension(object):
     def __init__(
             self, length_dimension=0, 
@@ -14,50 +16,63 @@ class BaseDimension(object):
         self._temperature_dimension = temperature_dimension
         self._charge_dimension = charge_dimension
         self._mol_dimension = mol_dimension
-        self.name = ''
-        if self._length_dimension != 0:
-            if self._length_dimension == 1:
-                self.name += 'LENGTH*'
-            else:
-                self.name += 'LENGTH^%d*' %self._length_dimension
-        if self._time_dimension != 0:
-            if self._time_dimension == 1:
-                self.name += 'TIME*'
-            else:
-                self.name += 'TIME^%d*' %self._time_dimension
-        if self._mass_dimension != 0:
-            if self._mass_dimension == 1:
-                self.name += 'MASS*'
-            else:
-                self.name += 'MASS^%d*' %self._mass_dimension
-        if self._temperature_dimension != 0:
-            if self._temperature_dimension == 1:
-                self.name += 'TEMPERATURE*'
-            else:
-                self.name += 'TEMPERATURE^%d*' %self._temperature_dimension
-        if self._charge_dimension != 0:
-            if self._charge_dimension == 1:
-                self.name += 'CHARGE*'
-            else:
-                self.name += 'CHARGE^%d*' %self._charge_dimension
-        if self._mol_dimension != 0:
-            if self._mol_dimension == 1:
-                self.name += 'MOL*'
-            else:
-                self.name += 'MOL^%d*' %self._mol_dimension
-        if self.name == '':
-            self.name += 'DIMENSIONLESS'
+        self._dimension_list = [
+            self._length_dimension,
+            self._time_dimension,
+            self._mass_dimension,
+            self._temperature_dimension,
+            self._charge_dimension,
+            self._mol_dimension
+        ]
+        # The name of base dimension will be replaced with the name of its corresponding SI Unit
+        # Like m for length and kg for mass
+        self._dimension_name = [
+            'm',
+            's',
+            'kg',
+            'k',
+            'c',
+            'mol'
+        ]
+        self._generateDimensionName()
+
+    def _generateDimensionName(self):
+        self._name = ''
+        if uniqueList(self._dimension_list) == [0]:
+            return None # self._name = '' 
         else:
-            self.name = self.name[:-1] # Get rid of the last *
+            zipped = zip(self._dimension_list, self._dimension_name)
+            sort_zipped = sorted(zipped, key=lambda x:(x[0]*-1, x[1]))
+            res = zip(*sort_zipped)
+            dimensions, names = [list(x) for x in res]
+ 
+            for i, dimension in enumerate(dimensions):
+                if i > 1 and dimension < 0 and dimensions[i-1] >= 0:
+                    if self._name != '':
+                        self._name = self._name[:-1] + '/' # Change the final * to /
+                    else:
+                        self._name = '1/'
+                if dimension > 1:
+                    self._name += names[i] + '^%d*' %dimension
+                elif dimension == 1:
+                    self._name += names[i] + '*'
+                elif dimension == 0:
+                    pass
+                elif dimension == -1:
+                    self._name += names[i] + '*'
+                elif dimension < -1:
+                    self._name += names[i] + '^%d*' %(-dimension)
+
+            self._name = self._name[:-1] # Get rid of the last *
 
     def __repr__(self) -> str:
         return (
             '<BaseDimension object: %s at 0x%x>' 
-            %(self.name, id(self))
+            %(self._name, id(self))
         )
 
     def __str__(self) -> str:
-        return self.name
+        return self._name
 
     def __eq__(self, base_unit):
         if (
@@ -171,3 +186,7 @@ class BaseDimension(object):
     @property
     def mol_dimension(self):
         return self._mol_dimension
+
+    @property
+    def name(self):
+        return self._name
