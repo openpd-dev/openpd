@@ -11,3 +11,7 @@ print(300*unit.kelvin*unit.k_b/unit.kilojoule_permol)
 print([300, 400, 500]*unit.kelvin*unit.k_b/unit.kilojoule_permol)
 
 print(np.array([300, 400, 500])*unit.kelvin*unit.k_b/unit.kilojoule_permol)
+
+print(1*unit.meter*unit.newton)
+print(1*unit.joule)
+print(1*unit.meter*unit.newton == 1*unit.joule)
