@@ -1,0 +1,7 @@
+Core package
+============
+
+.. toctree::
+    :maxdepth: 1
+
+    core_atom

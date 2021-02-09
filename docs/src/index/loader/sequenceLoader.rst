@@ -1,0 +1,2 @@
+loader.SequenceLoader class
+===========================

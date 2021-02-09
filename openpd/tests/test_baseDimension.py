@@ -73,3 +73,37 @@ class TestUnit:
         volume = BaseDimension(length_dimension=3)
         assert square == length**2
         assert volume == length**3
+
+    def test_generateDimensionName(self):
+        dimension = BaseDimension()
+        assert dimension.name == ''
+
+        dimension = BaseDimension(length_dimension=1)
+        assert dimension.name == 'm'
+
+        dimension *= dimension
+        assert dimension.name == 'm^2'
+
+        dimension = BaseDimension(length_dimension=-1)
+        assert dimension.name == '1/m'
+
+        dimension *= dimension
+        assert dimension.name == '1/m^2'
+
+        dimension = BaseDimension(time_dimension=1, length_dimension=1)
+        assert dimension.name == 'm*s'
+
+        dimension *= dimension
+        assert dimension.name == 'm^2*s^2'
+
+        dimension = BaseDimension(time_dimension=1, length_dimension=-1)
+        assert dimension.name == 's/m'
+
+        dimension *= dimension
+        assert dimension.name == 's^2/m^2'
+
+        dimension = BaseDimension(time_dimension=-1, length_dimension=-1)
+        assert dimension.name == '1/m*s'
+
+        dimension *= dimension
+        assert dimension.name == '1/m^2*s^2'
