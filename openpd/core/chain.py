@@ -1,0 +1,56 @@
+from copy import deepcopy
+from . import Peptide
+
+class Chain(object):
+    def __init__(self, chain_id=0):
+        super().__init__()
+        self._chain_id = chain_id
+        self._peptides = []
+        self._num_atoms = 0
+        self._num_peptides = 0
+
+    def __repr__(self) -> str:
+        return ('<Chain object: id %d, with %d peptides, at 0x%x>' 
+            %(self._chain_id, self._num_peptides, id(self)))
+
+    __str__ = __repr__
+
+    def _addPeptide(self, peptide:Peptide):
+        self._peptides.append(deepcopy(peptide))
+        self._peptides[-1].chain_id = self._chain_id
+        self._peptides[-1].peptide_id = self._num_peptides
+        for atom in self._peptides[-1].atoms:
+            atom.atom_id = self._num_atoms
+            self._num_atoms += 1
+        self._num_peptides += 1
+
+    def addPeptides(self, *peptides):
+        for peptide in peptides:
+            self._addPeptide(peptide)
+    
+    @property
+    def chain_id(self):
+        return self._chain_id
+
+    @chain_id.setter
+    def chain_id(self, chain_id:int):
+        self._chain_id = chain_id
+
+    @property
+    def num_atoms(self):
+        return self._num_atoms
+
+    @property 
+    def num_peptides(self):
+        return self._num_peptides
+
+    @property
+    def atoms(self):
+        atoms = []
+        for peptide in self._peptides:
+            atoms.extend(peptide.atoms)
+        return atoms
+
+    @property
+    def peptides(self):
+        return self._peptides

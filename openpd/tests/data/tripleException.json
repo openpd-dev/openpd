@@ -1,0 +1,13 @@
+{
+    "Chain 1": [
+        "ASN",
+        "ABC"
+    ],
+    "Chain 2": [
+        "ASN",
+        "ALA",
+        "ASN",
+        "ALA",
+        "ALA"
+    ]
+}

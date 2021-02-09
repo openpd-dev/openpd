@@ -1,0 +1,8 @@
+{
+    "name": "LEU",
+    "parent_atoms": {
+        "CA": {"mass": 12}, 
+        "SC": {"mass": 192}
+    },
+    "ca_sc_dist": 5
+}
