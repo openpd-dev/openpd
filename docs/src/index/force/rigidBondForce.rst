@@ -1,2 +1,2 @@
-RigidBond class
+force.RigidBond class
 =========================

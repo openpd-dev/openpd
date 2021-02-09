@@ -1,2 +1,2 @@
-PDFFTorsionForce class
+force.PDFFTorsionForce class
 =========================

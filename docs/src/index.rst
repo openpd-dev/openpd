@@ -46,9 +46,3 @@ OpenPD Documentation
    index/forceEncoder
    index/simulation
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

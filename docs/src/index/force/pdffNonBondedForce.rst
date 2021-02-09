@@ -1,2 +1,2 @@
-PDFFNonBondedForce class
+force.PDFFNonBondedForce class
 =========================
