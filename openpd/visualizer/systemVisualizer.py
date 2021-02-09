@@ -28,7 +28,7 @@ class SystemVisualizer(object):
             color.extend(['navy', 'brown'])
         ax.scatter3D(
             self.system.coordinate[0::2, 0], self.system.coordinate[0::2, 1], self.system.coordinate[0::2, 2], 
-            '.', c='navy', s=atom_size, edgecolors='face', alpha=1, label='\nCa\n'
+            '.', c='navy', s=atom_size, edgecolors='face', alpha=alpha, label='\nCa\n'
         )
         ax.scatter3D(
             self.system.coordinate[1::2, 0], self.system.coordinate[1::2, 1], self.system.coordinate[1::2, 2], 
