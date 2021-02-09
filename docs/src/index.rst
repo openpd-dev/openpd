@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 OpenPD Documentation
-====================
+===================================
 
 .. toctree::
    :maxdepth: 2
@@ -42,6 +42,7 @@ OpenPD Documentation
    index/force/main
    index/dumper/main
    index/integrator/main
+   index/visualizer/main
    index/ensemble
    index/forceEncoder
    index/simulation

@@ -16,7 +16,6 @@
 import os
 import sys
 
-
 # -- Project information -----------------------------------------------------
 
 project = 'OpenPD'
@@ -25,6 +24,7 @@ author = 'Zhenyu Wei'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1'
+version = '0.1'
 
 # -- General configuration ---------------------------------------------------
 
@@ -36,7 +36,6 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
-    "faculty_sphinx_theme"
 ]
 # "faculty_sphinx_theme"
 
@@ -55,11 +54,15 @@ exclude_patterns = []
 # a list of builtin themes.
 #
 html_title = project
-#html_theme = 'alabaster'
-# html_theme = 'insegel'
+# html_theme = 'alabaster'
+# html_theme = "sphinx_rtd_theme"
 # html_theme = 'karma_sphinx_theme'
-html_theme = 'faculty-sphinx-theme'
 # html_theme = 'asteroid_sphinx_theme'
+# html_theme = "sphinx_material"
+html_theme = "furo"
+# extensions.append("faculty_sphinx_theme")
+# html_theme = "faculty-sphinx-theme"
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
