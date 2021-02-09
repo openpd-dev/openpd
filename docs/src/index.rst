@@ -6,6 +6,9 @@
 OpenPD Documentation
 ===================================
 
+OpenPD is an opened toolkit for peptide dynamics simulation
+
+
 .. toctree::
    :maxdepth: 2
    :numbered: 3

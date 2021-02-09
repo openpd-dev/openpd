@@ -59,12 +59,26 @@ html_title = project
 # html_theme = 'karma_sphinx_theme'
 # html_theme = 'asteroid_sphinx_theme'
 # html_theme = "sphinx_material"
-html_theme = "furo"
+# html_theme = "furo"
 # extensions.append("faculty_sphinx_theme")
 # html_theme = "faculty-sphinx-theme"
+html_theme = "sphinx_material"
 
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 # html_static_path = ['_static']
+html_theme_options = {
+    'repo_url': 'https://github.com/zhenyuwei99/openpd',
+    'repo_name': 'OpenPD',
+    'repo_type': 'github',
+    'logo_icon': '&#xe869',
+    'nav_title': ' ',
+    'globaltoc_depth': -1,
+    'color_primary': 'indigo'
+}
+
+html_sidebars = {
+    "**": ["logo-text.html", "globaltoc.html", "localtoc.html", "searchbox.html"]
+}
