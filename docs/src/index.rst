@@ -10,7 +10,7 @@ OpenPD Documentation
 OpenPD, standing for **Open** **P**\ eptide **D**\ ynamics, is an opened toolkit based on Python, distributed freely under the terms of
 **MIT** License, for peptide dynamics simulation. It was designed to simulate the folding dynamics of protein efficiently with the assistance **P**\ eptide **D**\ ynamics **F**\ orce **F**\ ield (PDFF), which is a solvent considered, high-level coarse-grained force field focusing on the peptide interaction. 
 
-The documentation of OpenPD is part of the OpenOD distribution, which can be found in our `GitHub site <https://github.com/zhenyuwei99/openpd>`_. You can also build the document manually in PDF format by following step in :doc:`quick_start/build_doc` or click the ``version`` button in the right-bottom of your browser.
+This document is part of the OpenOD distribution, which can be found in our `GitHub site <https://github.com/zhenyuwei99/openpd>`_. You can also build the document manually in PDF format by following step in :doc:`quick_start/build_doc` or click the ``version`` button in the right-bottom of your browser.
 
 
 OpenPD is developed and maintaining by `Zhenyu Wei <zhenyuwei99@gmail.com>`_ in Southeast University. As a newly developed program, we always welcome developers to `contact us <zhenyuwei99@gmail.com>`_ or discuss in our `GitHub site <https://github.com/zhenyuwei99/openpd>`_
@@ -41,6 +41,17 @@ Contents
 .. toctree::
    :maxdepth: 2
    :numbered: 3
+   :caption: Peptide Dynamics Force Field
+   :name: pdff
+   :includehidden:
+
+   pdff/overview 
+   pdff/nonBonded
+   pdff/torsion
+
+.. toctree::
+   :maxdepth: 2
+   :numbered: 3
    :caption: Tutorials
    :name: tutorials
    :includehidden:
@@ -49,17 +60,6 @@ Contents
    tutorials/howto_createSystem/main
    tutorials/howto_createEnsemble/main
    tutorials/howto_runSimulation/main
-
-.. toctree::
-   :maxdepth: 2
-   :numbered: 3
-   :caption: Peptide Dynamics Force Field
-   :name: pdff
-   :includehidden:
-
-   pdff/overview 
-   pdff/nonBonded
-   pdff/torsion
 
 .. toctree::
    :maxdepth: 2
