@@ -34,11 +34,14 @@ A lot of class object is created and cooperate with each other to conduct a simu
 
 In this section, we will introduce the framework of how OpenPD is designed and worked. The flowchart is showing below:
 
+-------
+
 .. _image_flowchart:
 .. image:: images/openpd.svg
     :align: center
-    :height: 650
     :width: 600
+
+-------
 
 In above flowchart, the eclipses and rectangles represent classes and packages respectively, all of which are discussed thoroughly in :ref:`module`. 
 
