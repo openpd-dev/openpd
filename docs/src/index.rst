@@ -29,7 +29,7 @@ Contents
 =============
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :numbered: 3
    :caption: Quick start
    :name: quickstart
@@ -41,7 +41,7 @@ Contents
    quick_start/build_doc 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :numbered: 3
    :caption: Peptide Dynamics Force Field
    :name: pdff
@@ -52,7 +52,7 @@ Contents
    pdff/torsion
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :numbered: 3
    :caption: Tutorials
    :name: tutorials
@@ -64,7 +64,7 @@ Contents
    tutorials/howto_runSimulation/main
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :numbered: 3
    :caption: Module indices
    :name: module
