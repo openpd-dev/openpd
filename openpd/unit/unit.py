@@ -3,9 +3,8 @@ from . import BaseDimension
 from .. import isAlmostEqual
 
 class Unit(object):
-    def __init__(self, unit_name:str, base_dimension:BaseDimension, relative_value) -> None:
+    def __init__(self, base_dimension:BaseDimension, relative_value) -> None:
         super().__init__()
-        self._unit_name = unit_name
         self._base_dimension = base_dimension
         self._relative_value = relative_value # The relative value to the normal unit like angstrom in Length 
 
@@ -21,11 +20,11 @@ class Unit(object):
     def __repr__(self):
         return (
             '<Unit object: %s at 0x%x>'
-            %(self._unit_name, id(self))
+            %(self._base_dimension.name, id(self))
         )
 
     def __str__(self):
-        return self._unit_name
+        return self._base_dimension.name
 
     def __eq__(self, other) -> bool:
         if (
@@ -99,7 +98,6 @@ class Unit(object):
     def __mul__(self, other):
         if isinstance(other, Unit):
             return Unit(
-                (self._base_dimension * other.base_dimension).name,
                 self._base_dimension * other.base_dimension,
                 self._relative_value * other.relative_value
             )
@@ -112,7 +110,6 @@ class Unit(object):
     def __truediv__(self, other):
         if isinstance(other, Unit):
             return Unit(
-                (self._base_dimension / other.base_dimension).name,
                 self._base_dimension / other.base_dimension,
                 self._relative_value / other.relative_value
             )
@@ -124,13 +121,11 @@ class Unit(object):
     def __rtruediv__(self, other):
         if isinstance(other, Unit):
             return Unit(
-                (other.base_dimension / self._base_dimension).name,
                 other.base_dimension / self._base_dimension,
                 other.relative_value / self._relative_value
             )
         else:
             return Unit(
-                (1 / self.base_dimension).name,
                 1 / self.base_dimension,
                 1 / self.relative_value
             )
@@ -138,7 +133,7 @@ class Unit(object):
     def __pow__(self, value):
         if isinstance(value, list):
             raise ValueError('The power term should be a single number')
-        res = Unit('', BaseDimension(), 1)
+        res = Unit(BaseDimension(), 1)
         if value > 0:
             for _ in range(value):
                 res *= self
@@ -149,7 +144,7 @@ class Unit(object):
             
     @property
     def unit_name(self):
-        return self._unit_name
+        return self.base_dimension.name
 
     @property
     def base_dimension(self):

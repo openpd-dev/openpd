@@ -19,87 +19,87 @@ power = energy / time
 ## Constants        ##
 ######################
 
-k_b = Quantity(1.38064852e-23, Unit('Boltzmann Constant', energy/temperature, 1))
-n_a = Quantity(6.0221e23, Unit('Avogadro Constant', 1/mol_dimension, 1))
+k_b = Quantity(1.38064852e-23, Unit(energy/temperature, 1))
+n_a = Quantity(6.0221e23, Unit(1/mol_dimension, 1))
 
 ######################
 ## Length Unit      ##
 ######################
 
-meter = Quantity(1, Unit('meter', length, 1))
-decimeter = Quantity(1, Unit('decimeter', length, 1e-1))
-centermeter = Quantity(1, Unit('centermeter', length, 1e-2))
-millimeter = Quantity(1, Unit('millimeter', length, 1e-3))
-micrometer = Quantity(1, Unit('micrometer', length, 1e-6))
-nanometer = Quantity(1, Unit('nanometer', length, 1e-9))
-angstrom = Quantity(1, Unit('angstrom', length, 1e-10))
+meter = Quantity(1, Unit(length, 1))
+decimeter = Quantity(1, Unit(length, 1e-1))
+centermeter = Quantity(1, Unit(length, 1e-2))
+millimeter = Quantity(1, Unit(length, 1e-3))
+micrometer = Quantity(1, Unit(length, 1e-6))
+nanometer = Quantity(1, Unit(length, 1e-9))
+angstrom = Quantity(1, Unit(length, 1e-10))
 
 ######################
 ## Mass Unit        ##
 ######################
 
-kilogram = Quantity(1, Unit('kilogram', mass, 1))
-gram = Quantity(1, Unit('gram', mass, 1e-3))
-amu = Quantity(1, Unit('Atomic Mass Unit', mass, 1.66053904e-27))
-dalton = Quantity(1, Unit('dalton', mass, 1.66053904e-27))
+kilogram = Quantity(1, Unit(mass, 1))
+gram = Quantity(1, Unit(mass, 1e-3))
+amu = Quantity(1, Unit(mass, 1.66053904e-27))
+dalton = Quantity(1, Unit(mass, 1.66053904e-27))
 
 ######################
 ## Time Unit        ##
 ######################
 
-second = Quantity(1, Unit('second', time, 1))
-millisecond = Quantity(1, Unit('millisecond', time, 1e-3))
-microsecond = Quantity(1, Unit('microsecond', time, 1e-6))
-nanosecond = Quantity(1, Unit('nanosecond', time, 1e-9))
-picosecond = Quantity(1, Unit('picosecond', time, 1e-12))
-femtosecond = Quantity(1, Unit('femtosecond', time, 1e-15))
+second = Quantity(1, Unit(time, 1))
+millisecond = Quantity(1, Unit(time, 1e-3))
+microsecond = Quantity(1, Unit(time, 1e-6))
+nanosecond = Quantity(1, Unit(time, 1e-9))
+picosecond = Quantity(1, Unit(time, 1e-12))
+femtosecond = Quantity(1, Unit(time, 1e-15))
 
 ######################
 ## Temperature Unit ##
 ######################
 
-kelvin = Quantity(1, Unit('kelvin', temperature, 1))
+kelvin = Quantity(1, Unit(temperature, 1))
 
 ######################
 ## Charge Unit      ##
 ######################
 
-coulomb = Quantity(1, Unit('coulomb', charge, 1))
-e = Quantity(1, Unit('elementry charge', charge, 1.602176634e-19))
+coulomb = Quantity(1, Unit(charge, 1))
+e = Quantity(1, Unit(charge, 1.602176634e-19))
 
 ######################
 ## Mol Unit         ##
 ######################
 
-mol = Quantity(1, Unit('mol', mol_dimension, 1))
-kilomol = Quantity(1, Unit('mol', mol_dimension, 1e3))
+mol = Quantity(1, Unit(mol_dimension, 1))
+kilomol = Quantity(1, Unit(mol_dimension, 1e3))
 
 ######################
 ## Force Unit       ##
 ######################
 
-newton = Quantity(1, Unit('newton', force, 1))
+newton = Quantity(1, Unit(force, 1))
 
 ######################
 ## Energy Unit      ##
 ######################
 
-joule = Quantity(1, Unit('joule', energy, 1))
-kilojoule = Quantity(1, Unit('kilojoule', energy, 1e3))
-joule_permol = Quantity(1, Unit('kilojoule/mol', energy, 1/6.0221e23))
-kilojoule_permol = Quantity(1, Unit('kilojoule/mol', energy, 1e3/6.0221e23))
+joule = Quantity(1, Unit(energy, 1))
+kilojoule = Quantity(1, Unit(energy, 1e3))
+joule_permol = Quantity(1, Unit(energy, 1/6.0221e23))
+kilojoule_permol = Quantity(1, Unit(energy, 1e3/6.0221e23))
 
-calorie = Quantity(1, Unit('calorie', energy, 4.184))
-kilocalorie = Quantity(1, Unit('kilocalorie', energy, 4.184e3))
-calorie_premol = Quantity(1, Unit('kilocalorie/mol', energy, 4.184/6.0221e23))
-kilocalorie_permol = Quantity(1, Unit('kilocalorie/mol', energy, 4.184e3/6.0221e23))
+calorie = Quantity(1, Unit(energy, 4.184))
+kilocalorie = Quantity(1, Unit(energy, 4.184e3))
+calorie_premol = Quantity(1, Unit(energy, 4.184/6.0221e23))
+kilocalorie_permol = Quantity(1, Unit(energy, 4.184e3/6.0221e23))
 
-ev = Quantity(1, Unit('ev', energy, 1.60217662e-19))
-hartree = Quantity(1, Unit('hartree', energy, 4.3597447222071e-18))
+ev = Quantity(1, Unit(energy, 1.60217662e-19))
+hartree = Quantity(1, Unit(energy, 4.3597447222071e-18))
 
 ######################
 ## Power Unit       ##
 ######################
 
-watt = Quantity(1, Unit('watt', power, 1))
-kilowatt = Quantity(1, Unit('watt', power, 1e3))
+watt = Quantity(1, Unit(power, 1))
+kilowatt = Quantity(1, Unit(power, 1e3))

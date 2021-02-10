@@ -3,13 +3,13 @@ from ..unit import BaseDimension, Unit
 
 class TestUnit:
     def setup(self):
-        self.unit = Unit('angstrom', BaseDimension(length_dimension=1), 1e-10)
+        self.unit = Unit(BaseDimension(length_dimension=1), 1e-10)
 
     def teardown(self):
         self.unit = None
 
     def test_attributes(self):
-        assert self.unit.unit_name == 'angstrom'
+        assert self.unit.unit_name == 'm'
         assert self.unit.base_dimension == BaseDimension(length_dimension=1)
         assert self.unit.relative_value == 1e-10
 
@@ -32,8 +32,8 @@ class TestUnit:
         assert self.unit.relative_value == 1
 
     def test_add(self):
-        angstrom = Unit('angstrom', BaseDimension(length_dimension=1), 1e-10)
-        gram = Unit('gram', BaseDimension(mass_dimension=1), 1e-3)
+        angstrom = Unit(BaseDimension(length_dimension=1), 1e-10)
+        gram = Unit(BaseDimension(mass_dimension=1), 1e-3)
         assert angstrom + angstrom == angstrom
         assert 1 + angstrom == angstrom
         assert angstrom + 1 == angstrom
@@ -42,8 +42,8 @@ class TestUnit:
             gram + angstrom
 
     def test_sub(self):
-        angstrom = Unit('angstrom', BaseDimension(length_dimension=1), 1e-10)
-        gram = Unit('gram', BaseDimension(mass_dimension=1), 1e-3)
+        angstrom = Unit(BaseDimension(length_dimension=1), 1e-10)
+        gram = Unit(BaseDimension(mass_dimension=1), 1e-3)
         assert angstrom - angstrom == angstrom
         assert 1 - angstrom == angstrom
         assert angstrom - 1 == angstrom
@@ -52,16 +52,16 @@ class TestUnit:
             gram - angstrom
 
     def test_mul(self):
-        angstrom = Unit('angstrom', BaseDimension(length_dimension=1), 1e-10)
-        angstrom_square = Unit('angstrom^2', BaseDimension(length_dimension=2), 1e-20)
+        angstrom = Unit(BaseDimension(length_dimension=1), 1e-10)
+        angstrom_square = Unit(BaseDimension(length_dimension=2), 1e-20)
         assert angstrom * 1 == angstrom
         assert 1 * angstrom == angstrom
         assert angstrom * angstrom == angstrom_square
 
     def test_div(self):
-        angstrom_reciprocal = Unit('angstrom^-1', BaseDimension(length_dimension=-1), 1e10)
-        angstrom = Unit('angstrom', BaseDimension(length_dimension=1), 1e-10)
-        angstrom_square = Unit('angstrom^2', BaseDimension(length_dimension=2), 1e-20)
+        angstrom_reciprocal = Unit(BaseDimension(length_dimension=-1), 1e10)
+        angstrom = Unit(BaseDimension(length_dimension=1), 1e-10)
+        angstrom_square = Unit(BaseDimension(length_dimension=2), 1e-20)
         assert angstrom / 1 == angstrom
         assert 1 / angstrom == angstrom_reciprocal
         assert angstrom_square / angstrom == angstrom
@@ -69,10 +69,10 @@ class TestUnit:
         assert (angstrom / angstrom).isDimensionLess()
 
     def test_pow(self):
-        constant = Unit('', BaseDimension(), 1)
-        angstrom_reciprocal = Unit('angstrom^-1', BaseDimension(length_dimension=-1), 1e10)
-        angstrom = Unit('angstrom', BaseDimension(length_dimension=1), 1e-10)
-        angstrom_square = Unit('angstrom^2', BaseDimension(length_dimension=2), 1e-20)
+        constant = Unit(BaseDimension(), 1)
+        angstrom_reciprocal = Unit(BaseDimension(length_dimension=-1), 1e10)
+        angstrom = Unit(BaseDimension(length_dimension=1), 1e-10)
+        angstrom_square = Unit(BaseDimension(length_dimension=2), 1e-20)
         assert angstrom_square == angstrom**2
         assert angstrom == angstrom**1
         assert constant == angstrom**0

@@ -220,7 +220,7 @@ class Quantity(object):
             ).judgeAndReturn()
 
     def __pow__(self, value):
-        res = Quantity(1, Unit('constant', BaseDimension(), 1)) # result of **0
+        res = Quantity(1, Unit(BaseDimension(), 1)) # result of **0
         if value > 0:
             for _ in range(value):
                 res *= self
