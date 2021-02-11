@@ -17,7 +17,7 @@ class SystemVisualizer(object):
     __str__ = __repr__
 
     def show(
-        self, atom_size=150, bond_width=3, alpha=1,
+        self, atom_size=150, bond_width=3,
         is_grid=False, is_tick=True, is_legend=True, is_label=True
     ):
         fig = plt.figure(figsize=self.figsize)
@@ -28,11 +28,11 @@ class SystemVisualizer(object):
             color.extend(['navy', 'brown'])
         ax.scatter3D(
             self.system.coordinate[0::2, 0], self.system.coordinate[0::2, 1], self.system.coordinate[0::2, 2], 
-            '.', c='navy', s=atom_size, edgecolors='face', alpha=alpha, label='\nCa\n'
+            '.', c='navy', s=atom_size, edgecolors='face', label='\nCa\n'
         )
         ax.scatter3D(
             self.system.coordinate[1::2, 0], self.system.coordinate[1::2, 1], self.system.coordinate[1::2, 2], 
-            '.', c='brown', s=atom_size, edgecolors='face', alpha=alpha, label='\nSide chain center  \n'
+            '.', c='brown', s=atom_size, edgecolors='face',  label='\nSide chain center  \n'
         )
         # bond_x = []
         # bond_y = []
@@ -44,7 +44,7 @@ class SystemVisualizer(object):
             ax.plot3D([bond[0].coordinate[0], bond[1].coordinate[0]],
                     [bond[0].coordinate[1], bond[1].coordinate[1]],
                     [bond[0].coordinate[2], bond[1].coordinate[2]], 
-                    c='teal', lw=bond_width, alpha=alpha)
+                    c='teal', lw=bond_width)
         # ax.plot3D(bond_x, bond_y, bond_z, c='teal', lw=bond_width, label='bond')
         if is_legend:
             ax.legend()
