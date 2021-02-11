@@ -74,6 +74,8 @@ class PDBLoader(object):
                 self._raw_data.append(self._parseAtomLine(line))
                 self._line_ATOM.append(line)
                 line = self.pdb_file.readline()
+                if line.startswith('TER'):
+                    line = self.pdb_file.readline()
             self._line_ATOMEND = line
             return line
     
