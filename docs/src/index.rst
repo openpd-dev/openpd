@@ -13,12 +13,12 @@ OpenPD, standing for **Open** **P**\ eptide **D**\ ynamics, is a toolkit based o
 This document is part of the OpenPD distribution, which can be found in our `GitHub site <https://github.com/zhenyuwei99/openpd>`_. You can also build the document manually in PDF format by following step in :doc:`quick_start/build_doc` or click the ``version`` button in the right-bottom of your browser.
 
 
-OpenPD is developed and maintaining by `Zhenyu Wei <zhenyuwei99@gmail.com>`_ in Southeast University. As a newly developed program, we always welcome developers to `contact us <zhenyuwei99@gmail.com>`_ or discuss in our `GitHub site <https://github.com/zhenyuwei99/openpd>`_
+OpenPD is developed and maintaining by Zhenyu Wei (zhenyuwei99@gmail.com), from Yunfei Chen's group in Southeast University. As a newly developed program, we always welcome developers to contact us or discuss in our `GitHub site <https://github.com/zhenyuwei99/openpd>`_
 
 The document is organized in four parts:
 
-(1) The :ref:`Quick Start <quickstart>` part contains introduction of our program and the installation suggestion.
-(#) The :ref:`Tutorials <tutorials>` part shows several basic example codes to giving user a directive intuition of features and workflow of OpenPD
+(1) The :ref:`Quick Start <quickstart>` part contains introduction of our program and the installation suggestions.
+(#) The :ref:`Tutorials <tutorials>` part shows several basic example codes to giving user a directive intuition of workflow and features of OpenPD
 (#) The :ref:`Peptide Dynamics Force Field <pdff>` part describe the component of PDFF and their developing procedure.
 (#) The :ref:`Module indices <module>` part giving a detailed description of all packages and classes in OpenPD. 
 

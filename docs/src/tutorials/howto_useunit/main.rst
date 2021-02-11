@@ -119,7 +119,6 @@ And we also have:
 
 Boltzmann constant
 ------------------
-
 The Boltzmann constant has the dimension of Energy/Temperature as
 :math:`k_B T` has dimension of energy:
 
@@ -348,7 +347,10 @@ Unit Mixture
 Self-defined Unit
 ============================
 
-In OpenPD, user can also define the ``unit`` by themselves as shown below:
+In OpenPD, user can also define the ``unit`` by themselves as shown below.
+
+Define a Basic Unit
+--------------------
 
 **Input**:
 
@@ -367,6 +369,9 @@ In OpenPD, user can also define the ``unit`` by themselves as shown below:
 .. parsed-literal::
 
     True
+
+Define a Mixture Unit
+----------------------
 
 **Input**:
 
@@ -389,9 +394,11 @@ In OpenPD, user can also define the ``unit`` by themselves as shown below:
 
     True
 
+Define a constant Unit
+-------------------------
 .. note:: 
 
-    The definition of constants is different from other unit. The constants always has the ``quantity.relative_value=1`` as we treat them as the criterion in their dimension. And ``quantity.value`` corresponds to the real value of their definition
+    The definition of constants is different from other unit. The constants always has the ``quantity.relative_value=1`` as we treat them as the criterion in their dimension instead of the simple operation of SI units. And ``quantity.value`` corresponds to the real value of their definition
 
 **Input**:
 
@@ -414,3 +421,43 @@ In OpenPD, user can also define the ``unit`` by themselves as shown below:
 .. parsed-literal::
 
     True
+
+
+Suppose we define the Avogadro constant unit with ``value=1`` and compared it with ``openpd.unit.n_a``: 
+
+**Input**:
+
+.. code-block:: python
+    :linenos:
+
+    mol_dimension = unit.BaseDimension(mol_dimension=1)
+    n_a = unit.Quantity(1, unit.Unit(1/mol_dimension, 6.0221e23))
+
+    a = 6.0221e23/n_a
+    b = 6.0221e23/unit.n_a
+
+    print('This is a:')
+    print(a)
+    print(a.value)
+    print(a.unit.relative_value)
+
+    print('\nThis is b:')
+    print(b)
+    print(b.value)
+    print(b.unit.relative_value)
+
+**Output**:
+
+.. parsed-literal::
+
+    This is a:
+    1.000000e+00 mol
+    6.0221e+23
+    1.6605503063715315e-24
+
+    This is b:
+    1.000000e+00 mol
+    1.0
+    1.0
+
+If we define the ``quantity.value=1`` and ``quantity.unit.relative_value=6.0221e23``, we found the final result, which is defined by ``quantity.value*quantity.unit.relative_value``, is the same, while the  ``quantity.value=6.0221e+23`` is misleading. As these constants are all defined as converters from a unit to another, it is reasonable to define them as the criterion of their corresponding unit instead  of the SI one.

@@ -1,2 +1,2 @@
-loader.PdbLoader class
+loader.PDBLoader class
 ======================
