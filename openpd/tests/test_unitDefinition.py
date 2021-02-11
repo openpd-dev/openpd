@@ -4,7 +4,7 @@ from ..unit import *
 def test_constants():
     # Avogadro Constant
     assert mol * n_a == 6.0221e23
-    assert 6.0221e23 / n_a == 1
+    assert 6.0221e23 / n_a == 1 * mol
 
     # Boltzmann Constant
     assert 300 * kelvin * k_b / kilojoule_permol == pytest.approx(2.494321)
@@ -66,7 +66,7 @@ def test_power():
 
 def test_mixture():
     assert newton * meter == joule
-    assert joule / n_a.value == joule_permol
+    assert joule / (n_a * mol) == joule_permol
     assert joule / second == watt
     assert kilojoule / second == kilowatt
     assert kilojoule == joule * 1000

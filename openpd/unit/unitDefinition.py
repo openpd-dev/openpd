@@ -19,8 +19,8 @@ power = energy / time
 ## Constants        ##
 ######################
 
-k_b = Quantity(1.38064852e-23, Unit(energy/temperature, 1))
-n_a = Quantity(6.0221e23, Unit(1/mol_dimension, 1))
+k_b = Quantity(1, Unit(energy/temperature, 1.38064852e-23))
+n_a = Quantity(1, Unit(1/mol_dimension, 6.0221e23))
 
 ######################
 ## Length Unit      ##
