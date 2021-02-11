@@ -126,13 +126,15 @@ In most case, we only know the peptide sequence of protein that we are intereste
 
 .. note::
 
-    Each element of peptide sequence in the *.json* file must start with **Chain** (case insensitive), like: 
+    Each element that describe the peptide sequence in the *.json* file is a string list starting with **Chain** (case insensitive), like: 
 
     - "Chain 1"
     - "CHAIN a"
     - "chain ?"
   
     The word after **Chain** only paly the role as a identification, while the order of chain only depend on the writing order.
+
+    The elements that do not start with  **Chain** will not be loaded into ``loader``.
 
 The demo code of using ``SequenceLoader`` has exactly the same procedure as shown before in ``PDBLoader``:
 
