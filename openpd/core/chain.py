@@ -25,11 +25,27 @@ class Chain(object):
         self._num_peptides += 1
 
     def addPeptides(self, *peptides):
+        """
+        addPeptides adds peptides to the Chain
+
+        Parameters
+        ----------
+        *peptides : 
+            one or serval Peptide instance
+        """        
         for peptide in peptides:
             self._addPeptide(peptide)
     
     @property
     def chain_id(self):
+        """
+        chain_id gets chain_id
+
+        Returns
+        -------
+        int
+            the id of chain
+        """        
         return self._chain_id
 
     @chain_id.setter
@@ -38,14 +54,38 @@ class Chain(object):
 
     @property
     def num_atoms(self):
+        """
+        num_atoms gets the number of atoms in the chain
+
+        Returns
+        -------
+        int
+            the number of atoms in the chain
+        """        
         return self._num_atoms
 
     @property 
     def num_peptides(self):
+        """
+        num_peptides gets the number of peptides in the chain
+
+        Returns
+        -------
+        int
+            the number of peptides in the chain
+        """       
         return self._num_peptides
 
     @property
     def atoms(self):
+        """
+        atoms gets a ``list`` contain all atoms in the chain
+
+        Returns
+        -------
+        list(Atom)
+            list contain all atoms in the chain
+        """    
         atoms = []
         for peptide in self._peptides:
             atoms.extend(peptide.atoms)
@@ -53,4 +93,12 @@ class Chain(object):
 
     @property
     def peptides(self):
+        """
+        peptides gets a ``list`` contain all peptide in the chain
+
+        Returns
+        -------
+        list(Peptide)
+            list contain all atoms in the chain
+        """    
         return self._peptides

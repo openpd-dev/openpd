@@ -9,6 +9,14 @@ template_dir = os.path.join(cur_dir, '../data/template/')
 class Peptide(object):
     def __init__(self, peptide_type:str, peptide_id=0, chain_id=0): 
         super().__init__()
+        """
+        __init__ generates a Peptide instance
+
+        Raises
+        ------
+        ValueError
+            When the peptide type is not in the standard peptide list
+        """        
         if not peptide_type.upper() in TRIPLE_LETTER_ABBREVIATION:
             raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
                 %(peptide_type, TRIPLE_LETTER_ABBREVIATION))
@@ -42,15 +50,39 @@ class Peptide(object):
         self._num_atoms += 1
     
     def addAtoms(self, *atoms):
+        """
+        addAtoms adds atoms to the Peptide
+
+        Parameters
+        ----------
+        *peptides : 
+            one or serval Atom instance
+        """    
         for atom in atoms:
             self._addAtom(atom)
 
     @property
     def peptide_type(self):
+        """
+        peptide_type gets the type of peptide
+
+        Returns
+        -------
+        str
+            the type of peptide
+        """        
         return self._peptide_type
 
     @property
     def peptide_id(self):
+        """
+        peptide_id gets the id of peptide
+
+        Returns
+        -------
+        int
+            the id of peptide
+        """        
         return self._peptide_id
     
     @peptide_id.setter
@@ -59,6 +91,14 @@ class Peptide(object):
 
     @property
     def chain_id(self):
+        """
+        chain_id gets the id of parent chain
+
+        Returns
+        -------
+        int
+            the id of parent chain
+        """
         return self._chain_id
 
     @chain_id.setter
@@ -67,12 +107,36 @@ class Peptide(object):
     
     @property 
     def atoms(self):
+        """
+        atoms gets a ``list`` contain all atoms in the peptide
+
+        Returns
+        -------
+        list(Atom)
+            list contain all atoms in the peptide
+        """    
         return self._atoms
 
     @property
     def num_atoms(self):
+        """
+        num_atoms gets the number of atoms in the peptide
+
+        Returns
+        -------
+        int
+            the number of atoms in the peptide
+        """        
         return self._num_atoms
 
     @property
     def ca_sc_dist(self):
+        """
+        ca_sc_dist gets the :math:`C_{\\alpha} - SC` distance
+
+        Returns
+        -------
+        float
+            :math:`C_{\\alpha} - SC` distance
+        """        
         return self._ca_sc_dist

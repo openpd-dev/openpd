@@ -15,8 +15,6 @@ import sys
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 openpd_dir = os.path.join(cur_dir, '../..')
 sys.path.insert(0, openpd_dir)
-import os
-import sys
 
 # -- Project information -----------------------------------------------------
 
@@ -38,8 +36,11 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
+    'sphinx.ext.napoleon', 
 ]
 
+autosummary_generate = True
+autodoc_default_flags = ['members', 'inherited-members']
 autodoc_member_order = 'bysource'
 
 # Add any paths that contain templates here, relative to this directory.
@@ -55,16 +56,8 @@ exclude_patterns = []
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
+
 html_title = project
-# html_theme = 'alabaster'
-# html_theme = "sphinx_rtd_theme"
-# html_theme = 'karma_sphinx_theme'
-# html_theme = 'asteroid_sphinx_theme'
-# html_theme = "sphinx_material"
-# html_theme = "furo"
-# extensions.append("faculty_sphinx_theme")
-# html_theme = "faculty-sphinx-theme"
 html_theme = "sphinx_material"
 
 
@@ -85,3 +78,15 @@ html_theme_options = {
 html_sidebars = {
     "**": ["logo-text.html", "globaltoc.html", "localtoc.html", "searchbox.html"]
 }
+
+# Napoleon settings
+napoleon_google_docstring = False
+napoleon_numpy_docstring = True
+napoleon_include_private_with_doc = False
+napoleon_include_special_with_doc = True
+napoleon_use_admonition_for_examples = False
+napoleon_use_admonition_for_notes = False
+napoleon_use_admonition_for_references = False
+napoleon_use_ivar = False
+napoleon_use_param = True
+napoleon_use_rtype = True

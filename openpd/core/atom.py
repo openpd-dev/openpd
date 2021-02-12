@@ -2,12 +2,15 @@ import numpy as np
 
 class Atom(object):
     def __init__(self, atom_type:str, mass) -> None:
-        """__init__ Create an Atom instance
+        """
+        __init__ Create an Atom instance
 
-        :param atom_type: the type of atom 
-        :type atom_type: str
-        :param mass: the mass of atom
-        :type mass: float
+        Parameters
+        ----------
+        atom_type : str
+            the type of atom 
+        mass : float
+            the mass of atom
         """        
         super().__init__()
         self._atom_type = atom_type
@@ -25,81 +28,91 @@ class Atom(object):
 
     @property
     def atom_type(self):
-        """atom_type property method to get atom_type
+        """
+        atom_type gets atom_type
 
-        :return: the type of atom
-        :rtype: str
+        Returns
+        -------
+        str
+            the type of atom
         """        
         return self._atom_type
 
     @property
     def atom_id(self):
-        """atom_id property method to get atom_id
+        """
+        atom_id gets atom_id
 
-        :return: the id of atom
-        :rtype: int
+        Returns
+        -------
+        int
+            the id of atom
         """        
         return self._atom_id
     
     @atom_id.setter
-    def atom_id(self, atom_id:int):
-        """atom_id setter method to set atom_id
-
-        :param atom_id: the id of atom 
-        :type atom_id: int
-        :return: None
-        """        
+    def atom_id(self, atom_id:int):    
         self._atom_id = atom_id
 
     @property
     def mass(self):
-        """mass property method to get mass
+        """
+        mass gets mass
 
-        :return: mass of atom
-        :rtype: float
-        """        
+        Returns
+        -------
+        float
+            mass of atom
+        """              
         return self._mass
 
     @property
     def peptide_type(self):
-        """peptide_type property method to get peptide_type
+        """
+        peptide_type gets peptide_type
 
         If atom has not been added to any Peptide, peptide_type=None
 
-        :return: type of parent peptide
-        :rtype: str
-        """        
+        Returns
+        -------
+        str
+            type of the parent peptide
+        """          
         return self._peptide_type
 
     @peptide_type.setter
     def peptide_type(self, peptide_type:str):  
-        """peptide_type setter method to set peptide_type
-
-        :param peptide_type: the type of parent peptide
-        :type peptide_type: str
-        :return: None
-        """          
         self._peptide_type = peptide_type
     
     @property
     def coordinate(self):
-        """coordinate property method to get atom's coordinate
+        """
+        coordinate gets atom's coordinate
 
         The coordinate default to be np.array([0, 0, 0])
 
-        :return: coordinate
-        :rtype: np.ndarray
+        Returns
+        -------
+        np.ndarray
+            coordinate
         """        
         return self._coordinate
 
     @coordinate.setter
     def coordinate(self, coordinate):
-        """coordinate setter method to set atom's coordinate
+        """
+        setter method to set atom's coordinate
 
-        :param coordinate: atom's coordinate
-        :type coordinate: np.ndarry or list
-        :return: None
-        """       
+        Parameters
+        ----------
+        coordinate : np.ndarry or list
+            atom's coordinate
+
+        Raises
+        ------
+        ValueError
+            When the length of input coordinate != 3
+        """           
         if len(coordinate) != 3:
             raise ValueError('Dimension of coordinate should be 3')
         for (i, j) in enumerate(coordinate):
@@ -107,23 +120,33 @@ class Atom(object):
 
     @property
     def velocity(self):
-        """velocity property method to get atom's coordinate
+        """
+        velocity gets atom's velocity
 
         The velocity default to be np.array([0, 0, 0])
 
-        :return: atom's velocity
-        :rtype: np.ndarray
-        """       
+        Returns
+        -------
+        np.ndarray
+            velocity
+        """    
         return self._velocity
 
     @velocity.setter
     def velocity(self, velocity):
-        """velocity setter method to set atom's coordinate
+        """
+        setter method to set atom's velocity
 
-        :param velocity: atom's velocity
-        :type velocity: np.ndarry or list
-        :return: None
-        """       
+        Parameters
+        ----------
+        velocity : np.ndarry or list
+            atom's velocity
+
+        Raises
+        ------
+        ValueError
+            When the length of input velocity != 3
+        """           
         if len(velocity) != 3:
             raise ValueError('Dimension of velocity should be 3')
         for (i, j) in enumerate(velocity):
