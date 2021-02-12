@@ -21,8 +21,8 @@ class Atom(object):
         self._velocity = np.zeros([3])
 
     def __repr__(self) -> str:
-        return ('<Atom object: type %s, id %d, of peptide %s at 0x%x>'
-            %(self._atom_type, self._atom_id, self._peptide_type, id(self)))
+        return ('<Atom object: id %d, type %s, of peptide %s at 0x%x>'
+            %(self._atom_id, self._atom_type, self._peptide_type, id(self)))
 
     __str__ = __repr__ 
 
@@ -42,6 +42,8 @@ class Atom(object):
     def atom_id(self):
         """
         atom_id gets atom_id
+
+        Default value: ``atom_id=0``
 
         Returns
         -------
@@ -71,7 +73,7 @@ class Atom(object):
         """
         peptide_type gets peptide_type
 
-        If atom has not been added to any Peptide, peptide_type=None
+        Default value: ``peptide_type=None``
 
         Returns
         -------
@@ -89,7 +91,7 @@ class Atom(object):
         """
         coordinate gets atom's coordinate
 
-        The coordinate default to be np.array([0, 0, 0])
+        The coordinate default to be ``np.array([0, 0, 0])``
 
         Returns
         -------
@@ -123,7 +125,7 @@ class Atom(object):
         """
         velocity gets atom's velocity
 
-        The velocity default to be np.array([0, 0, 0])
+        The velocity default to be ``np.array([0, 0, 0])``
 
         Returns
         -------

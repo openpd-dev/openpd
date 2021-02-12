@@ -38,8 +38,8 @@ class Peptide(object):
             self._addAtom(Atom(atom_type, info['mass']))
 
     def __repr__(self) -> str:
-        return ('<Peptide object: type %s, id %d, of chain %d of 0x%x>' 
-            %(self._peptide_type, self._peptide_id, self._chain_id, id(self)))
+        return ('<Peptide object: id %d, type %s, of chain %d of 0x%x>' 
+            %(self._peptide_id, self._peptide_type, self._chain_id, id(self)))
 
     __str__ = __repr__
 
@@ -78,6 +78,8 @@ class Peptide(object):
         """
         peptide_id gets the id of peptide
 
+        Default value: ``peptide_id=0``
+
         Returns
         -------
         int
@@ -93,6 +95,8 @@ class Peptide(object):
     def chain_id(self):
         """
         chain_id gets the id of parent chain
+
+        Default value: ``chain_id=0``
 
         Returns
         -------

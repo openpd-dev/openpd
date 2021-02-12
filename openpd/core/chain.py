@@ -64,18 +64,6 @@ class Chain(object):
         """        
         return self._num_atoms
 
-    @property 
-    def num_peptides(self):
-        """
-        num_peptides gets the number of peptides in the chain
-
-        Returns
-        -------
-        int
-            the number of peptides in the chain
-        """       
-        return self._num_peptides
-
     @property
     def atoms(self):
         """
@@ -91,6 +79,18 @@ class Chain(object):
             atoms.extend(peptide.atoms)
         return atoms
 
+    @property 
+    def num_peptides(self):
+        """
+        num_peptides gets the number of peptides in the chain
+
+        Returns
+        -------
+        int
+            the number of peptides in the chain
+        """       
+        return self._num_peptides
+
     @property
     def peptides(self):
         """
@@ -99,6 +99,6 @@ class Chain(object):
         Returns
         -------
         list(Peptide)
-            list contain all atoms in the chain
+            list contain all peptides in the chain
         """    
         return self._peptides

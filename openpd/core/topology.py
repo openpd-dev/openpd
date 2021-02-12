@@ -36,40 +36,118 @@ class Topology(object):
         self._atoms.extend(chain.atoms)
         self._num_atoms += chain.num_atoms
 
-    def _addChains(self, chains):
+    def addChains(self, *chains):
+        """
+        addChains adds chains to the Topology
+
+        Parameters
+        ----------
+        *chains : 
+            one or serval Chain instance
+        """  
         for chain in chains:
             self._addChain(chain)
 
     @property
     def num_atoms(self):
+        """
+        num_atoms gets the number of atoms in the topology
+
+        Returns
+        -------
+        int
+            the number of atoms in the topology
+        """  
         return self._num_atoms
 
     @property
     def atoms(self):
+        """
+        atoms gets a ``list`` contain all atoms in the topology
+
+        Returns
+        -------
+        list(Atom)
+            list contain all atoms in the topology
+        """ 
         return self._atoms
 
     @property
     def num_bonds(self):
+        """
+        num_bonds gets the number of bonds in the topology
+
+        Returns
+        -------
+        int
+            the number of bonds in the topology
+        """  
         return self._num_bonds
 
     @property
     def bonds(self):
+        """
+        bonds gets a ``list`` contain all bonds in the topology
+
+        a bond is also a list of atom like [atom1, atom2]
+
+        Returns
+        -------
+        list(list(Atom))
+            list contain all bonds in the topology
+        """
         return self._bonds
 
     @property
     def num_angles(self):
+        """
+        num_angles gets the number of angles in the topology
+
+        Returns
+        -------
+        int
+            the number of angles in the topology
+        """  
         return self._num_angles
 
     @property
     def angles(self):
+        """
+        angles gets a ``list`` contain all angles in the topology
+
+        an angle is also a list of atom like [atom1, atom2, atom3] for :math:`\\angle 123` 
+
+        Returns
+        -------
+        list(list(Atom))
+            list contain all angles in the topology
+        """
         return self._angles
 
     @property
     def num_torsions(self):
+        """
+        num_torsions gets the number of torsions in the topology
+
+        Returns
+        -------
+        int
+            the number of torsions in the topology
+        """  
         return self._num_torsions
 
     @property
     def torsions(self):
+        """
+        torison gets a ``list`` contain all torsions in the topology
+
+        a torsion is also a list of atom like [atom1, atom2, atom3, atom4] for :math:`\\angle 1234` 
+
+        Returns
+        -------
+        list(list(Atom))
+            list contain all torsions in the topology
+        """
         return self._torsions
 
     

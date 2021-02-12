@@ -5,7 +5,7 @@ How to create a system
 Introduction
 =============
 
-In OpenPD, the system (or input model) information is stored in the ``System`` instance, which contains one or several ``Chain`` instances and a ``Topology`` instance.
+In OpenPD, the system's (or the input model's) information is stored in the ``System`` instance, which contains one or several ``Chain`` instances and a ``Topology`` instance.
 
 .. note::
 
@@ -13,9 +13,7 @@ In OpenPD, the system (or input model) information is stored in the ``System`` i
 
 .. seealso::
 
-    - :doc:`../../modules/core/system` page
-    - :doc:`../../modules/core/chain` page
-    - :doc:`../../modules/core/topology` page
+    - :doc:`../../modules/core/main` page
     - :doc:`../../pdff/overview` page
  
 ``System.chains`` stores the information of peptide  list and other attributes information and ``System.topology`` stores all of the topology information of simulation system, including bonds, angles, and torsions.
@@ -104,7 +102,7 @@ After that, the ``system`` will then be a simple straight peptide chain (like sh
 
 ----------------
 
-In this mode, the distance of :math:`C_\alpha\ -\ C_\alpha` is :math:`3.5 A` and distribute along :math:`x` axis. The distance between the mass center of the side chain (:math:`SC`) and its connected :math:`C_\alpha` is defined by the type of peptide. The :math:`SC\ -\ C_\alpha` bond is parallel to the :math:`YoZ` plane and the degree between :math:`SC\ -\ C_\alpha`  bond and :math:`y` axis is an evenly distributed random number in the range :math:`[-\pi, \pi)`.
+In this mode, the distance of :math:`C_\alpha\ -\ C_\alpha` is :math:`3.85 A` and distribute along :math:`x` axis. The distance between the mass center of the side chain (:math:`SC`) and its connected :math:`C_\alpha` is defined by the type of peptide. The :math:`SC\ -\ C_\alpha` bond is parallel to the :math:`YoZ` plane and the degree between :math:`SC\ -\ C_\alpha`  bond and :math:`y` axis is an evenly distributed random number in the range :math:`[-\pi, \pi)`.
 
 Using the SequenceLoader
 ========================
