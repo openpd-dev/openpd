@@ -10,9 +10,11 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
+openpd_dir = os.path.join(cur_dir, '../..')
+sys.path.insert(0, openpd_dir)
 import os
 import sys
 
@@ -37,7 +39,8 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
 ]
-# "faculty_sphinx_theme"
+
+autodoc_member_order = 'bysource'
 
 # Add any paths that contain templates here, relative to this directory.
 # templates_path = ['_templates']
