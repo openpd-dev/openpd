@@ -5,7 +5,7 @@ How to use the Unit package
 Introduction
 =============
 
-The ``openpd.unit`` package is designed to conveniently convert unit for both simulation and analysis. Meanwhile, ``openpd.unit`` also has the constant quantity like the Avogadro constant and the Boltzmann Constant. 
+The ``openpd.unit`` package is designed to convert unit for both simulation and analysis conveniently. Meanwhile, ``openpd.unit`` also has the constant quantity like the Avogadro constant and the Boltzmann Constant. 
 
 In OpenPD, every ``unit`` exists as an instance of ``Quantity`` with two attributes: ``value`` and ``unit:Unit`` . 
 
@@ -13,7 +13,7 @@ In OpenPD, every ``unit`` exists as an instance of ``Quantity`` with two attribu
     As we want to accomplish that :code:`1 * unit.nanometer` returns a ``quantity`` while the ``Unit`` is an attributes of ``Quantity`` (cross import issue). We define all the basic unit as an ``Quantity`` with ``quantity.value = 1``
     
 
-The ``quantity.unit`` is the attributes to express which unit does the ``quantity`` has. And it has two attributes ``base_dimension:BaseDimension``  and ``relative_value``. The ``base_dimension`` is used to determine the basic dimension of the unit, like :math:`L`, :math:`M`, and :math:`ML/T^2`. 
+The ``quantity.unit`` is the attributes to express which unit does the ``quantity`` has. And it has two attributes ``base_dimension:BaseDimension``  and ``relative_value``. The ``base_dimension`` is used to determine the unit's basic dimension, like :math:`L`, :math:`M`, and :math:`ML/T^2`. 
 
 .. seealso::
 
@@ -31,11 +31,11 @@ The ``quantity.unit`` is the attributes to express which unit does the ``quantit
     - :math:`C`: Charge, SI unit: coulomb
     - :math:`Mol`: Amount of substance, SI unit: mol
 
-And the ``relative_value`` give the relationship between current unit and the SI unit. For example, the ``relative_value`` of nanometer will be ``1e-9``. 
+And the ``relative_value``gives the relationship between the current unit and the SI unit. For example, the ``relative_value`` of nanometer will be ``1e-9``. 
 
-The unit package can accomplish most of work attributes to the unit, including but not limited in: unit converting, unit multiplying, unit division, and so on.
+The unit package can accomplish most of the work attributes to the unit, including but not limited to: unit converting, unit multiplying, unit division.
 
-This tutorial will give many useful demo code to both demonstrate the correction and show the basic usage of this package. 
+This tutorial will give many useful demo codes to demonstrate the correction and show the primary usage of this package. 
 
 .. note:: All the code show below can be found in ``<openpd path>/tutorials/unit.ipynb``.
 
@@ -48,7 +48,7 @@ Import unit package
     import openpd as pd
     import openpd.unit as unit
 
-Usually, we recommend to import the ``openpd.unit`` as shown above, calling with the prefix ``unit`` to prevent the variable duplication.
+Usually, we recommend importing the ``openpd.unit`` as shown above, calling with the prefix ``unit`` to prevent the variable duplication.
 
 Constant
 ========
@@ -86,7 +86,7 @@ So we have:
     <class 'float'>
     6.0221e+23
 
-.. hint:: The results of quantity operation will automatically turn to ``<float>`` if the results are dimensionless
+.. hint:: The quantity operation results will automatically turn to ``<float>`` while the results are dimensionless.
 
 And we also have:
 
@@ -281,7 +281,7 @@ Time Unit
 Charge Unit
 ===========
 
-The standard charge unit is coulomb, and its relationship with electron
+The standard charge unit is coulomb and its relationship with electron
 charge is:
 
 .. math::
@@ -347,7 +347,7 @@ Unit Mixture
 Self-defined Unit
 ============================
 
-In OpenPD, user can also define the ``unit`` by themselves as shown below.
+In OpenPD, users can also define the ``unit`` by themselves, as shown below.
 
 Define a Basic Unit
 --------------------
@@ -398,7 +398,7 @@ Define a constant Unit
 -------------------------
 .. note:: 
 
-    The definition of constants is different from other unit. The constants always has the ``quantity.relative_value=1`` as we treat them as the criterion in their dimension instead of the simple operation of SI units. And ``quantity.value`` corresponds to the real value of their definition
+    The definition of constants is different from other units. The constants always have the ``quantity.relative_value=1`` as we treat them as the criterion in their dimension instead of the simple operation of SI units. And ``quantity.value`` corresponds to the real value of their definition
 
 **Input**:
 
@@ -460,4 +460,4 @@ Suppose we define the Avogadro constant unit with ``value=1`` and compared it wi
     1.0
     1.0
 
-If we define the ``quantity.value=1`` and ``quantity.unit.relative_value=6.0221e23``, we found the final result, which is defined by ``quantity.value*quantity.unit.relative_value``, is the same, while the  ``quantity.value=6.0221e+23`` is misleading. As these constants are all defined as converters from a unit to another, it is reasonable to define them as the criterion of their corresponding unit instead  of the SI one.
+If we define the ``quantity.value=1`` and ``quantity.unit.relative_value=6.0221e23``, we found the final result, which is defined by ``quantity.value*quantity.unit.relative_value``, is the same, while the  ``quantity.value=6.0221e+23`` is misleading. As these constants are all defined as converters from a unit to another, it is reasonable to define them as their corresponding unit's criterion instead  of the SI one.

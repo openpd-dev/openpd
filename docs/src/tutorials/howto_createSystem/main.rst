@@ -20,10 +20,10 @@ In OpenPD, the system (or input model) information is stored in the ``System`` i
  
 ``System.chains`` stores the information of peptide  list and other attributes information and ``System.topology`` stores all of the topology information of simulation system, including bonds, angles, and torsions.
 
-OpenPD provide ``openpd.loader`` API to assist creating system automatically. Currently, two loader is provided for two ordinary occasion:
+OpenPD provides ``openpd.loader`` API to assist in creating the ``system`` automatically. Currently, two loaders are provided for two ordinary occasions:
 
-- ``PDBLoader`` assists creating a system from a `.pdb` file.
-- ``SequenceLoader`` assists creating a system from a sequence of protein. 
+- ``PDBLoader`` assists in creating a system from a `.pdb` file.
+- ``SequenceLoader`` assists in creating a system from a sequence of protein. 
 
 .. seealso::
 
@@ -82,9 +82,9 @@ The result is shown as below:
 .. note::  The number in the figure is the index of :math:`C_\alpha` atom for a clearer structure illustration.
 
 
-As we can see, the system only contains the :math:`C_\alpha` **atoms** and the **mass centers of the side chains**, which correspond to the effective atom in PDFF. 
+As we can see, the system only contains the :math:`C_\alpha` **atoms** and the **mass centers of the side chains**, which correspond to the atoms mattered in the PDFF. 
 
-In this system, the ``PDBLoader`` automatically extracts coordinate from the *.pdb* file. In some case, we only care about the sequence of protein. Than we can specific ``is_extract_coordinate=False`` to generate a side chain random distributed peptide chain.
+In this system, the ``PDBLoader`` automatically extracts coordinate from the *.pdb* file. In some cases, we only care about the sequence of the protein. Then we can specific ``is_extract_coordinate=False`` to generate a side chain random distributed peptide chain.
 
 .. code-block:: python
     :linenos:
@@ -94,7 +94,7 @@ In this system, the ``PDBLoader`` automatically extracts coordinate from the *.p
     visualizer = pd.SystemVisualizer(system)
     visualizer.show()
 
-Than the ``system`` will be a simple straight peptide chain (like shown below) waited for PD simulation.
+After that, the ``system`` will then be a simple straight peptide chain (like shown below) waiting for PD simulation.
 
 ----------------
 
@@ -104,12 +104,12 @@ Than the ``system`` will be a simple straight peptide chain (like shown below) w
 
 ----------------
 
-In this mode, the distance of :math:`C_\alpha\ -\ C_\alpha` is :math:`3.5 A` and distribute along :math:`x` axis. The distance between mass center of side chain (:math:`SC`) and its connected :math:`C_\alpha` is defined by the type of peptide. The :math:`SC\ -\ C_\alpha` bond is parallel to the :math:`YoZ` plane and the degree between bonds and axis is a random number in range :math:`[-\pi, \pi)`.
+In this mode, the distance of :math:`C_\alpha\ -\ C_\alpha` is :math:`3.5 A` and distribute along :math:`x` axis. The distance between the mass center of the side chain (:math:`SC`) and its connected :math:`C_\alpha` is defined by the type of peptide. The :math:`SC\ -\ C_\alpha` bond is parallel to the :math:`YoZ` plane and the degree between :math:`SC\ -\ C_\alpha`  bond and :math:`y` axis is an evenly distributed random number in the range :math:`[-\pi, \pi)`.
 
 Using the SequenceLoader
 ========================
 
-In most case, we only know the peptide sequence of protein that we are interested. We can also write a simple *.json* file which contains the sequence of protein as the input file of ``SequenceLoader`` as below:
+In most cases, we only know the peptide sequence of the protein that we are interested in. We can also write a simple *.json* file which contains the sequence of the protein as the input file of ``SequenceLoader`` as below:
 
 .. code-block:: json
     :linenos:
@@ -126,17 +126,38 @@ In most case, we only know the peptide sequence of protein that we are intereste
 
 .. note::
 
-    Each element that describe the peptide sequence in the *.json* file is a string list starting with **Chain** (case insensitive), like: 
+    Each element that describes the peptide sequence in the *.json* file is a string list whose name starts with **Chain** (case insensitive), like: 
 
     - "Chain 1"
     - "CHAIN a"
-    - "chain ?"
+    - "chain #"
   
-    The word after **Chain** only paly the role as a identification, while the order of chain only depend on the writing order.
+    The word after **Chain** only plays the role of identification, while the order of chain solely depends on the writing order.
 
     The elements that do not start with  **Chain** will not be loaded into ``loader``.
 
-The demo code of using ``SequenceLoader`` has exactly the same procedure as shown before in ``PDBLoader``:
+.. note::
+
+    Both three letter abbreviation and single letter abbreviation are supported in *.json* file by specific ``pd.SequenceLoader(pdb_file, is_single_letter=True)``. However, mixture styles like 
+
+    .. code-block:: json
+        
+        {
+            "Chain 1": ["ALA", "A"]
+        }
+
+    or 
+
+    .. code-block:: json
+
+        {
+            "Chain 1": ["ALA", "ASN"],
+            "Chain 2": ["A", "S"]
+        }
+        
+    are not supported.
+
+The demo code of using ``SequenceLoader`` has exactly the same paradigm as shown before in ``PDBLoader``:
 
 .. code-block:: python
     :linenos:
@@ -153,7 +174,7 @@ The demo code of using ``SequenceLoader`` has exactly the same procedure as show
     visualizer = pd.SystemVisualizer(system)
     visualizer.show()
 
-The only difference is the ``SequenceLoader`` can only create system based on the random generated coordinate as shown below:
+The difference is the ``SequenceLoader`` can only create a system based on the random generated coordinate as shown below:
 
 ----------------
 
