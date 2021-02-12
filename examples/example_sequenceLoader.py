@@ -20,4 +20,4 @@ print(system.topology)
 
 visualizer = SystemVisualizer(system, figsize=[15, 10])
 print(visualizer)
-visualizer.show(is_grid=True, alpha=0.8)
+visualizer.show(is_grid=True)
