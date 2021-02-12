@@ -48,7 +48,12 @@ Import unit package
     import openpd as pd
     import openpd.unit as unit
 
-Usually, we recommend importing the ``openpd.unit`` as shown above, calling with the prefix ``unit`` to prevent the variable duplication.
+Usually, we recommend importing the ``openpd.unit`` as shown above, calling with the prefix ``unit`` to prevent the variable duplication. Instead of using:
+
+.. code-block:: python
+    :linenos:
+
+    from openpd.unit import *
 
 Constant
 ========

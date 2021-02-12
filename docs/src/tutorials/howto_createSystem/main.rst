@@ -32,7 +32,7 @@ OpenPD provides ``openpd.loader`` API to assist in creating the ``system`` autom
 
 This tutorial provides two demo codes and example input files for each ``loader`` to help user get familiar of ``openpd.loader`` package. And we can use ``visualizer.SystemVisualizer`` to visualize the system created by ``loader``.
 
-.. note:: All the code show below can be found in ``<openpd path>/tutorials/example.ipynb``.
+.. note:: All the code show below can be found in ``<openpd path>/tutorials/system.ipynb``.
 
 .. tip:: Although we still provide an `.ipynb` file as what we do in other tutorials. We also suggest user to copy the demo code to a `.py` file for a better 3D plot interaction.
 
