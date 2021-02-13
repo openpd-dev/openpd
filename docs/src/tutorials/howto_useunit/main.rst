@@ -10,7 +10,7 @@ The ``openpd.unit`` package is designed to convert unit for both simulation and 
 In OpenPD, every ``unit`` exists as an instance of ``Quantity`` with two attributes: ``value`` and ``unit:Unit`` . 
 
 .. note::
-    As we want to accomplish that :code:`1 * unit.nanometer` returns a ``quantity`` while the ``Unit`` is an attributes of ``Quantity`` (cross import issue). We define all the basic unit as an ``Quantity`` with ``quantity.value = 1``
+    As we want to achieve that :code:`1 * unit.nanometer` returns a ``quantity`` while the ``Unit`` is an attribute of ``Quantity`` (cross import issue). We define all the basic unit as an ``Quantity`` with ``quantity.value = 1``
     
 
 The ``quantity.unit`` is the attributes to express which unit does the ``quantity`` has. And it has two attributes ``base_dimension:BaseDimension``  and ``relative_value``. The ``base_dimension`` is used to determine the unit's basic dimension, like :math:`L`, :math:`M`, and :math:`ML/T^2`. 
@@ -35,9 +35,13 @@ And the ``relative_value``gives the relationship between the current unit and th
 
 The unit package can accomplish most of the work attributes to the unit, including but not limited to: unit converting, unit multiplying, unit division.
 
+.. seealso:: The predefined unit list can be check in :ref:`predefined-unit`
+
 This tutorial will give many useful demo codes to demonstrate the correction and show the primary usage of this package. 
 
-.. note:: All the code show below can be found in ``<openpd path>/tutorials/unit.ipynb``.
+.. note:: All the code show below can be found in :file:`<openpd path>/tutorials/unit.ipynb`.
+
+.. _import-unit-package:
 
 Import unit package 
 ====================
@@ -348,6 +352,8 @@ Unit Mixture
     1.000000e+00 m^2*kg/s^3
     1.000000e+00 m^2*kg/s^3
     True
+
+.. _self-defined-unit:
 
 Self-defined Unit
 ============================

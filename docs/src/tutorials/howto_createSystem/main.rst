@@ -34,6 +34,8 @@ This tutorial provides two demo codes and example input files for each ``loader`
 
 .. tip:: Although we still provide an `.ipynb` file as what we do in other tutorials. We also suggest user to copy the demo code to a `.py` file for a better 3D plot interaction.
 
+.. _using-pdbLoader:
+
 Using the PDBLoader
 ====================
 
@@ -103,6 +105,8 @@ After that, the ``system`` will then be a simple straight peptide chain (like sh
 ----------------
 
 In this mode, the distance of :math:`C_\alpha\ -\ C_\alpha` is :math:`3.85 A` and distribute along :math:`x` axis. The distance between the mass center of the side chain (:math:`SC`) and its connected :math:`C_\alpha` is defined by the type of peptide. The :math:`SC\ -\ C_\alpha` bond is parallel to the :math:`YoZ` plane and the degree between :math:`SC\ -\ C_\alpha`  bond and :math:`y` axis is an evenly distributed random number in the range :math:`[-\pi, \pi)`.
+
+.. _using-sequenceLoader:
 
 Using the SequenceLoader
 ========================
