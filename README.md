@@ -20,4 +20,4 @@ The OpenPD distribution includes following files and folders:
 
 ## Need help?
 
-To get more information, please check out the project documentation (openpd.net).
+To get more information, please check out the project documentation ([OpenPD documentation](https://openpd.net/en/latest)).
