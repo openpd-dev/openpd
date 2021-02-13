@@ -1,3 +1,23 @@
-# OpenPD:
+# OpenPD: Opened Peptide Dynamics python module
 
-Openpd is a open repository to conduct peptide dynamics
+## Introduction
+
+OpenPD, standing for **Open** **P**eptide **D**ynamics, is a toolkit based on Python, distributed freely under the terms of
+**MIT** License, for peptide dynamics simulation. It was designed to simulate the folding dynamics of protein efficiently with the assistance of **P**eptide **D**ynamics **F**orce **F**ield (PDFF), which is a solvent considered, high-level coarse-grained force field focusing on the peptide interaction. 
+
+OpenPD is developed and maintained by Zhenyu Wei (zhenyuwei99@gmail.com), from Yunfei Chen's group in Southeast University. As a newly developed program, we always welcome developers to contact us.
+
+The OpenPD distribution includes following files and folders:
+
+|   Name    |             Description             |
+| :-------: | :---------------------------------: |
+|  README   |              This file              |
+|  LICENSE  |             MIT License             |
+|   docs    |            Documentation            |
+| examples  |    Folder contains example files    |
+|  openpd   | Source code of openpd python module |
+| tutorials |  Folder contains tutorial notebook  |
+
+## Need help?
+
+To get more information, please check out the project documentation (openpd.net).
