@@ -23,7 +23,7 @@ In OpenPD, the work of generating topology is accomplished based on several rule
 
 - Rule of **bonds**: the :math:`i`\ th peptide and :math:`i+1`\ th peptide has 3 bonds: one :math:`C_\alpha - C_\alpha` bond, and two :math:`SC-C\alpha` bonds. E.g: Bond :math:`1-0,\ 0-2,\ 2-3`.
 - Rule of **angles**: the :math:`i`\ th peptide and :math:`i+1`\ th peptide has 2 angles: :math:`\angle SC-C_\alpha-C_\alpha` and :math:`\angle C_\alpha-C_\alpha-SC`. E.g: :math:`\angle 324,\ \angle 245`.
-- Rule of **torsions**:  the :math:`i`\ th peptide and :math:`i+1`\ th peptide has 1 torsion: :math:`\angle SC-C_\alpha-C_\alpha-SC`. E.g: :math:`\angle 5467`
+- Rule of **torsions**:  the :math:`i`\ th peptide and :math:`i+1`\ th peptide has 1 torsion: :math:`\angle SC-C_\alpha-C_\alpha-SC`. E.g: :math:`^2\angle 5467`
 
 .. note:: 
 

@@ -141,7 +141,7 @@ class Topology(object):
         """
         torison gets a ``list`` contain all torsions in the topology
 
-        a torsion is also a list of atom like [atom1, atom2, atom3, atom4] for :math:`\\angle 1234` 
+        a torsion is also a list of atom like [atom1, atom2, atom3, atom4] for :math:`^2\\angle 1234` 
 
         Returns
         -------
