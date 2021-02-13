@@ -5,7 +5,7 @@ from .. import CONST_CA_CA_DISTANCE
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
-class TestPDBLoader:
+class TestSequenceLoader:
     def setup(self):
         pass
 
@@ -13,6 +13,9 @@ class TestPDBLoader:
         self.loader = None
 
     def test_exceptions(self):
+        with pytest.raises(ValueError):
+            SequenceLoader(os.path.join(cur_dir, 'data/tripleNormal.jsn'), is_single_letter=True)
+
         # Having wrong single abbreviation in input file
         with pytest.raises(ValueError):
             SequenceLoader(os.path.join(cur_dir, 'data/singleException.json'), is_single_letter=True)

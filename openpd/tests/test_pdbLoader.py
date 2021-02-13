@@ -16,6 +16,9 @@ class TestPDBLoader:
 
     def test_exceptions(self):
         with pytest.raises(ValueError):
+            PDBLoader(os.path.join(cur_dir, 'data/exception.pd'))
+
+        with pytest.raises(ValueError):
             PDBLoader(os.path.join(cur_dir, 'data/exception.pdb'))
 
     def test_loadSequence(self):

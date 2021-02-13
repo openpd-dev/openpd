@@ -14,6 +14,7 @@ test_order = [
      'chain',
      'topology',
      'system',
+     'loader',
      'pdbLoader',
      'sequenceLoader',
      'force',
