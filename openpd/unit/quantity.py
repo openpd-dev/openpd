@@ -3,13 +3,29 @@ from copy import deepcopy
 from . import BaseDimension, Unit
 from .. import isAlmostEqual
 
-class Quantity(object):
+class Quantity:
     def __init__(self, value, unit:Unit) -> None:
-        super().__init__()
+        """
+        Parameters
+        ----------
+        value : int or float
+            the value of quantity
+        unit : Unit
+            the unit of quantity
+        """        
         self.value = value
         self.unit = unit
 
     def isDimensionLess(self):
+        """
+        isDimensionLess judges wether ``self`` is dimensionless
+
+        Returns
+        -------
+        bool
+            - True, the quantity is dimensionless
+            - False, the quantity isn't dimensionless
+        """      
         if self.unit.isDimensionLess():
             return True
         else:
@@ -17,6 +33,15 @@ class Quantity(object):
 
     # If the unit is dimensionless, just return the absolute value
     def judgeAndReturn(self):
+        """
+        judgeAndReturn returns different value depends on the result of ``self.isDimensionLess()``
+
+        Returns
+        -------
+        int or float or Quantity
+            - If ``self.isDiemsionLess() == True``, return the ``self.value * self.unit.relative_value``
+            - If ``self.isDiemsionLess() == False``, return ``deepcopy(self)``
+        """        
         if self.isDimensionLess():
             return self.value * self.unit.relative_value
         else:

@@ -79,6 +79,7 @@ kilomol = Quantity(1, Unit(mol_dimension, 1e3))
 ######################
 
 newton = Quantity(1, Unit(force, 1))
+kilonewton = Quantity(1, Unit(force, 100))
 
 ######################
 ## Energy Unit      ##

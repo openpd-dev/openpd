@@ -1,6 +1,6 @@
 from .. import uniqueList
 
-class BaseDimension(object):
+class BaseDimension:
     def __init__(
             self, length_dimension=0, 
             time_dimension=0, 
@@ -9,7 +9,22 @@ class BaseDimension(object):
             charge_dimension = 0,
             mol_dimension=0
         ) -> None:
-        super().__init__()
+        """
+        Parameters
+        ----------
+        length_dimension : int, optional
+            dimension of length, by default 0
+        time_dimension : int, optional
+            dimension of time, by default 0
+        mass_dimension : int, optional
+            dimension of mass, by default 0
+        temperature_dimension : int, optional
+            dimension of temperature, by default 0
+        charge_dimension : int, optional
+            dimension of charge, by default 0
+        mol_dimension : int, optional
+            dimension of amount of substance, by default 0
+        """        
         self._length_dimension = length_dimension
         self._time_dimension = time_dimension
         self._mass_dimension = mass_dimension
@@ -151,6 +166,14 @@ class BaseDimension(object):
         )
 
     def isDimensionLess(self):
+        """
+        isDimensionLess judges wether ``self`` is a dimensionless
+
+        Returns
+        -------
+        [type]
+            [description]
+        """        
         if (
             self._length_dimension == 0 and
             self._time_dimension == 0 and
@@ -165,28 +188,87 @@ class BaseDimension(object):
 
     @property
     def length_dimension(self):
+        """
+        length_dimension gets the dimension of length
+
+        Returns
+        -------
+        int
+            dimension of length
+        """        
         return self._length_dimension
 
     @property
     def time_dimension(self):
+        """
+        time_dimension gets the dimension of time
+
+        Returns
+        -------
+        int
+            dimension of time
+        """   
         return self._time_dimension
 
     @property
     def mass_dimension(self):
+        """
+        mass_dimension gets the dimension of mass
+
+        Returns
+        -------
+        int
+            dimension of mass
+        """   
         return self._mass_dimension
 
     @property
     def temperature_dimension(self):
+        """
+        temperature_dimension gets the dimension of temperature
+
+        Returns
+        -------
+        int
+            dimension of temperature
+        """   
         return self._temperature_dimension
 
     @property
     def charge_dimension(self):
+        """
+        charge_dimension gets the dimension of charge
+
+        Returns
+        -------
+        int
+            dimension of charge
+        """   
         return self._charge_dimension
 
     @property
     def mol_dimension(self):
+        """
+        mol_dimension gets the dimension of amount of substance
+
+        Returns
+        -------
+        int
+            dimension of amount of substance
+        """   
         return self._mol_dimension
 
     @property
     def name(self):
+        """
+        name gets the name of ``self``
+
+        The name of ``BaseDimension`` is consist with SI unit. 
+        For example, ``BaseDimension(length_dimension=1, time_dimension=-1)`` has name 'm/s'
+
+        Returns
+        -------
+        str
+            name of BaseDimension
+        """   
         return self._name

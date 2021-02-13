@@ -2,19 +2,38 @@ from copy import deepcopy
 from . import BaseDimension
 from .. import isAlmostEqual
 
-class Unit(object):
+class Unit:
     def __init__(self, base_dimension:BaseDimension, relative_value) -> None:
-        super().__init__()
+        """
+        Parameters
+        ----------
+        base_dimension : BaseDimension
+            the dimension of unit
+        relative_value : int or float
+            the relative value of ``self`` to the basic unit of ``base_dimension``
+        """        
         self._base_dimension = base_dimension
         self._relative_value = relative_value # The relative value to the normal unit like angstrom in Length 
 
     def isDimensionLess(self):
+        """
+        isDimensionLess judges wether ``self`` is dimensionless
+
+        Returns
+        -------
+        bool
+            - True, the unit is dimensionless
+            - False, the unit isn't dimensionless
+        """        
         if self._base_dimension.isDimensionLess():
             return True
         else:
             return False
     
     def setRelativeValueToOne(self):
+        """
+        setRelativeValueToOne sets ``self.relative_value = 1``
+        """        
         self._relative_value = 1
 
     def __repr__(self):
@@ -144,12 +163,36 @@ class Unit(object):
             
     @property
     def unit_name(self):
+        """
+        unit_name gets the name of the unit
+
+        Returns
+        -------
+        str
+            the name of unit
+        """        
         return self.base_dimension.name
 
     @property
     def base_dimension(self):
+        """
+        base_dimension gets the dimension of the unit
+
+        Returns
+        -------
+        BaseDimension
+            the dimension of unit
+        """        
         return self._base_dimension
 
     @property
     def relative_value(self):
+        """
+        relative_value gets the relative value to the basic unit
+
+        Returns
+        -------
+        int or float
+            the relative value to the basic unit
+        """        
         return self._relative_value
