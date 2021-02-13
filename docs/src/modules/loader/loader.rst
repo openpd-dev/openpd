@@ -5,7 +5,7 @@ openpd.loader.Loader class
 Overview
 ===========
 
-The ``openpd.loader.Loader`` is the base class for all loaders in ``openpd.loader`` package. 
+The ``openpd.loader.Loader`` is the **base class** for all loaders in ``openpd.loader`` package. 
 
 ``Loader.guessCoordinates`` method is used to generate a straight peptide line that has the same sequence as ``Loader.sequence_dict``. 
 
@@ -47,11 +47,11 @@ The users can define a custom loader by inherit ``Loader`` as below:
 
         def loadSequence(self):
             self.sequence_dict = {}
-            ...... # Code to load the sequence from input file
+            ...... # Code of loading the sequence from input file
 
         def createSystem(self):
             self.system = pd.System()
-            ...... # Code to create a system
+            ...... # Code of creating a system
             self.guessCoordinates()
             return self.system
 

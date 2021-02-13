@@ -28,4 +28,4 @@ Example
 
 .. seealso::
 
-   The usage of ``PDBLoader`` is discussed in :doc:`../../tutorials/howto_createSystem/main` Page
+   The usage of ``PDBLoader`` is discussed in :ref:`using-pdbLoader`.
