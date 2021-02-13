@@ -38,7 +38,7 @@ In this section, we will introduce the framework of how OpenPD is designed and w
 
 .. image:: images/openpd.svg
     :align: center
-    :width: 700
+    :width: 750
 
 -------
 
