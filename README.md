@@ -1,5 +1,7 @@
 # OpenPD: Opened Peptide Dynamics python module
 
+[![Documentation Status](https://readthedocs.org/projects/openpd/badge/?version=latest)](https://openpd.net/en/latest/?badge=latest)
+ 
 ## Introduction
 
 OpenPD, standing for **Open** **P**eptide **D**ynamics, is a toolkit based on Python, distributed freely under the terms of
