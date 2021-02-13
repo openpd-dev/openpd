@@ -9,13 +9,8 @@ sudo: false
 before_install: 
   - pip install numpy 
   - pip install pytest 
-  - pip install codecov 
-  - pip install coverage
 
 install: true 
 
 script: 
-  - coverage run openpd.runTest.py
-
-after_success:
-  - codecov
+  - python -m openpd.runTest
