@@ -1,6 +1,6 @@
-============
-Core package
-============
+===================
+openpd.core package
+===================
 
 Package Overview
 ================

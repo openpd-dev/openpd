@@ -11,7 +11,7 @@ Meanwhile, the ``System`` will also create a ``Topology`` instance during the in
 
 .. seealso::
 
-   :doc:`topology`
+   :doc:`topology` page
 
 Class methods
 ==============

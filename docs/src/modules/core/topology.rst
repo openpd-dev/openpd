@@ -7,7 +7,7 @@ Overview
 
 ``openpd.core.Topology`` is designed to store all the topology information of ``System``
 
-.. seealso:: :doc:`system`
+.. seealso:: :doc:`system` page
 
 --------------------------------
 
@@ -31,7 +31,7 @@ In OpenPD, the work of generating topology is accomplished based on several rule
 
 .. seealso::
 
-   :doc:`system`
+   :doc:`system` page
 
 Class methods
 ==============
@@ -71,12 +71,10 @@ Instantiation
    peptide2 = pd.Peptide('ASN')
 
    chain1 = pd.Chain()
-   chain1.addPeptides(peptide1, peptide2)
-   chain2 = pd.Chain()
-   chain2.addPeptides(peptide2, peptide1)
+   chain1.addPeptides(peptide1, peptide2, peptide2, peptide1)
 
    topology = pd.Topology()
-   topology.addChains(chain1, chain2)
+   topology.addChains(chain1)
 
    print(topology)
 
@@ -84,4 +82,4 @@ Instantiation
 
 .. parsed-literal::
 
-   <Topology object: 8 atoms, 6 bonds, 4 angles, 2 torsions at 0x7fb09f523550>
+   <Topology object: 8 atoms, 7 bonds, 6 angles, 3 torsions at 0x7fb0a127ac90>
