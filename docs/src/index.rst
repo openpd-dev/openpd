@@ -22,7 +22,10 @@ The document is organized in four parts:
 (#) The :ref:`Peptide Dynamics Force Field <pdff>` part describes the component of PDFF and their developing procedure.
 (#) The :ref:`Module indices <module>` part giving a detailed description of all packages and classes in OpenPD.  
 
-.. tip:: Once you are familiar with OpenPD, The :ref:`Module indices <module>` part will be very useful for a quick code check.
+.. tip:: 
+
+   - Each section in :ref:`Module indices <module>` part provides one or several examples, which are a good resource for the new user besides the :ref:`Tutorials <tutorials>` part.
+   - Once you are familiar with OpenPD, The :ref:`Module indices <module>` part will be very useful for a quick code check.
 
 =============
 Contents
