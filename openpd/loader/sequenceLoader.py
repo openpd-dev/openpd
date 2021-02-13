@@ -5,11 +5,27 @@ from .. import SINGLE_LETTER_ABBREVIATION, TRIPLE_LETTER_ABBREVIATION, findFirst
 
 class SequenceLoader(Loader):
     def __init__(self, input_file_path, is_single_letter=False) -> None:
+        """
+        Parameters
+        ----------
+        input_file_path : str
+            The path of the input *.json* file
+        is_single_letter : bool, optional
+            The flag of wether the *.json* file is writened in single letter abbreviation, by default False
+        """        
         super().__init__(input_file_path, 'json')
         self.is_single_letter = is_single_letter
         self.loadSequence()
 
     def loadSequence(self):
+        """
+        loadSequence overloads Loader.loadsequence()
+
+        Raises
+        ------
+        ValueError
+            When the peptide type is not in the standard peptide list.
+        """     
         with codecs.open(self.input_file_path, 'r', 'utf-8') as f:
             self.sequence_text = f.read()
         self.sequence_dict = json.loads(self.sequence_text)
@@ -35,6 +51,14 @@ class SequenceLoader(Loader):
                                  %(peptide_type, SINGLE_LETTER_ABBREVIATION))
 
     def createSystem(self):
+        """
+        createSystem creates and returns a ``System`` instance
+
+        Returns
+        -------
+        System
+            A ``System`` instance that has the same topology and peptide sequence with input *.pdb* file
+        """
         self.system = System()
         for key, value in self.sequence_dict.items():
             if key.upper().startswith('CHAIN'):
