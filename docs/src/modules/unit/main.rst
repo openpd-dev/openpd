@@ -1,5 +1,12 @@
-Unit package
-===============
+====================
+openpd.unit package
+====================
+
+Package introduction
+======================
+
+Package indices
+================
 
 .. toctree::
     :maxdepth: 1
