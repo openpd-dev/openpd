@@ -1,2 +1,3 @@
-ForceEncoder class 
-====================
+==========================
+openpd.ForceEncoder class 
+==========================
