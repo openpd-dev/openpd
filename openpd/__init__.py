@@ -35,7 +35,7 @@ from openpd.utils import *
 from openpd.unit import *
 
 from openpd.core import Topology, Atom, Peptide, Chain, System
-from openpd.loader import PDBLoader, SequenceLoader
+from openpd.loader import Loader, PDBLoader, SequenceLoader
 
 from openpd.force import Force, PDFFNonbondedForce, PDFFTorsionForce, RigidBondForce
 from openpd.ensemble import Ensemble
