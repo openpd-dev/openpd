@@ -9,6 +9,7 @@ sudo: false
 before_install: 
   - pip install numpy 
   - pip install pytest 
+  - pip install matplotlib
 
 install: true 
 
