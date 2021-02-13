@@ -1,18 +1,16 @@
 import json, codecs
-import numpy as np
-from numpy import pi, cos, sin
+from . import Loader
 from .. import Peptide, Chain, System
-from .. import CONST_CA_CA_DISTANCE, SINGLE_LETTER_ABBREVIATION, TRIPLE_LETTER_ABBREVIATION, findFirst
+from .. import SINGLE_LETTER_ABBREVIATION, TRIPLE_LETTER_ABBREVIATION, findFirst
 
-class SequenceLoader(object):
-    def __init__(self, sequence_file, is_single_letter=False) -> None:
-        super().__init__()
-        self.sequence_file = sequence_file
+class SequenceLoader(Loader):
+    def __init__(self, input_file_path, is_single_letter=False) -> None:
+        super().__init__(input_file_path, 'json')
         self.is_single_letter = is_single_letter
         self.loadSequence()
 
     def loadSequence(self):
-        with codecs.open(self.sequence_file, 'r', 'utf-8') as f:
+        with codecs.open(self.input_file_path, 'r', 'utf-8') as f:
             self.sequence_text = f.read()
         self.sequence_dict = json.loads(self.sequence_text)
         if self.is_single_letter:
@@ -44,15 +42,5 @@ class SequenceLoader(object):
                 for peptide_type in value:
                     chain.addPeptides(Peptide(peptide_type))
                 self.system.addChains(chain)
-        self.guessCoordinate()
+        self.guessCoordinates()
         return self.system
-
-    def guessCoordinate(self):
-        for i, chain in enumerate(self.system.chains):
-            init_point = np.random.random(3) + np.array([0, i*5, i*5])
-            for i, peptide in enumerate(chain.peptides):
-                ca_coord = init_point + np.array([i*CONST_CA_CA_DISTANCE, 0, 0])
-                theta = np.random.rand(1)[0] * 2*pi - pi
-                sc_coord = ca_coord + np.array([0, peptide._ca_sc_dist*cos(theta), peptide._ca_sc_dist*sin(theta)])
-                peptide.atoms[0].coordinate = ca_coord
-                peptide.atoms[1].coordinate = sc_coord

@@ -1,7 +1,7 @@
 import numpy as np
-from numpy import pi, cos, sin
+from . import Loader
 from .. import Peptide, Chain, System
-from .. import CONST_CA_CA_DISTANCE, TRIPLE_LETTER_ABBREVIATION, uniqueList, mergeSameNeighbor, findAll
+from .. import TRIPLE_LETTER_ABBREVIATION, uniqueList, mergeSameNeighbor, findAll
 
 back_bone_atom = ['N', 'C', 'O', 'CA', 'H', 'H1', 'H2']
 element_mass = {
@@ -12,12 +12,24 @@ element_mass = {
             'S': 32.06000
         }
 
-class PDBLoader(object):
-    def __init__(self, pdb_file_name, end_label='ENDMDL') -> None:
-        super().__init__()
-        self.pdb_file_name = pdb_file_name
-        self.pdb_file = open(self.pdb_file_name, 'r')
-        line = self.pdb_file.readline()
+class PDBLoader(Loader):
+    def __init__(self, input_file_path, end_label='ENDMDL') -> None:
+        """
+        Parameters
+        ----------
+        input_file_path : str
+            The path of the input *.pdb* file
+        end_label : str, optional
+            The end label of a frame of coordinate in *.pdb* file, by default 'ENDMDL'
+
+        Raises
+        ------
+        ValueError
+            When the suffix of ``input_file_path`` is not *.pdb*
+        """        
+        super().__init__(input_file_path, 'pdb')
+        self.input_file = open(self.input_file_path, 'r')
+        line = self.input_file.readline()
         line = self._readTitleSection(line)
         line = self._readAtomSection(line, end_label)
         self._setPDBInfo()
@@ -25,12 +37,12 @@ class PDBLoader(object):
 
     def _skipBlankLine(self, line):
         while line.startswith('\n') or line.startswith('#'):
-            line = self.pdb_file.readline()
+            line = self.input_file.readline()
         return line
 
     def _skipNoAtomLine(self, line):
         while not line.startswith('ATOM'):
-            line = self.pdb_file.readline()
+            line = self.input_file.readline()
         return line
     
     def _parseLine(self, line):
@@ -61,7 +73,7 @@ class PDBLoader(object):
         self._line_NoATOM = []
         while not line.startswith('ATOM'):
             self._line_NoATOM.append(line)
-            line = self.pdb_file.readline()
+            line = self.input_file.readline()
             #self.pbc_inv = np.linalg.inv(self.pbc_diag)
         return line
 
@@ -73,9 +85,9 @@ class PDBLoader(object):
             while not line.startswith(end_label):
                 self._raw_data.append(self._parseAtomLine(line))
                 self._line_ATOM.append(line)
-                line = self.pdb_file.readline()
+                line = self.input_file.readline()
                 if line.startswith('TER'):
-                    line = self.pdb_file.readline()
+                    line = self.input_file.readline()
             self._line_ATOMEND = line
             return line
     
@@ -120,6 +132,14 @@ class PDBLoader(object):
         self._res_id = [np.where(uniqueList(self._res_id)==i)[0][0] for i in self._res_id] # Sort _res_id start from 0 and increase evenly for extractCoordinate
 
     def loadSequence(self):
+        """
+        loadSequence overloads Loader.loadsequence()
+
+        Raises
+        ------
+        ValueError
+            When the peptide type is not in the standard peptide list.
+        """        
         self.sequence_dict = {}
         self.chain_names = uniqueList(self._chain_name)
         for chain_name in self.chain_names:
@@ -131,30 +151,6 @@ class PDBLoader(object):
                     %(peptide, TRIPLE_LETTER_ABBREVIATION))
             self.sequence_dict[chain_name] = sequence
             self.sequence_dict[chain_name + 'res_id'] = sequence_res_id
-
-    def createSystem(self, is_extract_coordinate=True):
-        self.system = System()
-        for chain_name in self.chain_names:
-            chain = Chain()
-            sequence = self.sequence_dict[chain_name]
-            for peptide_type in sequence:
-                chain.addPeptides(Peptide(peptide_type))
-            self.system.addChains(chain)
-        if is_extract_coordinate:
-            self._extractCoordinates()
-        else:
-            self._guessCoordinates()
-        return self.system
-
-    def _guessCoordinates(self):
-        for i, chain in enumerate(self.system.chains):
-            init_point = np.random.random(3) + np.array([0, i*5, i*5])
-            for j, peptide in enumerate(chain.peptides):
-                ca_coord = init_point + np.array([j*CONST_CA_CA_DISTANCE, 0, 0])
-                theta = np.random.rand(1)[0] * 2*pi - pi
-                sc_coord = ca_coord + np.array([0, peptide._ca_sc_dist*cos(theta), peptide._ca_sc_dist*sin(theta)])
-                peptide.atoms[0].coordinate = ca_coord
-                peptide.atoms[1].coordinate = sc_coord
 
     def _extractCoordinate(self, atom_name, coord, _mass):
         coord_ca = coord[atom_name.index('CA')]
@@ -168,7 +164,10 @@ class PDBLoader(object):
         return coord_ca, coord_sc
 
 
-    def _extractCoordinates(self):
+    def extractCoordinates(self):
+        """
+        extractCoordinates extracts coordinate in *.pdb* to set the coordinates of ``self.system``
+        """        
         for i, chain_name in enumerate(self.chain_names):
             # Extrat each peptides' corresponding res_id in the pdb file to extract the coordinate
             res_id = self.sequence_dict[chain_name + 'res_id'] 
@@ -180,3 +179,33 @@ class PDBLoader(object):
                 coord_ca, coord_sc = self._extractCoordinate(atom_name, coord, _mass)
                 peptide.atoms[0].coordinate = coord_ca
                 peptide.atoms[1].coordinate = coord_sc
+
+    def createSystem(self, is_extract_coordinate=True):
+        """
+        createSystem creates and returns a ``System`` instance
+
+        Parameters
+        ----------
+        is_extract_coordinate : bool, optional
+            determines wether extract coordinate from *.pdb file*, by default True
+
+            - If True, calling ``self.extractCoordinates()`` to set coordinates
+            - If False, calling ``self.guessCoordinates()`` to set coordinates
+
+        Returns
+        -------
+        System
+            A ``System`` instance that has the same topology and peptide sequence with input *.pdb* file
+        """     
+        self.system = System()
+        for chain_name in self.chain_names:
+            chain = Chain()
+            sequence = self.sequence_dict[chain_name]
+            for peptide_type in sequence:
+                chain.addPeptides(Peptide(peptide_type))
+            self.system.addChains(chain)
+        if is_extract_coordinate:
+            self.extractCoordinates()
+        else:
+            self.guessCoordinates()
+        return self.system
