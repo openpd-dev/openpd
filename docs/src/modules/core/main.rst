@@ -21,7 +21,6 @@ The ``System`` is the final model that we will use to create a ``Simulation``. U
 
 .. seealso::
 
-    - :doc:`../../quick_start/intro` page
     - :doc:`../simulation` page
     - :doc:`../../tutorials/howto_createSystem/main` page
     - :doc:`../loader/main` page
