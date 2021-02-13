@@ -1,8 +1,7 @@
 from . import Chain
 from .. import CONST_CA_CA_DISTANCE
-class Topology(object):
+class Topology:
     def __init__(self) -> None:
-        super().__init__()
         self._atoms = []
         self._bonds = []
         self._angles = []

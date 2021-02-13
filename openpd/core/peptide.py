@@ -6,11 +6,20 @@ from .. import TRIPLE_LETTER_ABBREVIATION
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 template_dir = os.path.join(cur_dir, '../data/template/')
 
-class Peptide(object):
+class Peptide:
     def __init__(self, peptide_type:str, peptide_id=0, chain_id=0): 
-        super().__init__()
         """
-        __init__ generates a Peptide instance
+        Parameters
+        ----------
+
+        peptide_type : str
+            the type of peptide, both triple and single letter abbreviation of standard peptide are supported, like 'ALA'  and 'A'
+
+        peptide_id : int, optional
+            the id of peptide, by default 0
+
+        chain_id : int, optional
+            the id of parent chain, by default 0
 
         Raises
         ------
@@ -78,8 +87,6 @@ class Peptide(object):
         """
         peptide_id gets the id of peptide
 
-        Default value: ``peptide_id=0``
-
         Returns
         -------
         int
@@ -95,8 +102,6 @@ class Peptide(object):
     def chain_id(self):
         """
         chain_id gets the id of parent chain
-
-        Default value: ``chain_id=0``
 
         Returns
         -------

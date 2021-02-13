@@ -1,9 +1,16 @@
 from copy import deepcopy
 from . import Peptide
 
-class Chain(object):
+class Chain:
     def __init__(self, chain_id=0):
-        super().__init__()
+        """
+        __init__ 
+
+        Parameters
+        ----------
+        chain_id : int, optional
+            the id of chain, by default 0
+        """        
         self._chain_id = chain_id
         self._peptides = []
         self._num_atoms = 0

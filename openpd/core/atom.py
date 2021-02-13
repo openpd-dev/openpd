@@ -1,10 +1,8 @@
 import numpy as np
 
-class Atom(object):
+class Atom:
     def __init__(self, atom_type:str, mass) -> None:
         """
-        __init__ Create an Atom instance
-
         Parameters
         ----------
         atom_type : str
@@ -12,7 +10,6 @@ class Atom(object):
         mass : float
             the mass of atom
         """        
-        super().__init__()
         self._atom_type = atom_type
         self._atom_id = 0
         self._mass = mass

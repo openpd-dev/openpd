@@ -4,9 +4,8 @@ from copy import deepcopy
 from . import Chain, Topology
 from .. import isArrayEqual
 
-class System(object):
+class System:
     def __init__(self) -> None:
-        super().__init__()
         self._chains = []
         self._topology = Topology()
     
