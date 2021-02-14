@@ -1,6 +1,6 @@
 # OpenPD: Opened Peptide Dynamics python module
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 [![Build Status](https://travis-ci.org/zhenyuwei99/openpd.svg?branch=main)](https://travis-ci.org/zhenyuwei99/openpd)
 [![codecov](https://codecov.io/gh/zhenyuwei99/openpd/branch/main/graph/badge.svg?token=2O1CV31X7S)](https://codecov.io/gh/zhenyuwei99/openpd)
 [![Documentation Status](https://readthedocs.org/projects/openpd/badge/?version=latest)](https://openpd.net/en/latest/?badge=latest) 
@@ -20,7 +20,6 @@ The OpenPD distribution includes following files and folders:
 |  README   |              This file              |
 |  LICENSE  |             MIT License             |
 |   docs    |            Documentation            |
-| examples  |    Folder contains example files    |
 |  openpd   | Source code of openpd python module |
 | tutorials |  Folder contains tutorial notebook  |
 
