@@ -1,4 +1,4 @@
-# OpenPD: Opened Peptide Dynamics python module
+# OpenPD: Opened Peptide Dynamics package
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 [![Build Status](https://travis-ci.org/zhenyuwei99/openpd.svg?branch=main)](https://travis-ci.org/zhenyuwei99/openpd)
