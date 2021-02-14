@@ -5,13 +5,22 @@ notifications:
   email: true
 
 sudo: false 
+env:
+  global:
+    - CODECOV_TOKEN: cbbdc9a4-93c2-485c-b5fc-ecfb2892cf4e
 
 before_install: 
   - pip install numpy 
   - pip install pytest 
   - pip install matplotlib
+  - pip install codecov 
+  - pip install coverage
 
-install: true 
+install:
+  - python setup.py install
 
 script: 
-  - python -m openpd.runTest
+  - coverage run openpd/runTest.py
+
+after_success:
+  - codecov
