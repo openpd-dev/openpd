@@ -1,6 +1,6 @@
 # OpenPD: Opened Peptide Dynamics package
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Build Status](https://travis-ci.org/zhenyuwei99/openpd.svg?branch=main)](https://travis-ci.org/zhenyuwei99/openpd)
 [![codecov](https://codecov.io/gh/zhenyuwei99/openpd/branch/main/graph/badge.svg?token=2O1CV31X7S)](https://codecov.io/gh/zhenyuwei99/openpd)
 [![Documentation Status](https://readthedocs.org/projects/openpd/badge/?version=latest)](https://openpd.net/en/latest/?badge=latest) 
@@ -9,7 +9,7 @@
 ## Introduction
 
 OpenPD, standing for **Open** **P**eptide **D**ynamics, is a python package, distributed freely under the terms of
-**MIT** License, for peptide dynamics simulation. It was designed to simulate the folding dynamics of protein efficiently with the assistance of **P**eptide **D**ynamics **F**orce **F**ield (PDFF), which is a solvent considered, high-level coarse-grained force field focusing on the peptide interaction. 
+GNU Public License Version 3 (GPLv3), for peptide dynamics simulation. It was designed to simulate the folding dynamics of protein efficiently with the assistance of **P**eptide **D**ynamics **F**orce **F**ield (PDFF), which is a solvent considered, high-level coarse-grained force field focusing on the peptide interaction. 
 
 OpenPD is developed and maintained by Zhenyu Wei (zhenyuwei99@gmail.com), from Yunfei Chen's group in Southeast University. As a newly developed program, we always welcome developers to contact us.
 
