@@ -22,6 +22,7 @@ The OpenPD distribution includes following files and folders:
 |   docs    |            Documentation            |
 |  openpd   | Source code of openpd python module |
 | tutorials |  Folder contains tutorial notebook  |
+| setup.py  |     Build script for setuptools     |
 
 ## Need help?
 
