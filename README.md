@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/zhenyuwei99/openpd.svg?branch=main)](https://travis-ci.org/zhenyuwei99/openpd)
+[![codecov](https://codecov.io/gh/zhenyuwei99/openpd/branch/main/graph/badge.svg?token=2O1CV31X7S)](https://codecov.io/gh/zhenyuwei99/openpd)
 [![Documentation Status](https://readthedocs.org/projects/openpd/badge/?version=latest)](https://openpd.net/en/latest/?badge=latest) 
 [![PyPi Version](https://img.shields.io/pypi/v/openpd.svg)](https://pypi.org/project/openpd/) 
 
