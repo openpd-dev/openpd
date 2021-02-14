@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='openpd',
-    version='0.1.0',
+    version='0.1.1',
     author='Zhenyu Wei',
     author_email='zhenyuwei99@gmail.com',
     description='OpenPD, standing for Open Peptide Dynamics, is a python package for peptide dynamics simulation',
