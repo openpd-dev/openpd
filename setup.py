@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='openpd',
-    version='0.1.1',
+    version='0.1.2',
     author='Zhenyu Wei',
     author_email='zhenyuwei99@gmail.com',
     description='OpenPD, standing for Open Peptide Dynamics, is a python package for peptide dynamics simulation',
@@ -27,7 +27,13 @@ setup(
         "Documentation": "https://openpd.net/en/latest/",
         "Source Code": "https://github.com/zhenyuwei99/openpd",
     },
-    packages=find_packages(),  
+    packages=find_packages(), 
+    package_data = {
+        "openpd/data": [
+            "*.npy",
+            "*.json"
+        ]
+    }
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     install_requires=[
