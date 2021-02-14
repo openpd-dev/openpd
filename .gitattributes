@@ -1,2 +1,3 @@
 # Ignore code in tutorials
+*.ipynb  linguist-vendored=true
 tutorials/* linguist-vendored=true 
