@@ -1,2 +1,2 @@
 # Ignore code in tutorials
-tutorials/*
+tutorials/* linguist-vendored=true 
