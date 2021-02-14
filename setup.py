@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='openpd',
-    version='0.1.2',
+    version='0.2.3',
     author='Zhenyu Wei',
     author_email='zhenyuwei99@gmail.com',
     description='OpenPD, standing for Open Peptide Dynamics, is a python package for peptide dynamics simulation',
@@ -20,18 +20,21 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.9'
     ],
     url='https://openpd.net/en/latest/',
     project_urls={
         "Documentation": "https://openpd.net/en/latest/",
         "Source Code": "https://github.com/zhenyuwei99/openpd",
     },
-    packages=find_packages(), 
-    package_data = {
-        "openpd/data": [
-            "*.npy",
-            "*.json"
+    packages=find_packages(),
+    package_data={
+        "openpd": [
+            "data/template/*.json", 
+            "data/pdff/nonbonded/*.npy",
+            "data/pdff/torsion/*.npy",
+            "tests/data/*.pdb",
+            "tests/data/*.json"
         ]
     },
     setup_requires=['pytest-runner'],
