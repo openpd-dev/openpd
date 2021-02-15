@@ -53,6 +53,7 @@ def test_isArrayAlmostEqual():
     list2 = [1e-6, 2, 3, 4.5, 6]
     list3 = [1e-4, 2, 3, 4.5, 6]
     list4 = [0.1, 2, 3, 4.5, 6]
+    list5 = [0.1, 2, 3]
     assert isArrayAlmostEqual(list1, list2)
     assert isArrayAlmostEqual(np.array(list1), list2)
     assert isArrayAlmostEqual(list1, np.array(list2))
@@ -67,3 +68,8 @@ def test_isArrayAlmostEqual():
     assert isArrayAlmostEqual(np.array(list1), list4, 0.1)
     assert isArrayAlmostEqual(list1, np.array(list4), 0.1)
     assert isArrayAlmostEqual(np.array(list1), np.array(list4), 0.1)
+
+    assert not isArrayAlmostEqual(list1, list5)
+    assert not isArrayAlmostEqual(np.array(list1), list5)
+    assert not isArrayAlmostEqual(list1, np.array(list5))
+    assert not isArrayAlmostEqual(np.array(list1), np.array(list5))
