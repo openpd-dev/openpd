@@ -4,10 +4,23 @@ def findFirst(target, goal):
             return i
     return -1
 
+def findFirstLambda(judgement, goal):
+    for i, j in enumerate(goal):
+        if judgement(j):
+            return i
+    return -1
+
 def findAll(target, goal):
     res = []
     for i, j in enumerate(goal):
         if j == target:
+            res.append(i)
+    return res
+
+def findAllLambda(judgement, goal):
+    res = []
+    for i, j in enumerate(goal):
+        if judgement(j):
             res.append(i)
     return res
 

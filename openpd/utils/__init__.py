@@ -7,11 +7,11 @@ __license__ = "GPLv3"
 from .geometry import getBond, getAngle, getTorsion
 from .judgement import isAlmostEqual, isArrayEqual, isArrayAlmostEqual
 from .unique import uniqueList, mergeSameNeighbor
-from .locate import findFirst, findAll, binarySearch
+from .locate import findFirst, findFirstLambda, findAll, findAllLambda, binarySearch
 
 __all__ = [
     'getBond', 'getAngle', 'getTorsion',
     'isAlmostEqual', 'isArrayEqual', 'isArrayAlmostEqual',
     'uniqueList', 'mergeSameNeighbor',
-    'findFirst', 'findAll', 'binarySearch'
+    'findFirst', 'findFirstLambda', 'findAll', 'findAllLambda', 'binarySearch'
 ]
