@@ -32,6 +32,9 @@ class TestQuantity:
         assert 1 * nanometer == 10 * angstrom
         assert not 1 * nanometer == 1 * nanosecond
 
+        assert 1 * nanometer == 1
+        assert 1 * nanometer != 10
+
     def test_add(self):
         # __add__
         quantity = np.array([1, 2, 3, 4]) * angstrom

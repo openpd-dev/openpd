@@ -21,7 +21,7 @@ class TestUnit:
             self.unit.base_dimension = 1
 
         with pytest.raises(AttributeError):
-            self.unit.relative_value = 1
+            self.unit.relative_value = 1        
 
     def test_isDimensionLess(self):
         assert not self.unit.isDimensionLess()

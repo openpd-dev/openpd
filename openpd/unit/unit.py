@@ -1,3 +1,4 @@
+import numpy as np
 from copy import deepcopy
 from . import BaseDimension
 from .. import isAlmostEqual
@@ -150,7 +151,7 @@ class Unit:
             )
 
     def __pow__(self, value):
-        if isinstance(value, list):
+        if isinstance(value, list) or isinstance(value, np.ndarray):
             raise ValueError('The power term should be a single number')
         res = Unit(BaseDimension(), 1)
         if value > 0:
