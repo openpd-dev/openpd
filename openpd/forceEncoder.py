@@ -30,7 +30,7 @@ class ForceEncoder(object):
         self.ensemble = Ensemble()
         non_bonded_force = self._createNonBondedForce()
         bond_force = self._createBondForce()
-        torsion_force = self._createTorsionForce()
+        #torsion_force = self._createTorsionForce()
 
         self.ensemble.addForces(non_bonded_force, bond_force, torsion_force)
 
@@ -39,7 +39,7 @@ class ForceEncoder(object):
     def _createNonBondedForce(self):
         force = PDFFNonbondedForce(self._cutoff_radius)
         force.addPeptides(*self.system.peptides)
-        force.setEnergyTensor()
+        force.setEnergyMatrix()
         return force
 
     def _createBondForce(self):
@@ -50,7 +50,7 @@ class ForceEncoder(object):
     def _createTorsionForce(self):
         force = PDFFTorsionForce()
         force.addTorsions(*self.system.topology.torsions)
-        force.setEnergyArray()
+        force.setEnergyVector()
         return force
 
     @property

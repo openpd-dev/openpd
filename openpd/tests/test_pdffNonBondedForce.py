@@ -1,12 +1,12 @@
 import pytest, os
 import numpy as np
-from .. import PDFFNonbondedForce, Peptide, isArrayEqual
-from ..force.pdffNonBondedForce import CONSTANT_ENERGY_VECTOR_LENGTH
+from .. import PDFFNonBondedForceField, PDFFNonbondedForce, Peptide
+from .. import isArrayEqual, isAlmostEqual, findFirstLambda, findAllLambda
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/nonbonded')
 
-class TestNonBondedForce:
+class TestPDFFNonBondedForce:
     def setup(self):
         self.force = PDFFNonbondedForce()
 
@@ -19,9 +19,9 @@ class TestNonBondedForce:
 
         assert self.force.cutoff_radius == 12
 
-        assert self.force.energy_tensor == None
+        assert self.force.energy_matrix == None
 
-        energy_coordinate = np.load(os.path.join(force_field_dir, 'coord.npy'))
+        energy_coordinate = np.linspace(0, 30, 601)
         assert isArrayEqual(self.force.energy_coordinate, energy_coordinate)
 
     def test_exceptions(self):
@@ -35,7 +35,7 @@ class TestNonBondedForce:
             self.force.cutoff_radius = 1
 
         with pytest.raises(AttributeError):
-            self.force.energy_tensor = 1
+            self.force.energy_matrix = 1
         
         with pytest.raises(AttributeError):
             self.force.energy_coordinate = 1
@@ -44,51 +44,71 @@ class TestNonBondedForce:
         with pytest.raises(AttributeError):
             self.force.setEnergyTensor()
 
-    def test_loadEnergyVector(self):
-        energy_vector = np.load(os.path.join(force_field_dir, 'ASN-ASP.npy'))
+    def test_loadForceField(self):
+        force_field = self.force.loadForceField('ASN', 'ASP')
+        origin_data = np.load(os.path.join(force_field_dir, 'ASN-ASP.npy'))
+        origin_coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
 
-        assert energy_vector.shape[0] == CONSTANT_ENERGY_VECTOR_LENGTH
+        assert force_field.target_data[findFirstLambda(lambda x: x<2.01 and x >1.99, force_field.target_coord)] == pytest.approx(force_field.getInterpolate()(2))
+        assert isAlmostEqual(
+            origin_data[findFirstLambda(lambda x: x<5.05 and x >4.95, origin_coord)],
+            force_field.getInterpolate()(origin_coord[findFirstLambda(lambda x: x<5.05 and x >4.95, origin_coord)]), 5e-2
+        )
 
-        assert isArrayEqual(self.force.loadEnergyVector(Peptide('ASN'), Peptide('ASP')), 
-            energy_vector)
+        for i in findAllLambda(lambda x: x>12, force_field.target_coord):
+            assert force_field.target_data[i] == 0
 
-        assert isArrayEqual(self.force.loadEnergyVector(Peptide('ASP'), Peptide('ASN')), 
-            energy_vector)
+        # Test reverse order
+        force_field = self.force.loadForceField('ASP', 'ASN')
+        origin_data = np.load(os.path.join(force_field_dir, 'ASN-ASP.npy'))
+
+        assert force_field.target_data[findFirstLambda(lambda x: x<2.01 and x >1.99, force_field.target_coord)] == pytest.approx(force_field.getInterpolate()(2))
+        assert isAlmostEqual(
+            force_field.getInterpolate()(origin_coord[findFirstLambda(lambda x: x<5.05 and x >4.95, origin_coord)]), 
+            origin_data[findFirstLambda(lambda x: x<5.05 and x >4.95, origin_coord)], 5e-2
+        )
+
+        for i in findAllLambda(lambda x: x>12, force_field.target_coord):
+            assert force_field.target_data[i] == 0
 
         with pytest.raises(ValueError):
-            self.force.loadEnergyVector(Peptide('ASN'), Peptide('ALA'))
+            self.force.loadForceField(Peptide('ASN'), Peptide('ALA'))
 
     def test_addPeptide(self):
         self.force._addPeptide(Peptide('ASN'))
 
         assert self.force.num_peptides == 1
 
-    def test_setEnergyTensor(self):
+    def test_setEnergyMatrix(self):
+        self.force._addPeptide(Peptide('ASN'))
+
+        with pytest.raises(AttributeError):
+            self.force.setEnergyMatrix()
+
+        self.force._addPeptide(Peptide('LEU'))
+        self.force._addPeptide(Peptide('TYR'))
+        self.force.setEnergyMatrix()
+        asn_leu_energy_vector = np.load(os.path.join(force_field_dir, 'ASN-LEU.npy'))
+        origin_coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
+
+        assert self.force.energy_matrix[0, 0](19) == pytest.approx(0)
+        assert self.force.energy_matrix[1, 0](2) == self.force.energy_matrix[0][1](2)
+        assert isAlmostEqual(
+            self.force.energy_matrix[0, 1](origin_coord[findFirstLambda(lambda x: x<3.05 and x >2.95, origin_coord)]), 
+            asn_leu_energy_vector[findFirstLambda(lambda x: x<3.05 and x >2.95, origin_coord)], 1e-2
+        )
+
         self.force._addPeptide(Peptide('ASN'))
         self.force._addPeptide(Peptide('LEU'))
         self.force._addPeptide(Peptide('TYR'))
-        self.force.setEnergyTensor()
-        asn_leu_energy_vector = np.load(os.path.join(force_field_dir, 'ASN-LEU.npy'))
+        self.force.setEnergyMatrix()
 
-        assert self.force.energy_tensor.shape[0] == 3
-        assert self.force.energy_tensor.shape[1] == 3
-        assert self.force.energy_tensor.shape[2] == CONSTANT_ENERGY_VECTOR_LENGTH
-        assert isArrayEqual(self.force.energy_tensor[0, 0, :], np.zeros(CONSTANT_ENERGY_VECTOR_LENGTH))
-        assert isArrayEqual(self.force.energy_tensor[1, 2, :], self.force.energy_tensor[2, 1, :])
-        assert isArrayEqual(self.force.energy_tensor[0, 1, :], asn_leu_energy_vector)
-
-        self.force._addPeptide(Peptide('ASN'))
-        self.force._addPeptide(Peptide('LEU'))
-        self.force._addPeptide(Peptide('TYR'))
-        self.force.setEnergyTensor()
-        asn_leu_energy_vector = np.load(os.path.join(force_field_dir, 'ASN-LEU.npy'))
-
-        assert self.force.energy_tensor.shape[0] == 6
-        assert self.force.energy_tensor.shape[1] == 6
-        assert self.force.energy_tensor.shape[2] == CONSTANT_ENERGY_VECTOR_LENGTH
-        assert isArrayEqual(self.force.energy_tensor[3, 3, :], np.zeros(CONSTANT_ENERGY_VECTOR_LENGTH))
-        assert isArrayEqual(self.force.energy_tensor[4, 5, :], self.force.energy_tensor[5, 4, :])
-        assert isArrayEqual(self.force.energy_tensor[3, 4, :], asn_leu_energy_vector)
+        assert self.force.energy_matrix[4, 4](19) == pytest.approx(0)
+        assert self.force.energy_matrix[4, 3](2) == self.force.energy_matrix[3][4](2)
+        assert isAlmostEqual(
+            self.force.energy_matrix[3, 4](origin_coord[findFirstLambda(lambda x: x<3.05 and x >2.95, origin_coord)]), 
+            asn_leu_energy_vector[findFirstLambda(lambda x: x<3.05 and x >2.95, origin_coord)], 1e-2
+        )
 
     def test_addPeptides(self):
         self.force.addPeptides(Peptide('ASN'), Peptide('LEU'))
@@ -100,21 +120,54 @@ class TestNonBondedForce:
         leu_leu_energy_vector = np.load(os.path.join(force_field_dir, 'LEU-LEU.npy'))
 
         assert self.force.num_peptides == 4
-        self.force.setEnergyTensor()
-        assert isArrayEqual(self.force.energy_tensor[3, 3, :], np.zeros(CONSTANT_ENERGY_VECTOR_LENGTH))
-        assert isArrayEqual(self.force.energy_tensor[0, 3, :], asn_leu_energy_vector)
-        assert isArrayEqual(self.force.energy_tensor[3, 1, :], leu_leu_energy_vector)
+        self.force.setEnergyMatrix()
 
     # todo: test_calculateEnergy
     def test_calculateEnergy(self):
         peptide1 = Peptide('ASN', 0)
-        peptide1.atoms[0].coordinate = [2, 1, 1]
+        peptide1.atoms[1].coordinate = [3, 1, 1]
         peptide2 = Peptide('ASP', 1)
-        peptide2.atoms[0].coordinate = [0, 0, 0]
-        self.force.addPeptides(peptide1, peptide2)
-        self.force.setEnergyTensor()
-        # print(self.force.calculateEnergy(0, 1))
+        peptide2.atoms[1].coordinate = [0, 0, 0]
+        peptide3 = Peptide('ASN', 2)
+        peptide3.atoms[1].coordinate = [6, 1, 1]
+        self.force.addPeptides(peptide1, peptide2, peptide3)
+        self.force.setEnergyMatrix()
+        asn_asp_force_field = PDFFNonBondedForceField('ASN', 'ASP', np.linspace(0, 30, 601))
+        asn_asn_force_field = PDFFNonBondedForceField('ASN', 'ASN', np.linspace(0, 30, 601))
+        assert self.force.calculateEnergy(0, 1) == pytest.approx(asn_asp_force_field.getInterpolate()(np.sqrt(11)))
+        assert self.force.calculateEnergy(0, 2) == pytest.approx(asn_asn_force_field.getInterpolate()(3))
+
+    def test_calculateTotalEnergy(self):
+        peptide1 = Peptide('ASN', 0)
+        peptide1.atoms[1].coordinate = [3, 1, 1]
+        peptide2 = Peptide('ASP', 1)
+        peptide2.atoms[1].coordinate = [0, 0, 0]
+        peptide3 = Peptide('ASN', 2)
+        peptide3.atoms[1].coordinate = [6, 1, 1]
+        self.force.addPeptides(peptide1, peptide2, peptide3)
+        self.force.setEnergyMatrix()
+        asn_asp_force_field = PDFFNonBondedForceField('ASN', 'ASP', np.linspace(0, 30, 601))
+        asn_asn_force_field = PDFFNonBondedForceField('ASN', 'ASN', np.linspace(0, 30, 601))
+        assert self.force.calculateTotalEnergy() == pytest.approx(
+            asn_asp_force_field.getInterpolate()(np.sqrt(11)) +
+            asn_asn_force_field.getInterpolate()(3) + 
+            asn_asp_force_field.getInterpolate()(np.sqrt(38))
+        )
+        assert self.force.total_energy == pytest.approx(
+            asn_asp_force_field.getInterpolate()(np.sqrt(11)) +
+            asn_asn_force_field.getInterpolate()(3) + 
+            asn_asp_force_field.getInterpolate()(np.sqrt(38))
+        )
 
     # todo: test_calculateForce
     def test_calculateForce(self):
-        pass
+        peptide1 = Peptide('ASN', 0)
+        peptide1.atoms[1].coordinate = [3.3, 0, 0]
+        peptide2 = Peptide('ASP', 1)
+        peptide2.atoms[1].coordinate = [0, 0, 0]
+        self.force.addPeptides(peptide1, peptide2)
+        self.force.setEnergyMatrix()
+        assert self.force.calculateForce(0, 1).value < 0
+
+        peptide1.atoms[1].coordinate = [2.3, 0, 0]
+        assert self.force.calculateForce(0, 1).value > 0

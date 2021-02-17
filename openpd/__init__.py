@@ -36,10 +36,12 @@ from openpd.utils import *
 from openpd.core import Topology, Atom, Peptide, Chain, System
 from openpd.loader import Loader, PDBLoader, SequenceLoader
 
-from openpd.force import Force, PDFFNonbondedForce, PDFFTorsionForce, RigidBondForce
+from openpd.force import Force, RigidBondForce
+from openpd.force import PDFFNonBondedForceField, PDFFNonbondedForce
+from openpd.force import PDFFTorsionForceField, PDFFTorsionForce
+
 from openpd.ensemble import Ensemble
 from openpd.forceEncoder import ForceEncoder
-
 from openpd.integrator import BrownianIntegrator
 from openpd.simulation import Simulation
 from openpd.dumper import PDBDumper
@@ -49,7 +51,9 @@ from openpd.visualizer import SystemVisualizer
 __all__ = [
     'Topology', 'Atom', 'Peptide', 'Chain', 'System',
     'PDBLoader', 'SequenceLoader',
-    'PDFFNonbondedForce', 'RigidBondForce', 'PDFFTorsionForce',
+    'Force', 'RigidBondForce', 
+    'PDFFNonBondedForceField', 'PDFFNonbondedForce',
+    'PDFFTorsionForceField', 'PDFFTorsionForce',
     'ForceEncoder',
     'Ensemble',
     'BrownianIntegrator',

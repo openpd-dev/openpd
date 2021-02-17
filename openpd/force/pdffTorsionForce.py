@@ -1,10 +1,44 @@
 import os
 import numpy as np
+from numpy import pi 
+from scipy.interpolate import interp1d
 from . import Force
+from .. import getTorsion
+from ..unit import *
 
-CONSTANT_ENERGY_VECTOR_LENGTH = 280
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
-pdff_torison_dir = os.path.join(cur_dir, '../data/pdff/torsion')
+force_field_dir = os.path.join(cur_dir, '../data/pdff/torsion')
+
+class PDFFTorsionForceField:
+    def __init__(
+        self, peptide_type1, peptide_type2, 
+        target_coord=np.linspace(-pi, pi, 600)
+    ): 
+        self._name = peptide_type1 + '-' + peptide_type2
+        self._target_coord = target_coord
+
+        self._origin_coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
+        self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npy'))
+        self.guessData()
+
+    def guessData(self):
+        f = interp1d(self._origin_coord, self._origin_data, kind='cubic')
+        self._target_data = f(self._target_coord)
+
+    def getInterpolate(self):
+        return interp1d(self._target_coord, self._target_data, kind='cubic')
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def target_coord(self):
+        return self._target_coord
+
+    @property
+    def target_data(self):
+        return self._target_data
 
 class PDFFTorsionForce(Force):
     def __init__(self, force_id=0, force_group=0) -> None:
@@ -12,7 +46,7 @@ class PDFFTorsionForce(Force):
         self._num_torsions = 0
         self._torsions = []
         self._torison_types = [] # This store the type of torsion like ASN-ASP
-        self._energy_coordinate = np.load(os.path.join(pdff_torison_dir, 'coord.npy'))
+        self._energy_coordinate = np.load(os.path.join(force_field_dir, 'coord.npy'))
         self._energy_array = None
 
     def _addTorsion(self, torsion):
@@ -26,30 +60,52 @@ class PDFFTorsionForce(Force):
         for torsion in torsions:
             self._addTorsion(torsion)
 
-    @staticmethod
-    def loadEnergyVector(peptide_type1, peptide_type2):
+    def loadForceField(self, peptide_type1, peptide_type2):
         try:
-            return np.load(os.path.join(pdff_torison_dir, 
-                '%s-%s.npy' %(peptide_type1, peptide_type2)))
+            return PDFFTorsionForceField(peptide_type1, peptide_type2, self._energy_coordinate)
         except:
             try:
-                return np.load(os.path.join(pdff_torison_dir, 
-                    '%s-%s.npy' %(peptide_type2, peptide_type1)))
+                return PDFFTorsionForceField(peptide_type2, peptide_type1, self._energy_coordinate)
             except:
-                raise ValueError('%s-%s interaction is not contained in %s' 
-                %(peptide_type1, peptide_type2, pdff_torison_dir))
+                raise ValueError(
+                    '%s-%s interaction is not contained in %s' 
+                    %(peptide_type1, peptide_type2, force_field_dir)    
+                )
 
-    def setEnergyArray(self):
-        self._energy_array = np.zeros([self._num_torsions, CONSTANT_ENERGY_VECTOR_LENGTH])
-        for i, torison in enumerate(self._torison_types):
-            self._energy_array[i, :] = self.loadEnergyVector(torison[0], torison[1])
+    def setEnergyVector(self):
+        if self._num_torsions < 1:
+            raise AttributeError(
+                'Only %d torsions in force object, cannot form a energy matrix'
+                %(self._num_torsions)
+            )
+        self._energy_vector = np.zeros(self._num_torsions, dtype=interp1d)
+        for i, torison_type in enumerate(self._torison_types):
+            self._energy_vector[i] = self.loadForceField(torison_type[0], torison_type[1]).getInterpolate()
 
     # todo: calculateEnergy, calculateForce
-    def calculateEnergy(self):
-        pass
+    def calculateEnergy(self, torsion_id):
+        return self._energy_vector[torsion_id](
+            getTorsion(
+                self.torsions[0].coordinate, 
+                self.torsions[1].coordinate, 
+                self.torsions[2].coordinate, 
+                self.torsions[3].coordinate
+            )
+        ) * kilojoule_permol
 
-    def calculateForce(self):
-        pass
+    def calculateForce(self, torsion_id, derivative_width=0.0001):
+        torsion_angle = getTorsion(
+                self.torsions[0].coordinate, 
+                self.torsions[1].coordinate, 
+                self.torsions[2].coordinate, 
+                self.torsions[3].coordinate
+        )
+        # Fixme: The unit derivation of torsion energy
+        return (
+            -(self._energy_vector[torsion_id](torsion_angle+derivative_width)
+            - self._energy_vector[torsion_id](torsion_angle-derivative_width)) / (2*derivative_width)
+            * kilojoule_permol / angstrom
+        )
 
     @property
     def num_torsions(self):

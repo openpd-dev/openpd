@@ -1,18 +1,17 @@
-'''
-Author: your name
-Date: 2021-01-31 21:45:01
-LastEditTime: 2021-01-31 21:45:10
-LastEditors: Please set LastEditors
-Description: In User Settings Edit
-FilePath: /openpd/openpd/force/__init__.py
-'''
+__author__ = "Zhenyu Wei"
+__maintainer__ = "Zhenyu Wei" 
+__email__ = "zhenyuwei99@gmail.com"
+__copyright__ = "Copyright 2021-2021, Southeast University and Zhenyu Wei"
+__license__ = "GPLv3"
+
 from .force import Force
 from .rigidBondForce import RigidBondForce
-from .pdffNonBondedForce import PDFFNonbondedForce
-from .pdffTorsionForce import PDFFTorsionForce
+from .pdffNonBondedForce import PDFFNonBondedForceField, PDFFNonbondedForce
+from .pdffTorsionForce import PDFFTorsionForceField, PDFFTorsionForce
 
 __all__ = [
     'Force', 
     'RigidBondForce',
-    'PDFFNonbondedForce', 'PDFFTorsionForce'
+    'PDFFNonBondedForceField', 'PDFFNonbondedForce', 
+    'PDFFTorsionForceField', 'PDFFTorsionForce'
 ]
