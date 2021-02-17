@@ -30,7 +30,7 @@ class ForceEncoder(object):
         self.ensemble = Ensemble()
         non_bonded_force = self._createNonBondedForce()
         bond_force = self._createBondForce()
-        #torsion_force = self._createTorsionForce()
+        torsion_force =  PDFFTorsionForce()#self._createTorsionForce()
 
         self.ensemble.addForces(non_bonded_force, bond_force, torsion_force)
 
