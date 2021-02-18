@@ -164,6 +164,14 @@ class Unit:
         return res
 
     def sqrt(self):
+        """
+        sqrt returns square root of Unit
+
+        Returns
+        -------
+        Unit
+            square root of ``self``
+        """        
         return Unit(
             self._base_dimension.sqrt(),
             sqrt(self._relative_value)

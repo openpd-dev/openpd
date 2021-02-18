@@ -166,6 +166,14 @@ class BaseDimension:
         )
 
     def sqrt(self):
+        """
+        sqrt returns square root of Quantity
+
+        Returns
+        -------
+        Unit
+            square root of ``self``
+        """   
         return BaseDimension(
             self._length_dimension / 2,
             self._time_dimension / 2,

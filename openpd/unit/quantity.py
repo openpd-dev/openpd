@@ -256,6 +256,14 @@ class Quantity:
         return res.judgeAndReturn()
 
     def sqrt(self):
+        """
+        sqrt returns square root of Quantity
+
+        Returns
+        -------
+        Unit
+            square root of ``self``
+        """   
         return Quantity(
             sqrt(self.value),
             self.unit.sqrt()
