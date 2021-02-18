@@ -119,10 +119,10 @@ class PDFFNonbondedForce(Force):
         return self._energy_matrix[peptide_id1, peptide_id2](
             getBond(
                 self.peptides[peptide_id1].atoms[1].coordinate, self.peptides[peptide_id2].atoms[1].coordinate
-            )
+            ) / angstrom
         ) * kilojoule_permol
 
-    def calculateTotalEnergy(self):
+    def calculatePotentialEnergy(self):
         self._total_energy = 0
         for i in range(self._num_peptides):
             for j in range(i+1, self._num_peptides):
@@ -132,7 +132,7 @@ class PDFFNonbondedForce(Force):
     def calculateForce(self, peptide_id1, peptide_id2, derivative_width=0.0001):
         bond_length = getBond(
                 self.peptides[peptide_id1].atoms[1].coordinate, self.peptides[peptide_id2].atoms[1].coordinate
-            )
+            ) / angstrom
         return (
             -(self._energy_matrix[peptide_id1, peptide_id2](bond_length+derivative_width)
             - self._energy_matrix[peptide_id1, peptide_id2](bond_length-derivative_width)) / (2*derivative_width)
@@ -160,6 +160,6 @@ class PDFFNonbondedForce(Force):
         return self._energy_coordinate
     
     @property
-    def total_energy(self):
-        self.calculateTotalEnergy()
+    def potential_energy(self):
+        self.calculatePotentialEnergy()
         return self._total_energy

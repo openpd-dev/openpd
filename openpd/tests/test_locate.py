@@ -1,7 +1,5 @@
 import numpy as np
-from .. import isArrayEqual
-
-from .. import findFirst, findFirstLambda, findAll, findAllLambda, binarySearch
+from .. import isArrayEqual, findFirst, findFirstLambda, findAll, findAllLambda, binarySearch
 
 def test_findFirst():
     goal = [1, 2, 3, 4]

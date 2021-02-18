@@ -95,6 +95,9 @@ class TestPDFFTorsionForce:
     def test_calculateEnergy(self):
         pass
 
+    def test_calculatePotentialEnergy(self):
+        pass
+
     # todo: test_calculateForce
     def test_calculateForce(self):
         pass
