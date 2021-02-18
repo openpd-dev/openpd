@@ -1,5 +1,6 @@
 import numpy as np
 from copy import deepcopy
+from math import sqrt
 from . import BaseDimension
 from .. import isAlmostEqual
 
@@ -161,6 +162,12 @@ class Unit:
             for _ in range(abs(value)):
                 res /= self
         return res
+
+    def sqrt(self):
+        return Unit(
+            self._base_dimension.sqrt(),
+            sqrt(self._relative_value)
+        )
             
     @property
     def unit_name(self):

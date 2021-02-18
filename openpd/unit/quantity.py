@@ -1,5 +1,6 @@
 import numpy as np
 from copy import deepcopy
+from math import sqrt
 from . import BaseDimension, Unit
 from .. import isAlmostEqual
 
@@ -253,3 +254,9 @@ class Quantity:
             for _ in range(abs(value)):
                 res /= self
         return res.judgeAndReturn()
+
+    def sqrt(self):
+        return Quantity(
+            sqrt(self.value),
+            self.unit.sqrt()
+        )

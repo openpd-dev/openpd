@@ -77,3 +77,12 @@ class TestUnit:
         assert angstrom == angstrom**1
         assert constant == angstrom**0
         assert angstrom_reciprocal == angstrom**-1
+
+    def test_sqrt(self):
+        angstrom_reciprocal = Unit(BaseDimension(length_dimension=-1), 1e10)
+        angstrom_reciprocal_square = Unit(BaseDimension(length_dimension=-2), 1e20)
+        angstrom = Unit(BaseDimension(length_dimension=1), 1e-10)
+        angstrom_square = Unit(BaseDimension(length_dimension=2), 1e-20)
+
+        assert angstrom_reciprocal_square.sqrt() == angstrom_reciprocal
+        assert angstrom_square.sqrt() == angstrom

@@ -380,4 +380,9 @@ class TestQuantity:
         assert quantity[0] == 1  * angstrom**-2
         assert quantity[-1] == 1/16 * angstrom**-2
 
+    def test_sqrt(self):
+        quantity = np.array([1, 2, 3, 4]) * angstrom
+        quantity = np.sqrt(quantity)
+        assert quantity[0] == 1 * angstrom.sqrt()
+        assert quantity[-1] == 2 * angstrom.sqrt()
 

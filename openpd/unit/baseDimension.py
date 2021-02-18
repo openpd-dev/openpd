@@ -165,6 +165,16 @@ class BaseDimension:
             self._mol_dimension * value
         )
 
+    def sqrt(self):
+        return BaseDimension(
+            self._length_dimension / 2,
+            self._time_dimension / 2,
+            self._mass_dimension / 2,
+            self._temperature_dimension / 2,
+            self._charge_dimension / 2,
+            self._mol_dimension / 2
+        )
+
     def isDimensionLess(self):
         """
         isDimensionLess judges wether ``self`` is a dimensionless
