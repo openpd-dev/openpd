@@ -1,6 +1,9 @@
 # MacOs dsstore
 .DS_Store
 
+# developing folder
+developing/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
