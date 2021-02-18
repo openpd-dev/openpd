@@ -154,14 +154,10 @@ class Unit:
     def __pow__(self, value):
         if isinstance(value, list) or isinstance(value, np.ndarray):
             raise ValueError('The power term should be a single number')
-        res = Unit(BaseDimension(), 1)
-        if value > 0:
-            for _ in range(value):
-                res *= self
-        elif value < 0:
-            for _ in range(abs(value)):
-                res /= self
-        return res
+        return Unit(
+            self._base_dimension**value,
+            self._relative_value**value
+        )
 
     def sqrt(self):
         """

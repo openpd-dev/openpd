@@ -246,14 +246,12 @@ class Quantity:
             ).judgeAndReturn()
 
     def __pow__(self, value):
-        res = Quantity(1, Unit(BaseDimension(), 1)) # result of **0
-        if value > 0:
-            for _ in range(value):
-                res *= self
-        elif value < 0:
-            for _ in range(abs(value)):
-                res /= self
-        return res.judgeAndReturn()
+        if isinstance(value, list) or isinstance(value, np.ndarray):
+            raise ValueError('The power term should be a single number')
+        return Quantity(
+            self.value**value,
+            self.unit**value
+        ).judgeAndReturn()
 
     def sqrt(self):
         """
@@ -267,4 +265,4 @@ class Quantity:
         return Quantity(
             sqrt(self.value),
             self.unit.sqrt()
-        )
+        ).judgeAndReturn()
