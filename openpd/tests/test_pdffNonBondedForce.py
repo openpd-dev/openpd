@@ -137,7 +137,7 @@ class TestPDFFNonBondedForce:
         assert self.force.calculateEnergy(0, 1) == pytest.approx(asn_asp_force_field.getInterpolate()(np.sqrt(11)))
         assert self.force.calculateEnergy(0, 2) == pytest.approx(asn_asn_force_field.getInterpolate()(3))
 
-    def test_calculateTotalEnergy(self):
+    def test_calculatePotentialEnergy(self):
         peptide1 = Peptide('ASN', 0)
         peptide1.atoms[1].coordinate = [3, 1, 1]
         peptide2 = Peptide('ASP', 1)
@@ -148,12 +148,12 @@ class TestPDFFNonBondedForce:
         self.force.setEnergyMatrix()
         asn_asp_force_field = PDFFNonBondedForceField('ASN', 'ASP', np.linspace(0, 30, 601))
         asn_asn_force_field = PDFFNonBondedForceField('ASN', 'ASN', np.linspace(0, 30, 601))
-        assert self.force.calculateTotalEnergy() == pytest.approx(
+        assert self.force.calculatePotentialEnergy() == pytest.approx(
             asn_asp_force_field.getInterpolate()(np.sqrt(11)) +
             asn_asn_force_field.getInterpolate()(3) + 
             asn_asp_force_field.getInterpolate()(np.sqrt(38))
         )
-        assert self.force.total_energy == pytest.approx(
+        assert self.force.potential_energy == pytest.approx(
             asn_asp_force_field.getInterpolate()(np.sqrt(11)) +
             asn_asn_force_field.getInterpolate()(3) + 
             asn_asp_force_field.getInterpolate()(np.sqrt(38))

@@ -1,5 +1,4 @@
 import pytest
-from math import sqrt
 from ..unit import BaseDimension
 
 class TestUnit:
