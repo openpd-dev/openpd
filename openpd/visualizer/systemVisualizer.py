@@ -27,11 +27,15 @@ class SystemVisualizer(object):
         for peptide in self.system.peptides:
             color.extend(['navy', 'brown'])
         ax.scatter3D(
-            self.system.coordinate[0::2, 0], self.system.coordinate[0::2, 1], self.system.coordinate[0::2, 2], 
+            [i.value for i in self.system.coordinate[0::2, 0]], 
+            [i.value for i in self.system.coordinate[0::2, 1]], 
+            [i.value for i in self.system.coordinate[0::2, 2]], 
             '.', c='navy', s=atom_size, edgecolors='face', label='\nCa\n'
         )
         ax.scatter3D(
-            self.system.coordinate[1::2, 0], self.system.coordinate[1::2, 1], self.system.coordinate[1::2, 2], 
+            [i.value for i in self.system.coordinate[1::2, 0]], 
+            [i.value for i in self.system.coordinate[1::2, 1]], 
+            [i.value for i in self.system.coordinate[1::2, 2]], 
             '.', c='brown', s=atom_size, edgecolors='face',  label='\nSide chain center  \n'
         )
         # bond_x = []
@@ -41,9 +45,9 @@ class SystemVisualizer(object):
             # bond_x.extend([bond[0].coordinate[0], bond[1].coordinate[0]])
             # bond_y.extend([bond[0].coordinate[1], bond[1].coordinate[1]])
             # bond_z.extend([bond[0].coordinate[2], bond[1].coordinate[2]])
-            ax.plot3D([bond[0].coordinate[0], bond[1].coordinate[0]],
-                    [bond[0].coordinate[1], bond[1].coordinate[1]],
-                    [bond[0].coordinate[2], bond[1].coordinate[2]], 
+            ax.plot3D([bond[0].coordinate[0].value, bond[1].coordinate[0].value],
+                    [bond[0].coordinate[1].value, bond[1].coordinate[1].value],
+                    [bond[0].coordinate[2].value, bond[1].coordinate[2].value], 
                     c='teal', lw=bond_width)
         # ax.plot3D(bond_x, bond_y, bond_z, c='teal', lw=bond_width, label='bond')
         if is_legend:
