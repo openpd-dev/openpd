@@ -1,7 +1,7 @@
 import numpy as np
 from copy import deepcopy
 from math import sqrt
-from . import BaseDimension, Unit
+from . import Unit
 from .. import isAlmostEqual
 
 class Quantity:
