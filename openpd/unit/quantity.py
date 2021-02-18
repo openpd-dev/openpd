@@ -1,5 +1,6 @@
 import numpy as np
 from copy import deepcopy
+from math import sqrt
 from . import BaseDimension, Unit
 from .. import isAlmostEqual
 
@@ -245,11 +246,23 @@ class Quantity:
             ).judgeAndReturn()
 
     def __pow__(self, value):
-        res = Quantity(1, Unit(BaseDimension(), 1)) # result of **0
-        if value > 0:
-            for _ in range(value):
-                res *= self
-        elif value < 0:
-            for _ in range(abs(value)):
-                res /= self
-        return res.judgeAndReturn()
+        if isinstance(value, list) or isinstance(value, np.ndarray):
+            raise ValueError('The power term should be a single number')
+        return Quantity(
+            self.value**value,
+            self.unit**value
+        ).judgeAndReturn()
+
+    def sqrt(self):
+        """
+        sqrt returns square root of Quantity
+
+        Returns
+        -------
+        Unit
+            square root of ``self``
+        """   
+        return Quantity(
+            sqrt(self.value),
+            self.unit.sqrt()
+        ).judgeAndReturn()
