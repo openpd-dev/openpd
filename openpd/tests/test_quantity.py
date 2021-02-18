@@ -1,8 +1,8 @@
-from openpd.unit.baseDimension import BaseDimension
 import pytest
 import numpy as np
 
 from ..unit import *
+from ..unit import BaseDimension, Unit, Quantity
 from .. import isArrayEqual
 
 class TestQuantity:
@@ -380,9 +380,21 @@ class TestQuantity:
         assert quantity[0] == 1  * angstrom**-2
         assert quantity[-1] == 1/16 * angstrom**-2
 
+        quantity = np.array([1, 2, 3, 4]) * angstrom
+        quantity = quantity**(1/2)
+        assert quantity[0] == 1  * angstrom**(1/2)
+        assert quantity[-1] == 2 * angstrom**(1/2)
+
+        quantity = np.array([1, 2, 3, 4]) * angstrom
+        quantity = quantity**(-1/2)
+        assert quantity[0] == 1  * angstrom**(-1/2)
+        assert quantity[-1] == 1/2 * angstrom**(-1/2)
+
     def test_sqrt(self):
         quantity = np.array([1, 2, 3, 4]) * angstrom
         quantity = np.sqrt(quantity)
         assert quantity[0] == 1 * angstrom.sqrt()
         assert quantity[-1] == 2 * angstrom.sqrt()
 
+        quantity = Quantity(4, Unit(BaseDimension(), 1))
+        assert quantity.sqrt() == 2
