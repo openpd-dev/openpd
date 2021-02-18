@@ -2,6 +2,7 @@ import pytest
 import numpy as np
 
 from .. import Atom, isArrayEqual
+from ..unit import *
 
 class TestAtom:
     def setup(self):
@@ -24,11 +25,11 @@ class TestAtom:
         assert self.atom.peptide_type == 'ASN'
 
         assert isArrayEqual(self.atom._coordinate, np.zeros([3]))
-        self.atom.coordinate = [1, 1, 1]
+        self.atom.coordinate = [1, 1, 1] * angstrom
         assert isArrayEqual(self.atom._coordinate, np.ones([3]))
 
         assert isArrayEqual(self.atom.velocity, np.zeros([3]))
-        self.atom.velocity = [1, 1, 1]
+        self.atom.velocity = [1, 1, 1]  * angstrom / femtosecond
         assert isArrayEqual(self.atom.velocity, np.ones([3]))
 
     def test_exceptions(self):

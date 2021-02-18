@@ -1,5 +1,6 @@
 import numpy as np
-
+from ..unit import *
+from ..unit import BaseDimension ,Quantity
 class Atom:
     def __init__(self, atom_type:str, mass) -> None:
         """
@@ -9,13 +10,26 @@ class Atom:
             the type of atom 
         mass : float
             the mass of atom
+
+        Raises
+        ------
+        ValueError
+            When the dimension of input ``mass`` != ``BaseDimension(mass=1)``
         """        
         self._atom_type = atom_type
         self._atom_id = 0
+        if isinstance(mass, Quantity):
+            if not mass.base_dimension != BaseDimension(mass_dimension=1):
+                raise ValueError(
+                    'Dimension of mass should be kg instead of %s' 
+                    %(mass.unit.base_dimension)
+                )
+            else:
+                mass = mass / amu * amu
         self._mass = mass
         self._peptide_type = None
-        self._coordinate = np.zeros([3])
-        self._velocity = np.zeros([3])
+        self._coordinate = np.zeros([3], dtype=Quantity)
+        self._velocity = np.zeros([3], dtype=Quantity)
 
     def __repr__(self) -> str:
         return ('<Atom object: id %d, type %s, of peptide %s at 0x%x>'
@@ -88,7 +102,7 @@ class Atom:
         """
         coordinate gets atom's coordinate
 
-        The coordinate default to be ``np.array([0, 0, 0])``
+        The coordinate default to be ``np.array([0, 0, 0]) * angstrom``
 
         Returns
         -------
@@ -110,19 +124,31 @@ class Atom:
         Raises
         ------
         ValueError
-            When the length of input coordinate != 3
+            When the length of input ``coordinate`` != 3
+
+        ValueError
+            When the dimension of input ``coordinate`` != ``BaseDimension(length_dimension=1)``
         """           
         if len(coordinate) != 3:
-            raise ValueError('Dimension of coordinate should be 3')
+            raise ValueError('Length of velocity vector should be 3')
+        elif isinstance(coordinate[0], Quantity):
+            if not coordinate[0].unit.base_dimension == BaseDimension(length_dimension=1):
+                raise ValueError(
+                    'Dimension of velocity should be m instead of %s' 
+                    %(coordinate[0].unit.base_dimension)
+                )
+            else:
+                coordinate = coordinate / (angstrom/femtosecond) * (angstrom/femtosecond)
+        
         for (i, j) in enumerate(coordinate):
             self._coordinate[i] = j
-
+        
     @property
     def velocity(self):
         """
         velocity gets atom's velocity
 
-        The velocity default to be ``np.array([0, 0, 0])``
+        The velocity default to be ``np.array([0, 0, 0]) * angstrom / femtosecond``
 
         Returns
         -------
@@ -144,9 +170,21 @@ class Atom:
         Raises
         ------
         ValueError
-            When the length of input velocity != 3
+            When the length of input ``velocity`` != 3
+
+        ValueError
+            When the dimension of input ``velocity`` != ``BaseDimension(length_dimension=1, time_dimension=-1)``
         """           
         if len(velocity) != 3:
-            raise ValueError('Dimension of velocity should be 3')
+            raise ValueError('Length of velocity vector should be 3')
+        elif isinstance(velocity[0], Quantity):
+            if not velocity[0].unit.base_dimension == BaseDimension(length_dimension=1, time_dimension=-1):
+                raise ValueError(
+                    'Dimension of velocity should be m/s instead of %s' 
+                    %(velocity[0].unit.base_dimension)
+                )
+            else:
+                velocity = velocity / (angstrom/femtosecond) * (angstrom/femtosecond)
+
         for (i, j) in enumerate(velocity):
             self._velocity[i] = j
