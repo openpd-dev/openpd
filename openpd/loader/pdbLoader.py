@@ -178,8 +178,8 @@ class PDBLoader(Loader):
                 coord = self._coord[index[0]:index[-1]+1, :]
                 _mass = self._mass[index[0]:index[-1]+1]
                 coord_ca, coord_sc = self._extractCoordinate(atom_name, coord, _mass)
-                peptide.atoms[0].coordinate = coord_ca * angstrom
-                peptide.atoms[1].coordinate = coord_sc * angstrom
+                peptide.atoms[0].coordinate = coord_ca 
+                peptide.atoms[1].coordinate = coord_sc 
 
     def createSystem(self, is_extract_coordinate=True):
         """
