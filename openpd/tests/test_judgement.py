@@ -1,5 +1,5 @@
 import numpy as np
-from .. import isAlmostEqual, isArrayEqual, isArrayAlmostEqual
+from .. import isAlmostEqual, isArrayEqual, isArrayAlmostEqual, isArrayLambda
 
 def test_isAlmostEqual():
     a = 2
@@ -73,3 +73,12 @@ def test_isArrayAlmostEqual():
     assert not isArrayAlmostEqual(np.array(list1), list5)
     assert not isArrayAlmostEqual(list1, np.array(list5))
     assert not isArrayAlmostEqual(np.array(list1), np.array(list5))
+
+def test_isArrayLambda():
+    a = [1, 2, 3, 4, 5]
+    assert isArrayLambda(lambda x:x>0, a)
+    assert not isArrayLambda(lambda x:x<3, a)
+
+    a = np.array([1, 2, 3, 4, 5])
+    assert isArrayLambda(lambda x:x>0, a)
+    assert not isArrayLambda(lambda x:x<3, a)

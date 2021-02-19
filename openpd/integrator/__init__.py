@@ -4,7 +4,18 @@ __email__ = "zhenyuwei99@gmail.com"
 __copyright__ = "Copyright 2021-2021, Southeast University and Zhenyu Wei"
 __license__ = "GPLv3"
 
+from .integrator import Integrator
+from .verletIntegrator import VerletIntegrator
+from .leapFrogIntegrator import LeapFrogIntegrator
+from .velocityVerletIntegrator import VelocityVerletIntegrator
 from .brownianIntegrator import BrownianIntegrator
 from .mcmcIntegrator import MCMCIntegrator
 
-__all__ = ['BrownianIntegrator', 'MCMCIntegrator']
+__all__ = [
+    'Integrator',
+    'VerletIntegrator',
+    'LeapFrogIntegrator',
+    'VelocityVerletIntegrator',
+    'BrownianIntegrator', 
+    'MCMCIntegrator'
+]

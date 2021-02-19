@@ -56,6 +56,9 @@ class Unit:
         else:
             return False
 
+    def __ne__(self, other) -> bool:
+        return not self == other
+
     def __add__(self, other):
         if isinstance(other, Unit):
             if (

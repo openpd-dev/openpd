@@ -14,6 +14,8 @@ mol_dimension = BaseDimension(mol_dimension=1)
 force = mass * length / time**2
 energy = force * length
 power = energy / time
+velocity = length / time
+accelration = length / time**2
 
 ######################
 ## Constants        ##
