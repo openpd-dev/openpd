@@ -102,6 +102,69 @@ class Quantity:
             else:
                 return False
 
+    def __ne__(self, other) -> bool:
+        return not self == other
+
+    def __lt__(self, other) -> bool:
+        if isinstance(other, Quantity):
+            if self.unit.base_dimension != other.unit.base_dimension:
+                raise ValueError(
+                    'Dimension %s and %s is different, can not compare'
+                    %(self.unit.base_dimension, other.unit.base_dimension)
+                )
+            else:
+                return (
+                    self.value * self.unit.relative_value <
+                    other.value * other.unit.relative_value
+                )
+        else:
+            return (self.value < other)
+
+    def __le__(self, other) -> bool:
+        if isinstance(other, Quantity):
+            if self.unit.base_dimension != other.unit.base_dimension:
+                raise ValueError(
+                    'Dimension %s and %s is different, can not compare'
+                    %(self.unit.base_dimension, other.unit.base_dimension)
+                )
+            else:
+                return (
+                    self.value * self.unit.relative_value <=
+                    other.value * other.unit.relative_value
+                )
+        else:
+            return (self.value <= other)
+    
+    def __gt__(self, other) -> bool:
+        if isinstance(other, Quantity):
+            if self.unit.base_dimension != other.unit.base_dimension:
+                raise ValueError(
+                    'Dimension %s and %s is different, can not compare'
+                    %(self.unit.base_dimension, other.unit.base_dimension)
+                )
+            else:
+                return (
+                    self.value * self.unit.relative_value >
+                    other.value * other.unit.relative_value
+                )
+        else:
+            return (self.value > other)
+
+    def __ge__(self, other) -> bool:
+        if isinstance(other, Quantity):
+            if self.unit.base_dimension != other.unit.base_dimension:
+                raise ValueError(
+                    'Dimension %s and %s is different, can not compare'
+                    %(self.unit.base_dimension, other.unit.base_dimension)
+                )
+            else:
+                return (
+                    self.value * self.unit.relative_value >=
+                    other.value * other.unit.relative_value
+                )
+        else:
+            return (self.value >= other)
+
     def __add__(self, other):
         if isinstance(other, Quantity):
             return Quantity(

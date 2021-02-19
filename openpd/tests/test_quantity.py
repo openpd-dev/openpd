@@ -3,7 +3,7 @@ import numpy as np
 
 from ..unit import *
 from ..unit import BaseDimension, Unit, Quantity
-from .. import isArrayEqual
+from .. import isArrayEqual, isArrayLambda
 
 class TestQuantity:
     def setup(self):
@@ -47,9 +47,56 @@ class TestQuantity:
     def test_eq(self):
         assert 1 * nanometer == 10 * angstrom
         assert not 1 * nanometer == 1 * nanosecond
-
+        assert 1 == 1 * nanometer
         assert 1 * nanometer == 1
+        assert [1, 2, 3, 4] * angstrom == [1, 2, 3, 4]
+        assert [1, 2, 3, 4] == [1, 2, 3, 4] * angstrom
+
+    def test_ne(self):
         assert 1 * nanometer != 10
+        assert 1 * nanometer != 10 * nanometer
+        assert 1 != 10 * nanometer
+
+        assert not 1 * nanometer != 1
+        assert not 1 * nanometer != 1 * nanometer
+        assert [1, 2, 3, 4] * angstrom != [2, 2, 3, 4]
+        assert [1, 2, 3, 4] != [2, 2, 3, 4] * angstrom
+
+    def test_lt(self):
+        assert 1 * nanometer < 10 * nanometer
+        assert 1 * nanometer < 10 
+        assert 1 < 10 * nanometer
+        assert 5 * angstrom < 1 * nanometer
+        assert not 5 * angstrom < 0.5 * nanometer
+        assert [1, 2, 3, 4] * angstrom < [2, 3, 4, 5]
+        assert [1, 2, 3, 4] < [2, 3, 4, 5] * angstrom
+
+    def test_le(self):
+        assert 1 * nanometer <= 10 * nanometer
+        assert 1 * nanometer <= 10 
+        assert 1 <= 10 * nanometer
+        assert 5 * angstrom <= 1 * nanometer
+        assert 5 * angstrom <= 0.5 * nanometer
+        assert [1, 2, 3, 4] * angstrom <= [1, 2, 3, 4]
+        assert [1, 2, 3, 4] <= [2, 3, 4, 5] * angstrom
+
+    def test_gt(self):
+        assert 10 * nanometer > 1 * nanometer
+        assert 10 > 1 * nanometer
+        assert 1 * nanometer > 0.1
+        assert 1 * nanometer > 1 * angstrom
+        assert not 5 * angstrom > 0.5 * nanometer
+        assert [2, 3, 4, 5] * angstrom > [1, 2, 3, 4]
+        assert [2, 3, 4, 5] > [1, 2, 3, 4] * angstrom
+
+    def test_ge(self):
+        assert 10 * nanometer >= 1 * nanometer
+        assert 10 >= 1 * nanometer
+        assert 1 * nanometer >= 0.1
+        assert 1 * nanometer >= 1 * angstrom
+        assert 5 * angstrom >= 0.5 * nanometer
+        assert [2, 3, 4, 5] * angstrom >= [1, 2, 3, 4]
+        assert [2, 3, 4, 5] >= [2, 3, 4, 5] * angstrom
 
     def test_add(self):
         # __add__
