@@ -48,6 +48,33 @@ class Quantity:
         else:
             return deepcopy(self)
 
+    def convertTo(self, target_unit):
+        """
+        convertTo converts ``self`` to the unit of ``target_unit``
+
+        Parameters
+        ----------
+        target_unit : Quantity
+            the unit defined by openpd or users
+
+        Returns
+        -------
+        Quantity
+            Quantity with the same absolute value but new unit
+
+        Raises
+        ------
+        ValueError
+            If ``self.unit.base_dimension != target_unit.unit.base_dimension``. E.g ``(10*meter).convertTo(second)``
+        """        
+        if self.unit.base_dimension != target_unit.unit.base_dimension:
+            raise ValueError(
+                'Dimension %s and %s is different, can not convert'
+                %(self.unit.base_dimension, target_unit.unit.base_dimension)
+            )
+        else:
+            return self / target_unit * target_unit
+
     def __repr__(self) -> str:
         return (
             '<Quantity object: %e %s at 0x%x>' 

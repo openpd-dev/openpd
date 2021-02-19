@@ -1,6 +1,8 @@
 import numpy as np
+
+import openpd.unit as unit
 from ..unit import *
-from ..unit import BaseDimension ,Quantity
+from ..unit import Quantity
 class Atom:
     def __init__(self, atom_type:str, mass) -> None:
         """
@@ -8,8 +10,8 @@ class Atom:
         ----------
         atom_type : str
             the type of atom 
-        mass : float
-            the mass of atom
+        mass : float or Quantity
+            the mass of atom. Unit default to be ``amu`` is float is provided
 
         Raises
         ------
@@ -19,13 +21,7 @@ class Atom:
         self._atom_type = atom_type
         self._atom_id = 0
         if isinstance(mass, Quantity):
-            if not mass.base_dimension != BaseDimension(mass_dimension=1):
-                raise ValueError(
-                    'Dimension of mass should be kg instead of %s' 
-                    %(mass.unit.base_dimension)
-                )
-            else:
-                mass = mass / amu * amu
+            mass = mass.convertTo(amu)
         else:
             mass = mass * amu
         self._mass = mass
@@ -76,7 +72,7 @@ class Atom:
 
         Returns
         -------
-        float
+        Quantity
             mass of atom
         """              
         return self._mass
@@ -108,7 +104,7 @@ class Atom:
 
         Returns
         -------
-        np.ndarray
+        np.ndarray(dtype=Quantity)
             coordinate
         """        
         return self._coordinate
@@ -121,7 +117,7 @@ class Atom:
         Parameters
         ----------
         coordinate : np.ndarry or list
-            atom's coordinate
+            atom's coordinate, Unit default to be ``angstrom`` if float is provided
 
         Raises
         ------
@@ -132,11 +128,11 @@ class Atom:
             When the dimension of input ``coordinate`` != ``BaseDimension(length_dimension=1)``
         """           
         if len(coordinate) != 3:
-            raise ValueError('Length of velocity vector should be 3')
+            raise ValueError('Length of coordinate vector should be 3')
         elif isinstance(coordinate[0], Quantity):
-            if not coordinate[0].unit.base_dimension == BaseDimension(length_dimension=1):
+            if coordinate[0].unit.base_dimension != unit.length:
                 raise ValueError(
-                    'Dimension of velocity should be m instead of %s' 
+                    'Dimension of parameter coordinate should be m instead of %s' 
                     %(coordinate[0].unit.base_dimension)
                 )
             else:
@@ -156,7 +152,7 @@ class Atom:
 
         Returns
         -------
-        np.ndarray
+        np.ndarray(dtype=Quantity)
             velocity
         """    
         return self._velocity
@@ -169,7 +165,7 @@ class Atom:
         Parameters
         ----------
         velocity : np.ndarry or list
-            atom's velocity
+            atom's velocity, Unit default to be ``angstrom/femtosecond`` if float is provided
 
         Raises
         ------
@@ -182,9 +178,9 @@ class Atom:
         if len(velocity) != 3:
             raise ValueError('Length of velocity vector should be 3')
         elif isinstance(velocity[0], Quantity):
-            if not velocity[0].unit.base_dimension == BaseDimension(length_dimension=1, time_dimension=-1):
+            if velocity[0].unit.base_dimension != unit.velocity:
                 raise ValueError(
-                    'Dimension of velocity should be m/s instead of %s' 
+                    'Dimension of parameter velocity should be m/s instead of %s' 
                     %(velocity[0].unit.base_dimension)
                 )
             else:
