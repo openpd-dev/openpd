@@ -1,6 +1,7 @@
 import numpy as np
 from numpy import pi, cos, sin
 from .. import CONST_CA_CA_DISTANCE
+from ..unit import *
 
 class Loader:
     def __init__(self, input_file_path, input_file_suffix) -> None:
@@ -45,8 +46,8 @@ class Loader:
                 ca_coord = init_point + np.array([j*CONST_CA_CA_DISTANCE, 0, 0])
                 theta = np.random.rand(1)[0] * 2*pi - pi
                 sc_coord = ca_coord + np.array([0, peptide._ca_sc_dist*cos(theta), peptide._ca_sc_dist*sin(theta)])
-                peptide.atoms[0].coordinate = ca_coord
-                peptide.atoms[1].coordinate = sc_coord
+                peptide.atoms[0].coordinate = ca_coord 
+                peptide.atoms[1].coordinate = sc_coord 
 
     def createSystem(self):
         """

@@ -74,6 +74,13 @@ class TestUnit:
         assert square == length**2
         assert volume == length**3
 
+    def test_sqrt(self):
+        length = BaseDimension(length_dimension=1)
+        square = BaseDimension(length_dimension=2)
+        volume = BaseDimension(length_dimension=3)
+        assert length == square.sqrt()
+        assert volume.sqrt() == BaseDimension(length_dimension=1.5)
+
     def test_generateDimensionName(self):
         dimension = BaseDimension()
         assert dimension.name == ''

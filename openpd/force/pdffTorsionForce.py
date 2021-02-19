@@ -93,6 +93,12 @@ class PDFFTorsionForce(Force):
             )
         ) * kilojoule_permol
 
+    def calculatePotentialEnergy(self):
+        self._total_energy = 0
+        for i in range(self.num_torsions):
+            self._total_energy += self.calculateEnergy(i)
+        return self._total_energy 
+
     def calculateForce(self, torsion_id, derivative_width=0.0001):
         torsion_angle = getTorsion(
                 self.torsions[0].coordinate, 
@@ -126,3 +132,7 @@ class PDFFTorsionForce(Force):
     @property
     def energy_coordinate(self):
         return self._energy_coordinate
+
+    @property
+    def potential_energy(self):
+        return self.calculatePotentialEnergy()

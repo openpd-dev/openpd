@@ -4,6 +4,7 @@ import numpy as np
 
 from .. import PDBLoader, getBond
 from .. import CONST_CA_CA_DISTANCE
+from ..unit import *
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
@@ -46,14 +47,14 @@ class TestPDBLoader:
 
     def test_extractCoordinates(self):
         system = self.loader.createSystem(is_extract_coordinate=True)
-        assert np.array_equal(system.atoms[0].coordinate, np.array([-8.608, 3.135, -1.618]))
-        assert np.array_equal(system.atoms[2].coordinate, np.array([-4.923, 4.002, -2.452]))
+        assert np.array_equal(system.atoms[0].coordinate, np.array([-8.608, 3.135, -1.618])*angstrom)
+        assert np.array_equal(system.atoms[2].coordinate, np.array([-4.923, 4.002, -2.452])*angstrom)
 
         # Avoiding coordinate assigning issue when the peptide of one chain is discontinuous
         self.loader = PDBLoader(os.path.join(cur_dir, 'data/multiChain.pdb'))
         system = self.loader.createSystem(is_extract_coordinate=True)
-        assert np.array_equal(system.chains[1].atoms[0].coordinate, np.array([-0.716, -0.631, -0.993]))
-        assert np.array_equal(system.chains[1].atoms[2].coordinate, np.array([-1.641, -2.932, 1.963]))
+        assert np.array_equal(system.chains[1].atoms[0].coordinate, np.array([-0.716, -0.631, -0.993])*angstrom)
+        assert np.array_equal(system.chains[1].atoms[2].coordinate, np.array([-1.641, -2.932, 1.963])*angstrom)
 
     def test_guessCoordinates(self):
         system = self.loader.createSystem(is_extract_coordinate=False)

@@ -2,6 +2,7 @@ import os, pytest
 
 from .. import SequenceLoader, Peptide, getBond
 from .. import CONST_CA_CA_DISTANCE
+from ..unit import *
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
