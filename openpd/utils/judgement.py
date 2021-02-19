@@ -21,3 +21,11 @@ def isArrayAlmostEqual(array1, array2, tolerance=1e-5):
         if np.abs(element-array2[index]) > (np.abs(element) if element!=0 else 1) * tolerance:
             return False
     return True
+
+def isArrayLambda(judgement, array):
+    if len(array) != len(array):
+        return False
+    for index, element in enumerate(array):
+        if not judgement(element):
+            return False
+    return True

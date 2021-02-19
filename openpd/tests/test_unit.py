@@ -31,6 +31,14 @@ class TestUnit:
         self.unit.setRelativeValueToOne()
         assert self.unit.relative_value == 1
 
+    def test_eq(self):
+        assert self.unit == Unit(BaseDimension(length_dimension=1), 1e-10)
+        assert not self.unit == Unit(BaseDimension(length_dimension=2), 1e-10)
+
+    def test_ne(self):
+        assert self.unit != Unit(BaseDimension(length_dimension=2), 1e-10)
+        assert not self.unit != Unit(BaseDimension(length_dimension=1), 1e-10)
+
     def test_add(self):
         angstrom = Unit(BaseDimension(length_dimension=1), 1e-10)
         gram = Unit(BaseDimension(mass_dimension=1), 1e-3)

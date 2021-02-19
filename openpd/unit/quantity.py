@@ -48,6 +48,33 @@ class Quantity:
         else:
             return deepcopy(self)
 
+    def convertTo(self, target_unit):
+        """
+        convertTo converts ``self`` to the unit of ``target_unit``
+
+        Parameters
+        ----------
+        target_unit : Quantity
+            the unit defined by openpd or users
+
+        Returns
+        -------
+        Quantity
+            Quantity with the same absolute value but new unit
+
+        Raises
+        ------
+        ValueError
+            If ``self.unit.base_dimension != target_unit.unit.base_dimension``. E.g ``(10*meter).convertTo(second)``
+        """        
+        if self.unit.base_dimension != target_unit.unit.base_dimension:
+            raise ValueError(
+                'Dimension %s and %s is different, can not convert'
+                %(self.unit.base_dimension, target_unit.unit.base_dimension)
+            )
+        else:
+            return self / target_unit * target_unit
+
     def __repr__(self) -> str:
         return (
             '<Quantity object: %e %s at 0x%x>' 
@@ -74,6 +101,69 @@ class Quantity:
                 return True
             else:
                 return False
+
+    def __ne__(self, other) -> bool:
+        return not self == other
+
+    def __lt__(self, other) -> bool:
+        if isinstance(other, Quantity):
+            if self.unit.base_dimension != other.unit.base_dimension:
+                raise ValueError(
+                    'Dimension %s and %s is different, can not compare'
+                    %(self.unit.base_dimension, other.unit.base_dimension)
+                )
+            else:
+                return (
+                    self.value * self.unit.relative_value <
+                    other.value * other.unit.relative_value
+                )
+        else:
+            return (self.value < other)
+
+    def __le__(self, other) -> bool:
+        if isinstance(other, Quantity):
+            if self.unit.base_dimension != other.unit.base_dimension:
+                raise ValueError(
+                    'Dimension %s and %s is different, can not compare'
+                    %(self.unit.base_dimension, other.unit.base_dimension)
+                )
+            else:
+                return (
+                    self.value * self.unit.relative_value <=
+                    other.value * other.unit.relative_value
+                )
+        else:
+            return (self.value <= other)
+    
+    def __gt__(self, other) -> bool:
+        if isinstance(other, Quantity):
+            if self.unit.base_dimension != other.unit.base_dimension:
+                raise ValueError(
+                    'Dimension %s and %s is different, can not compare'
+                    %(self.unit.base_dimension, other.unit.base_dimension)
+                )
+            else:
+                return (
+                    self.value * self.unit.relative_value >
+                    other.value * other.unit.relative_value
+                )
+        else:
+            return (self.value > other)
+
+    def __ge__(self, other) -> bool:
+        if isinstance(other, Quantity):
+            if self.unit.base_dimension != other.unit.base_dimension:
+                raise ValueError(
+                    'Dimension %s and %s is different, can not compare'
+                    %(self.unit.base_dimension, other.unit.base_dimension)
+                )
+            else:
+                return (
+                    self.value * self.unit.relative_value >=
+                    other.value * other.unit.relative_value
+                )
+        else:
+            return (self.value >= other)
 
     def __add__(self, other):
         if isinstance(other, Quantity):

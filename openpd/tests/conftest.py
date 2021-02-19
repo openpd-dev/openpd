@@ -24,7 +24,8 @@ test_order = [
      'pdffTorsionForce',
      'rigidBondForce',
      'ensemble',
-     'forceEncoder'
+     'forceEncoder',
+     'integrator'
 ]
 
 def pytest_collection_modifyitems(items):
