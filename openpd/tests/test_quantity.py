@@ -28,6 +28,22 @@ class TestQuantity:
     def test_exceptions(self):
         pass
 
+    def test_convertTo(self):
+        quantity = 1 * angstrom
+        quantity_m = quantity.convertTo(meter)
+        assert quantity_m.unit == meter.unit
+        assert quantity_m.value == 1e-10
+
+        with pytest.raises(ValueError):
+            quantity.convertTo(second)
+
+        quantity = 1 * meter / second
+        quantity_an_per_fs = quantity.convertTo(angstrom/femtosecond)
+        assert quantity_an_per_fs.unit == (angstrom/femtosecond).unit
+        assert quantity_an_per_fs.value == 1e-5
+        with pytest.raises(ValueError):
+            quantity.convertTo(second)
+
     def test_eq(self):
         assert 1 * nanometer == 10 * angstrom
         assert not 1 * nanometer == 1 * nanosecond
