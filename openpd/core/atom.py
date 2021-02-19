@@ -16,7 +16,7 @@ class Atom:
         Raises
         ------
         ValueError
-            When the dimension of input ``mass`` != ``BaseDimension(mass=1)``
+            When the dimension of input ``mass`` is Quantity and != ``BaseDimension(mass=1)``
         """        
         self._atom_type = atom_type
         self._atom_id = 0
@@ -125,7 +125,7 @@ class Atom:
             When the length of input ``coordinate`` != 3
 
         ValueError
-            When the dimension of input ``coordinate`` != ``BaseDimension(length_dimension=1)``
+            When the dimension of input ``coordinate`` is Quantity and != ``BaseDimension(length_dimension=1)``
         """           
         if len(coordinate) != 3:
             raise ValueError('Length of coordinate vector should be 3')
@@ -173,7 +173,7 @@ class Atom:
             When the length of input ``velocity`` != 3
 
         ValueError
-            When the dimension of input ``velocity`` != ``BaseDimension(length_dimension=1, time_dimension=-1)``
+            When the dimension of input ``velocity`` is Quantity and != ``BaseDimension(length_dimension=1, time_dimension=-1)``
         """           
         if len(velocity) != 3:
             raise ValueError('Length of velocity vector should be 3')
