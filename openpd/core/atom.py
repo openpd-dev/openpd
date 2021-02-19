@@ -27,11 +27,11 @@ class Atom:
             else:
                 mass = mass / amu * amu
         else:
-            mass *= amu
+            mass = mass * amu
         self._mass = mass
         self._peptide_type = None
         self._coordinate = np.zeros([3]) * angstrom
-        self._velocity = np.zeros([3]) * angstrom
+        self._velocity = np.zeros([3]) * angstrom / femtosecond
 
     def __repr__(self) -> str:
         return ('<Atom object: id %d, type %s, of peptide %s at 0x%x>'
@@ -190,7 +190,7 @@ class Atom:
             else:
                 velocity = velocity / (angstrom/femtosecond) * (angstrom/femtosecond)
         else:
-            velocity *= angstrom
+            velocity = velocity * angstrom / femtosecond
 
         for (i, j) in enumerate(velocity):
             self._velocity[i] = j

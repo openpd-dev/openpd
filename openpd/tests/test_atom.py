@@ -20,20 +20,22 @@ class TestAtom:
         assert self.atom.atom_id == 1
 
         assert self.atom.mass == 12
+        assert isinstance(self.atom.mass, Quantity)
+        assert self.atom.mass == 12 * amu
 
         assert self.atom.peptide_type == None
         self.atom.peptide_type = 'ASN'
         assert self.atom.peptide_type == 'ASN'
 
         assert isArrayEqual(self.atom._coordinate, np.zeros([3]))
-        self.atom.coordinate = [1, 1, 1] * angstrom
-        assert isArrayEqual(self.atom._coordinate, np.ones([3]))
+        self.atom.coordinate = [1, 1, 1]
+        assert isArrayEqual(self.atom._coordinate, np.ones([3])*angstrom)
         assert self.atom.coordinate[0] == angstrom
-        assert isinstance(self.atom.velocity[0], Quantity)
+        assert isinstance(self.atom.coordinate[0], Quantity)
 
         assert isArrayEqual(self.atom.velocity, np.zeros([3]))
-        self.atom.velocity = [1, 1, 1]  * angstrom / femtosecond
-        assert isArrayEqual(self.atom.velocity, np.ones([3]))
+        self.atom.velocity = [1, 1, 1] 
+        assert isArrayEqual(self.atom.velocity, np.ones([3]) * angstrom / femtosecond)
         assert self.atom.velocity[0] == angstrom / femtosecond
         assert isinstance(self.atom.velocity[0], Quantity)
 
