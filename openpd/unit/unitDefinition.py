@@ -77,13 +77,6 @@ mol = Quantity(1, Unit(mol_dimension, 1))
 kilomol = Quantity(1, Unit(mol_dimension, 1e3))
 
 ######################
-## Force Unit       ##
-######################
-
-newton = Quantity(1, Unit(force, 1))
-kilonewton = Quantity(1, Unit(force, 100))
-
-######################
 ## Energy Unit      ##
 ######################
 
@@ -99,6 +92,17 @@ kilocalorie_permol = Quantity(1, Unit(energy, 4.184e3/6.0221e23))
 
 ev = Quantity(1, Unit(energy, 1.60217662e-19))
 hartree = Quantity(1, Unit(energy, 4.3597447222071e-18))
+
+######################
+## Force Unit       ##
+######################
+
+newton = Quantity(1, Unit(force, 1))
+kilonewton = Quantity(1, Unit(force, 100))
+kilojoule_permol_over_angstrom = kilojoule_permol / angstrom
+kilojoule_permol_over_nanometer = kilojoule_permol / nanometer
+kilocalorie_permol_over_angstrom = kilocalorie_permol / angstrom
+kilocalorie_permol_over_nanometer = kilocalorie_permol / nanometer
 
 ######################
 ## Power Unit       ##

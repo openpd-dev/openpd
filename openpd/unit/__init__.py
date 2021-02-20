@@ -18,8 +18,9 @@ from .unitDefinition import second, millisecond, microsecond, nanosecond, picose
 from .unitDefinition import kelvin
 from .unitDefinition import coulomb, e
 from .unitDefinition import mol, kilomol
-from .unitDefinition import newton
 from .unitDefinition import joule, kilojoule, joule_permol, kilojoule_permol, calorie, kilocalorie, calorie_premol, kilocalorie_permol, ev, hartree
+from .unitDefinition import newton, kilonewton
+from .unitDefinition import kilojoule_permol_over_angstrom, kilojoule_permol_over_nanometer, kilocalorie_permol_over_angstrom, kilocalorie_permol_over_nanometer
 from .unitDefinition import watt, kilowatt
 
 __all__ = [
@@ -30,7 +31,9 @@ __all__ = [
     'kelvin',
     'coulomb', 'e',
     'mol', 'kilomol',
-    'newton',
     'joule', 'kilojoule',  'joule_permol', 'kilojoule_permol', 'calorie', 'kilocalorie',  'calorie_premol', 'kilocalorie_permol', 'ev', 'hartree',
+    'newton', 'kilonewton',
+    'kilojoule_permol_over_angstrom', 'kilojoule_permol_over_nanometer', 
+    'kilocalorie_permol_over_angstrom', 'kilocalorie_permol_over_nanometer',
     'watt', 'kilowatt'
 ]
