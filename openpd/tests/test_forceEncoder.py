@@ -25,22 +25,12 @@ class TestForceEncoder:
     def test_createNonBondedForce(self):
         force = self.encoder._createNonBondedForce()
         origin_coord = np.load(os.path.join(cur_dir, '../data/pdff/nonbonded/coord.npy'))
-       
-        assert force.num_peptides == 3
-
-        assert isArrayEqual(force.energy_coordinate, np.linspace(0, 30, 601))
 
         asn_leu_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/nonbonded/ASN-LEU.npy'))
-        assert isAlmostEqual(
-            asn_leu_energy_vector[findFirstLambda(lambda x: x<2.05 and x >1.95, origin_coord)], 
-            force.energy_matrix[0, 1](origin_coord[findFirstLambda(lambda x: x<2.05 and x >1.95, origin_coord)]), 1e-3
-        )
+        assert force.force_field_matrix[0, 1].getEnergy(origin_coord[50]) == pytest.approx(asn_leu_energy_vector[50], 1e-3)
 
         asn_tyr_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/nonbonded/ASN-TYR.npy'))
-        assert isAlmostEqual(
-            asn_tyr_energy_vector[findFirstLambda(lambda x: x<2.05 and x >1.95, origin_coord)], 
-            force.energy_matrix[0, 2](origin_coord[findFirstLambda(lambda x: x<2.05 and x >1.95, origin_coord)]), 1e-3
-        )
+        assert force.force_field_matrix[0, 2].getEnergy(origin_coord[50]) == pytest.approx(asn_tyr_energy_vector[50], 1e-3)
 
     def test_createBondForce(self):
         force = self.encoder._createBondForce()

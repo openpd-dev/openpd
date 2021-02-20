@@ -25,7 +25,8 @@ test_order = [
      'rigidBondForce',
      'ensemble',
      'forceEncoder',
-     'integrator'
+     'integrator',
+     'verletIntegrator'
 ]
 
 def pytest_collection_modifyitems(items):

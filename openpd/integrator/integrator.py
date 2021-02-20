@@ -129,6 +129,24 @@ class Integrator:
         self._ensemble = ensemble
         self._is_bound = True
 
+    def step(self, num_steps:int):
+        """
+        step iteratively integrate ``system`` based on the forces in ``ensemble``
+
+        This method needs to be overloaded for all subclass
+
+        Parameters
+        ----------
+        num_steps : int
+            the number of steps that integrator will integrate
+
+        Raises
+        ------
+        NotImplementedError
+            When the subclass does not overload this method
+        """        
+        raise NotImplementedError('step() method has not been overloaded yet!')
+
     @property
     def interval(self):
         """
@@ -167,24 +185,6 @@ class Integrator:
         else:
             interval = interval * femtosecond
         self._interval = interval 
-
-    def step(self, num_steps:int):
-        """
-        step iteratively integrate ``system`` based on the forces in ``ensemble``
-
-        This method needs to be overloaded for all subclass
-
-        Parameters
-        ----------
-        num_steps : int
-            the number of steps that integrator will integrate
-
-        Raises
-        ------
-        NotImplementedError
-            When the subclass does not overload this method
-        """        
-        raise NotImplementedError('step() method has not been overloaded yet!')
     
     @property
     def system(self):

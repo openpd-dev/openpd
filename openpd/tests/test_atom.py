@@ -27,17 +27,40 @@ class TestAtom:
         self.atom.peptide_type = 'ASN'
         assert self.atom.peptide_type == 'ASN'
 
+        # Test of coordinate
         assert isArrayEqual(self.atom._coordinate, np.zeros([3]))
         self.atom.coordinate = [1, 1, 1]
         assert isArrayEqual(self.atom._coordinate, np.ones([3])*angstrom)
         assert self.atom.coordinate[0] == angstrom
         assert isinstance(self.atom.coordinate[0], Quantity)
 
+        # Test of velocity
         assert isArrayEqual(self.atom.velocity, np.zeros([3]))
         self.atom.velocity = [1, 1, 1] 
         assert isArrayEqual(self.atom.velocity, np.ones([3]) * angstrom / femtosecond)
         assert self.atom.velocity[0] == angstrom / femtosecond
         assert isinstance(self.atom.velocity[0], Quantity)
+
+        # Test of potential energy
+        assert self.atom.potential_energy == 0 * kilojoule_permol
+        self.atom.potential_energy = 1
+        assert self.atom.potential_energy == 1 * kilojoule_permol
+        self.atom.potential_energy = 1 * kilocalorie_permol
+        assert self.atom.potential_energy == 4.184 * kilojoule_permol
+
+        # Test of kinetic energy
+        assert self.atom.kinetic_energy == 0 * kilojoule_permol
+        self.atom.kinetic_energy = 1
+        assert self.atom.kinetic_energy == 1 * kilojoule_permol
+        self.atom.kinetic_energy = 1 * kilocalorie_permol
+        assert self.atom.kinetic_energy == 4.184 * kilojoule_permol
+
+        # Test of force
+        assert isArrayEqual(self.atom.force, np.zeros([3]))
+        self.atom.force = [1, 1, 1] 
+        assert isArrayEqual(self.atom.force, np.ones([3]) * kilojoule_permol_over_angstrom)
+        assert self.atom.force[0] == kilojoule_permol_over_angstrom
+        assert isinstance(self.atom.force[0], Quantity)
 
     def test_exceptions(self):
         with pytest.raises(AttributeError):

@@ -15,12 +15,12 @@ class Ensemble(object):
     def addForces(self, *forces):
         for force in forces:
             self._addForce(force)
-
-    def calculateEnergy(self, force_group=[0]):
-        energy = 0
+    
+    def calculatePotentialEnergy(self, force_group=[0]):
+        potential_energy = 0
         for force in self.getForcesByGroup(force_group):
-            energy += force.calculateEnergy()
-        return energy
+            potential_energy += force.calculatePotentialEnergy()
+        return potential_energy
 
     def calculateForce(self):
         pass

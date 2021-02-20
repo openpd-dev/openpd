@@ -28,6 +28,9 @@ class Atom:
         self._peptide_type = None
         self._coordinate = np.zeros([3]) * angstrom
         self._velocity = np.zeros([3]) * angstrom / femtosecond
+        self._kinetic_energy = 0 * kilojoule_permol
+        self._potential_energy = 0 * kilojoule_permol
+        self._force = np.zeros([3]) * kilojoule_permol / angstrom
 
     def __repr__(self) -> str:
         return ('<Atom object: id %d, type %s, of peptide %s at 0x%x>'
@@ -117,7 +120,7 @@ class Atom:
         Parameters
         ----------
         coordinate : np.ndarry or list
-            atom's coordinate, Unit default to be ``angstrom`` if float is provided
+            atom's coordinate, Unit default to be ``angstrom`` if float list or array is provided
 
         Raises
         ------
@@ -165,7 +168,7 @@ class Atom:
         Parameters
         ----------
         velocity : np.ndarry or list
-            atom's velocity, Unit default to be ``angstrom/femtosecond`` if float is provided
+            atom's velocity, Unit default to be ``angstrom/femtosecond`` if float list or array is provided
 
         Raises
         ------
@@ -190,3 +193,117 @@ class Atom:
 
         for (i, j) in enumerate(velocity):
             self._velocity[i] = j
+
+    @property
+    def potential_energy(self):
+        """
+        potential_energy get atom's potential energy
+
+        Returns
+        -------
+        Quantity
+            the potential energy of atom
+        """        
+        return self._potential_energy
+
+    @potential_energy.setter
+    def potential_energy(self, energy):
+        """
+        setter method to set atom's potential energy
+
+        Parameters
+        ----------
+        energy : float or Quantity
+            atom's potential energy, Unit default to be ``kilojoule_permol`` if float is provided
+
+        Raises
+        ------
+        ValueError
+            When the dimension of input ``energy`` is Quantity and != ``BaseDimension(energy_dimension=1)``
+        """           
+        if isinstance(energy, Quantity):
+            energy = energy.convertTo(kilojoule_permol)
+        else:
+            energy = energy * kilojoule_permol
+        self._potential_energy = energy
+
+    @property
+    def kinetic_energy(self):
+        """
+        kinetic_energy get atom's kinetic energy
+
+        Returns
+        -------
+        Quantity
+            the kinetic energy of atom
+        """    
+        return self._kinetic_energy
+
+    @kinetic_energy.setter
+    def kinetic_energy(self, energy):
+        """
+        setter method to set atom's kinetic energy
+
+        Parameters
+        ----------
+        energy : float or Quantity
+            atom's kinetic energy, Unit default to be ``kilojoule_permol`` if float is provided
+
+        Raises
+        ------
+        ValueError
+            When the dimension of input ``energy`` is Quantity and != ``BaseDimension(energy_dimension=1)``
+        """       
+        if isinstance(energy, Quantity):
+            energy = energy.convertTo(kilojoule_permol)
+        else:
+            energy = energy * kilojoule_permol
+        self._kinetic_energy = energy
+
+    @property
+    def force(self):
+        """
+        velocity gets atom's force
+
+        The force default to be ``np.array([0, 0, 0]) * kilojoule_permol_over_angstrom``
+
+        Returns
+        -------
+        np.ndarray(dtype=Quantity)
+            force
+        """    
+        return self._force
+
+    @force.setter
+    def force(self, force):
+        """
+        setter method to set atom's force
+
+        Parameters
+        ----------
+        force : np.ndarry or list
+            atom's force, Unit default to be ``kilojoule_permol_over_angstrom`` if float list or array is provided
+
+        Raises
+        ------
+        ValueError
+            When the length of input ``force`` != 3
+
+        ValueError
+            When the dimension of input ``force`` is Quantity and != ``BaseDimension(length_dimension=-1, energy_dimension=1)``
+        """           
+        if len(force) != 3:
+            raise ValueError('Length of velocity vector should be 3')
+        elif isinstance(force[0], Quantity):
+            if force[0].unit.base_dimension != unit.force:
+                raise ValueError(
+                    'Dimension of parameter force should be %s instead of %s' 
+                    %(unit.force, force[0].unit.base_dimension)
+                )
+            else:
+                force = force / (kilojoule_permol_over_angstrom) * (kilojoule_permol_over_angstrom)
+        else:
+            force = force * kilojoule_permol_over_angstrom
+
+        for (i, j) in enumerate(force):
+            self._force[i] = j

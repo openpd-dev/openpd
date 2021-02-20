@@ -45,9 +45,6 @@ def test_charge():
 def test_mol():
     assert kilomol / mol == pytest.approx(1e3)
 
-def test_force():
-    assert newton / newton == 1
-
 def test_energy():
     assert joule / kilojoule == pytest.approx(1e-3)
     assert joule / joule_permol == pytest.approx(6.0221e23)
@@ -60,6 +57,11 @@ def test_energy():
     
     assert joule / ev == pytest.approx(1/1.60217662e-19)
     assert joule / hartree == pytest.approx(1/4.3597447222071e-18)
+
+def test_force():
+    assert newton / newton == 1
+    assert kilocalorie_permol_over_nanometer / kilojoule_permol_over_nanometer == 4.184
+    assert kilocalorie_permol_over_nanometer / kilojoule_permol_over_angstrom == 0.4184
 
 def test_power():
     assert watt / kilowatt == pytest.approx(1e-3)

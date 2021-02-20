@@ -9,9 +9,12 @@ from .force import *
 from . import rigistered_force_filed_list, CONST_CA_CA_DISTANCE
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
-class ForceEncoder(object):
-    def __init__(self, system:System, force_field_name:str='pdff', is_rigid_bond=True, cutoff_radius=12) -> None:
-        super().__init__()
+class ForceEncoder:
+    def __init__(
+        self, system:System, 
+        force_field_name:str='pdff', is_rigid_bond=True, 
+        cutoff_radius=12
+    ) -> None:
         self._system = system
         if not force_field_name.lower() in rigistered_force_filed_list:
             raise ValueError('Force field %s is not supported by OpenPD, \n rigistered force field list: %s'
@@ -37,9 +40,8 @@ class ForceEncoder(object):
         return self.ensemble
 
     def _createNonBondedForce(self):
-        force = PDFFNonbondedForce(self._cutoff_radius)
-        force.addPeptides(*self.system.peptides)
-        force.setEnergyMatrix()
+        force = PDFFNonBondedForce(self._cutoff_radius)
+        force.bindSystem(self._system)
         return force
 
     def _createBondForce(self):
