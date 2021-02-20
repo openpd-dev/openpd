@@ -6,12 +6,12 @@ __license__ = "GPLv3"
 
 from .force import Force
 from .rigidBondForce import RigidBondForce
-from .pdffNonBondedForce import PDFFNonBondedForceField, PDFFNonbondedForce
+from .pdffNonBondedForce import PDFFNonBondedForceField, PDFFNonBondedForce
 from .pdffTorsionForce import PDFFTorsionForceField, PDFFTorsionForce
 
 __all__ = [
     'Force', 
     'RigidBondForce',
-    'PDFFNonBondedForceField', 'PDFFNonbondedForce', 
+    'PDFFNonBondedForceField', 'PDFFNonBondedForce', 
     'PDFFTorsionForceField', 'PDFFTorsionForce'
 ]
