@@ -356,3 +356,6 @@ class Quantity:
             sqrt(self.value),
             self.unit.sqrt()
         ).judgeAndReturn()
+
+    def __abs__(self):
+        return abs(self.value * self.unit.relative_value)
