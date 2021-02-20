@@ -37,7 +37,7 @@ from openpd.core import Topology, Atom, Peptide, Chain, System
 from openpd.loader import Loader, PDBLoader, SequenceLoader
 
 from openpd.force import Force, RigidBondForce
-from openpd.force import PDFFNonBondedForceField, PDFFNonbondedForce
+from openpd.force import PDFFNonBondedForceField, PDFFNonBondedForce
 from openpd.force import PDFFTorsionForceField, PDFFTorsionForce
 
 from openpd.ensemble import Ensemble
@@ -56,7 +56,7 @@ __all__ = [
     'Topology', 'Atom', 'Peptide', 'Chain', 'System',
     'Loader', 'PDBLoader', 'SequenceLoader',
     'Force', 'RigidBondForce', 
-    'PDFFNonBondedForceField', 'PDFFNonbondedForce',
+    'PDFFNonBondedForceField', 'PDFFNonBondedForce',
     'PDFFTorsionForceField', 'PDFFTorsionForce',
     'ForceEncoder',
     'Ensemble',

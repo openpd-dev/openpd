@@ -44,6 +44,9 @@ Class methods
    - ``peptide_type``
    - ``coordinate``
    - ``velocity``
+   - ``potential_energy``
+   - ``kinetic_energy``
+   - ``force``
 
 Examples
 ==============

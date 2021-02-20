@@ -18,7 +18,7 @@ The OpenPD distribution includes following files and folders:
 |   Name    |             Description             |
 | :-------: | :---------------------------------: |
 |  README   |              This file              |
-|  LICENSE  |             MIT License             |
+|  LICENSE  |            GPLv3 License            |
 |   docs    |            Documentation            |
 |  openpd   | Source code of openpd python module |
 | tutorials |  Folder contains tutorial notebook  |
