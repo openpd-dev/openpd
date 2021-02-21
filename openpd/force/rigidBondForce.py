@@ -7,6 +7,9 @@ class RigidBondForce(Force):
         self._num_bonds = 0
         self._bonds = []
         self._bond_length = []
+        
+    def bindEnsemble(self, ensemble):
+        pass
 
     def _addBond(self, bond):
         self._bonds.append(bond[:2])
