@@ -1,0 +1,12 @@
+version = 1
+
+test_patterns = ["openpd/tests/*"]
+
+exclude_patterns = ["dists/*"]
+
+[[analyzers]]
+name = "python"
+enabled = true
+
+  [analyzers.meta]
+  runtime_version = "3.x.x"
