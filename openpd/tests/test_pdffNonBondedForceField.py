@@ -9,7 +9,7 @@ class TestPDFFNonBondedForceField:
         self.force_field = PDFFNonBondedForceField('ASN', 'LEU')
 
     def teardown(self):
-        pass
+        self.force_field = None
 
     def test_attributes(self):
         assert self.force_field.name == 'ASN-LEU'
@@ -22,6 +22,9 @@ class TestPDFFNonBondedForceField:
 
         with pytest.raises(AttributeError):
             self.force_field.cutoff_radius = 1
+            
+        with pytest.raises(ValueError):
+            PDFFNonBondedForceField('ASN', 'LE')
 
     def test_fixInf(self):
         assert findAll(float('inf'), self.force_field._origin_data) == []

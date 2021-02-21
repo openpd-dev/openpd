@@ -1,6 +1,6 @@
 import pytest, os
 import numpy as np
-from .. import CONST_CA_CA_DISTANCE, ForceEncoder, SequenceLoader
+from .. import CONST_CA_CA_DISTANCE, ForceEncoder, SequenceLoader, Ensemble
 from .. import isArrayEqual, isAlmostEqual, findFirstLambda
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +23,9 @@ class TestForceEncoder:
             ForceEncoder(self.system, 'a')
 
     def test_createNonBondedForce(self):
+        self.encoder.ensemble = Ensemble(self.encoder._system)
         force = self.encoder._createNonBondedForce()
+        force.bindEnsemble(self.encoder.ensemble)
         origin_coord = np.load(os.path.join(cur_dir, '../data/pdff/nonbonded/coord.npy'))
 
         asn_leu_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/nonbonded/ASN-LEU.npy'))
@@ -36,8 +38,8 @@ class TestForceEncoder:
         force = self.encoder._createBondForce()
         assert force.num_bonds == 5
         assert len(force.bond_length) == 5
-        assert force.bonds[0][0] == self.encoder.system.atoms[0]
-        assert force.bonds[0][1] == self.encoder.system.atoms[1]
+        assert force.bonds[0][0] == self.encoder._system.atoms[0]
+        assert force.bonds[0][1] == self.encoder._system.atoms[1]
         assert force.bond_length[0] == 5
         assert force.bond_length[1] == CONST_CA_CA_DISTANCE
 

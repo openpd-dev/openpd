@@ -48,6 +48,9 @@ class PDFFTorsionForce(Force):
         self._torison_types = [] # This store the type of torsion like ASN-ASP
         self._energy_coordinate = np.load(os.path.join(force_field_dir, 'coord.npy'))
         self._energy_array = None
+        
+    def bindEnsemble(self, ensemble):
+        pass
 
     def _addTorsion(self, torsion):
         self._torsions.append(torsion)
