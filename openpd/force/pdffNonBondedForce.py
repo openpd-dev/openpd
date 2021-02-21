@@ -187,6 +187,7 @@ class PDFFNonBondedForce(Force):
         self._cutoff_radius = cutoff_radius
         self._derivative_width = derivative_width
         self._force_field_matrix = None
+        self._system = None
         self._potential_energy = 0
 
     def __repr__(self) -> str:
@@ -206,6 +207,8 @@ class PDFFNonBondedForce(Force):
         system : System
             A ``System`` instance
         """        
+        if self._system != None:
+            raise AttributeError('This Force has already be bound to %s' %(self._system))
         self._system = system
         self.setForceFieldMatrix()
 

@@ -32,6 +32,11 @@ class TestPDFFNonBondedForce:
         with pytest.raises(AttributeError):
             self.force.bindSystem(system)
             self.force.setEnergyTensor()
+            
+        with pytest.raises(AttributeError):
+            system = SequenceLoader(os.path.join(cur_dir, 'data/testForceEncoder.json')).createSystem()
+            self.force.bindSystem(system)
+            self.force.bindSystem(system)
 
     def test_bindSystem(self):
         system = SequenceLoader(os.path.join(cur_dir, 'data/testForceEncoder.json')).createSystem()
