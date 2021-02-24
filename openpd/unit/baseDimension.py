@@ -1,4 +1,4 @@
-from .. import uniqueList
+from openpd.utils.unique import uniqueList
 
 class BaseDimension:
     def __init__(
