@@ -2,7 +2,7 @@ import os
 import numpy as np
 from scipy.interpolate import interp1d
 from . import Force
-from .. import getBond, getNormVec, findAll
+from .. import getBond, getUnitVec, findAll
 from ..unit import *
 from ..unit import Quantity
 
@@ -334,7 +334,7 @@ class PDFFNonBondedForce(Force):
                     atom.atom_id != target_atom.atom_id and 
                     bond_length <= self._cutoff_radius
                 ):
-                    vec = getNormVec(atom.coordinate - target_atom.coordinate)
+                    vec = getUnitVec(atom.coordinate - target_atom.coordinate)
                     single_force = self._force_field_matrix[target_peptide_id, peptide_id].getForce(bond_length) 
                     force += single_force * vec
             return force

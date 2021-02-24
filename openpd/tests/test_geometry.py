@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from .. import getBond, getNormVec, getAngle, getTorsion, isArrayEqual, isArrayAlmostEqual
+from .. import getBond, getUnitVec, getAngle, getTorsion, isArrayEqual, isArrayAlmostEqual
 from ..unit import * 
 from ..unit import Quantity
 
@@ -13,23 +13,23 @@ def test_getBond():
     coord1 = np.array([0, 0]) * angstrom
     assert getBond(coord0, coord1) == pytest.approx(np.sqrt(2) * angstrom) 
 
-def test_getNormVec():
+def test_getUnitVec():
     vec = np.array([1, 1])
-    assert isArrayAlmostEqual(getNormVec(vec), np.array([np.sqrt(2)/2, np.sqrt(2)/2]))
+    assert isArrayAlmostEqual(getUnitVec(vec), np.array([np.sqrt(2)/2, np.sqrt(2)/2]))
 
     vec = np.array([1, 1]) * angstrom
-    assert isArrayAlmostEqual(getNormVec(vec), np.array([np.sqrt(2)/2, np.sqrt(2)/2]))
+    assert isArrayAlmostEqual(getUnitVec(vec), np.array([np.sqrt(2)/2, np.sqrt(2)/2]))
 
     vec = [0, 0]
-    assert isArrayEqual(getNormVec(vec), [0, 0])
+    assert isArrayEqual(getUnitVec(vec), [0, 0])
 
     vec = [0, 0] * angstrom
-    assert isArrayEqual(getNormVec(vec), [0, 0])
-    assert not isinstance(getNormVec(vec)[0], Quantity)
+    assert isArrayEqual(getUnitVec(vec), [0, 0])
+    assert not isinstance(getUnitVec(vec)[0], Quantity)
 
     coord0 = np.array([1, 1]) * angstrom
     coord1 = np.array([0, 0]) * angstrom
-    assert isArrayAlmostEqual(getNormVec(coord0-coord1), np.array([np.sqrt(2)/2, np.sqrt(2)/2]))
+    assert isArrayAlmostEqual(getUnitVec(coord0-coord1), np.array([np.sqrt(2)/2, np.sqrt(2)/2]))
 
 def test_getAngle():
     coord0 = np.array([1, 1])

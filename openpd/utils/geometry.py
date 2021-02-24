@@ -26,7 +26,7 @@ def getBond(coord0, coord1):
     
     return np.linalg.norm(v0)
 
-def getNormVec(vec):
+def getUnitVec(vec):
     vec = np.array(vec)
     if isArrayLambda(lambda x:x==0, vec):
         return np.float64(vec / (vec + 1))
@@ -93,10 +93,10 @@ def getTorsion(coord0, coord1, coord2, coord3, is_angular=True):
     float
         torsion angle
     """    
-    coord0 = getNormVec(coord0)
-    coord1 = getNormVec(coord1)
-    coord2 = getNormVec(coord2)
-    coord3 = getNormVec(coord3)
+    coord0 = getUnitVec(coord0)
+    coord1 = getUnitVec(coord1)
+    coord2 = getUnitVec(coord2)
+    coord3 = getUnitVec(coord3)
 
     v0 = coord0 - coord1
     v1 = coord2 - coord1
