@@ -43,15 +43,15 @@ class PDFFNonBondedForceField:
                     '%s-%s interaction is not contained in %s' 
                     %(peptide_type1, peptide_type2, force_field_dir)    
                 )
+                
         self._origin_coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
-        
 
         if isinstance(cutoff_radius, Quantity):
             cutoff_radius = cutoff_radius.convertTo(angstrom) / angstrom
         self._cutoff_radius = cutoff_radius
         self._derivative_width = derivative_width
 
-        self._target_coord = np.linspace(0, self._cutoff_radius, 1000)
+        self._target_coord = np.arange(0, self._cutoff_radius+0.001, 0.001)
         
         self._fixInf()
         self._fixConverge()
