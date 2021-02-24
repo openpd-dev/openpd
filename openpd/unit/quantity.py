@@ -257,6 +257,12 @@ class Quantity:
                 other - self.value,
                 self.unit
             ).judgeAndReturn()
+            
+    def __neg__(self):
+        return Quantity(
+            - self.value,
+            self.unit
+        ).judgeAndReturn()
 
     def __mul__(self, other):
         if isinstance(other, Quantity):
