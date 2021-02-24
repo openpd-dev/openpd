@@ -1,6 +1,7 @@
 import pytest
 import numpy as np
-from .. import getBond, getUnitVec, getAngle, getTorsion, isArrayEqual, isArrayAlmostEqual
+from .. import getBond, getUnitVec, getNormVec, getAngle, getTorsion
+from .. import isArrayEqual, isArrayAlmostEqual
 from ..unit import * 
 from ..unit import Quantity
 
@@ -30,6 +31,20 @@ def test_getUnitVec():
     coord0 = np.array([1, 1]) * angstrom
     coord1 = np.array([0, 0]) * angstrom
     assert isArrayAlmostEqual(getUnitVec(coord0-coord1), np.array([np.sqrt(2)/2, np.sqrt(2)/2]))
+    
+def test_getNormVec():
+    coord0 = np.array([0, 0, 0])
+    coord1 = np.array([1, 0, 0])
+    coord2 = np.array([0, 1, 0])
+    assert isArrayEqual(
+        getNormVec(coord0, coord1, coord2),
+        [0, 0, -1]
+    )
+
+    assert isArrayEqual(
+        getNormVec(coord0*angstrom, coord1*angstrom, coord2*angstrom),
+        [0, 0, -1]
+    )
 
 def test_getAngle():
     coord0 = np.array([1, 1])

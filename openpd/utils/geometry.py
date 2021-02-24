@@ -1,6 +1,7 @@
 
 import numpy as np
 from numpy.lib.scimath import arccos
+from numpy.linalg import inv
 from . import isArrayLambda
 
 def getBond(coord0, coord1):
@@ -32,6 +33,34 @@ def getUnitVec(vec):
         return np.float64(vec / (vec + 1))
     else:
         return np.float64(vec / np.linalg.norm(vec))
+    
+def getNormVec(coord0, coord1, coord2):
+    """
+    getNormVec gets a unit vector that normal to the plane consitituted by ``coord0``, ``coord1``, and ``coord2`` 
+
+    Parameters
+    ----------
+    coord0 : list or np.ndarray
+        coordinate of point 0
+    coord1 : list or np.ndarray
+        coordinate of point 1
+    coord2 : list or np.ndarray
+        coordinate of point 2
+
+    Returns
+    -------
+    np.ndarray
+        unit vector
+    """
+    coord0 = getUnitVec(coord0)
+    coord1 = getUnitVec(coord1)
+    coord2 = getUnitVec(coord2)
+    
+    v0 = coord1 - coord0
+    v1 = coord2 - coord0
+    
+    norm_vec = np.cross(v1, v0)
+    return getUnitVec(norm_vec)
 
 def getAngle(coord0, coord1, coord2, is_angular=True):
     """
