@@ -56,8 +56,8 @@ class PDFFNonBondedForceField:
         self._fixInf()
         self._fixConverge()
         self._guessData()
-        self._getEnergyInterpolate()
-        self._getForceInterpolate()
+        self._setEnergyInterpolate()
+        self._setForceInterpolate()
 
     def __repr__(self) -> str:
         return (
@@ -88,16 +88,15 @@ class PDFFNonBondedForceField:
             elif coord < self._cutoff_radius:
                 self._target_data[i] = f(coord)
         
-    def _getEnergyInterpolate(self):
-        self._getEnergy = interp1d(self._target_coord, self._target_data, kind='cubic')
+    def _setEnergyInterpolate(self):
+        self._energy_interp = interp1d(self._target_coord, self._target_data, kind='cubic')
 
-    def _getForceInterpolate(self):
+    def _setForceInterpolate(self):
         coord = np.arange(0, self._cutoff_radius, self._derivative_width)
-        derivative_width = coord[1] - coord[0]
-        force_coord = coord[:-1] + derivative_width * 0.5
-        force_data = (self._getEnergy(coord[1:]) - self._getEnergy(coord[:-1])) / derivative_width
+        force_coord = coord[:-1] + self._derivative_width * 0.5
+        force_data = (self._energy_interp(coord[1:]) - self._energy_interp(coord[:-1])) / self._derivative_width
 
-        self._getForce = interp1d(force_coord, -force_data, kind='cubic')
+        self._force_interp = interp1d(force_coord, -force_data, kind='cubic')
 
     def getEnergy(self, coord):
         """
@@ -116,9 +115,9 @@ class PDFFNonBondedForceField:
         if isinstance(coord, Quantity):
             coord = coord.convertTo(angstrom) / angstrom
         if coord <= self._cutoff_radius:
-            return self._getEnergy(coord) * kilojoule_permol
+            return self._energy_interp(coord) * kilojoule_permol
         else:
-            return 0 * kilocalorie_permol
+            return 0 * kilojoule_permol
 
     def getForce(self, coord):
         """
@@ -137,9 +136,9 @@ class PDFFNonBondedForceField:
         if isinstance(coord, Quantity):
             coord = coord.convertTo(angstrom) / angstrom
         if coord <= self._cutoff_radius:
-            return self._getForce(coord) * kilojoule_permol_over_angstrom
+            return self._force_interp(coord) * kilojoule_permol_over_angstrom
         else:
-            return 0 * kilocalorie_permol_over_angstrom
+            return 0 * kilojoule_permol_over_angstrom
         
     @property
     def name(self):
@@ -202,9 +201,11 @@ class PDFFNonBondedForce(Force):
             cutoff_radius = cutoff_radius * angstrom
         self._cutoff_radius = cutoff_radius
         self._derivative_width = derivative_width
+        
+        self._num_atoms = 0
         self._potential_energy = 0
         self._force_field_matrix = None
-
+          
     def __repr__(self) -> str:
         return ('<PDFFNonBondedForce object: %d atoms, at 0x%x>'
             %(self._num_atoms, id(self)))
@@ -249,7 +250,7 @@ class PDFFNonBondedForce(Force):
         """        
         if self._num_peptides < 2:
             raise AttributeError(
-                'Only %d peptides in force object, cannot form a energy matrix'
+                'Only %d peptides in force object, cannot form force field matrix'
                 %(self._num_peptides)
             )
         self._force_field_matrix = np.zeros([self._num_peptides, self._num_peptides], dtype=PDFFNonBondedForceField)
@@ -318,12 +319,13 @@ class PDFFNonBondedForce(Force):
             the force acts on atom
         """        
         self._testBound()
+        
         target_atom = self._atoms[atom_id]
         if target_atom.atom_type == 'CA':
             # CA has no interaction in PDFF
-            return np.zeros(3) * kilocalorie_permol_over_angstrom
+            return np.zeros(3) * kilojoule_permol_over_angstrom
         elif target_atom.atom_type == 'SC':
-            force = np.zeros(3) * kilocalorie_permol_over_angstrom
+            force = np.zeros(3) * kilojoule_permol_over_angstrom
             target_peptide_id = int((target_atom.atom_id - 1) / 2)
             # All SC atoms
             for peptide_id, atom in enumerate(self._atoms[1::2]):
