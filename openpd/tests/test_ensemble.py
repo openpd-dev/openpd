@@ -1,7 +1,8 @@
 import pytest, os
 import numpy as np
-from .. import SequenceLoader, Ensemble, PDFFNonBondedForce, RigidBondForce
+from .. import SequenceLoader, Ensemble, PDFFNonBondedForce, RigidBondForce, PDFFTorsionForce
 from .. import isArrayEqual
+from ..unit import *
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
@@ -64,10 +65,22 @@ class TestEnsemble:
         assert self.ensemble.getNumForcesByGroup([2]) == 1
         assert self.ensemble.getNumForcesByGroup([0, 2]) == 3
 
-    # todo: test_calculateEnergy
     def test_calculatePotentialEnergy(self):
-        pass
+        force1 = PDFFNonBondedForce(cutoff_radius=12)
+        force2 = PDFFTorsionForce()
+        self.ensemble.addForces(force1, force2)
+        
+        assert (
+            self.ensemble.calculatePotentialEnergy() == 
+            force1.calculatePotentialEnergy() + force2.calculatePotentialEnergy()
+        )
 
-    # todo: test_calculateForce
-    def test_calculateForce(self):
-        pass
+    def test_calculateAtomForce(self):
+        force1 = PDFFNonBondedForce(cutoff_radius=12)
+        force2 = PDFFTorsionForce()
+        self.ensemble.addForces(force1, force2)
+        
+        assert isArrayEqual(
+            self.ensemble.calculateAtomForce(1), 
+            force1.calculateAtomForce(1) + force2.calculateAtomForce(1)
+        )
