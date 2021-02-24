@@ -1,9 +1,16 @@
 import pytest
 import numpy as np
-from .. import getBond, getUnitVec, getNormVec, getAngle, getTorsion
+from .. import convertToNdArray, getBond, getUnitVec, getNormVec, getAngle, getTorsion
 from .. import isArrayEqual, isArrayAlmostEqual
 from ..unit import * 
 from ..unit import Quantity
+
+def test_convertToNdArray():
+    quantity = np.array([0, 1, 2, 3]) * angstrom
+    quantity = convertToNdArray(quantity)
+    
+    assert isinstance(quantity, np.ndarray)
+    assert not isinstance(quantity[0], Quantity)
 
 def test_getBond():
     coord0 = np.array([1, 1])
@@ -38,13 +45,18 @@ def test_getNormVec():
     coord2 = np.array([0, 1, 0])
     assert isArrayEqual(
         getNormVec(coord0, coord1, coord2),
-        [0, 0, -1]
+        [0, 0, 1]
     )
 
     assert isArrayEqual(
         getNormVec(coord0*angstrom, coord1*angstrom, coord2*angstrom),
-        [0, 0, -1]
+        [0, 0, 1]
     )
+    
+    assert np.dot(
+        coord1 - coord0,
+        getNormVec(coord0*angstrom, coord1*angstrom, coord2*angstrom)
+    ) == 0
 
 def test_getAngle():
     coord0 = np.array([1, 1])
