@@ -265,9 +265,9 @@ class PDFFNonBondedForce(Force):
                 self._force_field_matrix[i, i+j+1] = force_field
                 self._force_field_matrix[i+j+1, i] = force_field
 
-    def calculateSingleEnergy(self, peptide_id1, peptide_id2):
+    def calculatePairEnergy(self, peptide_id1, peptide_id2):
         """
-        calculateSingleEnergy calculates the potential energy between two peptides
+        calculatePairEnergy calculates the potential energy between two peptides
 
         Parameters
         ----------
@@ -301,12 +301,12 @@ class PDFFNonBondedForce(Force):
         self._potential_energy = 0
         for i in range(self._num_peptides):
             for j in range(i+1, self._num_peptides):
-                self._potential_energy += self.calculateSingleEnergy(i, j)
+                self._potential_energy += self.calculatePairEnergy(i, j)
         return self._potential_energy
 
     def calculateAtomForce(self, atom_id):
         """
-        calculateSingleForce calculates the force acts on atom
+        calculateAtomForce calculates the force acts on atom
 
         Parameters
         ----------
