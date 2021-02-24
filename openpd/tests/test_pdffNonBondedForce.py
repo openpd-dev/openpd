@@ -1,7 +1,7 @@
 import pytest, os
 import numpy as np
 from .. import PDFFNonBondedForceField, PDFFNonBondedForce, SequenceLoader, Ensemble
-from .. import isArrayEqual, isArrayAlmostEqual, getBond, getNormVec
+from .. import isArrayEqual, isArrayAlmostEqual, getBond, getUnitVec
 from ..unit import *
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
@@ -28,10 +28,9 @@ class TestPDFFNonBondedForce:
         with pytest.raises(AttributeError):
             self.force.force_field_matrix = 1
 
-        system = SequenceLoader(os.path.join(cur_dir, 'data/testPDFFNonBondedForceException.json')).createSystem()
         with pytest.raises(AttributeError):
-            self.force.bindEnsemble(self.ensemble)
-            self.force.setEnergyTensor()
+            system = SequenceLoader(os.path.join(cur_dir, 'data/testPDFFNonBondedForceException.json')).createSystem()
+            self.force.bindEnsemble(Ensemble(system))
             
         with pytest.raises(AttributeError):
             system = SequenceLoader(os.path.join(cur_dir, 'data/testForceEncoder.json')).createSystem()
@@ -53,7 +52,7 @@ class TestPDFFNonBondedForce:
 
         assert self.force.force_field_matrix[0, 1].getEnergy(origin_coord[50]) == pytest.approx(asn_leu_energy_vector[50], 1e-3)
 
-    def test_calculateSingleEnergy(self):
+    def test_calculatePairEnergy(self):
         self.force.bindEnsemble(self.ensemble)
         
         asn_leu_force_field = PDFFNonBondedForceField('ASN', 'LEU')
@@ -61,14 +60,14 @@ class TestPDFFNonBondedForce:
             self.force._peptides[0].atoms[1].coordinate, 
             self.force._peptides[1].atoms[1].coordinate, 
         )  / angstrom
-        assert self.force.calculateSingleEnergy(0, 1) == pytest.approx(asn_leu_force_field.getEnergy(bond_length))
+        assert self.force.calculatePairEnergy(0, 1) == pytest.approx(asn_leu_force_field.getEnergy(bond_length))
 
         asn_tyr_force_field = PDFFNonBondedForceField('ASN', 'TYR')
         bond_length = getBond(
             self.force._peptides[0].atoms[1].coordinate, 
             self.force._peptides[2].atoms[1].coordinate, 
         )  / angstrom
-        assert self.force.calculateSingleEnergy(0, 2) == pytest.approx(asn_tyr_force_field.getEnergy(bond_length))
+        assert self.force.calculatePairEnergy(0, 2) == pytest.approx(asn_tyr_force_field.getEnergy(bond_length))
 
     def test_calculatePotentialEnergy(self):
         self.force.bindEnsemble(self.ensemble)
@@ -113,13 +112,13 @@ class TestPDFFNonBondedForce:
 
         bond13 = getBond(system.atoms[1].coordinate, system.atoms[3].coordinate)/angstrom
         if bond13 <= 12:
-            force13 = asn_leu_force_field.getForce(bond13) * getNormVec(system.atoms[3].coordinate - system.atoms[1].coordinate)
+            force13 = asn_leu_force_field.getForce(bond13) * getUnitVec(system.atoms[3].coordinate - system.atoms[1].coordinate)
         else:
             force13 = np.zeros([3]) * kilocalorie_permol_over_angstrom
         
         bond15 = getBond(system.atoms[1].coordinate, system.atoms[5].coordinate)/angstrom
         if bond15 <= 12:
-            force15 = asn_tyr_force_field.getForce(bond15) * getNormVec(system.atoms[5].coordinate - system.atoms[1].coordinate)
+            force15 = asn_tyr_force_field.getForce(bond15) * getUnitVec(system.atoms[5].coordinate - system.atoms[1].coordinate)
         else:
             force15 = np.zeros([3]) * kilocalorie_permol_over_angstrom
 

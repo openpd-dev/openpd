@@ -2,7 +2,7 @@ import numpy as np
 from copy import deepcopy
 from math import sqrt
 from . import BaseDimension
-from .. import isAlmostEqual
+from openpd.utils.judgement import isAlmostEqual
 
 class Unit:
     def __init__(self, base_dimension:BaseDimension, relative_value) -> None:

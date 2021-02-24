@@ -26,8 +26,8 @@ class TestForceEncoder:
         self.encoder.ensemble = Ensemble(self.encoder._system)
         force = self.encoder._createNonBondedForce()
         force.bindEnsemble(self.encoder.ensemble)
+        
         origin_coord = np.load(os.path.join(cur_dir, '../data/pdff/nonbonded/coord.npy'))
-
         asn_leu_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/nonbonded/ASN-LEU.npy'))
         assert force.force_field_matrix[0, 1].getEnergy(origin_coord[50]) == pytest.approx(asn_leu_energy_vector[50], 1e-3)
 
@@ -43,29 +43,19 @@ class TestForceEncoder:
         assert force.bond_length[0] == 5
         assert force.bond_length[1] == CONST_CA_CA_DISTANCE
 
-    # def test_createTorsionForce(self):
-    #     force = self.encoder._createTorsionForce()
-    #     assert force.num_torsions == 2
-    #     assert len(force.torsion_types) == 2
-    #     assert isArrayEqual(force.torsion_types[0], ['ASN', 'LEU'])
-
-    #     energy_coordinate = np.load(os.path.join(cur_dir, '../data/pdff/torsion/coord.npy'))
-    #     assert isArrayEqual(force.energy_coordinate, energy_coordinate)
-
-    #     asn_leu_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/torsion/ASN-LEU.npy'))
-    #     assert isArrayEqual(force.energy_array[0, :], asn_leu_energy_vector)
-
-    #     leu_tyr_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/torsion/LEU-TYR.npy'))
-    #     assert isArrayEqual(force.energy_array[1, :], leu_tyr_energy_vector)
-
-    # def test_createEnsemble(self):
-    #     ensemble = self.encoder.createEnsemble()
-    #     assert ensemble.getNumForcesByGroup([0]) == 3
-    #     assert ensemble.getNumForcesByGroup([1]) == 0
-
-    # todo: test_calculateEnergy, test_calculateForce
-    def test_calculateEnergy(self):
-        pass
-
-    def test_calculateForce(self):
-        pass
+    def test_createTorsionForce(self):
+        self.encoder.ensemble = Ensemble(self.encoder._system)
+        force = self.encoder._createTorsionForce()
+        force.bindEnsemble(self.encoder.ensemble)
+        
+        origin_coord = np.load(os.path.join(cur_dir, '../data/pdff/torsion/coord.npy'))
+        asn_leu_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/torsion/ASN-LEU.npy'))
+        assert force.force_field_vector[0].getEnergy(origin_coord[50]) == pytest.approx(asn_leu_energy_vector[50], 1e-3)
+        
+        leu_tyr_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/torsion/LEU-TYR.npy'))
+        assert force.force_field_vector[1].getEnergy(origin_coord[50]) == pytest.approx(leu_tyr_energy_vector[50], 1e-3)
+        
+    def test_createEnsemble(self):
+        ensemble = self.encoder.createEnsemble()
+        assert ensemble.getNumForcesByGroup([0]) == 3
+        assert ensemble.getNumForcesByGroup([1]) == 0

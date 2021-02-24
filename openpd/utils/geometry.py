@@ -1,7 +1,16 @@
 
 import numpy as np
+import openpd.unit as unit
 from numpy.lib.scimath import arccos
+from numpy.linalg import inv
 from . import isArrayLambda
+from openpd.unit import *
+
+def convertToNdArray(vec):
+    vec = np.array(vec)
+    if isinstance(vec[0], unit.Quantity):
+        vec = vec / unit.Quantity(1, vec[0].unit)
+    return np.float64(vec)
 
 def getBond(coord0, coord1):
     """
@@ -26,12 +35,41 @@ def getBond(coord0, coord1):
     
     return np.linalg.norm(v0)
 
-def getNormVec(vec):
-    vec = np.array(vec)
+def getUnitVec(vec):
+    vec = convertToNdArray(vec)
     if isArrayLambda(lambda x:x==0, vec):
-        return np.float64(vec / (vec + 1))
+        return vec
     else:
-        return np.float64(vec / np.linalg.norm(vec))
+        return vec / np.linalg.norm(vec)
+    
+def getNormVec(coord0, coord1, coord2):
+    """
+    getNormVec gets a unit vector that normal to the plane consitituted by ``coord0``, ``coord1``, and ``coord2`` 
+
+    Parameters
+    ----------
+    coord0 : list or np.ndarray
+        coordinate of point 0
+    coord1 : list or np.ndarray
+        coordinate of point 1
+    coord2 : list or np.ndarray
+        coordinate of point 2
+
+    Returns
+    -------
+    np.ndarray
+        unit vector that normal to the plane
+    """
+    coord0 = convertToNdArray(coord0)
+    coord1 = convertToNdArray(coord1)
+    coord2 = convertToNdArray(coord2)
+    
+    v0 = coord1 - coord0
+    v1 = coord2 - coord0
+    
+    norm_vec = np.cross(v0, v1)
+    
+    return getUnitVec(norm_vec)
 
 def getAngle(coord0, coord1, coord2, is_angular=True):
     """
@@ -53,9 +91,9 @@ def getAngle(coord0, coord1, coord2, is_angular=True):
     float
         angle
     """    
-    coord0 = np.array(coord0)
-    coord1 = np.array(coord1)
-    coord2 = np.array(coord2)
+    coord0 = convertToNdArray(coord0)
+    coord1 = convertToNdArray(coord1)
+    coord2 = convertToNdArray(coord2)
 
     v0 = coord0 - coord1
     v1 = coord2 - coord1
@@ -93,10 +131,10 @@ def getTorsion(coord0, coord1, coord2, coord3, is_angular=True):
     float
         torsion angle
     """    
-    coord0 = getNormVec(coord0)
-    coord1 = getNormVec(coord1)
-    coord2 = getNormVec(coord2)
-    coord3 = getNormVec(coord3)
+    coord0 = convertToNdArray(coord0)
+    coord1 = convertToNdArray(coord1)
+    coord2 = convertToNdArray(coord2)
+    coord3 = convertToNdArray(coord3)
 
     v0 = coord0 - coord1
     v1 = coord2 - coord1

@@ -2,7 +2,7 @@ import os
 import numpy as np
 from scipy.interpolate import interp1d
 from . import Force
-from .. import getBond, getNormVec, findAll
+from .. import getBond, getUnitVec, findAll
 from ..unit import *
 from ..unit import Quantity
 
@@ -43,21 +43,21 @@ class PDFFNonBondedForceField:
                     '%s-%s interaction is not contained in %s' 
                     %(peptide_type1, peptide_type2, force_field_dir)    
                 )
+                
         self._origin_coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
-        
 
         if isinstance(cutoff_radius, Quantity):
             cutoff_radius = cutoff_radius.convertTo(angstrom) / angstrom
         self._cutoff_radius = cutoff_radius
         self._derivative_width = derivative_width
 
-        self._target_coord = np.linspace(0, self._cutoff_radius, 1000)
+        self._target_coord = np.arange(0, self._cutoff_radius+0.001, 0.001)
         
         self._fixInf()
         self._fixConverge()
         self._guessData()
-        self._getEnergyInterpolate()
-        self._getForceInterpolate()
+        self._setEnergyInterpolate()
+        self._setForceInterpolate()
 
     def __repr__(self) -> str:
         return (
@@ -88,16 +88,15 @@ class PDFFNonBondedForceField:
             elif coord < self._cutoff_radius:
                 self._target_data[i] = f(coord)
         
-    def _getEnergyInterpolate(self):
-        self._getEnergy = interp1d(self._target_coord, self._target_data, kind='cubic')
+    def _setEnergyInterpolate(self):
+        self._energy_interp = interp1d(self._target_coord, self._target_data, kind='cubic')
 
-    def _getForceInterpolate(self):
+    def _setForceInterpolate(self):
         coord = np.arange(0, self._cutoff_radius, self._derivative_width)
-        derivative_width = coord[1] - coord[0]
-        force_coord = coord[:-1] + derivative_width * 0.5
-        force_data = (self._getEnergy(coord[1:]) - self._getEnergy(coord[:-1])) / derivative_width
+        force_coord = coord[:-1] + self._derivative_width * 0.5
+        force_data = (self._energy_interp(coord[1:]) - self._energy_interp(coord[:-1])) / self._derivative_width
 
-        self._getForce = interp1d(force_coord, -force_data, kind='cubic')
+        self._force_interp = interp1d(force_coord, -force_data, kind='cubic')
 
     def getEnergy(self, coord):
         """
@@ -116,9 +115,9 @@ class PDFFNonBondedForceField:
         if isinstance(coord, Quantity):
             coord = coord.convertTo(angstrom) / angstrom
         if coord <= self._cutoff_radius:
-            return self._getEnergy(coord) * kilojoule_permol
+            return self._energy_interp(coord) * kilojoule_permol
         else:
-            return 0 * kilocalorie_permol
+            return 0 * kilojoule_permol
 
     def getForce(self, coord):
         """
@@ -137,9 +136,9 @@ class PDFFNonBondedForceField:
         if isinstance(coord, Quantity):
             coord = coord.convertTo(angstrom) / angstrom
         if coord <= self._cutoff_radius:
-            return self._getForce(coord) * kilojoule_permol_over_angstrom
+            return self._force_interp(coord) * kilojoule_permol_over_angstrom
         else:
-            return 0 * kilocalorie_permol_over_angstrom
+            return 0 * kilojoule_permol_over_angstrom
         
     @property
     def name(self):
@@ -202,9 +201,11 @@ class PDFFNonBondedForce(Force):
             cutoff_radius = cutoff_radius * angstrom
         self._cutoff_radius = cutoff_radius
         self._derivative_width = derivative_width
+        
+        self._num_atoms = 0
         self._potential_energy = 0
         self._force_field_matrix = None
-
+          
     def __repr__(self) -> str:
         return ('<PDFFNonBondedForce object: %d atoms, at 0x%x>'
             %(self._num_atoms, id(self)))
@@ -249,7 +250,7 @@ class PDFFNonBondedForce(Force):
         """        
         if self._num_peptides < 2:
             raise AttributeError(
-                'Only %d peptides in force object, cannot form a energy matrix'
+                'Only %d peptides in force object, cannot form force field matrix'
                 %(self._num_peptides)
             )
         self._force_field_matrix = np.zeros([self._num_peptides, self._num_peptides], dtype=PDFFNonBondedForceField)
@@ -264,9 +265,9 @@ class PDFFNonBondedForce(Force):
                 self._force_field_matrix[i, i+j+1] = force_field
                 self._force_field_matrix[i+j+1, i] = force_field
 
-    def calculateSingleEnergy(self, peptide_id1, peptide_id2):
+    def calculatePairEnergy(self, peptide_id1, peptide_id2):
         """
-        calculateSingleEnergy calculates the potential energy between two peptides
+        calculatePairEnergy calculates the potential energy between two peptides
 
         Parameters
         ----------
@@ -300,12 +301,12 @@ class PDFFNonBondedForce(Force):
         self._potential_energy = 0
         for i in range(self._num_peptides):
             for j in range(i+1, self._num_peptides):
-                self._potential_energy += self.calculateSingleEnergy(i, j)
+                self._potential_energy += self.calculatePairEnergy(i, j)
         return self._potential_energy
 
     def calculateAtomForce(self, atom_id):
         """
-        calculateSingleForce calculates the force acts on atom
+        calculateAtomForce calculates the force acts on atom
 
         Parameters
         ----------
@@ -318,12 +319,13 @@ class PDFFNonBondedForce(Force):
             the force acts on atom
         """        
         self._testBound()
+        
         target_atom = self._atoms[atom_id]
         if target_atom.atom_type == 'CA':
             # CA has no interaction in PDFF
-            return np.zeros(3) * kilocalorie_permol_over_angstrom
+            return np.zeros(3) * kilojoule_permol_over_angstrom
         elif target_atom.atom_type == 'SC':
-            force = np.zeros(3) * kilocalorie_permol_over_angstrom
+            force = np.zeros(3) * kilojoule_permol_over_angstrom
             target_peptide_id = int((target_atom.atom_id - 1) / 2)
             # All SC atoms
             for peptide_id, atom in enumerate(self._atoms[1::2]):
@@ -332,7 +334,7 @@ class PDFFNonBondedForce(Force):
                     atom.atom_id != target_atom.atom_id and 
                     bond_length <= self._cutoff_radius
                 ):
-                    vec = getNormVec(atom.coordinate - target_atom.coordinate)
+                    vec = getUnitVec(atom.coordinate - target_atom.coordinate)
                     single_force = self._force_field_matrix[target_peptide_id, peptide_id].getForce(bond_length) 
                     force += single_force * vec
             return force
