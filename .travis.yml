@@ -22,7 +22,7 @@ install:
   - python setup.py install
 
 script: 
-  - coverage run openpd/runTest.py -n 4
+  - coverage run openpd/runTest.py
 
 after_success:
   - codecov
