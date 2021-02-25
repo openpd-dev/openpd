@@ -33,7 +33,7 @@ rigistered_force_filed_list = [
 
 from openpd.utils import *
 
-from openpd.core import Topology, Atom, Peptide, Chain, System
+from openpd.element import Atom, Peptide, Chain, System, Topology
 from openpd.loader import Loader, PDBLoader, SequenceLoader
 
 from openpd.force import Force, RigidBondForce
@@ -53,7 +53,7 @@ from openpd.dumper import PDBDumper
 from openpd.visualizer import SystemVisualizer
 
 __all__ = [
-    'Topology', 'Atom', 'Peptide', 'Chain', 'System',
+    'Atom', 'Peptide', 'Chain', 'System', 'Topology',
     'Loader', 'PDBLoader', 'SequenceLoader',
     'Force', 'RigidBondForce', 
     'PDFFNonBondedForceField', 'PDFFNonBondedForce',
