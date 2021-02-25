@@ -21,7 +21,7 @@ install:
   - python setup.py install
 
 script: 
-  - coverage run openpd/converageTest.py
+  - coverage run openpd/coverageTest.py
 
 after_success:
   - codecov
