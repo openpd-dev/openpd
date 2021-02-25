@@ -13,7 +13,7 @@ class ForceEncoder:
     def __init__(
         self, system:System, 
         force_field_name:str='pdff', is_rigid_bond=True, 
-        cutoff_radius=12
+        cutoff_radius=12, derivative_width=0.0001
     ) -> None:
         self._system = system
         if not force_field_name.lower() in rigistered_force_filed_list:
@@ -22,6 +22,7 @@ class ForceEncoder:
         self._force_field_name = force_field_name
         self._force_field_folder = os.path.join(cur_dir, 'data', force_field_name)
         self._cutoff_radius = cutoff_radius
+        self._derivative_width = derivative_width
 
     def __repr__(self) -> str:
         return ('<ForceEncoder object: encoding %s forcefield at 0x%x>' 
@@ -30,34 +31,32 @@ class ForceEncoder:
     __str__ = __repr__
 
     def createEnsemble(self):
-        self.ensemble = Ensemble()
+        self.ensemble = Ensemble(self._system)
         non_bonded_force = self._createNonBondedForce()
         bond_force = self._createBondForce()
-        torsion_force =  PDFFTorsionForce()#self._createTorsionForce()
+        torsion_force = self._createTorsionForce()
 
         self.ensemble.addForces(non_bonded_force, bond_force, torsion_force)
 
         return self.ensemble
 
     def _createNonBondedForce(self):
-        force = PDFFNonBondedForce(self._cutoff_radius)
-        force.bindSystem(self._system)
+        force = PDFFNonBondedForce(
+            cutoff_radius=self._cutoff_radius,
+            derivative_width=self._derivative_width
+        )
         return force
 
     def _createBondForce(self):
         force = RigidBondForce()
-        force.addBonds(*self.system.topology.bonds)
+        force.addBonds(*self._system.topology.bonds)
         return force
 
     def _createTorsionForce(self):
-        force = PDFFTorsionForce()
-        force.addTorsions(*self.system.topology.torsions)
-        force.setEnergyVector()
+        force = PDFFTorsionForce(
+            derivative_width=self._derivative_width
+        )
         return force
-
-    @property
-    def system(self):
-        return self._system
 
     @property
     def cutoff_radius(self):

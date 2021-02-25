@@ -1,11 +1,11 @@
-========================
-openpd.core.System class
-========================
+============================
+openpd.element.System class
+============================
 
 Overview
 ===========
 
-``openpd.core.System`` is the ultima class for model representation. A ``System`` instance is consists of a series of ``Chain`` instances. 
+``openpd.element.System`` is the ultima class for model representation. A ``System`` instance is consists of a series of ``Chain`` instances. 
 
 Meanwhile, the ``System`` will also create a ``Topology`` instance during the instantiation and adding topology information when call ``System.addChains()`` method.
 
@@ -16,7 +16,7 @@ Meanwhile, the ``System`` will also create a ``Topology`` instance during the in
 Class methods
 ==============
 
-.. automodule:: openpd.core.system
+.. automodule:: openpd.element.system
    :members:
    :undoc-members:
    :show-inheritance:

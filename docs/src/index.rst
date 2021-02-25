@@ -72,7 +72,7 @@ Contents
    :includehidden:
 
    modules/unit/main
-   modules/core/main
+   modules/element/main
    modules/loader/main
    modules/force/main
    modules/dumper/main

@@ -1,3 +1,4 @@
+import pytest
 from .. import Force
 
 class TestForce:
@@ -12,4 +13,8 @@ class TestForce:
         assert self.force.force_group == 0
 
     def test_exceptions(self):
-        pass
+        with pytest.raises(AttributeError):
+            self.force._testBound()
+            
+        with pytest.raises(NotImplementedError):
+            self.force.bindEnsemble(1)

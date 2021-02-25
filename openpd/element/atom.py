@@ -37,6 +37,12 @@ class Atom:
             %(self._atom_id, self._atom_type, self._peptide_type, id(self)))
 
     __str__ = __repr__ 
+    
+    def __eq__(self, other):
+        if id(self) == id(other):
+            return True
+        else:
+            return False
 
     @property
     def atom_type(self):

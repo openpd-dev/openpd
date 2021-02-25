@@ -43,6 +43,7 @@ setup(
         'numpy',
         'matplotlib',
         'pytest',
+        'pytest-xdist',
         'scipy'
     ],
     python_requires='>=3.7'

@@ -22,6 +22,22 @@ If no error message is popped out, the installation is completed.
 
     As OpenPD is only tests for python version >= 3.7, so make sure the python version matches the requirement.
 
+For testing with multiprocessors, user can run tests by:
+
+.. code-block:: bash
+    :linenos:
+
+    python -m openpd.runTest -n <number of processes>
+
+For example:
+
+.. code-block:: bash
+    :linenos:
+
+    python -m openpd.runTest -n 4
+
+will executes the tests with 4 processors.
+
 ============
 Build OpenPD
 ============

@@ -2,7 +2,7 @@ import numpy as np
 from copy import deepcopy
 from math import sqrt
 from . import Unit
-from .. import isAlmostEqual
+from openpd.utils.judgement import isAlmostEqual
 
 class Quantity:
     def __init__(self, value, unit:Unit) -> None:
@@ -257,6 +257,12 @@ class Quantity:
                 other - self.value,
                 self.unit
             ).judgeAndReturn()
+            
+    def __neg__(self):
+        return Quantity(
+            - self.value,
+            self.unit
+        ).judgeAndReturn()
 
     def __mul__(self, other):
         if isinstance(other, Quantity):
