@@ -2,7 +2,7 @@ from openpd.utils.geometry import getAngle
 import pytest, os
 import numpy as np
 from .. import PDFFTorsionForce, SequenceLoader, Ensemble
-from .. import isArrayEqual,  getTorsion, convertToNdArray
+from .. import isAlmostEqual, isArrayEqual, getTorsion, convertToNdArray
 from ..unit import *
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
@@ -80,9 +80,9 @@ class TestPDFFTorsionForce:
             self.force._torsions[0][2].coordinate,
             self.force._torsions[0][3].coordinate
         )
-        assert (
-            self.force.force_field_vector[0].getEnergy(torsion_angle) ==
-            pytest.approx(self.force.calculateTorsionEnergy(0))
+        assert isAlmostEqual(
+            self.force.force_field_vector[0].getEnergy(torsion_angle),
+            self.force.calculateTorsionEnergy(0)
         )
 
     def test_calculatePotentialEnergy(self):

@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 from .. import convertToNdArray, getBond, getUnitVec, getNormVec, getAngle, getTorsion
-from .. import isArrayEqual, isArrayAlmostEqual
+from .. import isArrayEqual, isArrayAlmostEqual, isAlmostEqual
 from ..unit import * 
 from ..unit import Quantity
 
@@ -19,7 +19,7 @@ def test_getBond():
 
     coord0 = np.array([1, 1]) * angstrom
     coord1 = np.array([0, 0]) * angstrom
-    assert getBond(coord0, coord1) == pytest.approx(np.sqrt(2) * angstrom) 
+    assert isAlmostEqual(getBond(coord0, coord1), np.sqrt(2) * angstrom)
 
 def test_getUnitVec():
     vec = np.array([1, 1])

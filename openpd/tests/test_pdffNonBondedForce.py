@@ -1,7 +1,7 @@
 import pytest, os
 import numpy as np
 from .. import PDFFNonBondedForceField, PDFFNonBondedForce, SequenceLoader, Ensemble
-from .. import isArrayEqual, isArrayAlmostEqual, getBond, getUnitVec
+from .. import isAlmostEqual, isArrayEqual, isArrayAlmostEqual, getBond, getUnitVec
 from ..unit import *
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
@@ -60,14 +60,18 @@ class TestPDFFNonBondedForce:
             self.force._peptides[0].atoms[1].coordinate, 
             self.force._peptides[1].atoms[1].coordinate, 
         )  / angstrom
-        assert self.force.calculatePairEnergy(0, 1) == pytest.approx(asn_leu_force_field.getEnergy(bond_length))
+        assert isAlmostEqual(
+            self.force.calculatePairEnergy(0, 1), asn_leu_force_field.getEnergy(bond_length)
+        ) 
 
         asn_tyr_force_field = PDFFNonBondedForceField('ASN', 'TYR')
         bond_length = getBond(
             self.force._peptides[0].atoms[1].coordinate, 
             self.force._peptides[2].atoms[1].coordinate, 
         )  / angstrom
-        assert self.force.calculatePairEnergy(0, 2) == pytest.approx(asn_tyr_force_field.getEnergy(bond_length))
+        assert isAlmostEqual(
+            self.force.calculatePairEnergy(0, 2), asn_tyr_force_field.getEnergy(bond_length)
+        ) 
 
     def test_calculatePotentialEnergy(self):
         self.force.bindEnsemble(self.ensemble)
@@ -89,17 +93,23 @@ class TestPDFFNonBondedForce:
             self.force._peptides[2].atoms[1].coordinate, 
         )  / angstrom
 
-        assert self.force.calculatePotentialEnergy() == pytest.approx(
-            asn_leu_force_field.getEnergy(bond01) +
-            asn_tyr_force_field.getEnergy(bond02) + 
-            leu_tyr_force_field.getEnergy(bond12)
-        )
-        assert self.force.potential_energy == pytest.approx(
-            asn_leu_force_field.getEnergy(bond01) +
-            asn_tyr_force_field.getEnergy(bond02) + 
-            leu_tyr_force_field.getEnergy(bond12)
-        )
-
+        assert isAlmostEqual(
+            self.force.calculatePotentialEnergy(),
+            (
+                asn_leu_force_field.getEnergy(bond01) +
+                asn_tyr_force_field.getEnergy(bond02) + 
+                leu_tyr_force_field.getEnergy(bond12)
+            )
+        ) 
+        assert isAlmostEqual(
+            self.force.potential_energy,
+            (
+                asn_leu_force_field.getEnergy(bond01) +
+                asn_tyr_force_field.getEnergy(bond02) + 
+                leu_tyr_force_field.getEnergy(bond12)
+            )
+        ) 
+        
     def test_calculateAtomForce(self):
         self.force.bindEnsemble(self.ensemble)
         
