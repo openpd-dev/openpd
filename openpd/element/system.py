@@ -3,6 +3,7 @@ from copy import deepcopy
 
 from . import Chain, Topology
 from .. import isArrayEqual
+from ..unit import Quantity
 
 class System:
     def __init__(self) -> None:
@@ -12,7 +13,6 @@ class System:
         self._num_atoms = 0
         self._num_peptides = 0
         self._num_chains = 0
-        self._cooridnate_shape = list(self.coordinate.shape)
 
     def __repr__(self) -> str:
         return ('<System object: %d chains, %d peptides, %d atoms at 0x0x%x>' 
@@ -135,6 +135,21 @@ class System:
             the topology of the system
         """        
         return self._topology
+    
+    @property
+    def mass(self):
+        """
+        mass gets the velocity of all atoms in the system
+
+        Returns
+        -------
+        np.ndarray
+            the mass of all atoms in the system
+        """        
+        mass = np.zeros([self.num_atoms, 1], dtype=Quantity)
+        for i, atom in enumerate(self.atoms):
+            mass[i] = atom.mass
+        return mass
 
     @property
     def coordinate(self):
@@ -146,17 +161,57 @@ class System:
         np.ndarray
             the coordinate of all atoms in the system
         """        
-        coord = []
-        for atom in self.atoms:
-            coord.append(atom.coordinate)
-        return np.array(coord)
+        coord = np.zeros([self.num_atoms, 3], dtype=Quantity)
+        for i, atom in enumerate(self.atoms):
+            coord[i, :] = atom.coordinate
+        return coord
 
     @coordinate.setter
     def coordinate(self, coord):
         coord = np.array(coord)
-        if not isArrayEqual(coord.shape, self._cooridnate_shape):
+        if not isArrayEqual(list(coord.shape), [self._num_atoms, 3]):
             raise ValueError('Dimension of input %s is different from dimension of coordinate matrix %s' 
                 %(coord.shape, self._cooridnate_shape))
 
         for i, atom in enumerate(self.atoms):
             atom.coordinate = coord[i, :]
+            
+    @property
+    def velocity(self):
+        """
+        velocity gets the velocity of all atoms in the system
+
+        Returns
+        -------
+        np.ndarray
+            the velocity of all atoms in the system
+        """        
+        velocity = np.zeros([self.num_atoms, 3], dtype=Quantity)
+        for i, atom in enumerate(self.atoms):
+            velocity[i, :] = atom.velocity
+        return velocity
+
+    @velocity.setter
+    def velocity(self, velocity):
+        velocity = np.array(velocity)
+        if not isArrayEqual(list(velocity.shape), [self._num_atoms, 3]):
+            raise ValueError('Dimension of input %s is different from dimension of coordinate matrix %s' 
+                %(velocity.shape, [self._num_atoms, 3]))
+
+        for i, atom in enumerate(self.atoms):
+            atom.velocity = velocity[i, :]
+            
+    @property
+    def force(self):
+        """
+        force gets the velocity of all atoms in the system
+
+        Returns
+        -------
+        np.ndarray
+            the force of all atoms in the system
+        """        
+        force = np.zeros([self.num_atoms, 3], dtype=Quantity)
+        for i, atom in enumerate(self.atoms):
+            force[i, :] = atom.force
+        return force

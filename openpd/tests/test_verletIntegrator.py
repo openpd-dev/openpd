@@ -1,3 +1,4 @@
+from numpy.core.einsumfunc import _parse_einsum_input
 import pytest, os
 
 from .. import VerletIntegrator, SequenceLoader, ForceEncoder
@@ -10,7 +11,7 @@ class TestVerletIntegrator:
         self.integrator = VerletIntegrator(1)
         system = SequenceLoader(os.path.join(cur_dir, 'data/testForceEncoder.json')).createSystem()
         ensemble = ForceEncoder(system).createEnsemble()
-        self.integrator._bindTo(system, ensemble)
+        self.integrator._bindEnsemble(ensemble)
 
     def teardown(self):
         self.integrator = None

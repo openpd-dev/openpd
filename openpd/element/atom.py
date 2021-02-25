@@ -116,7 +116,7 @@ class Atom:
         np.ndarray(dtype=Quantity)
             coordinate
         """        
-        return self._coordinate
+        return np.copy(self._coordinate)
 
     @coordinate.setter
     def coordinate(self, coordinate):
@@ -164,7 +164,7 @@ class Atom:
         np.ndarray(dtype=Quantity)
             velocity
         """    
-        return self._velocity
+        return np.copy(self._velocity)
 
     @velocity.setter
     def velocity(self, velocity):
@@ -199,6 +199,54 @@ class Atom:
 
         for (i, j) in enumerate(velocity):
             self._velocity[i] = j
+
+    @property
+    def force(self):
+        """
+        velocity gets atom's force
+
+        The force default to be ``np.array([0, 0, 0]) * kilojoule_permol_over_angstrom``
+
+        Returns
+        -------
+        np.ndarray(dtype=Quantity)
+            force
+        """    
+        return np.copy(self._force)
+
+    @force.setter
+    def force(self, force):
+        """
+        setter method to set atom's force
+
+        Parameters
+        ----------
+        force : np.ndarry or list
+            atom's force, Unit default to be ``kilojoule_permol_over_angstrom`` if float list or array is provided
+
+        Raises
+        ------
+        ValueError
+            When the length of input ``force`` != 3
+
+        ValueError
+            When the dimension of input ``force`` is Quantity and != ``BaseDimension(length_dimension=-1, energy_dimension=1)``
+        """           
+        if len(force) != 3:
+            raise ValueError('Length of velocity vector should be 3')
+        elif isinstance(force[0], Quantity):
+            if force[0].unit.base_dimension != unit.force:
+                raise ValueError(
+                    'Dimension of parameter force should be %s instead of %s' 
+                    %(unit.force, force[0].unit.base_dimension)
+                )
+            else:
+                force = force / (kilojoule_permol_over_angstrom) * (kilojoule_permol_over_angstrom)
+        else:
+            force = force * kilojoule_permol_over_angstrom
+
+        for (i, j) in enumerate(force):
+            self._force[i] = j
 
     @property
     def potential_energy(self):
@@ -265,51 +313,3 @@ class Atom:
         else:
             energy = energy * kilojoule_permol
         self._kinetic_energy = energy
-
-    @property
-    def force(self):
-        """
-        velocity gets atom's force
-
-        The force default to be ``np.array([0, 0, 0]) * kilojoule_permol_over_angstrom``
-
-        Returns
-        -------
-        np.ndarray(dtype=Quantity)
-            force
-        """    
-        return self._force
-
-    @force.setter
-    def force(self, force):
-        """
-        setter method to set atom's force
-
-        Parameters
-        ----------
-        force : np.ndarry or list
-            atom's force, Unit default to be ``kilojoule_permol_over_angstrom`` if float list or array is provided
-
-        Raises
-        ------
-        ValueError
-            When the length of input ``force`` != 3
-
-        ValueError
-            When the dimension of input ``force`` is Quantity and != ``BaseDimension(length_dimension=-1, energy_dimension=1)``
-        """           
-        if len(force) != 3:
-            raise ValueError('Length of velocity vector should be 3')
-        elif isinstance(force[0], Quantity):
-            if force[0].unit.base_dimension != unit.force:
-                raise ValueError(
-                    'Dimension of parameter force should be %s instead of %s' 
-                    %(unit.force, force[0].unit.base_dimension)
-                )
-            else:
-                force = force / (kilojoule_permol_over_angstrom) * (kilojoule_permol_over_angstrom)
-        else:
-            force = force * kilojoule_permol_over_angstrom
-
-        for (i, j) in enumerate(force):
-            self._force[i] = j
