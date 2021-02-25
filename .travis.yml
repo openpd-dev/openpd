@@ -13,7 +13,6 @@ before_install:
   - pip install numpy 
   - pip install scipy
   - pip install pytest 
-  - pip install pytest-sugar
   - pip install pytest-xdist
   - pip install matplotlib
   - pip install codecov 
