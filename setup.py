@@ -43,7 +43,6 @@ setup(
         'numpy',
         'matplotlib',
         'pytest',
-        'pytest-sugar',
         'pytest-xdist',
         'scipy'
     ],

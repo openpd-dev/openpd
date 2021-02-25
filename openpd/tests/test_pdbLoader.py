@@ -1,8 +1,7 @@
-from openpd.core.peptide import Peptide
 import os, pytest
 import numpy as np
 
-from .. import PDBLoader, getBond
+from .. import Peptide, PDBLoader, getBond
 from .. import CONST_CA_CA_DISTANCE
 from ..unit import *
 

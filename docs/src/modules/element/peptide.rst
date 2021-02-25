@@ -1,11 +1,11 @@
-==========================
-openpd.core.Peptide class
-==========================
+=============================
+openpd.element.Peptide class
+=============================
 
 Introduction
 ============
 
-``openpd.core.Peptide`` is designed to represent the peptides of protein. When the user creates an instance of ``Peptide``, only the type of peptide is needed, like ``"ASN"``. Both single and triple letter abbreviation is supported. 
+``openpd.element.Peptide`` is designed to represent the peptides of protein. When the user creates an instance of ``Peptide``, only the type of peptide is needed, like ``"ASN"``. Both single and triple letter abbreviation is supported. 
 
 However, the peptide type must be included in the standard peptide list shown below:
 
@@ -47,7 +47,7 @@ After specifying the peptide type, the attributes of ``Peptide`` will be automat
 Class methods
 ==============
 
-.. automodule:: openpd.core.peptide
+.. automodule:: openpd.element.peptide
    :members:
    :undoc-members:
    :show-inheritance:

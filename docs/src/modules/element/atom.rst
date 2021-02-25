@@ -1,13 +1,13 @@
-======================
-openpd.core.Atom class
-======================
+=========================
+openpd.element.Atom class
+=========================
 
 Introduction
 ============
 
-``openpd.core.Atom`` is designed to store atoms' information, as the most fundamental class of ``openpd.core`` package.
+``openpd.element.Atom`` is designed to store atoms' information, as the most fundamental class of ``openpd.element`` package.
 
-The ``openpd.core.Atom`` is defined by two parameter:
+The ``openpd.element.Atom`` is defined by two parameter:
 
 - The name of atom;
 - The mass of atom;
@@ -26,7 +26,7 @@ These two parameter are the determinative identification of atom in OpenPD.
 Class methods
 ==============
 
-.. automodule:: openpd.core.atom
+.. automodule:: openpd.element.atom
    :members:
    :undoc-members:
    :show-inheritance:

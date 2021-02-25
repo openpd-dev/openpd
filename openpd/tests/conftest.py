@@ -1,14 +1,14 @@
 import pytest
 
 test_order = [
+     'unit',
+     'quantity',
+     'unitDefinition',
      'judgement',
      'locate',
      'geometry',
      'unique',
      'baseDimension',
-     'unit',
-     'quantity',
-     'unitDefinition',
      'atom',
      'peptide',
      'chain',

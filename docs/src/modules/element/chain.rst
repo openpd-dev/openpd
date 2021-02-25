@@ -1,16 +1,16 @@
-=======================
-openpd.core.Chain class
-=======================
+==========================
+openpd.element.Chain class
+==========================
 
 Introduction
 ============
 
-``openpd.core.Chain`` is designed to represent a peptide chain. It is consists of a series of ``Peptide`` instances.
+``openpd.element.Chain`` is designed to represent a peptide chain. It is consists of a series of ``Peptide`` instances.
 
 Class methods
 ==============
 
-.. automodule:: openpd.core.chain
+.. automodule:: openpd.element.chain
    :members:
    :undoc-members:
    :show-inheritance:

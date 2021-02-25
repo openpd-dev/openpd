@@ -1,3 +1,4 @@
+from openpd.utils.geometry import getAngle
 import pytest, os
 import numpy as np
 from .. import PDFFTorsionForce, SequenceLoader, Ensemble
@@ -142,4 +143,16 @@ class TestPDFFTorsionForce:
             convertToNdArray(vec2),
             convertToNdArray(force2)
         ) == pytest.approx(0)
+        
+        v0 = convertToNdArray(force1)
+        v1 = convertToNdArray(force2)
+        phi = np.arccos(np.dot(v0, v1) / (np.linalg.norm(v0)*np.linalg.norm(v1)))
+        assert (
+            phi + abs(getTorsion(
+                system.topology.torsions[0][0].coordinate,
+                system.topology.torsions[0][1].coordinate,
+                system.topology.torsions[0][2].coordinate,
+                system.topology.torsions[0][3].coordinate,
+            )) == pytest.approx(np.pi)
+        )
         

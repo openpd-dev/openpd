@@ -7,7 +7,7 @@ Package introduction
 
 As the creation of ``System`` is tedious but multistep work, OpenPD provides a package to automatically finish creating a ``System`` from an input file, which is ``openpd.loader`` package. 
 
-.. seealso:: :doc:`../core/system` Page
+.. seealso:: :doc:`../element/system` Page
 
 The workflow of ``openpd.loader`` is quite straight-forward as shown below:
 

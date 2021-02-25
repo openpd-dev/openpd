@@ -1,11 +1,11 @@
-==========================
-openpd.core.Topology class
-==========================
+=============================
+openpd.element.Topology class
+=============================
 
 Overview
 ===========
 
-``openpd.core.Topology`` is designed to store all the topology information of ``System``
+``openpd.element.Topology`` is designed to store all the topology information of ``System``
 
 .. seealso:: :doc:`system` page
 
@@ -36,7 +36,7 @@ In OpenPD, the work of generating topology is accomplished based on several rule
 Class methods
 ==============
 
-.. automodule:: openpd.core.topology
+.. automodule:: openpd.element.topology
    :members:
    :undoc-members:
    :show-inheritance:
