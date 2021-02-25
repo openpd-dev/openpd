@@ -10,7 +10,7 @@ class TestIntegrator:
         self.integrator = Integrator(1)
         system = SequenceLoader(os.path.join(cur_dir, 'data/testForceEncoder.json')).createSystem()
         ensemble = ForceEncoder(system).createEnsemble()
-        self.integrator._bindTo(system, ensemble)
+        self.integrator._bindEnsemble(ensemble)
 
     def teardown(self):
         self.integrator = None
@@ -20,9 +20,6 @@ class TestIntegrator:
         assert self.integrator._is_bound == True
 
     def test_exception(self):
-        with pytest.raises(AttributeError):
-            self.integrator.system = 1
-
         with pytest.raises(AttributeError):
             self.integrator.ensemble = 1
 

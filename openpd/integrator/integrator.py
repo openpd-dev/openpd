@@ -1,7 +1,7 @@
 import numpy as np
 
 import openpd.unit as unit
-from .. import System, Ensemble
+from .. import Ensemble
 from ..unit import *
 from ..unit import Quantity
 
@@ -19,13 +19,7 @@ class Integrator:
             When the parameter ``interval`` is ``Quantity`` and ``interval.unit.base_dimension != BaseDimension(time_dimension=1)``
         """        
         if isinstance(interval, Quantity):
-            if interval.unit.base_dimension != unit.time:
-                raise ValueError(
-                    'Dimension of parameter interval should be s instead of %s' 
-                    %(interval.unit.base_dimension)
-                )
-            else:
-                interval = interval / femtosecond * femtosecond
+            interval.convertTo(femtosecond)
         else:
             interval = interval * femtosecond
         
@@ -39,6 +33,28 @@ class Integrator:
         )
 
     __str__ = __repr__
+    
+    def _bindEnsemble(self, ensemble:Ensemble):
+        """
+        _bindEnsemble binds integrator to an ``Ensemble`` instance
+        
+        This will only called by ``Simulation`` instance
+
+        Parameters
+        ----------
+        ensemble : Ensemble
+            target ``Ensemble``
+
+        Raises
+        ------
+        AttributeError
+            When bind ``Integrator`` multi-times
+        """        
+        if self._is_bound:
+            raise AttributeError('This integrator has been bonded, can not be bound again!')
+        self._ensemble = ensemble
+        self._system = ensemble.system
+        self._is_bound = True
 
     def _testBound(self):
         if not self._is_bound:
@@ -63,7 +79,7 @@ class Integrator:
         """        
         self._testBound()
         if isinstance(temperature, Quantity):
-            if temperature.unit.base_dimension != unit.time:
+            if temperature.unit.base_dimension != unit.temperature:
                 raise ValueError(
                     'Dimension of parameter temperature should be s instead of %s' 
                     %(temperature.unit.base_dimension)
@@ -85,12 +101,12 @@ class Integrator:
 
     def calculateKineticEnergy(self):
         """
-        calculateKineticEnergy returns the kinetic energy of the ``self.system``
+        calculateKineticEnergy returns the kinetic energy of all atoms
 
         Returns
         -------
         Quantity
-            Kinetic energy of ``self.system``
+            Kinetic energy of all atoms
 
         Raises
         ------
@@ -100,18 +116,18 @@ class Integrator:
         self._testBound()
         
         kinetic_energy = 0
-        for atom in self.system.atoms:
+        for atom in self._system.atoms:
             kinetic_energy += atom.mass * (atom.velocity**2).sum() / 2
         return kinetic_energy.convertTo(kilojoule_permol)
 
     def calculateTemperature(self):
         """
-        calculateTemperature returns the temperature of the ``self.system``
+        calculateTemperature returns the temperature of the Simulation System
 
         Returns
         -------
         Quantity
-            Temperature of ``self.system``
+            Temperature of Simulation System
 
         Raises
         ------
@@ -121,13 +137,23 @@ class Integrator:
         self._testBound()
         kinetic_energy = self.calculateKineticEnergy()
         return kinetic_energy * 2 / 3 / self._system.num_atoms / k_b
+        
+    def updateAtomsForce(self, force_group=[0]):
+        """
+        updateAtomsForce updates the force acts on all ``Atom``
 
-    def _bindTo(self, system:System, ensemble:Ensemble):
-        if self._is_bound:
-            raise AttributeError('This integrator has been bonded, can not be bound again!')
-        self._system = system
-        self._ensemble = ensemble
-        self._is_bound = True
+        This method needs to be overloaded for all subclass
+
+        Raises
+        ------
+        NotImplementedError
+            When the subclass does not overload this method
+        """  
+        forces = self._ensemble.getForcesByGroup(force_group)
+        for atom in self._system.atoms:
+            atom.force = np.zeros([3]) * kilojoule_permol_over_angstrom
+            for force in forces:
+                atom.force += force.calculateAtomForce(atom.atom_id)
 
     def step(self, num_steps:int):
         """
@@ -185,19 +211,6 @@ class Integrator:
         else:
             interval = interval * femtosecond
         self._interval = interval 
-    
-    @property
-    def system(self):
-        """
-        system gets the ``system`` that bound to ``self``
-
-        Returns
-        -------
-        System
-            the ``system`` that bound to ``self``
-        """        
-        self._testBound()
-        return self._system
 
     @property
     def ensemble(self):
