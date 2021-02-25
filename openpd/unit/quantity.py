@@ -16,6 +16,17 @@ class Quantity:
         """        
         self.value = value
         self.unit = unit
+        
+    def __repr__(self) -> str:
+        return (
+            '<Quantity object: %e %s at 0x%x>' 
+            %(self.value*self.unit.relative_value, self.unit.base_dimension, id(self))
+        )
+
+    def __str__(self) -> str:
+        return (
+            '%e %s' %(self.value*self.unit.relative_value, self.unit.base_dimension)
+        )
 
     def isDimensionLess(self):
         """
@@ -74,17 +85,6 @@ class Quantity:
             )
         else:
             return self / target_unit * target_unit
-
-    def __repr__(self) -> str:
-        return (
-            '<Quantity object: %e %s at 0x%x>' 
-            %(self.value*self.unit.relative_value, self.unit.base_dimension, id(self))
-        )
-
-    def __str__(self) -> str:
-        return (
-            '%e %s' %(self.value*self.unit.relative_value, self.unit.base_dimension)
-        )
 
     def __eq__(self, other) -> bool:
         if isinstance(other, Quantity):
