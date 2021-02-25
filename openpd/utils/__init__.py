@@ -8,10 +8,12 @@ from .judgement import isAlmostEqual, isArrayEqual, isArrayAlmostEqual, isArrayL
 from .geometry import convertToNdArray, getBond, getUnitVec, getNormVec, getAngle, getTorsion
 from .unique import uniqueList, mergeSameNeighbor
 from .locate import findFirst, findFirstLambda, findAll, findAllLambda, binarySearch
+from .math import gcd
 
 __all__ = [
     'isAlmostEqual', 'isArrayEqual', 'isArrayAlmostEqual', 'isArrayLambda',
     'convertToNdArray', 'getBond', 'getUnitVec', 'getNormVec', 'getAngle', 'getTorsion',
     'uniqueList', 'mergeSameNeighbor',
-    'findFirst', 'findFirstLambda', 'findAll', 'findAllLambda', 'binarySearch'
+    'findFirst', 'findFirstLambda', 'findAll', 'findAllLambda', 'binarySearch',
+    'gcd'
 ]
