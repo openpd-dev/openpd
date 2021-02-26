@@ -6,7 +6,7 @@ import numpy as np
 import os
 from . import System, Ensemble
 from .force import *
-from . import rigistered_force_filed_list, CONST_CA_CA_DISTANCE
+from . import RIGISTERED_FORCE_FIELDS, CONST_CA_CA_DISTANCE
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 class ForceEncoder:
@@ -16,9 +16,9 @@ class ForceEncoder:
         cutoff_radius=12, derivative_width=0.0001
     ) -> None:
         self._system = system
-        if not force_field_name.lower() in rigistered_force_filed_list:
+        if not force_field_name.lower() in RIGISTERED_FORCE_FIELDS:
             raise ValueError('Force field %s is not supported by OpenPD, \n rigistered force field list: %s'
-                %(force_field_name, rigistered_force_filed_list))
+                %(force_field_name, RIGISTERED_FORCE_FIELDS))
         self._force_field_name = force_field_name
         self._force_field_folder = os.path.join(cur_dir, 'data', force_field_name)
         self._cutoff_radius = cutoff_radius
