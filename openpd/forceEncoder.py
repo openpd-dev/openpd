@@ -6,7 +6,7 @@ import numpy as np
 import os
 from . import System, Ensemble
 from .force import *
-from . import RIGISTERED_FORCE_FIELDS, CONST_CA_CA_DISTANCE
+from . import RIGISTERED_FORCE_FIELDS
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 class ForceEncoder:
