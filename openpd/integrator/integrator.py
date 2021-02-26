@@ -6,30 +6,30 @@ from ..unit import *
 from ..unit import Quantity
 
 class Integrator:
-    def __init__(self, interval=1) -> None:
+    def __init__(self, sim_interval=1) -> None:
         """
         Parameters
         ----------
-        interval : int or Quantity, optional
-            the step interval of the integrator, by default ``1 * femtosecond``
+        sim_interval : int or Quantity, optional
+            the step sim_interval of the integrator, by default ``1 * femtosecond``
 
         Raises
         ------
         ValueError
-            When the parameter ``interval`` is ``Quantity`` and ``interval.unit.base_dimension != BaseDimension(time_dimension=1)``
+            When the parameter ``sim_interval`` is ``Quantity`` and ``sim_interval.unit.base_dimension != BaseDimension(time_dimension=1)``
         """        
-        if isinstance(interval, Quantity):
-            interval.convertTo(femtosecond)
+        if isinstance(sim_interval, Quantity):
+            sim_interval.convertTo(femtosecond)
         else:
-            interval = interval * femtosecond
+            sim_interval = sim_interval * femtosecond
         
-        self._interval = interval
+        self._sim_interval = sim_interval
         self._is_bound = False # This will turn to True in Simulation.__init__()
 
     def __repr__(self):
         return (
-            '<Integrator object: step interval %s at 0x%x>'
-            %(self._interval, id(self))
+            '<Integrator object: step sim_interval %s at 0x%x>'
+            %(self._sim_interval, id(self))
         )
 
     __str__ = __repr__
@@ -174,43 +174,43 @@ class Integrator:
         raise NotImplementedError('step() method has not been overloaded yet!')
 
     @property
-    def interval(self):
+    def sim_interval(self):
         """
-        interval gets the step interval of ``self``
+        sim_interval gets the step sim_interval of ``self``
 
         Returns
         -------
         Quantity
-            the step interval of ``self``
+            the step sim_interval of ``self``
         """        
-        return self._interval
+        return self._sim_interval
 
-    @interval.setter
-    def interval(self, interval):
+    @sim_interval.setter
+    def sim_interval(self, sim_interval):
         """
-        setter method to set the step interval of ``self``
+        setter method to set the step sim_interval of ``self``
 
         Parameters
         ----------
-        interval : int or float or Quantity
-            the step interval of the integrator, Unit default to be ``femtosecond`` if ``int`` or ``float`` is provided
+        sim_interval : int or float or Quantity
+            the step sim_interval of the integrator, Unit default to be ``femtosecond`` if ``int`` or ``float`` is provided
 
         Raises
         ------
         ValueError
-            When the dimension of input ``interval`` is Quantity and != ``BaseDimension(time_dimension=1)``
+            When the dimension of input ``sim_interval`` is Quantity and != ``BaseDimension(time_dimension=1)``
         """        
-        if isinstance(interval, Quantity):
-            if interval.unit.base_dimension != unit.time:
+        if isinstance(sim_interval, Quantity):
+            if sim_interval.unit.base_dimension != unit.time:
                 raise ValueError(
-                    'Dimension of parameter interval should be s instead of %s' 
-                    %(interval.unit.base_dimension)
+                    'Dimension of parameter sim_interval should be s instead of %s' 
+                    %(sim_interval.unit.base_dimension)
                 )
             else:
-                interval = interval / femtosecond * femtosecond
+                sim_interval = sim_interval / femtosecond * femtosecond
         else:
-            interval = interval * femtosecond
-        self._interval = interval 
+            sim_interval = sim_interval * femtosecond
+        self._sim_interval = sim_interval 
 
     @property
     def ensemble(self):
