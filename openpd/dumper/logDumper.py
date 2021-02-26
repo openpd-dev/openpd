@@ -1,5 +1,6 @@
 import sys
 from . import Dumper 
+from .. import PDFFNonBondedForce, PDFFTorsionForce
 from ..unit import *
 
 class LogDumper(Dumper):
@@ -11,7 +12,7 @@ class LogDumper(Dumper):
         get_simulation_time=False,
         get_temperature=False,
         get_potential_energy=False, get_kinetic_energy=False, 
-        get_torsion_energy=False, get_nonbonded_energy=False,
+        get_nonbonded_energy=False, get_torsion_energy=False,
         get_total_energy=False,
     ) -> None:
         super().__init__(output_file, dump_interval)
@@ -23,6 +24,8 @@ class LogDumper(Dumper):
             "Temperature (K)": [get_temperature, 17, self._getTemperature],
             "Potential Energy (kj/mol)": [get_potential_energy, 27, self._getPotentialEnergy],
             "Kinetic Energy (kj/mol)": [get_kinetic_energy, 25, self._getKineticEnergy],
+            "Nonbonded Energy (kj/mol)": [get_nonbonded_energy, 27, self._getNonBondedEnergy],
+            "Torsion Energy (kj/mol)": [get_torsion_energy, 25, self._getTorsionEnergy],
             "Total Energy (kj/mol)": [get_total_energy, 23, self._getTotalEnergy]
         }
         
@@ -45,7 +48,7 @@ class LogDumper(Dumper):
         return(
             '{:<%d}' %self.flag_dict["Sim Time (ns)"][1]
         ).format(
-            '%.6f' %(self._simulation.cur_step * self._simulation._integrator.interval / nanosecond)
+            '%.6f' %(self._simulation.cur_step * self._simulation._integrator.sim_interval / nanosecond)
         )
         
     def _getTemperature(self):
@@ -75,6 +78,36 @@ class LogDumper(Dumper):
             )
         )
         
+    def _getNonBondedEnergy(self):
+        nonbonded_force = 0
+        for force in self._simulation._ensemble.forces:
+            if isinstance(force, PDFFNonBondedForce):
+                nonbonded_force = force
+                break
+        return(
+            '{:<%d}' %self.flag_dict["Torsion Energy (kj/mol)"][1]
+        ).format(
+            '%.5f' %(
+                nonbonded_force.calculatePotentialEnergy() / 
+                kilojoule_permol
+            )
+        )
+        
+    def _getTorsionEnergy(self):
+        torsion_force = 0
+        for force in self._simulation._ensemble.forces:
+            if isinstance(force, PDFFTorsionForce):
+                torsion_force = force
+                break
+        return(
+            '{:<%d}' %self.flag_dict["Nonbonded Energy (kj/mol)"][1]
+        ).format(
+            '%.5f' %(
+                torsion_force.calculatePotentialEnergy() / 
+                kilojoule_permol
+            )
+        )
+        
     def _getTotalEnergy(self):
         return(
             '{:<%d}' %self.flag_dict["Potential Energy (kj/mol)"][1]
@@ -87,7 +120,7 @@ class LogDumper(Dumper):
             )
         )
     
-    def getTitle(self):
+    def _getTitle(self):
         self.title = ''
         for key, value in list(self.flag_dict.items()):
             if value[0]:
@@ -98,7 +131,7 @@ class LogDumper(Dumper):
     def bindSimulation(self, simulation):
         super().bindSimulation(simulation)
         io = open(self._output_file, 'a')
-        print(self.getTitle(), file=io)
+        print(self._getTitle(), file=io)
         io.close()
             
     def dump(self):

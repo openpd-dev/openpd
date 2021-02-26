@@ -44,7 +44,6 @@ class System:
         """  
         for chain in chains:
             self._addChain(chain)
-        self._cooridnate_shape = list(self.coordinate.shape)
 
     @property
     def num_atoms(self):
@@ -171,7 +170,7 @@ class System:
         coord = np.array(coord)
         if not isArrayEqual(list(coord.shape), [self._num_atoms, 3]):
             raise ValueError('Dimension of input %s is different from dimension of coordinate matrix %s' 
-                %(coord.shape, self._cooridnate_shape))
+                %(coord.shape, [self._num_atoms, 3]))
 
         for i, atom in enumerate(self.atoms):
             atom.coordinate = coord[i, :]
