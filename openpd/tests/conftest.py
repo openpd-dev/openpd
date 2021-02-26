@@ -8,6 +8,7 @@ test_order = [
      'locate',
      'geometry',
      'unique',
+     'math',
      'baseDimension',
      'atom',
      'peptide',

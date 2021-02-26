@@ -14,6 +14,7 @@ from .unitDefinition import force, energy, power, velocity, accelration
 from .unitDefinition import n_a, k_b
 from .unitDefinition import meter, decimeter, centermeter, millimeter, micrometer, nanometer, angstrom
 from .unitDefinition import kilogram, gram, amu, dalton
+from .unitDefinition import day, hour, minute
 from .unitDefinition import second, millisecond, microsecond, nanosecond, picosecond, femtosecond
 from .unitDefinition import kelvin
 from .unitDefinition import coulomb, e
@@ -27,6 +28,7 @@ __all__ = [
     'n_a', 'k_b',
     'meter', 'decimeter', 'centermeter', 'millimeter', 'micrometer', 'nanometer', 'angstrom',
     'kilogram', 'gram', 'amu', 'dalton',
+    'day', 'hour', 'minute',
     'second', 'millisecond', 'microsecond', 'nanosecond', 'picosecond', 'femtosecond',
     'kelvin',
     'coulomb', 'e',
