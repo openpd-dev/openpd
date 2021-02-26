@@ -57,5 +57,5 @@ class TestForceEncoder:
         
     def test_createEnsemble(self):
         ensemble = self.encoder.createEnsemble()
-        assert ensemble.getNumForcesByGroup([0]) == 3
+        assert ensemble.getNumForcesByGroup([0]) == 2
         assert ensemble.getNumForcesByGroup([1]) == 0
