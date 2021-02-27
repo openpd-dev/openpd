@@ -2,7 +2,8 @@
 .DS_Store
 
 # Ignore output file of test
-openpd/tests/output/*
+openpd/tests/output/*.pds
+openpd/tests/output/*.log
 
 # developing folder
 developing/
