@@ -23,18 +23,20 @@ class TestLogDumper:
         with pytest.raises(AttributeError):
             self.dumper._test_bound()
             
-    def test_getTitle(self):
-        title = LogDumper(
+    def test_setTitle(self):
+        dumper = LogDumper(
             os.path.join(cur_dir, 'data/outputLogDumper.log'), 
             100, get_steps=True
-        )._getTitle()
-        assert title == 'Steps     '
+        )
+        dumper._setTitle()
+        assert dumper.title == 'Steps     '
         
-        title = LogDumper(
+        dumper = LogDumper(
             os.path.join(cur_dir, 'data/outputLogDumper.log'), 
             100, get_steps=True, get_kinetic_energy=True
-        )._getTitle()
-        assert title == 'Steps     Kinetic Energy (kj/mol)  '
+        )
+        dumper._setTitle()
+        assert dumper.title == 'Steps     Kinetic Energy (kj/mol)  '
         
     def test_dump(self):
         self.dumper = LogDumper(
