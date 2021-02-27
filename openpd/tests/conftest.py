@@ -27,7 +27,10 @@ test_order = [
      'ensemble',
      'forceEncoder',
      'integrator',
-     'verletIntegrator'
+     'verletIntegrator',
+     'simulation',
+     'logDumper',
+     'snapshotDumper'
 ]
 
 def pytest_collection_modifyitems(items):

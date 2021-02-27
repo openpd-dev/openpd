@@ -1,7 +1,7 @@
 from openpd import integrator
 import pytest, os
 
-from .. import SequenceLoader, ForceEncoder, VelocityVerletIntegrator, Simulation, LogDumper
+from .. import SequenceLoader, ForceEncoder, VelocityVerletIntegrator, Simulation, LogDumper, SnapshotDumper
 from ..unit import *
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
@@ -57,11 +57,14 @@ class TestSimulation:
         assert self.simulation._gcd_interval == 10
         
     def test_dump(self):
-        dumper = LogDumper(
+        log_dumper = LogDumper(
             os.path.join(cur_dir, 'data/outputSimulation.log'), 20,
             get_steps=True, get_simulation_time=True,
             get_elapsed_time=True, get_remain_time=True,
             get_kinetic_energy=True, get_potential_energy=True
         )
-        self.simulation.addDumpers(dumper)
+        snapshot_dumper = SnapshotDumper(
+            os.path.join(cur_dir, 'data/outputSimulation.pds'), 20
+        )
+        self.simulation.addDumpers(log_dumper, snapshot_dumper)
         self.simulation.step(210)
