@@ -16,7 +16,7 @@ class TestIntegrator:
         self.integrator = None
 
     def test_attributes(self):
-        assert self.integrator.interval == 1 * femtosecond
+        assert self.integrator.sim_interval == 1 * femtosecond
         assert self.integrator._is_bound == True
 
     def test_exception(self):
@@ -27,7 +27,7 @@ class TestIntegrator:
             Integrator(1*kilogram)
 
         with pytest.raises(ValueError):
-            self.integrator.interval = 1 * kilogram
+            self.integrator.sim_interval = 1 * kilogram
 
     def test_testBound(self):
         integrator = Integrator(1)
