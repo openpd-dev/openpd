@@ -44,27 +44,27 @@ class TestSimulation:
             self.simulation.remain_step = 1
             
     def test_addDumper(self):
-        dumper = LogDumper(os.path.join(cur_dir, 'data/outputSimulation.log'), 10)
+        dumper = LogDumper(os.path.join(cur_dir, 'output/outputSimulation.log'), 10)
         self.simulation._addDumper(dumper)
         assert self.simulation.num_dumpers == 1
         assert self.simulation.dumpers[0] == dumper
         
     def test_addDumpers(self):
-        dumper1 = LogDumper(os.path.join(cur_dir, 'data/outputSimulation.log'), 10)
-        dumper2 = LogDumper(os.path.join(cur_dir, 'data/outputSimulation.log'), 20)
+        dumper1 = LogDumper(os.path.join(cur_dir, 'output/outputSimulation.log'), 10)
+        dumper2 = LogDumper(os.path.join(cur_dir, 'output/outputSimulation.log'), 20)
         self.simulation.addDumpers(dumper1, dumper2)
         assert self.simulation.num_dumpers == 2
         assert self.simulation._gcd_interval == 10
         
     def test_dump(self):
         log_dumper = LogDumper(
-            os.path.join(cur_dir, 'data/outputSimulation.log'), 20,
+            os.path.join(cur_dir, 'output/outputSimulation.log'), 20,
             get_steps=True, get_simulation_time=True,
             get_elapsed_time=True, get_remain_time=True,
             get_kinetic_energy=True, get_potential_energy=True
         )
         snapshot_dumper = SnapshotDumper(
-            os.path.join(cur_dir, 'data/outputSimulation.pds'), 20
+            os.path.join(cur_dir, 'output/outputSimulation.pds'), 20
         )
         self.simulation.addDumpers(log_dumper, snapshot_dumper)
         self.simulation.step(210)

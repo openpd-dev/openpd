@@ -2,11 +2,24 @@ from . import Dumper
 from ..unit import *
 
 class SnapshotDumper(Dumper):
-    def __init__(self, output_file, dump_interval) -> None:
+    def __init__(self, output_file, dump_interval:int) -> None:
         if not output_file.endswith('.pds'):
             raise ValueError('The snapshot file should endwith .pds!')
         super().__init__(output_file, dump_interval)
         self.cur_frame = 0
+        
+    def __repr__(self):
+        if self._is_bound:
+            return (
+                '<SnapshotDumper object: dump every %d step(s), binding with simulation at 0x%x>'
+                %(self._dump_interval, id(self._simulation))
+            )
+        else:
+            return (
+                '<SnapshotDumper object: unbounded!>'
+            )
+            
+    __str__ = __repr__
         
     def _setTitle(self):
         if self._is_bound:   

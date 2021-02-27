@@ -7,7 +7,7 @@ cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 class TestLogDumper:
     def setup(self):
         self.dumper = LogDumper(
-            os.path.join(cur_dir, 'data/outputLogDumper.log'), 100, 
+            os.path.join(cur_dir, 'output/outputLogDumper.log'), 100, 
             get_steps=True,
             get_elapsed_time=True,
             get_kinetic_energy=True
@@ -25,14 +25,14 @@ class TestLogDumper:
             
     def test_setTitle(self):
         dumper = LogDumper(
-            os.path.join(cur_dir, 'data/outputLogDumper.log'), 
+            os.path.join(cur_dir, 'output/outputLogDumper.log'), 
             100, get_steps=True
         )
         dumper._setTitle()
         assert dumper.title == 'Steps     '
         
         dumper = LogDumper(
-            os.path.join(cur_dir, 'data/outputLogDumper.log'), 
+            os.path.join(cur_dir, 'output/outputLogDumper.log'), 
             100, get_steps=True, get_kinetic_energy=True
         )
         dumper._setTitle()
@@ -40,7 +40,7 @@ class TestLogDumper:
         
     def test_dump(self):
         self.dumper = LogDumper(
-            os.path.join(cur_dir, 'data/outputLogDumper.log'), 100,
+            os.path.join(cur_dir, 'output/outputLogDumper.log'), 100,
             get_steps=True,
             get_elapsed_time=True,
             get_remain_time=True,
