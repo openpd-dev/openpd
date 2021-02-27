@@ -18,14 +18,14 @@ OpenPD is developed and maintained by Zhenyu Wei (zhenyuwei99@gmail.com), from Y
 The document is organized in four parts:
 
 (1) The :ref:`Quick Start <quickstart>` part contains our program's introduction and the installation suggestions.
-(#) The :ref:`Tutorials <tutorials>` part shows several primary example codes to giving users a directive intuition of workflow and features of OpenPD
 (#) The :ref:`Peptide Dynamics Force Field <pdff>` part describes the component of PDFF and their developing procedure.
+(#) The :ref:`Tutorials <tutorials>` part shows several primary example codes to giving users a directive intuition of workflow and features of OpenPD
 (#) The :ref:`Module indices <module>` part giving a detailed description of all packages and classes in OpenPD.  
 
 .. tip:: 
 
    - Each section in :ref:`Module indices <module>` part provides one or several examples, which are a good resource for the new user besides the :ref:`Tutorials <tutorials>` part.
-   - Once you are familiar with OpenPD, The :ref:`Module indices <module>` part will be very useful for a quick code check.
+   - Once users are familiar with OpenPD, the :ref:`Module indices <module>` part will be useful for a quick code check.
 
 =============
 Contents

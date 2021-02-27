@@ -10,13 +10,13 @@ class TestVerletIntegrator:
         self.integrator = VerletIntegrator(1)
         system = SequenceLoader(os.path.join(cur_dir, 'data/testForceEncoder.json')).createSystem()
         ensemble = ForceEncoder(system).createEnsemble()
-        self.integrator._bindTo(system, ensemble)
+        self.integrator._bindEnsemble(ensemble)
 
     def teardown(self):
         self.integrator = None
 
     def test_attributes(self):
-        assert self.integrator.interval == 1 * femtosecond
+        assert self.integrator.sim_interval == 1 * femtosecond
         assert self.integrator._is_bound == True
 
     def test_exceptions(self):
@@ -24,7 +24,7 @@ class TestVerletIntegrator:
             VerletIntegrator(1*kilogram)
 
         with pytest.raises(ValueError):
-            self.integrator.interval = 1 * kilogram
+            self.integrator.sim_interval = 1 * kilogram
 
     def test_step(self):
         self.integrator.step(100)

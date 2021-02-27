@@ -27,7 +27,7 @@ SINGLE_LETTER_ABBREVIATION = [
     'T', 'W', 'Y', 'V'
 ]
 
-rigistered_force_filed_list = [
+RIGISTERED_FORCE_FIELDS = [
     'pdff'
 ]
 
@@ -47,8 +47,9 @@ from openpd.integrator import Integrator
 from openpd.integrator import VerletIntegrator, LeapFrogIntegrator, VelocityVerletIntegrator
 from openpd.integrator import BrownianIntegrator, MCMCIntegrator
 
+from openpd.dumper import Dumper, LogDumper, SnapshotDumper, PDBDumper
+
 from openpd.simulation import Simulation
-from openpd.dumper import PDBDumper
 
 from openpd.visualizer import SystemVisualizer
 
@@ -63,7 +64,7 @@ __all__ = [
     'Integrator',
     'VerletIntegrator', 'LeapFrogIntegrator', 'VelocityVerletIntegrator',
     'BrownianIntegrator', 'MCMCIntegrator',
+    'Dumper', 'LogDumper', 'SnapshotDumper', 'PDBDumper',
     'Simulation',
-    'PDBDumper',
     'SystemVisualizer'
 ]

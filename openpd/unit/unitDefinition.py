@@ -49,6 +49,9 @@ dalton = Quantity(1, Unit(mass, 1.66053904e-27))
 ## Time Unit        ##
 ######################
 
+day = Quantity(1, Unit(time, 60*60*24))
+hour = Quantity(1, Unit(time, 60*60))
+minute = Quantity(1, Unit(time, 60))
 second = Quantity(1, Unit(time, 1))
 millisecond = Quantity(1, Unit(time, 1e-3))
 microsecond = Quantity(1, Unit(time, 1e-6))
