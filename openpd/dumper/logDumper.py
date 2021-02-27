@@ -1,4 +1,3 @@
-import sys
 from . import Dumper 
 from .. import PDFFNonBondedForce, PDFFTorsionForce
 from ..unit import *
@@ -11,8 +10,10 @@ class LogDumper(Dumper):
         get_remain_time=False,
         get_simulation_time=False,
         get_temperature=False,
-        get_potential_energy=False, get_kinetic_energy=False, 
-        get_nonbonded_energy=False, get_torsion_energy=False,
+        get_potential_energy=False,
+        get_kinetic_energy=False,
+        get_nonbonded_energy=False,
+        get_torsion_energy=False,
         get_total_energy=False,
     ) -> None:
         super().__init__(output_file, dump_interval)
@@ -121,7 +122,7 @@ class LogDumper(Dumper):
         )
     
     def _getTitle(self):
-        self.title = ''
+        self.title = '# Log file created by OpenPD in %s\n' %self._simulation._start_time
         for key, value in list(self.flag_dict.items()):
             if value[0]:
                 form = '{:<%d}' %value[1]
