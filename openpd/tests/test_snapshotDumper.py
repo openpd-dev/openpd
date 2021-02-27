@@ -7,7 +7,7 @@ cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 class TestSnapshotDumper:
     def setup(self):
         self.dumper = SnapshotDumper(
-            os.path.join(cur_dir, 'data/outputSnapshotDumper.pds'), 100
+            os.path.join(cur_dir, 'output/outputSnapshotDumper.pds'), 100
         )
     
     def test_attributes(self):
@@ -19,7 +19,7 @@ class TestSnapshotDumper:
             
         with pytest.raises(ValueError):
             self.dumper = SnapshotDumper(
-            os.path.join(cur_dir, 'data/outputSnapshotDumper.sp'), 100
+            os.path.join(cur_dir, 'output/outputSnapshotDumper.sp'), 100
         )
             
     def test_dump(self):

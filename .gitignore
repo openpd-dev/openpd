@@ -1,6 +1,9 @@
 # MacOs dsstore
 .DS_Store
 
+# Ignore output file of test
+openpd/tests/output
+
 # developing folder
 developing/
 
