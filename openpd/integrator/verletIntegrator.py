@@ -34,7 +34,6 @@ class VerletIntegrator(Integrator):
     
             pre_coord = self._system.coordinate
             self._system.coordinate = next_coord
-            print((next_coord[1, 0]-pre_coord[1, 0]/angstrom))
             self._system.velocity = cur_velocity
             cur_step += 1
             
