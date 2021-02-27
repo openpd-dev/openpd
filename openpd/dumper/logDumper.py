@@ -4,7 +4,7 @@ from ..unit import *
 
 class LogDumper(Dumper):
     def __init__(
-        self, output_file, dump_interval,
+        self, output_file, dump_interval:int,
         get_steps=False,
         get_elapsed_time=False,
         get_remain_time=False,
@@ -29,6 +29,19 @@ class LogDumper(Dumper):
             "Torsion Energy (kj/mol)": [get_torsion_energy, 25, self._getTorsionEnergy],
             "Total Energy (kj/mol)": [get_total_energy, 23, self._getTotalEnergy]
         }
+        
+    def __repr__(self):
+        if self._is_bound:
+            return (
+                '<LogDumper object: dump every %d step(s), binding with simulation at 0x%x>'
+                %(self._dump_interval, id(self._simulation))
+            )
+        else:
+            return (
+                '<LogDumper object: unbounded!>'
+            )
+    
+    __str__ = __repr__
         
     def _getSteps(self):
         return(

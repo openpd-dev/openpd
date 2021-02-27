@@ -1,5 +1,5 @@
 class Dumper:
-    def __init__(self, output_file, dump_interval) -> None:
+    def __init__(self, output_file, dump_interval:int) -> None:
         self._output_file = output_file
         io = open(self._output_file, 'w')
         io.close()
