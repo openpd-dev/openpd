@@ -51,7 +51,7 @@ from openpd.dumper import Dumper, LogDumper, SnapshotDumper, PDBDumper
 
 from openpd.simulation import Simulation
 
-from openpd.visualizer import SystemVisualizer
+from openpd.visualizer import SystemVisualizer, SnapshotVisualizer
 
 __all__ = [
     'Atom', 'Peptide', 'Chain', 'System', 'Topology',
@@ -66,5 +66,5 @@ __all__ = [
     'BrownianIntegrator', 'MCMCIntegrator',
     'Dumper', 'LogDumper', 'SnapshotDumper', 'PDBDumper',
     'Simulation',
-    'SystemVisualizer'
+    'SystemVisualizer', 'SnapshotVisualizer'
 ]

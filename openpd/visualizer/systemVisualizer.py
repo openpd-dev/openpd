@@ -1,9 +1,7 @@
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
-class SystemVisualizer(object):
+class SystemVisualizer:
     def __init__(self, system, figsize=[15, 10]) -> None:
-        super().__init__()
         self.system = system
         self.figsize = figsize
         self.grid = False
