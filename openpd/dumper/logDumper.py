@@ -1,4 +1,3 @@
-import sys
 from . import Dumper 
 from .. import PDFFNonBondedForce, PDFFTorsionForce
 from ..unit import *
@@ -11,8 +10,10 @@ class LogDumper(Dumper):
         get_remain_time=False,
         get_simulation_time=False,
         get_temperature=False,
-        get_potential_energy=False, get_kinetic_energy=False, 
-        get_nonbonded_energy=False, get_torsion_energy=False,
+        get_potential_energy=False,
+        get_kinetic_energy=False,
+        get_nonbonded_energy=False,
+        get_torsion_energy=False,
         get_total_energy=False,
     ) -> None:
         super().__init__(output_file, dump_interval)
@@ -120,26 +121,30 @@ class LogDumper(Dumper):
             )
         )
     
-    def _getTitle(self):
-        self.title = ''
+    def _setTitle(self):
+        if self._is_bound:
+            self.title = '# Log file created by OpenPD at %s\n' %self._simulation._start_time
+        else:
+            self.title = ''
         for key, value in list(self.flag_dict.items()):
             if value[0]:
                 form = '{:<%d}' %value[1]
                 self.title += form.format(key)
-        return self.title
     
     def bindSimulation(self, simulation):
         super().bindSimulation(simulation)
+        self._setTitle()
         io = open(self._output_file, 'a')
-        print(self._getTitle(), file=io)
+        print(self.title, file=io)
         io.close()
             
     def dump(self):
         self._test_bound()
         self.info = ''
-        for key, value in list(self.flag_dict.items()):
+        for _, value in list(self.flag_dict.items()):
             if value[0]:
-                self.info += value[2]()
+                # Call the third element which is a _getXxx methods to get the information
+                self.info += value[2]() 
     
         io = open(self._output_file, 'a')
         print(self.info, file=io)
