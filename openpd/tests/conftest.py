@@ -30,7 +30,8 @@ test_order = [
      'verletIntegrator',
      'simulation',
      'logDumper',
-     'snapshotDumper'
+     'snapshotDumper',
+     'snapshotVisualizer'
 ]
 
 def pytest_collection_modifyitems(items):
