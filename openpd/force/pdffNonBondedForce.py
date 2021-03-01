@@ -203,12 +203,13 @@ class PDFFNonBondedForce(Force):
         self._derivative_width = derivative_width
         
         self._num_atoms = 0
+        self._num_peptides = 0
         self._potential_energy = 0
         self._force_field_matrix = None
           
     def __repr__(self) -> str:
-        return ('<PDFFNonBondedForce object: %d atoms, at 0x%x>'
-            %(self._num_atoms, id(self)))
+        return ('<PDFFNonBondedForce object: %d peptides, at 0x%x>'
+            %(self._num_peptides, id(self)))
     
     __str__ = __repr__
     
@@ -350,19 +351,19 @@ class PDFFNonBondedForce(Force):
             the cutoff radius of force field
         """             
         return self._cutoff_radius
-    
+
     @property
-    def force_field_matrix(self):
+    def num_peptides(self):
         """
-        force_field_matrix gets the force field matrix
+        num_peptides gets the number of peptides of ``PDFFNonBondedForce``
 
         Returns
         -------
-        np.ndarray(dtype=PDFFNonBondedForceField)
-            force field matrix
+        int
+            the number of peptides
         """        
-        return self._force_field_matrix
-    
+        return self._num_peptides
+
     @property
     def potential_energy(self):
         """
@@ -378,3 +379,15 @@ class PDFFNonBondedForce(Force):
             return self._potential_energy
         except:
             return self._potential_energy
+    
+    @property
+    def force_field_matrix(self):
+        """
+        force_field_matrix gets the force field matrix
+
+        Returns
+        -------
+        np.ndarray(dtype=PDFFNonBondedForceField)
+            force field matrix
+        """        
+        return self._force_field_matrix

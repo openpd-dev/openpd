@@ -18,12 +18,19 @@ class TestPDFFNonBondedForce:
 
     def test_attributes(self):
         assert self.force.cutoff_radius == 12
+        assert self.force.num_peptides == 0
         assert self.force.potential_energy == 0
         assert self.force.force_field_matrix == None
 
     def test_exceptions(self):
         with pytest.raises(AttributeError):
             self.force.cutoff_radius = 1
+
+        with pytest.raises(AttributeError):
+            self.force.num_peptides = 1
+        
+        with pytest.raises(AttributeError):
+            self.force.potential_energy = 1
 
         with pytest.raises(AttributeError):
             self.force.force_field_matrix = 1
