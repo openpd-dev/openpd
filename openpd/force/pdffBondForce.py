@@ -132,7 +132,7 @@ class PDFFBondForce(Force):
             self._potential_energy += self.calculateBondEnergy(bond_id)
         return self._potential_energy
 
-    def calcauletAtomForce(self, atom_id):
+    def calculateAtomForce(self, atom_id):
         # fixme: Need to multiple 0.5 to each force?
         atom = self._atoms[atom_id]
         num_bonds = 0

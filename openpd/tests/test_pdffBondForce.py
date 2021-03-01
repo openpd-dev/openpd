@@ -1,13 +1,18 @@
-from _pytest.monkeypatch import V
-from numpy.testing._private.utils import assert_string_equal
-import pytest, os
-import numpy as np
+import pytest, os, codecs, json
 from .. import PDFFBondForce, SequenceLoader, Ensemble
 from .. import isAlmostEqual, isArrayEqual, getBond, getUnitVec
 from ..unit import *
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/bond')
+
+with codecs.open(os.path.join(force_field_dir, 'Ca-SC.json'), 'r', 'utf-8') as f:
+    ca_sc_text = f.read()
+with codecs.open(os.path.join(force_field_dir, 'Ca-Ca.json'), 'r', 'utf-8') as f:
+    ca_ca_text = f.read()
+
+CA_SC_JSON_FILE = json.loads(ca_sc_text)
+CA_CA_JSON_FILE = json.loads(ca_ca_text)
 
 class TestPDFFBondForce:
     def setup(self):
@@ -53,7 +58,7 @@ class TestPDFFBondForce:
         ) / angstrom
         assert isAlmostEqual(
             self.force.calculateBondEnergy(0),
-            0.5 * (bond_length-2.6)**2 * 100 * kilojoule_permol
+            0.5 * (bond_length-2.6)**2 * CA_SC_JSON_FILE["ASN"]["k"] * kilojoule_permol
         )
         assert self.force.calculateBondEnergy(1) == 0 * kilojoule_permol
 
@@ -64,13 +69,13 @@ class TestPDFFBondForce:
             self.system.topology.bonds[0][0].coordinate,
             self.system.topology.bonds[0][1].coordinate
         ) / angstrom
-        energy_bond0 = 0.5 * (bond_length0-2.6)**2 * 100 * kilojoule_permol
+        energy_bond0 = 0.5 * (bond_length0-2.6)**2 * CA_SC_JSON_FILE["ASN"]["k"] * kilojoule_permol
         energy_bond1 = 0 * kilojoule_permol
         bond_length2 = getBond(
             self.system.topology.bonds[2][0].coordinate,
             self.system.topology.bonds[2][1].coordinate
         ) / angstrom
-        energy_bond2 = 0.5 * (bond_length2-2.6)**2 * 100 * kilojoule_permol
+        energy_bond2 = 0.5 * (bond_length2-2.6)**2 * CA_SC_JSON_FILE["ASN"]["k"] * kilojoule_permol
 
         assert isAlmostEqual(
             self.force.calculatePotentialEnergy(),
@@ -110,7 +115,7 @@ class TestPDFFBondForce:
         )
 
         assert isArrayEqual(
-            self.force.calcauletAtomForce(0),
+            self.force.calculateAtomForce(0),
             (
                 0.5 * self.force.force_field_vector[0].getForce(bond_length0) * vec0 +
                 0.5 * self.force.force_field_vector[1].getForce(bond_length1) * vec1   
@@ -118,14 +123,14 @@ class TestPDFFBondForce:
         )
 
         assert isArrayEqual(
-            self.force.calcauletAtomForce(1),
+            self.force.calculateAtomForce(1),
             (
                 0.5 * self.force.force_field_vector[0].getForce(bond_length0) * -vec0 
             )
         )
 
         assert isArrayEqual(
-            self.force.calcauletAtomForce(2),
+            self.force.calculateAtomForce(2),
             (
                 0.5 * self.force.force_field_vector[1].getForce(bond_length1) * -vec1 +
                 0.5 * self.force.force_field_vector[2].getForce(bond_length2) * vec2
@@ -133,7 +138,7 @@ class TestPDFFBondForce:
         )
 
         assert isArrayEqual(
-            self.force.calcauletAtomForce(3),
+            self.force.calculateAtomForce(3),
             (
                 0.5 * self.force.force_field_vector[2].getForce(bond_length2) * -vec2
             )
