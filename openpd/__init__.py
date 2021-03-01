@@ -40,6 +40,7 @@ from openpd.force import Force
 from openpd.force import PDFFNonBondedForceField, PDFFNonBondedForce
 from openpd.force import PDFFBondForceField, PDFFBondForce
 from openpd.force import PDFFTorsionForceField, PDFFTorsionForce
+from openpd.force import CenterConstraintForce
 
 from openpd.ensemble import Ensemble
 from openpd.forceEncoder import ForceEncoder
@@ -61,6 +62,7 @@ __all__ = [
     'PDFFNonBondedForceField', 'PDFFNonBondedForce',
     'PDFFBondForceField', 'PDFFBondForce',
     'PDFFTorsionForceField', 'PDFFTorsionForce',
+    'CenterConstraintForce',
     'ForceEncoder',
     'Ensemble',
     'Integrator',

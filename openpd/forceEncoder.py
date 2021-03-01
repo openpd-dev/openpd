@@ -7,6 +7,7 @@ import os
 from . import System, Ensemble
 from .force import *
 from . import RIGISTERED_FORCE_FIELDS
+from .unit import *
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 class ForceEncoder:
@@ -35,8 +36,12 @@ class ForceEncoder:
         non_bonded_force = self._createNonBondedForce()
         bond_force = self._createBondForce()
         torsion_force = self._createTorsionForce()
+        center_constraint_force = self._createCenterConstraintForce()
 
-        self.ensemble.addForces(non_bonded_force, bond_force, torsion_force)
+        self.ensemble.addForces(
+            non_bonded_force, bond_force, torsion_force,
+            center_constraint_force
+        )
 
         return self.ensemble
 
@@ -54,6 +59,16 @@ class ForceEncoder:
     def _createTorsionForce(self):
         force = PDFFTorsionForce(
             derivative_width=self._derivative_width
+        )
+        return force
+
+    def _createCenterConstraintForce(self):
+        total_mass = 0 * amu
+        for atom in self._system.atoms:
+            total_mass += atom.mass
+        elastic_constant = total_mass / amu * kilojoule_permol / angstrom**2 * 10
+        force = CenterConstraintForce(
+            elastic_constant = elastic_constant
         )
         return force
 

@@ -1,6 +1,7 @@
 import pytest, os
 import numpy as np
 from .. import ForceEncoder, SequenceLoader, Ensemble
+from .. import isArrayEqual
 from ..unit import *
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
@@ -54,8 +55,18 @@ class TestForceEncoder:
         
         leu_tyr_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/torsion/LEU-TYR.npy'))
         assert force.force_field_vector[1].getEnergy(origin_coord[50]) == pytest.approx(leu_tyr_energy_vector[50], 1e-3)
+
+    def test_createCenterConstraintForce(self):
+        self.encoder.ensemble = Ensemble(self.encoder._system)
+        force = self.encoder._createCenterConstraintForce()
+        force.bindEnsemble(self.encoder.ensemble)
+        assert force.num_atoms == 6
+        assert not isArrayEqual(
+            force.origin_center,
+            np.zeros(3) * angstrom
+        )
         
     def test_createEnsemble(self):
         ensemble = self.encoder.createEnsemble()
-        assert ensemble.getNumForcesByGroup([0]) == 3
+        assert ensemble.getNumForcesByGroup([0]) == 4
         assert ensemble.getNumForcesByGroup([1]) == 0

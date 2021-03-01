@@ -88,11 +88,19 @@ class Quantity:
 
     def __eq__(self, other) -> bool:
         if isinstance(other, Quantity):
-            if (
-                isAlmostEqual(other.value * other.unit.relative_value, self.value * self.unit.relative_value) and 
-                other.unit.base_dimension == self.unit.base_dimension
-            ):
-                return True
+            if self.unit == other.unit:
+                if self.value == other.value:
+                    return True
+                else:
+                    return False
+            elif self.unit.base_dimension == other.unit.base_dimension:
+                if isAlmostEqual(
+                    self.value, 
+                    other.value * other.unit.relative_value / self.unit.relative_value 
+                ):
+                    return True
+                else:
+                    return False
             else:
                 return False
         # Value judgement, without relative value like 10*angstrom == 10

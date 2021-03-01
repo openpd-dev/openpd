@@ -136,7 +136,6 @@ class PDFFTorsionForce(Force):
                 torison_type[0], torison_type[1]
             )
 
-    # todo: calculateEnergy, calculateForce
     def calculateTorsionEnergy(self, torsion_id):
         self._testBound()
         return self._force_field_vector[torsion_id].getEnergy(
@@ -228,6 +227,10 @@ class PDFFTorsionForce(Force):
                 force += 0.5 * self.force_field_vector[torsion_id].getForce(torsion_angle) * vec 
                 
             return force
+
+    @property
+    def num_torsions(self):
+        return self._num_torsions
 
     @property
     def potential_energy(self):

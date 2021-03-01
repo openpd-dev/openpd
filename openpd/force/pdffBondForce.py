@@ -120,6 +120,7 @@ class PDFFBondForce(Force):
             )
 
     def calculateBondEnergy(self, bond_id):
+        self._testBound()
         bond_length = getBond(
             self._bonds[bond_id][0].coordinate,
             self._bonds[bond_id][1].coordinate
@@ -127,12 +128,14 @@ class PDFFBondForce(Force):
         return self._force_field_vector[bond_id].getEnergy(bond_length)
 
     def calculatePotentialEnergy(self):
+        self._testBound()
         self._potential_energy = 0
         for bond_id in range(self._num_bonds):
             self._potential_energy += self.calculateBondEnergy(bond_id)
         return self._potential_energy
 
     def calculateAtomForce(self, atom_id):
+        self._testBound()
         # fixme: Need to multiple 0.5 to each force?
         atom = self._atoms[atom_id]
         num_bonds = 0
@@ -163,6 +166,10 @@ class PDFFBondForce(Force):
             )
             force += 0.5 * self._force_field_vector[info[0]].getForce(bond_length) * vec
         return force
+
+    @property
+    def num_bonds(self):
+        return self._num_bonds
 
     @property
     def potential_energy(self):

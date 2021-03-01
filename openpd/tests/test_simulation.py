@@ -10,7 +10,7 @@ class TestSimulation:
     def setup(self):
         self.system = SequenceLoader(os.path.join(cur_dir, 'data/testSimulation.json')).createSystem()
         self.ensemble = ForceEncoder(self.system).createEnsemble()
-        self.integrator = VelocityVerletIntegrator(1, temperature=1)
+        self.integrator = VelocityVerletIntegrator(1, temperature=300)
         self.simulation = Simulation(self.ensemble, self.integrator)
         
     def teardown(self):
@@ -67,4 +67,5 @@ class TestSimulation:
             os.path.join(cur_dir, 'output/outputSimulation.pds'), 20
         )
         self.simulation.addDumpers(log_dumper, snapshot_dumper)
-        self.simulation.step(30)
+        self.simulation._integrator._sim_interval = 0.1 * femtosecond
+        self.simulation.step(300)

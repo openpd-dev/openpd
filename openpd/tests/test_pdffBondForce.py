@@ -26,11 +26,14 @@ class TestPDFFBondForce:
         self.force = None
 
     def test_attributes(self):
-        assert self.force._num_bonds == 0
+        assert self.force.num_bonds == 0
         assert self.force._potential_energy == 0
         assert self.force._force_field_vector == None
 
     def test_exceptions(self):
+        with pytest.raises(AttributeError):
+            self.force.num_bonds = 1
+
         with pytest.raises(AttributeError):
             self.force.potential_energy = 1
 
@@ -60,7 +63,7 @@ class TestPDFFBondForce:
             self.force.calculateBondEnergy(0),
             0.5 * (bond_length-2.6)**2 * CA_SC_JSON_FILE["ASN"]["k"] * kilojoule_permol
         )
-        assert self.force.calculateBondEnergy(1) == 0 * kilojoule_permol
+        assert isAlmostEqual(self.force.calculateBondEnergy(1), 0 * kilojoule_permol)
 
     def test_calculatePotentialEnergy(self):
         self.force.bindEnsemble(self.ensemble)

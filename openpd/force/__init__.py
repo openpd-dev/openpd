@@ -8,10 +8,12 @@ from .force import Force
 from .pdffNonBondedForce import PDFFNonBondedForceField, PDFFNonBondedForce
 from .pdffBondForce import PDFFBondForceField, PDFFBondForce
 from .pdffTorsionForce import PDFFTorsionForceField, PDFFTorsionForce
+from .centerConstraintForce import CenterConstraintForce
 
 __all__ = [
     'Force', 
     'PDFFNonBondedForceField', 'PDFFNonBondedForce',
     'PDFFBondForceField', 'PDFFBondForce', 
-    'PDFFTorsionForceField', 'PDFFTorsionForce'
+    'PDFFTorsionForceField', 'PDFFTorsionForce',
+    'CenterConstraintForce'
 ]
