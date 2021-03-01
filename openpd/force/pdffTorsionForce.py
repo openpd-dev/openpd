@@ -230,6 +230,10 @@ class PDFFTorsionForce(Force):
             return force
 
     @property
+    def num_torsions(self):
+        return self._num_torsions
+
+    @property
     def potential_energy(self):
         try:
             self.calculatePotentialEnergy()

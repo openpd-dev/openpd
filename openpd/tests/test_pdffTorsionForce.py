@@ -16,18 +16,19 @@ class TestPDFFTorsionForce:
 
     def test_attributes(self):
         assert self.force._derivative_width == 0.0001
-        assert self.force.force_id == 0
-        assert self.force.force_group == 0
-        assert self.force._num_torsions == 0
+        assert self.force.num_torsions == 0
         assert self.force._potential_energy == 0
         assert self.force.force_field_vector == None
 
     def test_exceptions(self):
         with pytest.raises(AttributeError):
-            self.force.force_field_vector = 1
-            
+            self.force.num_torsions = 1
+
         with pytest.raises(AttributeError):
             self.force.potential_energy = 1
+
+        with pytest.raises(AttributeError):
+            self.force.force_field_vector = 1
             
         with pytest.raises(AttributeError):
             self.force._testBound()
