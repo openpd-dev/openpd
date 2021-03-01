@@ -20,8 +20,8 @@ class Topology:
     # note: Topology only record the topology information, didn't change any instance attributes
     def _addChain(self, chain:Chain):
         for i, peptide in enumerate(chain.peptides[:-1]):
-            self._bonds.append([peptide.atoms[0], peptide.atoms[1], peptide.ca_sc_dist]) # Ca-Sc bond
-            self._bonds.append([peptide.atoms[0], chain.peptides[i+1].atoms[0], CONST_CA_CA_DISTANCE]) # Ca- Ca bond
+            self._bonds.append([peptide.atoms[0], peptide.atoms[1]]) # Ca-Sc bond
+            self._bonds.append([peptide.atoms[0], chain.peptides[i+1].atoms[0]]) # Ca-Ca bond
             self._num_bonds += 2
 
             self._angles.append([peptide.atoms[1], peptide.atoms[0], chain.peptides[i+1].atoms[0]]) # Sc - Ca - Ca

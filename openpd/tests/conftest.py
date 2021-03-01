@@ -21,6 +21,8 @@ test_order = [
      'force',
      'pdffNonBondedForceField',
      'pdffNonBondedForce',
+     'pdffBondForceField',
+     'pdffBondForce',
      'pdffTorsionForceField',
      'pdffTorsionForce',
      'rigidBondForce',

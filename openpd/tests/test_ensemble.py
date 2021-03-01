@@ -1,6 +1,6 @@
 import pytest, os
 import numpy as np
-from .. import SequenceLoader, Ensemble, PDFFNonBondedForce, RigidBondForce, PDFFTorsionForce
+from .. import SequenceLoader, Ensemble, PDFFNonBondedForce, PDFFTorsionForce
 from .. import isArrayEqual
 from ..unit import *
 
@@ -37,7 +37,7 @@ class TestEnsemble:
 
     def test_addForces(self):
         non_bonded_force = PDFFNonBondedForce(self.ensemble)
-        bond_force = RigidBondForce()
+        bond_force = PDFFNonBondedForce()
         self.ensemble.addForces(non_bonded_force, bond_force)
 
         assert self.ensemble.num_forces == 2
@@ -48,7 +48,7 @@ class TestEnsemble:
     def test_getForcesByGroup(self):
         non_bonded_force1 = PDFFNonBondedForce(self.ensemble)
         non_bonded_force2 = PDFFNonBondedForce(self.ensemble)
-        bond_force = RigidBondForce(force_group=2)
+        bond_force = PDFFNonBondedForce(force_group=2)
         self.ensemble.addForces(non_bonded_force1, non_bonded_force2, bond_force)
 
         assert isArrayEqual(self.ensemble.getForcesByGroup(), [non_bonded_force1, non_bonded_force2])
@@ -58,7 +58,7 @@ class TestEnsemble:
     def test_getNumForcesByGroup(self):
         non_bonded_force1 = PDFFNonBondedForce(self.ensemble)
         non_bonded_force2 = PDFFNonBondedForce(self.ensemble)
-        bond_force = RigidBondForce(force_group=2)
+        bond_force = PDFFNonBondedForce(force_group=2)
         self.ensemble.addForces(non_bonded_force1, non_bonded_force2, bond_force)
 
         assert self.ensemble.getNumForcesByGroup() == 2

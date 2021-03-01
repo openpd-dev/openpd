@@ -1,4 +1,3 @@
-from openpd.utils.geometry import getAngle
 import pytest, os
 import numpy as np
 from .. import PDFFTorsionForce, SequenceLoader, Ensemble

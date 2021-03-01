@@ -89,8 +89,7 @@ class PDFFTorsionForceField:
 
 class PDFFTorsionForce(Force):
     def __init__(
-        self, 
-        force_id=0, force_group=0,
+        self, force_id=0, force_group=0,
         derivative_width=0.0001
     ) -> None:
         super().__init__(force_id, force_group)
@@ -128,12 +127,14 @@ class PDFFTorsionForce(Force):
     def _setForceFieldVector(self):
         if self._num_torsions < 1:
             raise AttributeError(
-                'Only %d torsions in force object, cannot form force field vector'
+                'Only %d torsion in force object, cannot form force field vector'
                 %(self._num_torsions)
             )
         self._force_field_vector = np.zeros(self._num_torsions, dtype=PDFFTorsionForceField)
         for i, torison_type in enumerate(self._torison_types):
-            self._force_field_vector[i] = PDFFTorsionForceField(torison_type[0], torison_type[1])
+            self._force_field_vector[i] = PDFFTorsionForceField(
+                torison_type[0], torison_type[1]
+            )
 
     # todo: calculateEnergy, calculateForce
     def calculateTorsionEnergy(self, torsion_id):
@@ -224,14 +225,10 @@ class PDFFTorsionForce(Force):
                     self._torsions[torsion_id][2].coordinate, 
                     self._torsions[torsion_id][3].coordinate
                 )
-                force += self.force_field_vector[torsion_id].getForce(torsion_angle) * vec 
+                force += 0.5 * self.force_field_vector[torsion_id].getForce(torsion_angle) * vec 
                 
             return force
 
-    @property
-    def force_field_vector(self):
-        return self._force_field_vector
-    
     @property
     def potential_energy(self):
         try:
@@ -239,3 +236,7 @@ class PDFFTorsionForce(Force):
             return self._potential_energy
         except:
             return self._potential_energy
+
+    @property
+    def force_field_vector(self):
+        return self._force_field_vector
