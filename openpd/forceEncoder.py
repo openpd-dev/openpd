@@ -33,11 +33,10 @@ class ForceEncoder:
     def createEnsemble(self):
         self.ensemble = Ensemble(self._system)
         non_bonded_force = self._createNonBondedForce()
-        #bond_force = self._createBondForce()
+        bond_force = self._createBondForce()
         torsion_force = self._createTorsionForce()
-        
-        self.ensemble.addForces(non_bonded_force, torsion_force)
-        #self.ensemble.addForces(non_bonded_force, bond_force, torsion_force)
+
+        self.ensemble.addForces(non_bonded_force, bond_force, torsion_force)
 
         return self.ensemble
 
@@ -49,7 +48,7 @@ class ForceEncoder:
         return force
 
     def _createBondForce(self):
-        force = PDFFNonBondedForce()
+        force = PDFFBondForce()
         return force
 
     def _createTorsionForce(self):

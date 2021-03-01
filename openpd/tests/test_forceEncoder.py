@@ -1,7 +1,7 @@
 import pytest, os
 import numpy as np
-from .. import CONST_CA_CA_DISTANCE, ForceEncoder, SequenceLoader, Ensemble
-from .. import isArrayEqual, isAlmostEqual, findFirstLambda
+from .. import ForceEncoder, SequenceLoader, Ensemble
+from ..unit import *
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
@@ -35,7 +35,13 @@ class TestForceEncoder:
         assert force.force_field_matrix[0, 2].getEnergy(origin_coord[50]) == pytest.approx(asn_tyr_energy_vector[50], 1e-3)
 
     def test_createBondForce(self):
+        self.encoder.ensemble = Ensemble(self.encoder._system)
         force = self.encoder._createBondForce()
+        force.bindEnsemble(self.encoder.ensemble)
+        assert force._num_bonds == 5
+        assert force.force_field_vector[0].getEnergy(2.6) == 0 * kilojoule_permol
+        assert force.force_field_vector[1].getEnergy(3.85) == 0 * kilojoule_permol
+
 
     def test_createTorsionForce(self):
         self.encoder.ensemble = Ensemble(self.encoder._system)
@@ -51,5 +57,5 @@ class TestForceEncoder:
         
     def test_createEnsemble(self):
         ensemble = self.encoder.createEnsemble()
-        assert ensemble.getNumForcesByGroup([0]) == 2
+        assert ensemble.getNumForcesByGroup([0]) == 3
         assert ensemble.getNumForcesByGroup([1]) == 0
