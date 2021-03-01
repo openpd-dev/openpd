@@ -165,6 +165,10 @@ class PDFFBondForce(Force):
         return force
 
     @property
+    def num_bonds(self):
+        return self._num_bonds
+
+    @property
     def potential_energy(self):
         try:
             self.calculatePotentialEnergy()
