@@ -1,3 +1,4 @@
+from openpd.utils.judgement import isAlmostEqual
 import pytest, os
 import numpy as np
 from numpy import pi
@@ -37,8 +38,8 @@ class TestPDFFTorsionForceField:
         
     def test_getForce(self):
         coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
-        assert (
-            self.force_field.getForce(coord[2]) == 
+        assert isAlmostEqual(
+            self.force_field.getForce(coord[2]),
             - (
                 self.force_field.getEnergy(coord[2]+0.5*self.force_field.derivative_width) - 
                 self.force_field.getEnergy(coord[2]-0.5*self.force_field.derivative_width)
