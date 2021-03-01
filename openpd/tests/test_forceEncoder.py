@@ -36,12 +36,6 @@ class TestForceEncoder:
 
     def test_createBondForce(self):
         force = self.encoder._createBondForce()
-        assert force.num_bonds == 5
-        assert len(force.bond_length) == 5
-        assert force.bonds[0][0] == self.encoder._system.atoms[0]
-        assert force.bonds[0][1] == self.encoder._system.atoms[1]
-        assert force.bond_length[0] == 5
-        assert force.bond_length[1] == CONST_CA_CA_DISTANCE
 
     def test_createTorsionForce(self):
         self.encoder.ensemble = Ensemble(self.encoder._system)

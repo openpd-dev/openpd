@@ -12,7 +12,7 @@ cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 class ForceEncoder:
     def __init__(
         self, system:System, 
-        force_field_name:str='pdff', is_rigid_bond=True, 
+        force_field_name:str='pdff',
         cutoff_radius=12, derivative_width=0.0001
     ) -> None:
         self._system = system
@@ -49,8 +49,7 @@ class ForceEncoder:
         return force
 
     def _createBondForce(self):
-        force = RigidBondForce()
-        force.addBonds(*self._system.topology.bonds)
+        force = PDFFNonBondedForce()
         return force
 
     def _createTorsionForce(self):
