@@ -1,7 +1,10 @@
 from . import Force
 
-# note: Input bond of RigidBondForce should be a Vector [atom1, atom2, bond_length]
-class RigidBondForce(Force):
+class PDFFBondForceField:
+    def __init__(self) -> None:
+        pass
+
+class PDFFBondForce(Force):
     def __init__(self, force_id=0, force_group=0) -> None:
         super().__init__(force_id, force_group)
         self._num_bonds = 0
@@ -19,7 +22,7 @@ class RigidBondForce(Force):
     def addBonds(self, *bonds):
         for bond in bonds:
             if len(bond) != 3:
-                raise ValueError('The input RigidBondForce.addBonds should has three elements: [atom1, atom2, bond_length], instead of %d elements' %(len(bond)))
+                raise ValueError('The input PDFFBondForce.addBonds should has three elements: [atom1, atom2, bond_length], instead of %d elements' %(len(bond)))
             self._addBond(bond)
 
     # todo: calculateEnergy, calculateForce
