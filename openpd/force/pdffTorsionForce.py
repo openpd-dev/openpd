@@ -136,7 +136,6 @@ class PDFFTorsionForce(Force):
                 torison_type[0], torison_type[1]
             )
 
-    # todo: calculateEnergy, calculateForce
     def calculateTorsionEnergy(self, torsion_id):
         self._testBound()
         return self._force_field_vector[torsion_id].getEnergy(
