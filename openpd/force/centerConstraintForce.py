@@ -10,6 +10,19 @@ class CenterConstraintForce(Force):
         origin_center=None,
         elastic_constant=100*kilojoule_permol/angstrom**2
     ) -> None:
+        """
+        Parameters
+        ----------
+        force_id : int, optional
+            the id of force, by default 0
+        force_group : int, optional
+            the group of force, by default 0
+        origin_center : ndarray, optional
+            the origin center of CenterConstraintForce, by default None
+            If None, the mass center of initial conformation will be chosen to be the ``origin_center``
+        elastic_constant : int or float or Quantity, optional
+            The elastic constant of the harmonic potential, by default 100*kilojoule_permol/angstrom**2
+        """        
         super().__init__(force_id, force_group)
 
         # origin_center == None means extract current center coord as the origin point
@@ -44,6 +57,19 @@ class CenterConstraintForce(Force):
     __str__ = __repr__
 
     def bindEnsemble(self, ensemble):
+        """
+        bindEnsemble overloads ``Force.bindEnsemble()`` to bind CenterConstraintForce to an ``Ensemble`` instance
+
+        Parameters
+        ----------
+        ensemble : Ensemble
+            An``Ensemble`` instance. 
+            
+        Raises
+        ------
+        AttributeError
+            When self is bound multi-times
+        """        
         if self._is_bound == True:
             raise AttributeError('Force has been bound to %s' %(self._ensemble))
         
@@ -58,6 +84,14 @@ class CenterConstraintForce(Force):
             self._origin_center = self.calculateMassCenter()
     
     def calculateMassCenter(self):
+        """
+        calculateMassCenter calculates the mass center of bounded ``ensemble``
+
+        Returns
+        -------
+        ndarray(dtype=Quantity)
+            the mass center of bounded ``ensemble``
+        """        
         self._testBound()
         mass_center = np.zeros(3) * angstrom * amu
         for atom in self._atoms:
@@ -65,6 +99,14 @@ class CenterConstraintForce(Force):
         return mass_center / self._total_mass
 
     def calculatePotentialEnergy(self):
+        """
+        calculatePotentialEnergy calculates the potential energy of ``CenterConstraintForce``
+
+        Returns
+        -------
+        Quantity
+            The potential energy of ``CenterConstraintForce``
+        """      
         self._testBound()
         cur_center = self.calculateMassCenter()
         self._potential_energy = (
@@ -75,6 +117,19 @@ class CenterConstraintForce(Force):
         return self._potential_energy
 
     def calculateAtomForce(self, atom_id):
+        """
+        calculateAtomForce calculates the force acts on atom
+
+        Parameters
+        ----------
+        atom_id : int
+            The id of atom
+
+        Returns
+        -------
+        Quantity
+            the force acts on atom
+        """        
         self._testBound()
         atom = self._atoms[atom_id]
         cur_center = self.calculateMassCenter()
@@ -88,14 +143,38 @@ class CenterConstraintForce(Force):
 
     @property
     def num_atoms(self):
+        """
+        num_atoms gets the number of atoms of ``CenterConstraintForce``
+
+        Returns
+        -------
+        int
+            the number of atoms
+        """    
         return self._num_atoms
 
     @property
     def origin_center(self):
+        """
+        origin_center gets the origin center of ``CenterConstraintForce``
+
+        Returns
+        -------
+        ndarray(dtype=Quantity)
+            the origin center of ``CenterConstraintForce``
+        """        
         return self._origin_center
 
     @property
     def potential_energy(self):
+        """
+        potential_energy gets the potential energy of ``CenterConstraintForce``
+        
+        Returns
+        -------
+        Quantity
+            The potential energy of ``CenterConstraintForce``
+        """     
         try:
             self.calculatePotentialEnergy()
             return self._potential_energy

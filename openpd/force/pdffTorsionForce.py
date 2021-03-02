@@ -14,6 +14,20 @@ class PDFFTorsionForceField:
         self, peptide_type1, peptide_type2, 
         derivative_width=0.0001
     ): 
+        """
+        Parameters
+        ----------
+        peptide_type1 : str
+            The type of peptide 1
+        peptide_type2 : str
+        derivative_width : float, optional
+            the derivative width for the calculation of force, by default 0.0001
+
+        Raises
+        ------
+        ValueError
+            When the interaction is not contained in the force field folder
+        """        
         try:
             self._name = peptide_type1 + '-' + peptide_type2
             self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npy'))
@@ -58,9 +72,35 @@ class PDFFTorsionForceField:
         self._force_interp = interp1d(force_coord, -force_data, kind='cubic')
         
     def getEnergy(self, coord):
+        """
+        getEnergy calculates the energy in specific coordinate
+
+        Parameters
+        ----------
+        coord : float or list or np.ndarray
+            The coordinate of the wanted energy
+
+        Returns
+        -------
+        float or np.ndarry
+            The energy in giving coordinate
+        """        
         return self._energy_interp(coord) * kilojoule_permol
     
     def getForce(self, coord):
+        """
+        getForce calculates the force in specific coordinate
+
+        Parameters
+        ----------
+        coord : float or list or np.ndarray
+            The coordinate of the wanted force
+
+        Returns
+        -------
+        float or np.ndarry
+            The force in giving coordinate
+        """        
         return self._force_interp(coord) * kilojoule_permol_over_angstrom
 
     @property
@@ -92,6 +132,16 @@ class PDFFTorsionForce(Force):
         self, force_id=0, force_group=0,
         derivative_width=0.0001
     ) -> None:
+        """
+        Parameters
+        ----------
+        force_id : int, optional
+            the id of force, by default 0
+        force_group : int, optional
+            the group of force, by default 0
+        derivative_width : float, optional
+            the derivative width used to calculate force, by default 0.0001
+        """        
         super().__init__(force_id, force_group)
         self._derivative_width = derivative_width
         
@@ -106,6 +156,21 @@ class PDFFTorsionForce(Force):
     __str__ = __repr__
         
     def bindEnsemble(self, ensemble):
+        """
+        bindEnsemble overloads ``Force.bindEnsemble()`` to bind ``PDFFTorsionForce`` to an ``Ensemble`` instance
+        
+        Then, all the information needed will be extracted from ``ensemble`` and ``self.setEnergyVector()`` will be called to set ``self._energy_vector``
+
+        Parameters
+        ----------
+        ensemble : Ensemble
+            An``Ensemble`` instance. 
+            
+        Raises
+        ------
+        AttributeError
+            When self is bound multi-times
+        """        
         if self._is_bound == True:
             raise AttributeError('Force has been bound to %s' %(self._ensemble))
         
@@ -137,6 +202,19 @@ class PDFFTorsionForce(Force):
             )
 
     def calculateTorsionEnergy(self, torsion_id):
+        """
+        calculateTorsionEnergy calculates the potential energy of specifc torsion
+
+        Parameters
+        ----------
+        torsion_id : id
+            the id of torsion
+
+        Returns
+        -------
+        Quantity
+            The potential energy of specifc torsion
+        """        
         self._testBound()
         return self._force_field_vector[torsion_id].getEnergy(
             getTorsion(
@@ -148,6 +226,14 @@ class PDFFTorsionForce(Force):
         )
 
     def calculatePotentialEnergy(self):
+        """
+        calculatePotentialEnergy calculates the potential energy of all torsions
+
+        Returns
+        -------
+        Quantity
+            The potential energy of all torsions
+        """        
         self._testBound()
         self._potential_energy = 0
         for torsion_id in range(self._num_torsions):
@@ -155,6 +241,19 @@ class PDFFTorsionForce(Force):
         return self._potential_energy 
 
     def calculateAtomForce(self, atom_id):
+        """
+        calculateAtomForce calculates the force acts on atom
+
+        Parameters
+        ----------
+        atom_id : int
+            The id of atom
+
+        Returns
+        -------
+        Quantity
+            the force acts on atom
+        """        
         self._testBound()
         # fixme: Need to multiple 0.5 to each force?
         target_atom = self._atoms[atom_id]
@@ -228,10 +327,26 @@ class PDFFTorsionForce(Force):
 
     @property
     def num_torsions(self):
+        """
+        num_torsions gets the number of torsions of ``PDFFTorsionForce``
+
+        Returns
+        -------
+        int
+            the number of torsions
+        """      
         return self._num_torsions
 
     @property
     def potential_energy(self):
+        """
+        potential_energy gets the potential energy of all torsions
+        
+        Returns
+        -------
+        Quantity
+            The potential energy of all torsions 
+        """        
         try:
             self.calculatePotentialEnergy()
             return self._potential_energy
@@ -240,4 +355,12 @@ class PDFFTorsionForce(Force):
 
     @property
     def force_field_vector(self):
+        """
+        force_field_vector gets the force field vector
+
+        Returns
+        -------
+        np.ndarray(dtype=PDFFTorsionForceField)
+            force field vector
+        """      
         return self._force_field_vector

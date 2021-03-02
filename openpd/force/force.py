@@ -1,6 +1,14 @@
 # note: Evergy force has a force_id and an affiliated force_group
 class Force(object):
     def __init__(self, force_id, force_group) -> None:
+        """
+        Parameters
+        ----------
+        force_id : int
+            id of force
+        force_group : int
+            group id contains ``self`` 
+        """        
         super().__init__()
         self._force_id = force_id
         self._force_group = force_group
@@ -32,6 +40,14 @@ class Force(object):
 
     @property
     def force_id(self):
+        """
+        force_id gets the ``force_id`` of ``Force``
+
+        Returns
+        -------
+        int
+            the ``force_id`` of ``Force``
+        """        
         return self._force_id
 
     @force_id.setter
@@ -40,6 +56,14 @@ class Force(object):
 
     @property
     def force_group(self):
+        """
+        force_id gets the ``force_group`` of ``Force``
+
+        Returns
+        -------
+        int
+            the ``force_group`` of ``Force``
+        """        
         return self._force_group
 
     @force_group.setter

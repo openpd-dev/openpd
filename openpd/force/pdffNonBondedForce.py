@@ -20,7 +20,7 @@ class PDFFNonBondedForceField:
         peptide_type1 : str
             The type of peptide 1
         peptide_type2 : str
-            The type of peptide 1
+            The type of peptide 2
         cutoff_radius : int or Quantity, optional
             the cutoff radius, by default 12
         derivative_width : float, optional
@@ -215,9 +215,9 @@ class PDFFNonBondedForce(Force):
     
     def bindEnsemble(self, ensemble):
         """
-        bindEnsemble overloads ``Force.bindEnsemble()`` to bind PDFFNonBondedForce to an ``Ensemble`` instance
+        bindEnsemble overloads ``Force.bindEnsemble()`` to bind ``PDFFNonBondedForce`` to an ``Ensemble`` instance
         
-        Then, ``self.setEnergyMatrix()`` will be called to set ``self._energy_matrix``, and all the information needed will be extracted from ``ensemble``
+        Then, all the information needed will be extracted from ``ensemble`` and ``self.setEnergyMatrix()`` will be called to set ``self._energy_matrix``
 
         Parameters
         ----------
