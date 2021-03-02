@@ -1,4 +1,3 @@
-from openpd import integrator
 import pytest, os
 
 from .. import SequenceLoader, ForceEncoder, VelocityVerletIntegrator, Simulation, LogDumper, SnapshotDumper
@@ -68,4 +67,16 @@ class TestSimulation:
         )
         self.simulation.addDumpers(log_dumper, snapshot_dumper)
         self.simulation._integrator._sim_interval = 0.1 * femtosecond
-        self.simulation.step(300)
+        self.simulation.step(30)
+
+    def test_minimizeEnergy(self):
+        with pytest.raises(ValueError):
+            self.simulation.minimizeEnergy('aa')
+
+        cur_energy = self.simulation._ensemble.calculatePotentialEnergy()
+        self.simulation.minimizeEnergy('gd', max_iteration=10)
+        assert cur_energy > self.simulation._ensemble.calculatePotentialEnergy()
+
+        cur_energy = self.simulation._ensemble.calculatePotentialEnergy()
+        self.simulation.minimizeEnergy('sd', max_iteration=2)
+        assert cur_energy > self.simulation._ensemble.calculatePotentialEnergy()

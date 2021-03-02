@@ -1,7 +1,14 @@
 import datetime
+import numpy as np
 from . import Ensemble, Integrator, Dumper
 from . import gcd
 from .unit import *
+
+ENERGY_MINIMIZATION_METHODS = [
+    'gd', 'gradient descent',
+    'sd', 'steepest descent',
+    'cg', 'conjugate gradient'
+]
 
 class Simulation:
     def __init__(self, ensemble:Ensemble, integrator:Integrator) -> None:
@@ -31,7 +38,7 @@ class Simulation:
         self._gcd_interval = gcd(*self._dumper_intervals)
         self._start_time = datetime.datetime.now().replace(microsecond=0) # Update start time
         
-    def _dump(self):
+    def dump(self):
         self._cur_time = datetime.datetime.now().replace(microsecond=0)
         self._elapsed_time = self._cur_time - self._start_time
         self._sim_velocity = (
@@ -61,7 +68,94 @@ class Simulation:
                 self._integrator.step(self._gcd_interval)
                 self._cur_step += self._gcd_interval
                 self._remain_step -= self._gcd_interval
-                self._dump()
+                self.dump()
+
+    def minimizeEnergy(
+        self, method='gd', max_iteration:int=1000,
+        energy_tolerance=1e-7,
+        alpha=0.001, alpha_range=list(np.arange(-0.01, 0.01+0.0001, 0.0001))
+    ):
+        if not method.lower() in ENERGY_MINIMIZATION_METHODS:
+            raise ValueError(
+                '%s method is not support. Choose from \n %s'
+                %(method, ENERGY_MINIMIZATION_METHODS)
+            )
+        self._max_iteration = max_iteration
+        self._energy_tolerance = energy_tolerance
+        self._alpha = alpha # gd
+        self._alpha_range = alpha_range # sd
+        print('Start energy minimization:')
+        print(
+            'Initial potential energy: %.5f kj/mol' 
+            %(self._ensemble.calculatePotentialEnergy()/kilojoule_permol)
+        )
+        if method.lower() == 'gd' or method.lower() == 'gradient descent':
+            self._gradientDescentMinimizer()
+        elif method.lower() == 'sd' or method.lower() == 'steepest descent':
+            self._steepDescentMinimizer()
+        elif method.lower() == 'cg' or method.lower() == 'conjugrate gradient':
+            self._conjugateGradientMinimizer()
+
+    def _gradientDescentMinimizer(self):
+        cur_iteration = 0
+        pre_energy = self._ensemble.calculatePotentialEnergy()
+        while cur_iteration < self._max_iteration:
+            for atom in self._ensemble.system.topology.atoms:
+                atom.force = self._ensemble.calculateAtomForce(atom.atom_id)
+                atom.coordinate += self._alpha * atom.force / kilojoule_permol_over_angstrom
+            cur_energy = self._ensemble.calculatePotentialEnergy()
+            energy_error = np.abs((cur_energy - pre_energy) * 2 / (cur_energy + pre_energy))
+            if energy_error < self._energy_tolerance:
+                print('Penultimate potential energy: %.5f kj/mol' %(pre_energy/kilojoule_permol))
+                print('Final potential energy: %.5f kj/mol' %(cur_energy/kilojoule_permol))
+                print('Energy error: %s < %e' %(energy_error, self._energy_tolerance))
+                return None
+            cur_iteration += 1
+        print('Max number of iterations %d has achieved.' %(self._max_iteration))
+        print(
+            'Final potential energy: %.5f kj/mol' 
+            %(self._ensemble.calculatePotentialEnergy()/kilojoule_permol)
+        )
+    
+    def _steepDescentMinimizer(self):
+        cur_iteration = 0
+        pre_energy = self._ensemble.calculatePotentialEnergy()
+        while cur_iteration < self._max_iteration:
+            # Update force
+            for atom in self._ensemble.system.topology.atoms:
+                atom.force = self._ensemble.calculateAtomForce(atom.atom_id)
+            # Search minima
+            energy_range = []
+            cur_coord = self._ensemble.system.coordinate
+            for alpha in self._alpha_range:
+                self._ensemble.system.coordinate = (
+                    cur_coord + self._ensemble.system.force /
+                    kilocalorie_permol_over_angstrom * alpha
+                )
+                energy_range.append(self._ensemble.calculatePotentialEnergy()/kilojoule_permol)
+            target_alpha = self._alpha_range[energy_range.index(min(energy_range))]
+            # Update
+            self._ensemble.system.coordinate = (
+                cur_coord + self._ensemble.system.force / 
+                kilocalorie_permol_over_angstrom * target_alpha
+            )
+            cur_energy = self._ensemble.calculatePotentialEnergy()
+            # Calculate Error
+            energy_error = np.abs((cur_energy - pre_energy) * 2 / (cur_energy + pre_energy))
+            if energy_error < self._energy_tolerance:
+                print('Penultimate potential energy: %.5f kj/mol' %(pre_energy/kilojoule_permol))
+                print('Final potential energy: %.5f kj/mol' %(cur_energy/kilojoule_permol))
+                print('Energy error: %s < %e' %(energy_error, self._energy_tolerance))
+                return None
+            cur_iteration += 1
+        print('Max number of iterations %d has achieved.' %(self._max_iteration))
+        print(
+            'Final potential energy: %.5f kj/mol' 
+            %(self._ensemble.calculatePotentialEnergy()/kilojoule_permol)
+        )
+
+    def _conjugateGradientMinimizer(self):
+        pass
         
     @property
     def num_dumpers(self):
