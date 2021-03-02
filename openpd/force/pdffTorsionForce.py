@@ -51,7 +51,7 @@ class PDFFTorsionForceField:
         self._energy_interp = interp1d(self._target_coord, self._target_data, kind='cubic')
         
     def _setForceInterpolate(self):
-        coord = np.arange(-pi, pi, self._derivative_width)
+        coord = np.arange(-pi, pi+self._derivative_width, self._derivative_width)
         force_coord = coord[:-1] + self._derivative_width * 0.5
         force_data = (self._energy_interp(coord[1:]) - self._energy_interp(coord[:-1])) / self._derivative_width
 
