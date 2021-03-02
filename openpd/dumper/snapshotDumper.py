@@ -2,10 +2,10 @@ from . import Dumper
 from ..unit import *
 
 class SnapshotDumper(Dumper):
-    def __init__(self, output_file, dump_interval:int) -> None:
+    def __init__(self, output_file, dump_interval:int, is_overwrite=True) -> None:
         if not output_file.endswith('.pds'):
             raise ValueError('The snapshot file should endwith .pds!')
-        super().__init__(output_file, dump_interval)
+        super().__init__(output_file, dump_interval, is_overwrite)
         self.cur_frame = 0
         
     def __repr__(self):

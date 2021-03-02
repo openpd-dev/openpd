@@ -4,7 +4,7 @@ from ..unit import *
 
 class LogDumper(Dumper):
     def __init__(
-        self, output_file, dump_interval:int,
+        self, output_file, dump_interval:int, is_overwrite=True,
         get_steps=False,
         get_elapsed_time=False,
         get_remain_time=False,
@@ -16,7 +16,7 @@ class LogDumper(Dumper):
         get_torsion_energy=False,
         get_total_energy=False,
     ) -> None:
-        super().__init__(output_file, dump_interval)
+        super().__init__(output_file, dump_interval, is_overwrite)
         self.flag_dict = {
             "Steps": [get_steps, 10, self._getSteps],
             "Elapsed Time": [get_elapsed_time, 20, self._getElapsedTime],
