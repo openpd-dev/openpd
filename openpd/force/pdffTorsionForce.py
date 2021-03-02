@@ -51,7 +51,7 @@ class PDFFTorsionForceField:
         self._energy_interp = interp1d(self._target_coord, self._target_data, kind='cubic')
         
     def _setForceInterpolate(self):
-        coord = np.arange(-pi, pi, self._derivative_width)
+        coord = np.arange(-pi, pi+self._derivative_width, self._derivative_width)
         force_coord = coord[:-1] + self._derivative_width * 0.5
         force_data = (self._energy_interp(coord[1:]) - self._energy_interp(coord[:-1])) / self._derivative_width
 
@@ -178,7 +178,7 @@ class PDFFTorsionForce(Force):
                     self._torsions[torsion_id][2].coordinate, 
                     self._torsions[torsion_id][3].coordinate
                 )
-                force += self.force_field_vector[torsion_id].getForce(torsion_angle) * vec
+                force += 0.5 * self.force_field_vector[torsion_id].getForce(torsion_angle) * vec
             elif atom_id == self._num_atoms - 1:
                 # Last SC
                 torsion_id = self._num_torsions - 1
@@ -193,7 +193,7 @@ class PDFFTorsionForce(Force):
                     self._torsions[torsion_id][2].coordinate, 
                     self._torsions[torsion_id][3].coordinate
                 )
-                force += self.force_field_vector[torsion_id].getForce(torsion_angle) * vec 
+                force += 0.5 * self.force_field_vector[torsion_id].getForce(torsion_angle) * vec 
             else:
                 # Other SC
                 torsion_id = int(floor(atom_id/2)) - 1 
@@ -211,7 +211,6 @@ class PDFFTorsionForce(Force):
                     self._torsions[torsion_id][3].coordinate
                 )
                 force += self.force_field_vector[torsion_id].getForce(torsion_angle) * vec
-                
                 torsion_id += 1 # Next torsion
                 vec = getNormVec(
                     self._torsions[torsion_id][3].coordinate,
@@ -225,7 +224,6 @@ class PDFFTorsionForce(Force):
                     self._torsions[torsion_id][3].coordinate
                 )
                 force += 0.5 * self.force_field_vector[torsion_id].getForce(torsion_angle) * vec 
-                
             return force
 
     @property

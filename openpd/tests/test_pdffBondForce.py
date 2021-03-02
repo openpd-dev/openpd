@@ -63,8 +63,7 @@ class TestPDFFBondForce:
             self.force.calculateBondEnergy(0),
             0.5 * (bond_length-2.6)**2 * CA_SC_JSON_FILE["ASN"]["k"] * kilojoule_permol
         )
-        a = self.force.calculateBondEnergy(1)/kilojoule_permol
-        assert a == pytest.approx(0)
+        assert self.force.calculateBondEnergy(1)/kilojoule_permol == pytest.approx(0)
 
     def test_calculatePotentialEnergy(self):
         self.force.bindEnsemble(self.ensemble)

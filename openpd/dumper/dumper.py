@@ -1,8 +1,9 @@
 class Dumper:
-    def __init__(self, output_file, dump_interval:int) -> None:
+    def __init__(self, output_file, dump_interval:int, is_overwrite=True) -> None:
         self._output_file = output_file
-        io = open(self._output_file, 'w')
-        io.close()
+        if is_overwrite:
+            io = open(self._output_file, 'w')
+            io.close()
         self._dump_interval = dump_interval
         self._is_bound = False
         

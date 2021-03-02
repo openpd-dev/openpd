@@ -320,7 +320,7 @@ class PDFFNonBondedForce(Force):
             the force acts on atom
         """        
         self._testBound()
-        
+        # fixme: Need to multiple 0.5 to each force?
         target_atom = self._atoms[atom_id]
         if target_atom.atom_type == 'CA':
             # CA has no interaction in PDFF
@@ -337,7 +337,7 @@ class PDFFNonBondedForce(Force):
                 ):
                     vec = getUnitVec(atom.coordinate - target_atom.coordinate)
                     single_force = self._force_field_matrix[target_peptide_id, peptide_id].getForce(bond_length) 
-                    force += single_force * vec
+                    force += 0.5 * single_force * vec
             return force
 
     @property
