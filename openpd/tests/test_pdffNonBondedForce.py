@@ -129,13 +129,13 @@ class TestPDFFNonBondedForce:
 
         bond13 = getBond(system.atoms[1].coordinate, system.atoms[3].coordinate)/angstrom
         if bond13 <= 12:
-            force13 = asn_leu_force_field.getForce(bond13) * getUnitVec(system.atoms[3].coordinate - system.atoms[1].coordinate)
+            force13 = asn_leu_force_field.getForce(bond13) * getUnitVec(system.atoms[3].coordinate - system.atoms[1].coordinate) * 0.5
         else:
             force13 = np.zeros([3]) * kilocalorie_permol_over_angstrom
         
         bond15 = getBond(system.atoms[1].coordinate, system.atoms[5].coordinate)/angstrom
         if bond15 <= 12:
-            force15 = asn_tyr_force_field.getForce(bond15) * getUnitVec(system.atoms[5].coordinate - system.atoms[1].coordinate)
+            force15 = asn_tyr_force_field.getForce(bond15) * getUnitVec(system.atoms[5].coordinate - system.atoms[1].coordinate) * 0.5
         else:
             force15 = np.zeros([3]) * kilocalorie_permol_over_angstrom
 
