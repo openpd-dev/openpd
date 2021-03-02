@@ -178,7 +178,6 @@ class PDFFTorsionForce(Force):
                     self._torsions[torsion_id][2].coordinate, 
                     self._torsions[torsion_id][3].coordinate
                 )
-                print(torsion_angle)
                 force += 0.5 * self.force_field_vector[torsion_id].getForce(torsion_angle) * vec
             elif atom_id == self._num_atoms - 1:
                 # Last SC
@@ -194,7 +193,6 @@ class PDFFTorsionForce(Force):
                     self._torsions[torsion_id][2].coordinate, 
                     self._torsions[torsion_id][3].coordinate
                 )
-                print(torsion_angle)
                 force += 0.5 * self.force_field_vector[torsion_id].getForce(torsion_angle) * vec 
             else:
                 # Other SC
@@ -213,7 +211,6 @@ class PDFFTorsionForce(Force):
                     self._torsions[torsion_id][3].coordinate
                 )
                 force += self.force_field_vector[torsion_id].getForce(torsion_angle) * vec
-                print(torsion_angle)
                 torsion_id += 1 # Next torsion
                 vec = getNormVec(
                     self._torsions[torsion_id][3].coordinate,
@@ -227,8 +224,6 @@ class PDFFTorsionForce(Force):
                     self._torsions[torsion_id][3].coordinate
                 )
                 force += 0.5 * self.force_field_vector[torsion_id].getForce(torsion_angle) * vec 
-                print(torsion_angle)
-                
             return force
 
     @property
