@@ -1,3 +1,4 @@
+import numpy as np
 from . import Dumper 
 from .. import PDFFNonBondedForce, PDFFTorsionForce
 from ..unit import *
@@ -15,6 +16,7 @@ class LogDumper(Dumper):
         get_nonbonded_energy=False,
         get_torsion_energy=False,
         get_total_energy=False,
+        get_mass_center=False,
     ) -> None:
         super().__init__(output_file, dump_interval, is_overwrite)
         self.flag_dict = {
@@ -27,7 +29,8 @@ class LogDumper(Dumper):
             "Kinetic Energy (kj/mol)": [get_kinetic_energy, 25, self._getKineticEnergy],
             "Nonbonded Energy (kj/mol)": [get_nonbonded_energy, 27, self._getNonBondedEnergy],
             "Torsion Energy (kj/mol)": [get_torsion_energy, 25, self._getTorsionEnergy],
-            "Total Energy (kj/mol)": [get_total_energy, 23, self._getTotalEnergy]
+            "Total Energy (kj/mol)": [get_total_energy, 23, self._getTotalEnergy],
+            "Mass Center": [get_mass_center, 30, self._getMassCenter]
         }
         
     def __repr__(self):
@@ -131,6 +134,23 @@ class LogDumper(Dumper):
                     self._simulation._ensemble.calculatePotentialEnergy() +
                     self._simulation._integrator.calculateKineticEnergy()
                 ) / kilojoule_permol
+            )
+        )
+
+    def _getMassCenter(self):
+        mass_center = np.zeros(3) * angstrom * amu
+        total_mass = 0 * amu
+        for atom in self._simulation._ensemble.system.atoms:
+            mass_center += atom.coordinate * atom.mass
+            total_mass += atom.mass
+        mass_center /= total_mass * angstrom
+        return(
+            '{:<%d}' %self.flag_dict["Potential Energy (kj/mol)"][1]
+        ).format(
+            '%.3f %.3f %.3f' %(
+                mass_center[0],
+                mass_center[1],
+                mass_center[2]
             )
         )
     
