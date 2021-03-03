@@ -1,3 +1,4 @@
+from time import process_time_ns
 from . import Integrator
 from .. import Ensemble
 from ..unit import *
@@ -19,7 +20,7 @@ class VelocityVerletIntegrator(Integrator):
     def step(self, num_steps):
         cur_step = 0
         mass = self._system.mass        
-        self.updateAtomsForce()
+        self.updateForce()
         while cur_step < num_steps:
             cur_force = self._system.force
             self._system.coordinate = (
@@ -27,7 +28,7 @@ class VelocityVerletIntegrator(Integrator):
                 self._system.velocity * self._sim_interval +
                 0.5 * self._system.force / mass * self._sim_interval**2
             )
-            self.updateAtomsForce()
+            self.updateForce()
             self._system.velocity = (
                 self._system.velocity + 
                 0.5 * (

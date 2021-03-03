@@ -21,13 +21,13 @@ class VerletIntegrator(Integrator):
         cur_step = 0
         
         mass = self._system.mass
-        self.updateAtomsForce()
+        self.updateForce()
         pre_coord = self._system.coordinate - self._system.force / mass * self._sim_interval**2
         next_coord = self._system.coordinate
         cur_velocity = self._system.velocity
         
         while cur_step < num_steps:
-            self.updateAtomsForce()
+            self.updateForce()
             
             next_coord = 2 * self._system.coordinate - pre_coord + self._system.force / mass * self._sim_interval**2
             cur_velocity = (next_coord - pre_coord) / (2 * self._sim_interval)
