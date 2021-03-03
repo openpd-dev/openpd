@@ -214,3 +214,13 @@ class System:
         for i, atom in enumerate(self.atoms):
             force[i, :] = atom.force
         return force
+
+    @force.setter
+    def force(self, force):
+        force = np.array(force)
+        if not isArrayEqual(list(force.shape), [self._num_atoms, 3]):
+            raise ValueError('Dimension of input %s is different from dimension of coordinate matrix %s' 
+                %(force.shape, [self._num_atoms, 3]))
+
+        for i, atom in enumerate(self.atoms):
+            atom.force = force[i, :]
