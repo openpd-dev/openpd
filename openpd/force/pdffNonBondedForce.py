@@ -340,10 +340,7 @@ class PDFFNonBondedForce(Force):
                     bond_length <= self._cutoff_radius
                 ):
                     vec = getUnitVec(atom.coordinate - target_atom.coordinate)
-                    try:
-                        single_force = self._force_field_matrix[target_peptide_id, peptide_id].getForce(bond_length) 
-                    except:
-                        print(bond_length)
+                    single_force = self._force_field_matrix[target_peptide_id, peptide_id].getForce(bond_length) 
                     force += 0.5 * single_force * vec
             return force
 
