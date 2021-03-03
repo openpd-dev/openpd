@@ -51,7 +51,7 @@ class PDFFNonBondedForceField:
         self._cutoff_radius = cutoff_radius
         self._derivative_width = derivative_width
 
-        self._target_coord = np.arange(0, self._cutoff_radius+0.001, 0.001)
+        self._target_coord = np.arange(0, self._cutoff_radius+2*0.001, 0.001)
         
         self._fixInf()
         self._fixConverge()
@@ -92,9 +92,13 @@ class PDFFNonBondedForceField:
         self._energy_interp = interp1d(self._target_coord, self._target_data, kind='cubic')
 
     def _setForceInterpolate(self):
-        coord = np.arange(0, self._cutoff_radius, self._derivative_width)
+        coord = np.arange(0, self._cutoff_radius+2*self._derivative_width, self._derivative_width)
         force_coord = coord[:-1] + self._derivative_width * 0.5
         force_data = (self._energy_interp(coord[1:]) - self._energy_interp(coord[:-1])) / self._derivative_width
+
+        # Add missing 0
+        force_coord = np.hstack([0, force_coord])
+        force_data = np.hstack([force_data[0], force_data])
 
         self._force_interp = interp1d(force_coord, -force_data, kind='cubic')
 
@@ -336,7 +340,10 @@ class PDFFNonBondedForce(Force):
                     bond_length <= self._cutoff_radius
                 ):
                     vec = getUnitVec(atom.coordinate - target_atom.coordinate)
-                    single_force = self._force_field_matrix[target_peptide_id, peptide_id].getForce(bond_length) 
+                    try:
+                        single_force = self._force_field_matrix[target_peptide_id, peptide_id].getForce(bond_length) 
+                    except:
+                        print(bond_length)
                     force += 0.5 * single_force * vec
             return force
 

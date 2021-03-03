@@ -48,3 +48,6 @@ class TestPDFFNonBondedForceField:
 
         force =  (self.force_field.getEnergy(2-sim_interval/2) - self.force_field.getEnergy(2+sim_interval/2)) / sim_interval / angstrom
         assert self.force_field.getForce(2) / kilocalorie_permol_over_angstrom == pytest.approx(force / kilocalorie_permol_over_angstrom)
+        
+        self.force_field.getForce(11.9999999999)
+        self.force_field.getForce(0)

@@ -45,3 +45,6 @@ class TestPDFFTorsionForceField:
                 self.force_field.getEnergy(coord[2]-0.5*self.force_field.derivative_width)
             ) / self.force_field.derivative_width / angstrom
         )
+        
+        self.force_field.getForce(np.pi)
+        self.force_field.getForce(-np.pi)
