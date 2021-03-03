@@ -1,5 +1,8 @@
+import threading
+import multiprocessing as mp
+from time import process_time_ns
 import numpy as np
-
+from math import ceil
 import openpd.unit as unit
 from .. import Ensemble
 from ..unit import *
@@ -138,9 +141,9 @@ class Integrator:
         kinetic_energy = self.calculateKineticEnergy()
         return kinetic_energy * 2 / 3 / self._system.num_atoms / k_b
         
-    def updateAtomsForce(self, force_group=[0]):
+    def updateForce(self, force_group=[0]):
         """
-        updateAtomsForce updates the force acts on all ``Atom``
+        updateForce updates the force acts on all ``Atom``
 
         This method needs to be overloaded for all subclass
 
@@ -149,11 +152,42 @@ class Integrator:
         NotImplementedError
             When the subclass does not overload this method
         """  
-        forces = self._ensemble.getForcesByGroup(force_group)
+        # Single CPU
+        # forces = self._ensemble.getForcesByGroup(force_group)
+        # self._system.force = np.zeros([self._system.num_atoms, 3]) * kilojoule_permol_over_angstrom
+        # for atom in self._system.atoms:
+        #     # atom.force = np.zeros(3) * kilojoule_permol_over_angstrom
+        #     for force in forces:
+        #         atom.force += force.calculateAtomForce(atom.atom_id)
+        
+        # self._system.force = np.zeros([self._system.num_atoms, 3]) * kilojoule_permol_over_angstrom
+        # pool = mp.Pool(self._system.num_atoms)
+        # res = [pool.apply_async(
+        #         self._ensemble.calculateAtomForce,
+        #         args=(atom.atom_id, force_group)
+        #     ) for atom in self._system.atoms]
+        # #res = [p.get() for p in res]
+        # pool.close()
+        # pool.join()
+        # res = [p.get() for p in res]
+        # self._system.force = np.array(res)
+
+        manager = mp.Manager()
+        return_dict = manager.dict()
+        jobs = []
         for atom in self._system.atoms:
-            atom.force = np.zeros([3]) * kilojoule_permol_over_angstrom
-            for force in forces:
-                atom.force += force.calculateAtomForce(atom.atom_id)
+            jobs.append(mp.Process(
+                target=self._calculateAtomForce,
+                args=(atom.atom_id, force_group, return_dict)
+            ))
+            jobs[-1].start()
+        [p.join() for p in jobs]
+        for atom in self._system.atoms:
+            atom.force = return_dict[atom.atom_id]
+        manager.shutdown()
+
+    def _calculateAtomForce(self, atom_id, force_group, return_dict):
+        return_dict[atom_id] = self._ensemble.calculateAtomForce(atom_id, force_group)
 
     def step(self, num_steps:int):
         """
