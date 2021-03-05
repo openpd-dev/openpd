@@ -1,2 +1,0 @@
-Torsional interaction
-======================
