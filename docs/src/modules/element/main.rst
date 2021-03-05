@@ -2,9 +2,6 @@
 openpd.element package
 ======================
 
-Package Overview
-================
-
 The ``openpd.element`` package is designed to represent the simulation system. Naturally, a typical protein system contains one or several chains, which consist of many peptides. And the peptides are constituted by atoms. Further, the atoms' connection will form the topology of the whole system. All **elements** described above are contained in ``openpd.element`` package.
 
 Following this fact, the ``openpd.element`` package is designed as below:
@@ -25,8 +22,6 @@ The ``System`` is the final model that we will use to create a ``Simulation``. U
     - :doc:`../../tutorials/howto_createSystem/main` page
     - :doc:`../loader/main` page
 
-Package indices
-================
 
 .. toctree::
     :maxdepth: 1

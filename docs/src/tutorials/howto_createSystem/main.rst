@@ -14,7 +14,7 @@ In OpenPD, the system's (or the input model's) information is stored in the ``Sy
 .. seealso::
 
     - :doc:`../../modules/element/main` page
-    - :doc:`../../pdff/overview` page
+    - :ref:`pdff_overview` page
  
 ``System.chains`` stores the information of peptide  list and other attributes information and ``System.topology`` stores all of the topology information of simulation system, including bonds, angles, and torsions.
 

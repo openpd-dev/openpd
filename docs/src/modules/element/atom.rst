@@ -20,7 +20,7 @@ These two parameter are the determinative identification of atom in OpenPD.
 
 .. seealso::
 
-   - :doc:`../../pdff/overview`
+   - :ref:`pdff_overview`
    - :doc:`peptide`
 
 Class methods

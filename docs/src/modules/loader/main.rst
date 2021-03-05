@@ -2,9 +2,6 @@
 openpd.loader package
 =====================
 
-Package introduction
-====================
-
 As the creation of ``System`` is tedious but multistep work, OpenPD provides a package to automatically finish creating a ``System`` from an input file, which is ``openpd.loader`` package. 
 
 .. seealso:: :doc:`../element/system` Page
@@ -28,8 +25,6 @@ We think these two loaders cover most of the requirements in the PD simulation. 
 
 .. seealso:: :doc:`../../tutorials/howto_createSystem/main` Page
 
-Package indices
-================
 
 .. toctree::
     :maxdepth: 1

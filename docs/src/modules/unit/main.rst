@@ -1,11 +1,9 @@
+.. _package-intro:
+
 ====================
 openpd.unit package
 ====================
 
-.. _package-intro:
-
-Package introduction
-======================
 
 The ``openpd.unit`` package is designed to convert unit for both simulation and analysis conveniently. Meanwhile, ``openpd.unit`` also has the constant quantity like the Avogadro constant and the Boltzmann Constant. 
 
@@ -20,6 +18,13 @@ The ``openpd.unit`` package is designed to convert unit for both simulation and 
 As shown above, every ``unit`` exists as an instance of ``Quantity``. This is because we want to achieve that code :code:`1 * unit.nanometer` returns a ``Quantity`` while the ``Unit`` is also an attribute of ``Quantity``. If we define the ``__rmul__`` method of the ``Unit`` returning a ``Quantity`` instance, we will meet the cross import issue.
 
 .. seealso:: :doc:`../../tutorials/howto_useunit/main` tutorial
+
+.. toctree::
+    :maxdepth: 1
+
+    baseDimension
+    unit
+    quantity
 
 .. _predefined-unit:
 
@@ -118,14 +123,3 @@ The default units for each dimension, the relative value of which are not necess
     +---------------------+------------------------------------+
     | Power               | ``watt``                           |
     +---------------------+------------------------------------+
-
-
-Package indices
-================
-
-.. toctree::
-    :maxdepth: 1
-
-    baseDimension
-    unit
-    quantity

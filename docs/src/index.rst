@@ -10,6 +10,10 @@ OpenPD Documentation
 OpenPD, standing for **Open** **P**\ eptide **D**\ ynamics, is a python package, distributed freely under the terms of
 GNU Public License Version 3 (GPLv3), for peptide dynamics simulation. It was designed to simulate the folding dynamics of protein efficiently with the assistance of **P**\ eptide **D**\ ynamics **F**\ orce **F**\ ield (PDFF), which is a solvent considered, high-level coarse-grained force field focusing on the peptide interaction. 
 
+.. seealso::
+
+   :ref:`pdff_overview` for the details of PDFF.
+
 This document is part of the OpenPD distribution, which can be found in our `GitHub site <https://github.com/zhenyuwei99/openpd>`_. Users can also build the document manually in PDF format by following steps in :ref:`build-doc` or click the ``version`` button at the right-bottom of browser.
 
 
@@ -48,9 +52,7 @@ Contents
    :name: pdff
    :includehidden:
 
-   pdff/overview 
-   pdff/nonBonded
-   pdff/torsion
+   pdff/main
 
 .. toctree::
    :maxdepth: 1
@@ -67,7 +69,7 @@ Contents
 .. toctree::
    :maxdepth: 1
    :numbered: 3
-   :caption: Module indices
+   :caption: Package & Class indices
    :name: module
    :includehidden:
 
@@ -82,3 +84,11 @@ Contents
    modules/forceEncoder
    modules/simulation
 
+.. toctree::
+   :maxdepth: 1
+   :numbered: 1
+   :caption: References
+   :name: references
+   :includehidden:
+
+   references

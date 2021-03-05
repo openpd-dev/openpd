@@ -1,2 +1,3 @@
-integrator.BrownianIntegrator class
-====================================
+==========================================
+openpd.integrator.BrownianIntegrator class
+==========================================

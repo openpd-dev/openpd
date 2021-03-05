@@ -37,6 +37,7 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     'sphinx.ext.napoleon', 
+    'sphinxcontrib.bibtex'
 ]
 
 autosummary_generate = True
@@ -44,6 +45,7 @@ autodoc_default_flags = ['members', 'inherited-members']
 autodoc_member_order = 'bysource'
 autoclass_content = 'both'
 
+bibtex_bibfiles = ['refs.bib']
 # Add any paths that contain templates here, relative to this directory.
 # templates_path = ['_templates']
 

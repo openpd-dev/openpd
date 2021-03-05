@@ -9,6 +9,8 @@ Introduction
 
 However, the peptide type must be included in the standard peptide list shown below:
 
+.. _standard_peptide_list:
+
 .. code-block:: python 
    :linenos:
 
