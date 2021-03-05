@@ -32,6 +32,7 @@ setup(
         "openpd": [
             "data/template/*.json", 
             "data/pdff/nonbonded/*.npy",
+            "data/pdff/bond/*.json",
             "data/pdff/torsion/*.npy",
             "tests/data/*.pdb",
             "tests/data/*.json"
