@@ -14,7 +14,7 @@ class TestPDFFNonBondedForceField:
     def test_attributes(self):
         assert self.force_field.name == 'ASN-LEU'
         assert self.force_field.cutoff_radius == 12
-        assert isArrayEqual(self.force_field._target_coord, np.arange(0, self.force_field._cutoff_radius+0.001, 0.001))
+        assert isArrayEqual(self.force_field._target_coord, np.arange(0, self.force_field._cutoff_radius+2*0.001, 0.001))
 
     def test_exceptions(self):
         with pytest.raises(AttributeError):
