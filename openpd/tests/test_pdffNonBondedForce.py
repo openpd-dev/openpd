@@ -51,13 +51,15 @@ class TestPDFFNonBondedForce:
     def test_setForceFieldMatrix(self):
         self.force.bindEnsemble(self.ensemble)
         
-        asn_leu_energy_vector = np.load(os.path.join(force_field_dir, 'ASN-LEU.npy'))
-        origin_coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
+        asn_leu_potential_data = np.load(os.path.join(force_field_dir, 'ASN-LEU.npz'))
 
         assert self.force.force_field_matrix[0, 0] == 0
         assert self.force.force_field_matrix[1, 0].getEnergy(2) == self.force.force_field_matrix[0, 1].getEnergy(2)
 
-        assert self.force.force_field_matrix[0, 1].getEnergy(origin_coord[50]) == pytest.approx(asn_leu_energy_vector[50], 1e-3)
+        assert (
+            self.force.force_field_matrix[0, 1].getEnergy(asn_leu_potential_data['energy_coord'][50]) ==
+             pytest.approx(asn_leu_potential_data['energy_data'][50], 1e-3)
+        )
 
     def test_calculatePairEnergy(self):
         self.force.bindEnsemble(self.ensemble)
