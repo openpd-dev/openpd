@@ -5,6 +5,9 @@
 openpd/tests/output/*.pds
 openpd/tests/output/*.log
 
+# Ignore origin data folder
+origin_data/*
+
 # developing folder
 developing/
 
