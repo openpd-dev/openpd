@@ -10,10 +10,7 @@ cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/nonbonded')
 
 class PDFFNonBondedForceField:
-    def __init__(
-        self, peptide_type1, peptide_type2, 
-        cutoff_radius=12, derivative_width=0.0001
-    ):
+    def __init__(self, peptide_type1, peptide_type2, cutoff_radius=12):
         """
         Parameters
         ----------
@@ -30,32 +27,29 @@ class PDFFNonBondedForceField:
         ------
         ValueError
             When the interaction is not contained in the force field folder
+
+        ValueError
+            When ``cutoff_radius`` greater then 30 or 30 Angstrom
         """        
         try:
             self._name = peptide_type1 + '-' + peptide_type2
-            self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npy'))
+            self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npz'))
         except:
             try:
                 self._name = peptide_type2 + '-' + peptide_type1
-                self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npy'))
+                self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npz'))
             except:
                 raise ValueError(
                     '%s-%s interaction is not contained in %s' 
                     %(peptide_type1, peptide_type2, force_field_dir)    
                 )
-                
-        self._origin_coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
-
         if isinstance(cutoff_radius, Quantity):
             cutoff_radius = cutoff_radius.convertTo(angstrom) / angstrom
+        if cutoff_radius > 30:
+            raise ValueError(
+                'Cutoff radius should be less than 30 Angstrom'
+            )
         self._cutoff_radius = cutoff_radius
-        self._derivative_width = derivative_width
-
-        self._target_coord = np.arange(0, self._cutoff_radius+2*0.001, 0.001)
-        
-        self._fixInf()
-        self._fixConverge()
-        self._guessData()
         self._setEnergyInterpolate()
         self._setForceInterpolate()
 
@@ -67,40 +61,17 @@ class PDFFNonBondedForceField:
 
     __str__ = __repr__
         
-    def _fixInf(self):
-        inf_index = findAll(float('inf'), self._origin_data)
-        self.k = (self._origin_data[inf_index[-1]+1] - self._origin_data[inf_index[-1]+2]) / (self._origin_coord[inf_index[-1]+1] - self._origin_coord[inf_index[-1]+2])
-        for i, j in enumerate(inf_index):
-            index = inf_index[-(i+1)]
-            self._origin_data[index] =  self.k * (self._origin_coord[index] - self._origin_coord[index+1]) + self._origin_data[index+1]
-    
-    def _fixConverge(self):
-        zero_index = [i for i, j in enumerate(self._origin_data) if self._origin_coord[i]>self._cutoff_radius]
-        for index in zero_index:
-            self._origin_data[index] = 0
-    
-    def _guessData(self):
-        self._target_data = np.zeros_like(self._target_coord)
-        f = interp1d(self._origin_coord, self._origin_data, kind='cubic')
-        for i, coord in enumerate(self._target_coord):
-            if coord < self._origin_coord[0]:
-                self._target_data[i] = self.k * (coord - self._origin_coord[0]) + self._origin_data[0]
-            elif coord < self._cutoff_radius:
-                self._target_data[i] = f(coord)
-        
     def _setEnergyInterpolate(self):
-        self._energy_interp = interp1d(self._target_coord, self._target_data, kind='cubic')
+        self._energy_interp = interp1d(
+            self._origin_data['energy_coord'], 
+            self._origin_data['energy_data'], kind='cubic'
+        )
 
     def _setForceInterpolate(self):
-        coord = np.arange(0, self._cutoff_radius+2*self._derivative_width, self._derivative_width)
-        force_coord = coord[:-1] + self._derivative_width * 0.5
-        force_data = (self._energy_interp(coord[1:]) - self._energy_interp(coord[:-1])) / self._derivative_width
-
-        # Add missing 0
-        force_coord = np.hstack([0, force_coord])
-        force_data = np.hstack([force_data[0], force_data])
-
-        self._force_interp = interp1d(force_coord, -force_data, kind='cubic')
+        self._force_interp = interp1d(
+            self._origin_data['force_coord'], 
+            self._origin_data['force_data'], kind='cubic'
+        )
 
     def getEnergy(self, coord):
         """
@@ -263,8 +234,7 @@ class PDFFNonBondedForce(Force):
             for j, peptide2 in enumerate(self._peptides[i+1:]):
                 force_field =  PDFFNonBondedForceField(
                     peptide1.peptide_type, peptide2.peptide_type, 
-                    cutoff_radius=self._cutoff_radius,
-                    derivative_width=self._derivative_width
+                    cutoff_radius=self._cutoff_radius
                 )
 
                 self._force_field_matrix[i, i+j+1] = force_field

@@ -1,4 +1,4 @@
-import os
+import os, pickle
 import numpy as np
 from numpy import pi, floor
 from scipy.interpolate import interp1d
@@ -44,7 +44,7 @@ class PDFFTorsionForceField:
         self._derivative_width = derivative_width
         
         self._origin_coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
-        self._target_coord = np.arange(-pi, pi+0.001, 0.001)
+        self._energy_coord = np.arange(-pi, pi+0.001, 0.001)
         self._guessData()
         self._setEnergyInterpolate()
         self._setForceInterpolate()
@@ -59,20 +59,20 @@ class PDFFTorsionForceField:
 
     def _guessData(self):
         f = interp1d(self._origin_coord, self._origin_data, kind='cubic')
-        self._target_data = f(self._target_coord)
+        self._energy_data = f(self._energy_coord)
 
     def _setEnergyInterpolate(self):
-        self._energy_interp = interp1d(self._target_coord, self._target_data, kind='cubic')
+        self._energy_interp = interp1d(self._energy_coord, self._energy_data, kind='cubic')
         
     def _setForceInterpolate(self):
-        force_coord = np.arange(-pi, pi+self._derivative_width, self._derivative_width)
+        self._force_coord = np.arange(-pi, pi+self._derivative_width, self._derivative_width)
         energy_coord = np.hstack([
-            force_coord[-1] + self._derivative_width * 0.5,
-            force_coord + self._derivative_width * 0.5
+            self._force_coord[-1] + self._derivative_width * 0.5,
+            self._force_coord + self._derivative_width * 0.5
         ])
-        force_data = (self._energy_interp(energy_coord[1:]) - self._energy_interp(energy_coord[:-1])) / self._derivative_width
+        self._force_data = (self._energy_interp(energy_coord[1:]) - self._energy_interp(energy_coord[:-1])) / self._derivative_width
 
-        self._force_interp = interp1d(force_coord, -force_data, kind='cubic')
+        self._force_interp = interp1d(self._force_coord, -self._force_data, kind='cubic')
         
     def getEnergy(self, coord):
         """
