@@ -1,5 +1,6 @@
 import os, json, codecs
 import numpy as np
+from scipy.interpolate import interp1d
 from . import Force
 from .. import getBond, getUnitVec
 from ..unit import *
@@ -8,13 +9,13 @@ from ..unit import Quantity
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/bond')
 
-with codecs.open(os.path.join(force_field_dir, 'Ca-SC.json'), 'r', 'utf-8') as f:
-    ca_sc_text = f.read()
-with codecs.open(os.path.join(force_field_dir, 'Ca-Ca.json'), 'r', 'utf-8') as f:
-    ca_ca_text = f.read()
+# with codecs.open(os.path.join(force_field_dir, 'Ca-SC.json'), 'r', 'utf-8') as f:
+#     ca_sc_text = f.read()
+# with codecs.open(os.path.join(force_field_dir, 'Ca-Ca.json'), 'r', 'utf-8') as f:
+#     ca_ca_text = f.read()
 
-CA_SC_JSON_FILE = json.loads(ca_sc_text)
-CA_CA_JSON_FILE = json.loads(ca_ca_text)
+# CA_SC_JSON_FILE = json.loads(ca_sc_text)
+# CA_CA_JSON_FILE = json.loads(ca_ca_text)
 
 class PDFFBondForceField:
     def __init__(
@@ -36,18 +37,18 @@ class PDFFBondForceField:
         if peptide_type1 == peptide_type2:
             self._key = peptide_type1
             self._name = peptide_type1 + ' Ca-SC bond'
-            self._data_file = CA_SC_JSON_FILE
         else:
-            self._key = peptide_type1 + '-' + peptide_type2
-            self._name = peptide_type1 + ' Ca - ' + peptide_type2 +' Ca bond'
-            self._data_file = CA_CA_JSON_FILE
+            self._key = 'CA-CA'
+            self._name = peptide_type1 + ' Ca - ' + peptide_type2 + ' Ca bond'
         try:
-            self._origin_data = self._data_file[self._key]
+            self._origin_data = np.load(os.path.join(force_field_dir, self._key + '.npz'))
         except:
             raise ValueError(
                 '%s is not contained in PDFF Bond Force Field' 
                 %(self._name)    
-            )
+            ) 
+        self._setEnergyInterp()
+        self._setForceInterp()
 
     def __repr__(self) -> str:
         return (
@@ -56,6 +57,18 @@ class PDFFBondForceField:
         )
 
     __str__ = __repr__
+
+    def _setEnergyInterp(self):
+        self._energy_interp = interp1d(
+            self._origin_data['energy_coord'], 
+            self._origin_data['energy_data'], kind='cubic'
+        )
+
+    def _setForceInterp(self):
+        self._force_interp = interp1d(
+            self._origin_data['force_coord'], 
+            self._origin_data['force_data'], kind='cubic'
+        )
 
     def getEnergy(self, coord):
         """
@@ -73,9 +86,7 @@ class PDFFBondForceField:
         """        
         if isinstance(coord, Quantity):
             coord = coord.convertTo(angstrom) / angstrom
-        return(
-            0.5 * self._origin_data['k'] * (coord - self._origin_data['r0'])**2 * kilojoule_permol
-        )
+        return self._energy_interp(coord) * kilojoule_permol
 
     def getForce(self, coord):
         """
@@ -93,9 +104,7 @@ class PDFFBondForceField:
         """        
         if isinstance(coord, Quantity):
             coord = coord.convertTo(angstrom) / angstrom
-        return (
-            - self._origin_data['k'] * (coord - self._origin_data['r0']) * kilojoule_permol_over_angstrom
-        )
+        return self._force_interp(coord) * kilojoule_permol_over_angstrom
 
     @property
     def name(self):
