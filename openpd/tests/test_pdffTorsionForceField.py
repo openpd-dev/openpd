@@ -18,7 +18,7 @@ class TestPDFFTorsionForceField:
 
     def test_attributes(self):
         assert self.force_field.name == 'ASN-LEU'
-        assert isArrayEqual(self.force_field._target_coord, np.arange(-pi, pi+0.001, 0.001))
+        assert isArrayEqual(self.force_field._energy_coord, np.arange(-pi, pi+0.001, 0.001))
         assert self.force_field.derivative_width == 0.0001
 
     def test_exceptions(self):

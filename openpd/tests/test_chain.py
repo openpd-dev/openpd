@@ -45,7 +45,7 @@ class TestChain:
 
     def test_addPeptides(self):
         peptide1 = Peptide('ASN')
-        peptide2 = Peptide('ALA')
+        peptide2 = Peptide('ASP')
         self.chain.addPeptides(peptide1, peptide2)
 
         assert self.chain.num_peptides == 2
