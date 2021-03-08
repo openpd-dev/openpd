@@ -6,13 +6,10 @@
             "mass": 12
         },
         "SC": {
-            "mass": 2
+            "mass": 1
         }
     },
     "side_chain_atoms": {
-        "HA2": {
-            "mass": 1
-        },
         "HA3": {
             "mass": 1
         }
@@ -31,6 +28,32 @@
             "mass": 16
         },
         "H": {
+            "mass": 1
+        },
+        "HA2": {
+            "mass": 1
+        }
+    },
+    "full_atoms": {
+        "N": {
+            "mass": 14
+        },
+        "CA": {
+            "mass": 12
+        },
+        "C": {
+            "mass": 12
+        },
+        "O": {
+            "mass": 16
+        },
+        "H": {
+            "mass": 1
+        },
+        "HA2": {
+            "mass": 1
+        },
+        "HA3": {
             "mass": 1
         }
     }
