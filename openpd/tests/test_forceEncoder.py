@@ -36,8 +36,10 @@ class TestForceEncoder:
         force = self.encoder._createBondForce()
         force.bindEnsemble(self.encoder.ensemble)
         assert force._num_bonds == 5
-        assert force.force_field_vector[0].getEnergy(2.6) == 0 * kilojoule_permol
-        assert force.force_field_vector[1].getEnergy(3.85) == 0 * kilojoule_permol
+        data = np.load(os.path.join(cur_dir, '../data/pdff/bond/ASN.npz'))
+        assert force.force_field_vector[0].getEnergy(data['energy_coord'][30])/kilojoule_permol == pytest.approx(data['energy_data'][30])
+        data = np.load(os.path.join(cur_dir, '../data/pdff/bond/CA-CA.npz'))
+        assert force.force_field_vector[1].getEnergy(data['energy_coord'][30])/kilojoule_permol == pytest.approx(data['energy_data'][30])
 
 
     def test_createTorsionForce(self):
