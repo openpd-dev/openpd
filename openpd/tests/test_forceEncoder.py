@@ -27,21 +27,19 @@ class TestForceEncoder:
         self.encoder.ensemble = Ensemble(self.encoder._system)
         force = self.encoder._createNonBondedForce()
         force.bindEnsemble(self.encoder.ensemble)
-        
-        origin_coord = np.load(os.path.join(cur_dir, '../data/pdff/nonbonded/coord.npy'))
-        asn_leu_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/nonbonded/ASN-LEU.npy'))
-        assert force.force_field_matrix[0, 1].getEnergy(origin_coord[50]) == pytest.approx(asn_leu_energy_vector[50], 1e-3)
 
-        asn_tyr_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/nonbonded/ASN-TYR.npy'))
-        assert force.force_field_matrix[0, 2].getEnergy(origin_coord[50]) == pytest.approx(asn_tyr_energy_vector[50], 1e-3)
+        asn_tyr_potential = np.load(os.path.join(cur_dir, '../data/pdff/nonbonded/ASN-TYR.npz'))
+        assert force.force_field_matrix[0, 2].getEnergy(asn_tyr_potential['energy_coord'][50]) == pytest.approx(asn_tyr_potential['energy_data'][50], 1e-3)
 
     def test_createBondForce(self):
         self.encoder.ensemble = Ensemble(self.encoder._system)
         force = self.encoder._createBondForce()
         force.bindEnsemble(self.encoder.ensemble)
         assert force._num_bonds == 5
-        assert force.force_field_vector[0].getEnergy(2.6) == 0 * kilojoule_permol
-        assert force.force_field_vector[1].getEnergy(3.85) == 0 * kilojoule_permol
+        data = np.load(os.path.join(cur_dir, '../data/pdff/bond/ASN.npz'))
+        assert force.force_field_vector[0].getEnergy(data['energy_coord'][30])/kilojoule_permol == pytest.approx(data['energy_data'][30])
+        data = np.load(os.path.join(cur_dir, '../data/pdff/bond/CA-CA.npz'))
+        assert force.force_field_vector[1].getEnergy(data['energy_coord'][30])/kilojoule_permol == pytest.approx(data['energy_data'][30])
 
 
     def test_createTorsionForce(self):

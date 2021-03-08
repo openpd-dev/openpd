@@ -1,8 +1,150 @@
 {
     "name": "LYS",
+    "ca_sc_dist": 3.342,
     "parent_atoms": {
-        "CA": {"mass": 12}, 
-        "SC": {"mass": 192}
+        "CA": {
+            "mass": 12
+        },
+        "SC": {
+            "mass": 73
+        }
     },
-    "ca_sc_dist": 5
+    "side_chain_atoms": {
+        "CB": {
+            "mass": 12
+        },
+        "CG": {
+            "mass": 12
+        },
+        "CD": {
+            "mass": 12
+        },
+        "CE": {
+            "mass": 12
+        },
+        "NZ": {
+            "mass": 14
+        },
+        "HB2": {
+            "mass": 1
+        },
+        "HB3": {
+            "mass": 1
+        },
+        "HG2": {
+            "mass": 1
+        },
+        "HG3": {
+            "mass": 1
+        },
+        "HD2": {
+            "mass": 1
+        },
+        "HD3": {
+            "mass": 1
+        },
+        "HE2": {
+            "mass": 1
+        },
+        "HE3": {
+            "mass": 1
+        },
+        "HZ1": {
+            "mass": 1
+        },
+        "HZ2": {
+            "mass": 1
+        },
+        "HZ3": {
+            "mass": 1
+        }
+    },
+    "backbone_atoms": {
+        "N": {
+            "mass": 14
+        },
+        "CA": {
+            "mass": 12
+        },
+        "C": {
+            "mass": 12
+        },
+        "O": {
+            "mass": 16
+        },
+        "H": {
+            "mass": 1
+        },
+        "HA": {
+            "mass": 1
+        }
+    },
+    "full_atoms": {
+        "N": {
+            "mass": 14
+        },
+        "CA": {
+            "mass": 12
+        },
+        "C": {
+            "mass": 12
+        },
+        "O": {
+            "mass": 16
+        },
+        "CB": {
+            "mass": 12
+        },
+        "CG": {
+            "mass": 12
+        },
+        "CD": {
+            "mass": 12
+        },
+        "CE": {
+            "mass": 12
+        },
+        "NZ": {
+            "mass": 14
+        },
+        "H": {
+            "mass": 1
+        },
+        "HA": {
+            "mass": 1
+        },
+        "HB2": {
+            "mass": 1
+        },
+        "HB3": {
+            "mass": 1
+        },
+        "HG2": {
+            "mass": 1
+        },
+        "HG3": {
+            "mass": 1
+        },
+        "HD2": {
+            "mass": 1
+        },
+        "HD3": {
+            "mass": 1
+        },
+        "HE2": {
+            "mass": 1
+        },
+        "HE3": {
+            "mass": 1
+        },
+        "HZ1": {
+            "mass": 1
+        },
+        "HZ2": {
+            "mass": 1
+        },
+        "HZ3": {
+            "mass": 1
+        }
+    }
 }

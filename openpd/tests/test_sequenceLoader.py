@@ -35,16 +35,16 @@ class TestSequenceLoader:
 
     def test_loadSequence(self):
         loader = SequenceLoader(os.path.join(cur_dir, 'data/singleNormal.json'), is_single_letter=True)
-        assert loader.sequence_dict['Chain 1'] == ['ALA', 'ALA', 'ILE', 'ASN', 'ALA']
-        assert loader.sequence_dict['Chain 2'] == ['ILE', 'ASN', 'ALA', 'ILE']
+        assert loader.sequence_dict['Chain 1'] == ['ASN', 'ASN', 'ILE', 'ASN', 'ASP']
+        assert loader.sequence_dict['Chain 2'] == ['ILE', 'ASN', 'ASP', 'ILE']
 
         loader = SequenceLoader(os.path.join(cur_dir, 'data/tripleNormal.json'), is_single_letter=False)
         assert loader.sequence_dict['Chain 1'] == [
-            "ASN", "ALA", "ASN", "ALA", "ALA", 
-            "ASN", "ALA", "ASN", "ALA", "ALA"
+            "ASN", "ASP", "ASN", "ASP", "ASP", 
+            "ASN", "ASP", "ASN", "ASP", "ASP"
         ]
         assert loader.sequence_dict['Chain 2'] == [
-            "ASN", "ALA", "ASN", "ALA", "ALA"]
+            "ASN", "ASP", "ASN", "ASP", "ASP"]
 
     def test_CreateSystem(self):
         loader = SequenceLoader(os.path.join(cur_dir, 'data/singleNormal.json'), is_single_letter=True)
@@ -65,14 +65,14 @@ class TestSequenceLoader:
         loader = SequenceLoader(os.path.join(cur_dir, 'data/singleNormal.json'), is_single_letter=True)
         system = loader.createSystem()
 
-        assert getBond(system.atoms[0].coordinate, system.atoms[1].coordinate) == pytest.approx(Peptide('ALA')._ca_sc_dist)
+        assert getBond(system.atoms[0].coordinate, system.atoms[1].coordinate) == pytest.approx(Peptide('ASN')._ca_sc_dist)
 
         assert getBond(system.atoms[0].coordinate, system.atoms[2].coordinate) == pytest.approx(CONST_CA_CA_DISTANCE)
 
         loader = SequenceLoader(os.path.join(cur_dir, 'data/tripleNormal.json'), is_single_letter=False)
         system = loader.createSystem()
 
-        assert getBond(system.atoms[0].coordinate, system.atoms[1].coordinate) == pytest.approx(Peptide('ALA')._ca_sc_dist)
+        assert getBond(system.atoms[0].coordinate, system.atoms[1].coordinate) == pytest.approx(Peptide('ASN')._ca_sc_dist)
 
         assert getBond(system.atoms[0].coordinate, system.atoms[2].coordinate) == pytest.approx(CONST_CA_CA_DISTANCE)
 

@@ -57,7 +57,7 @@ class TestSystem:
 
     def test_addChain(self):
         peptide0 = Peptide('ASN')
-        peptide1 = Peptide('ALA')
+        peptide1 = Peptide('ASP')
 
         chain = Chain(0)
         chain.addPeptides(peptide1, peptide1, peptide0)
@@ -78,7 +78,7 @@ class TestSystem:
 
     def test_addChains(self):
         peptide0 = Peptide('ASN')
-        peptide1 = Peptide('ALA')
+        peptide1 = Peptide('ASP')
 
         chain0 = Chain(0)
         chain1 = Chain(2)

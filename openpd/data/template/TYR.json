@@ -1,8 +1,144 @@
 {
     "name": "TYR",
+    "ca_sc_dist": 3.875,
     "parent_atoms": {
-        "CA": {"mass": 12}, 
-        "SC": {"mass": 192}
+        "CA": {
+            "mass": 12
+        },
+        "SC": {
+            "mass": 121
+        }
     },
-    "ca_sc_dist": 5
+    "side_chain_atoms": {
+        "N ": {
+            "mass": 14
+        },
+        "CB": {
+            "mass": 12
+        },
+        "CG": {
+            "mass": 12
+        },
+        "CD1": {
+            "mass": 12
+        },
+        "CD2": {
+            "mass": 12
+        },
+        "CE1": {
+            "mass": 12
+        },
+        "CE2": {
+            "mass": 12
+        },
+        "CZ": {
+            "mass": 12
+        },
+        "OH": {
+            "mass": 16
+        },
+        "HB2": {
+            "mass": 1
+        },
+        "HB3": {
+            "mass": 1
+        },
+        "HD1": {
+            "mass": 1
+        },
+        "HD2": {
+            "mass": 1
+        },
+        "HE1": {
+            "mass": 1
+        },
+        "HE2": {
+            "mass": 1
+        },
+        "HH": {
+            "mass": 1
+        }
+    },
+    "backbone_atoms": {
+        "CA": {
+            "mass": 12
+        },
+        "C": {
+            "mass": 12
+        },
+        "O": {
+            "mass": 16
+        },
+        "H": {
+            "mass": 1
+        },
+        "HA": {
+            "mass": 1
+        }
+    },
+    "full_atoms": {
+        "N ": {
+            "mass": 14
+        },
+        "CA": {
+            "mass": 12
+        },
+        "C": {
+            "mass": 12
+        },
+        "O": {
+            "mass": 16
+        },
+        "CB": {
+            "mass": 12
+        },
+        "CG": {
+            "mass": 12
+        },
+        "CD1": {
+            "mass": 12
+        },
+        "CD2": {
+            "mass": 12
+        },
+        "CE1": {
+            "mass": 12
+        },
+        "CE2": {
+            "mass": 12
+        },
+        "CZ": {
+            "mass": 12
+        },
+        "OH": {
+            "mass": 16
+        },
+        "H": {
+            "mass": 1
+        },
+        "HA": {
+            "mass": 1
+        },
+        "HB2": {
+            "mass": 1
+        },
+        "HB3": {
+            "mass": 1
+        },
+        "HD1": {
+            "mass": 1
+        },
+        "HD2": {
+            "mass": 1
+        },
+        "HE1": {
+            "mass": 1
+        },
+        "HE2": {
+            "mass": 1
+        },
+        "HH": {
+            "mass": 1
+        }
+    }
 }

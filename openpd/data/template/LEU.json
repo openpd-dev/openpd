@@ -1,8 +1,132 @@
 {
     "name": "LEU",
+    "ca_sc_dist": 2.658,
     "parent_atoms": {
-        "CA": {"mass": 12}, 
-        "SC": {"mass": 192}
+        "CA": {
+            "mass": 12
+        },
+        "SC": {
+            "mass": 57
+        }
     },
-    "ca_sc_dist": 5
+    "side_chain_atoms": {
+        "CB": {
+            "mass": 12
+        },
+        "CG": {
+            "mass": 12
+        },
+        "CD1": {
+            "mass": 12
+        },
+        "CD2": {
+            "mass": 12
+        },
+        "HB2": {
+            "mass": 1
+        },
+        "HB3": {
+            "mass": 1
+        },
+        "HG": {
+            "mass": 1
+        },
+        "HD11": {
+            "mass": 1
+        },
+        "HD12": {
+            "mass": 1
+        },
+        "HD13": {
+            "mass": 1
+        },
+        "HD21": {
+            "mass": 1
+        },
+        "HD22": {
+            "mass": 1
+        },
+        "HD23": {
+            "mass": 1
+        }
+    },
+    "backbone_atoms": {
+        "N": {
+            "mass": 14
+        },
+        "CA": {
+            "mass": 12
+        },
+        "C": {
+            "mass": 12
+        },
+        "O": {
+            "mass": 16
+        },
+        "H": {
+            "mass": 1
+        },
+        "HA": {
+            "mass": 1
+        }
+    },
+    "full_atoms": {
+        "N": {
+            "mass": 14
+        },
+        "CA": {
+            "mass": 12
+        },
+        "C": {
+            "mass": 12
+        },
+        "O": {
+            "mass": 16
+        },
+        "CB": {
+            "mass": 12
+        },
+        "CG": {
+            "mass": 12
+        },
+        "CD1": {
+            "mass": 12
+        },
+        "CD2": {
+            "mass": 12
+        },
+        "H": {
+            "mass": 1
+        },
+        "HA": {
+            "mass": 1
+        },
+        "HB2": {
+            "mass": 1
+        },
+        "HB3": {
+            "mass": 1
+        },
+        "HG": {
+            "mass": 1
+        },
+        "HD11": {
+            "mass": 1
+        },
+        "HD12": {
+            "mass": 1
+        },
+        "HD13": {
+            "mass": 1
+        },
+        "HD21": {
+            "mass": 1
+        },
+        "HD22": {
+            "mass": 1
+        },
+        "HD23": {
+            "mass": 1
+        }
+    }
 }

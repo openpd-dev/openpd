@@ -1,8 +1,60 @@
 {
     "name": "GLY",
+    "ca_sc_dist": 1.09,
     "parent_atoms": {
-        "CA": {"mass": 12}, 
-        "SC": {"mass": 192}
+        "CA": {
+            "mass": 12
+        },
+        "SC": {
+            "mass": 1
+        }
     },
-    "ca_sc_dist": 5
+    "side_chain_atoms": {
+        "HA3": {
+            "mass": 1
+        }
+    },
+    "backbone_atoms": {
+        "N": {
+            "mass": 14
+        },
+        "CA": {
+            "mass": 12
+        },
+        "C": {
+            "mass": 12
+        },
+        "O": {
+            "mass": 16
+        },
+        "H": {
+            "mass": 1
+        },
+        "HA2": {
+            "mass": 1
+        }
+    },
+    "full_atoms": {
+        "N": {
+            "mass": 14
+        },
+        "CA": {
+            "mass": 12
+        },
+        "C": {
+            "mass": 12
+        },
+        "O": {
+            "mass": 16
+        },
+        "H": {
+            "mass": 1
+        },
+        "HA2": {
+            "mass": 1
+        },
+        "HA3": {
+            "mass": 1
+        }
+    }
 }

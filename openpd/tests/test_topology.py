@@ -47,7 +47,7 @@ class TestTopology:
 
     def test_addChain(self):
         chain = Chain(0)
-        chain.addPeptides(Peptide('ASN'), Peptide('ALA'), Peptide('ASN'))
+        chain.addPeptides(Peptide('ASN'), Peptide('ASP'), Peptide('ASN'))
 
         self.topology._addChain(chain)
 

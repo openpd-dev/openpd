@@ -1,21 +1,21 @@
 {
     "Chain 1": [
         "ASN",
-        "ALA",
+        "ASP",
         "ASN",
-        "ALA",
-        "ALA",
+        "ASP",
+        "ASP",
         "ASN",
-        "ALA",
+        "ASP",
         "ASN",
-        "ALA",
-        "ALA"
+        "ASP",
+        "ASP"
     ],
     "Chain 2": [
         "ASN",
-        "ALA",
+        "ASP",
         "ASN",
-        "ALA",
-        "ALA"
+        "ASP",
+        "ASP"
     ]
 }
