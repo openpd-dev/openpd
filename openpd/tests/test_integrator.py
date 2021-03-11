@@ -1,16 +1,16 @@
 import pytest, os
-
 from .. import Integrator, SequenceLoader, ForceEncoder
 from ..unit import *
+from ..exceptions import NonboundError, RebindError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
 class TestIntegrator:
     def setup(self):
         self.integrator = Integrator(1)
-        system = SequenceLoader(os.path.join(cur_dir, 'data/testForceEncoder.json')).createSystem()
-        ensemble = ForceEncoder(system).createEnsemble()
-        self.integrator._bindEnsemble(ensemble)
+        self.system = SequenceLoader(os.path.join(cur_dir, 'data/testForceEncoder.json')).createSystem()
+        self.ensemble = ForceEncoder(self.system).createEnsemble()
+        self.integrator._bindEnsemble(self.ensemble)
 
     def teardown(self):
         self.integrator = None
@@ -28,11 +28,14 @@ class TestIntegrator:
 
         with pytest.raises(ValueError):
             self.integrator.sim_interval = 1 * kilogram
-
-    def test_testBound(self):
-        integrator = Integrator(1)
-        with pytest.raises(AttributeError):
+        
+        with pytest.raises(NonboundError):
+            integrator = Integrator(1)
             integrator._testBound()
+
+        with pytest.raises(RebindError):
+            self.integrator._bindEnsemble(self.ensemble)
+
 
     def test_calculateKineticEnergy(self):
         assert self.integrator.calculateKineticEnergy()  == 0 * kilojoule_permol
