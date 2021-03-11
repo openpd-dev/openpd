@@ -3,7 +3,8 @@ import numpy as np
 
 from ..unit import *
 from ..unit import BaseDimension, Unit, Quantity
-from .. import isArrayEqual, isArrayLambda
+from .. import isArrayEqual
+from ..exceptions import DividingZeroError, DimensionDismatchingError
 
 class TestQuantity:
     def setup(self):
@@ -34,14 +35,14 @@ class TestQuantity:
         assert quantity_m.unit == meter.unit
         assert quantity_m.value == 1e-10
 
-        with pytest.raises(ValueError):
+        with pytest.raises(DimensionDismatchingError):
             quantity.convertTo(second)
 
         quantity = 1 * meter / second
         quantity_an_per_fs = quantity.convertTo(angstrom/femtosecond)
         assert quantity_an_per_fs.unit == (angstrom/femtosecond).unit
         assert quantity_an_per_fs.value == 1e-5
-        with pytest.raises(ValueError):
+        with pytest.raises(DimensionDismatchingError):
             quantity.convertTo(second)
 
     def test_eq(self):
@@ -203,7 +204,7 @@ class TestQuantity:
         # Different unit
         quantity1 = np.array([1, 2]) * angstrom
         quantity2 = np.array([2, 1]) * second
-        with pytest.raises(ValueError):
+        with pytest.raises(DimensionDismatchingError):
             quantity1 + quantity2
 
     def test_sub(self):
@@ -312,7 +313,7 @@ class TestQuantity:
         # Different unit
         quantity1 = np.array([1, 2]) * angstrom
         quantity2 = np.array([2, 1]) * second
-        with pytest.raises(ValueError):
+        with pytest.raises(DimensionDismatchingError):
             quantity1 - quantity2
 
     def test_mul(self):
@@ -414,15 +415,15 @@ class TestQuantity:
         assert quantity == 1
 
         # divide 0
-        with pytest.raises(ValueError):
+        with pytest.raises(DividingZeroError):
             quantity = 1 * nanometer
             quantity / 0
 
-        with pytest.raises(ValueError):
+        with pytest.raises(DividingZeroError):
             quantity = 0 * nanometer
             1 / quantity
 
-        with pytest.raises(ValueError):
+        with pytest.raises(DividingZeroError):
             quantity1 = 0 * nanometer
             quantity2 = 1 * second
             quantity2 / quantity1

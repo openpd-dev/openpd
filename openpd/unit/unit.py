@@ -2,6 +2,7 @@ import numpy as np
 from copy import deepcopy
 from math import sqrt
 from . import BaseDimension
+from ..exceptions import DimensionDismatchingError
 from openpd.utils.judgement import isAlmostEqual
 
 class Unit:
@@ -66,7 +67,7 @@ class Unit:
             ):
                 return deepcopy(self)
             else:
-                raise ValueError(
+                raise DimensionDismatchingError(
                     '%s and %s can\'t be added together'
                     %(self._base_dimension, other.base_dimension)
                 )
@@ -82,7 +83,7 @@ class Unit:
             ):
                 return deepcopy(other)
             else:
-                raise ValueError(
+                raise DimensionDismatchingError(
                     '%s and %s can\'t be added together'
                     %(other.base_dimension, self._base_dimension)
                 )
@@ -96,7 +97,7 @@ class Unit:
             ):
                 return deepcopy(self)
             else:
-                raise ValueError(
+                raise DimensionDismatchingError(
                     '%s and %s can\'t be subbed'
                     %(self._base_dimension, other.base_dimension)
                 )
@@ -112,7 +113,7 @@ class Unit:
             ):
                 return deepcopy(other)
             else:
-                raise ValueError(
+                raise DimensionDismatchingError(
                     '%s and %s can\'t be subbed'
                     %(other.base_dimension, self._base_dimension)
                 )
