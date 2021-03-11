@@ -5,6 +5,7 @@ from . import Force
 from .. import getBond, getUnitVec, findAll
 from ..unit import *
 from ..unit import Quantity
+from ..exceptions import RebindError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/nonbonded')
@@ -201,11 +202,11 @@ class PDFFNonBondedForce(Force):
             
         Raises
         ------
-        AttributeError
-            When self is bound multi-times
+        openpd.exceptions.RebindError
+            When ``self`` is bound multi-times
         """        
         if self._is_bound == True:
-            raise AttributeError('Force has been bound to %s' %(self._ensemble))
+            raise RebindError('Force has been bound to %s' %(self._ensemble))
         
         self._is_bound = True
         self._ensemble = ensemble

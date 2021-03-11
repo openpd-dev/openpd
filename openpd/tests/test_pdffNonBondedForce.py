@@ -3,6 +3,7 @@ import numpy as np
 from .. import PDFFNonBondedForceField, PDFFNonBondedForce, SequenceLoader, Ensemble
 from .. import isAlmostEqual, isArrayEqual, isArrayAlmostEqual, getBond, getUnitVec
 from ..unit import *
+from ..exceptions import NonboundError, RebindError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/nonbonded')
@@ -38,15 +39,15 @@ class TestPDFFNonBondedForce:
         with pytest.raises(AttributeError):
             system = SequenceLoader(os.path.join(cur_dir, 'data/testPDFFNonBondedForceException.json')).createSystem()
             self.force.bindEnsemble(Ensemble(system))
+
+        with pytest.raises(NonboundError):
+            self.force = PDFFNonBondedForce()
+            self.force.calculateAtomForce(1)
             
-        with pytest.raises(AttributeError):
+        with pytest.raises(RebindError):
             system = SequenceLoader(os.path.join(cur_dir, 'data/testForceEncoder.json')).createSystem()
             self.force.bindEnsemble(self.ensemble)
             self.force.bindEnsemble(self.ensemble)
-            
-        with pytest.raises(AttributeError):
-            self.force = PDFFNonBondedForce()
-            self.force.calculateAtomForce(1)
 
     def test_setForceFieldMatrix(self):
         self.force.bindEnsemble(self.ensemble)

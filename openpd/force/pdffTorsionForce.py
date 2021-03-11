@@ -5,6 +5,7 @@ from scipy.interpolate import interp1d
 from . import Force
 from .. import getTorsion, getNormVec
 from ..unit import *
+from ..exceptions import RebindError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/torsion')
@@ -171,11 +172,11 @@ class PDFFTorsionForce(Force):
             
         Raises
         ------
-        AttributeError
-            When self is bound multi-times
+        openpd.exceptions.RebindError
+            When ``self`` is bound multi-times
         """        
         if self._is_bound == True:
-            raise AttributeError('Force has been bound to %s' %(self._ensemble))
+            raise RebindError('Force has been bound to %s' %(self._ensemble))
         
         self._is_bound = True
         self._ensemble = ensemble

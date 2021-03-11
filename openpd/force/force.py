@@ -1,3 +1,4 @@
+from ..exceptions import NonboundError
 # note: Evergy force has a force_id and an affiliated force_group
 class Force(object):
     def __init__(self, force_id, force_group) -> None:
@@ -34,7 +35,7 @@ class Force(object):
     
     def _testBound(self):
         if self._is_bound == False:
-            raise AttributeError(
+            raise NonboundError(
                 'Force has not been bound to any Ensemble!'
             )
 

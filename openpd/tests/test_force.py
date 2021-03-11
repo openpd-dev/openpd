@@ -1,5 +1,6 @@
 import pytest
 from .. import Force
+from ..exceptions import NonboundError
 
 class TestForce:
     def setup(self):
@@ -13,7 +14,7 @@ class TestForce:
         assert self.force.force_group == 0
 
     def test_exceptions(self):
-        with pytest.raises(AttributeError):
+        with pytest.raises(NonboundError):
             self.force._testBound()
             
         with pytest.raises(NotImplementedError):
