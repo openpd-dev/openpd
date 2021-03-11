@@ -1,9 +1,8 @@
-from openpd.exceptions import PeptideTypeError
 import pytest, os
 import numpy as np
 from .. import PDFFBondForceField
-from .. import isAlmostEqual
 from ..unit import *
+from ..exceptions import PeptideTypeError, NotincludedInteractionError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/bond')
@@ -29,7 +28,7 @@ class TestPDFFBondForceField:
             PDFFBondForceField('AS', 'AS')
 
         # not include A.npz, A can pass isStandardPeptide
-        with pytest.raises(ValueError):
+        with pytest.raises(NotincludedInteractionError):
             PDFFBondForceField('A', 'A')
 
     def test_getEnergy(self):

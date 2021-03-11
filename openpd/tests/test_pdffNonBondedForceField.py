@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 from .. import PDFFNonBondedForceField
 from ..unit import *
-from ..exceptions import PeptideTypeError
+from ..exceptions import PeptideTypeError, NotincludedInteractionError
 
 class TestPDFFNonBondedForceField:
     def setup(self):
@@ -26,7 +26,7 @@ class TestPDFFNonBondedForceField:
             PDFFNonBondedForceField('ASN', 'LE')
 
         # not include ASN-A, A can pass isStandardPeptide
-        with pytest.raises(ValueError):
+        with pytest.raises(NotincludedInteractionError):
             PDFFNonBondedForceField('ASN', 'A')
 
         with pytest.raises(ValueError):

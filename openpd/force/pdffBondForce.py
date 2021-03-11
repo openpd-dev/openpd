@@ -5,7 +5,7 @@ from . import Force
 from .. import getBond, getUnitVec, isStandardPeptide
 from ..unit import *
 from ..unit import Quantity
-from ..exceptions import RebindError
+from ..exceptions import RebindError, NotincludedInteractionError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/bond')
@@ -27,7 +27,7 @@ class PDFFBondForceField:
         openpd.exceptions.PeptideTypeError
             When the peptide type is not in the standard peptide list
             
-        ValueError
+        openpd.exceptions.NotincludedInteractionError
             When the interaction is not contained in the force field folder
         """    
         isStandardPeptide(peptide_type1, peptide_type2)
@@ -40,7 +40,7 @@ class PDFFBondForceField:
         try:
             self._origin_data = np.load(os.path.join(force_field_dir, self._key + '.npz'))
         except:
-            raise ValueError(
+            raise NotincludedInteractionError(
                 '%s is not contained in PDFF Bond Force Field' 
                 %(self._name)    
             ) 

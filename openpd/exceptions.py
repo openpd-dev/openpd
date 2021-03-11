@@ -23,6 +23,9 @@ class UnsupportedForceFieldError(Exception):
     pass
 
 class NotincludedInteractionError(Exception):
+    """
+    NotincludedInteractionError related to the interaction is not included error contained in openpd.force package
+    """ 
     pass
 
 class DismatchedDimensionError(Exception):

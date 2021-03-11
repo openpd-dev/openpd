@@ -5,7 +5,7 @@ from numpy import pi
 from .. import PDFFTorsionForceField
 from .. import isArrayEqual
 from ..unit import *
-from ..exceptions import PeptideTypeError
+from ..exceptions import PeptideTypeError, NotincludedInteractionError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/torsion')
@@ -33,7 +33,7 @@ class TestPDFFTorsionForceField:
             PDFFTorsionForceField('ASN', 'LU')
 
         # not include A-A, A can pass isStandardPeptide
-        with pytest.raises(ValueError):
+        with pytest.raises(NotincludedInteractionError):
             PDFFTorsionForceField('A', 'A')
 
     def test_getEnergy(self):
