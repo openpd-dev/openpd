@@ -34,6 +34,7 @@ def isArrayLambda(judgement, array):
 
 def isStandardPeptide(*peptides):
     for peptide in peptides:
+        peptide = peptide.upper()
         if len(peptide) == 3:
             if not peptide in TRIPLE_LETTER_ABBREVIATION:
                 raise PeptideTypeError(

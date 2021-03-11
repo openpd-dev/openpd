@@ -118,3 +118,38 @@ def test_isStandardPeptide():
 
     with pytest.raises(PeptideTypeError):
         isStandardPeptide('ASN', 'AS')
+
+    # lower case
+
+    assert isStandardPeptide('asN')
+    assert isStandardPeptide('asn', 'AsP')
+
+    assert isStandardPeptide('a')
+    assert isStandardPeptide('a', 's')
+
+    assert isStandardPeptide('ASN', 'a', 'ASP')
+    assert isStandardPeptide('a', 'LeU', 'a')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('ASs')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('ASn', 'AsS')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('z')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('a', 'z')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('ASN', 'z')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('A', 'AsZ')
+    
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('As')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('asN', 'aS')
