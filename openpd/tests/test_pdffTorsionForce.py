@@ -3,6 +3,7 @@ import numpy as np
 from .. import PDFFTorsionForce, SequenceLoader, Ensemble
 from .. import isAlmostEqual, isArrayEqual, getTorsion, convertToNdArray
 from ..unit import *
+from ..exceptions import NonboundError, RebindError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/torsion')
@@ -30,14 +31,22 @@ class TestPDFFTorsionForce:
         with pytest.raises(AttributeError):
             self.force.force_field_vector = 1
             
-        with pytest.raises(AttributeError):
+        with pytest.raises(NonboundError):
             self.force._testBound()
+            
+        with pytest.raises(NonboundError):
+            self.force = PDFFTorsionForce()
+            self.force.calculateAtomForce(1)
+
+        with pytest.raises(RebindError):
+            self.force = PDFFTorsionForce()
+            system = SequenceLoader(os.path.join(cur_dir, 'data/testForceEncoder.json')).createSystem()
+            ensemble = Ensemble(system)
+            self.force.bindEnsemble(ensemble)
+            self.force.bindEnsemble(ensemble)
             
         with pytest.raises(AttributeError):
             self.force = PDFFTorsionForce()
-            self.force.calculateAtomForce(1)
-            
-        with pytest.raises(AttributeError):
             system = SequenceLoader(os.path.join(cur_dir, 'data/testPDFFTorsionForceException.json')).createSystem()
             self.force.bindEnsemble(Ensemble(system))
 

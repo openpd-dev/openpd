@@ -1,8 +1,8 @@
 import pytest
 import numpy as np
 from .. import PDFFNonBondedForceField
-from .. import findAll, findAllLambda, isArrayEqual
 from ..unit import *
+from ..exceptions import PeptideTypeError, NotincludedInteractionError
 
 class TestPDFFNonBondedForceField:
     def setup(self):
@@ -22,8 +22,12 @@ class TestPDFFNonBondedForceField:
         with pytest.raises(AttributeError):
             self.force_field.cutoff_radius = 1
             
-        with pytest.raises(ValueError):
+        with pytest.raises(PeptideTypeError):
             PDFFNonBondedForceField('ASN', 'LE')
+
+        # not include ASN-A, A can pass isStandardPeptide
+        with pytest.raises(NotincludedInteractionError):
+            PDFFNonBondedForceField('ASN', 'A')
 
         with pytest.raises(ValueError):
             PDFFNonBondedForceField('ASN', 'LEU', cutoff_radius=32)

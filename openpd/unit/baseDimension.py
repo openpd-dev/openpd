@@ -189,8 +189,9 @@ class BaseDimension:
 
         Returns
         -------
-        [type]
-            [description]
+        bool
+            If dimension less, return True
+            Else: return False
         """        
         if (
             self._length_dimension == 0 and

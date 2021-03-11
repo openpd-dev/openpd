@@ -1,7 +1,7 @@
 import pytest, os
-
 from .. import VerletIntegrator, SequenceLoader, ForceEncoder
 from ..unit import *
+from ..exceptions import DismatchedDimensionError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,10 +20,10 @@ class TestVerletIntegrator:
         assert self.integrator._is_bound == True
 
     def test_exceptions(self):
-        with pytest.raises(ValueError):
+        with pytest.raises(DismatchedDimensionError):
             VerletIntegrator(1*kilogram)
 
-        with pytest.raises(ValueError):
+        with pytest.raises(DismatchedDimensionError):
             self.integrator.sim_interval = 1 * kilogram
 
     def test_step(self):

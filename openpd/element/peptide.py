@@ -1,7 +1,7 @@
 import json, codecs, os
 from copy import deepcopy
 from . import Atom
-from .. import TRIPLE_LETTER_ABBREVIATION
+from .. import isStandardPeptide
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 template_dir = os.path.join(cur_dir, '../data/template/')
@@ -23,12 +23,10 @@ class Peptide:
 
         Raises
         ------
-        ValueError
+        openpd.exceptions.PeptideTypeError
             When the peptide type is not in the standard peptide list
-        """        
-        if not peptide_type.upper() in TRIPLE_LETTER_ABBREVIATION:
-            raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
-                %(peptide_type, TRIPLE_LETTER_ABBREVIATION))
+        """
+        isStandardPeptide(peptide_type)        
         self._peptide_type = peptide_type
         self._peptide_id = peptide_id
         self._chain_id = chain_id

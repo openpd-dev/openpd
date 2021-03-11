@@ -1,6 +1,6 @@
 import pytest
-
 from .. import Atom, Peptide
+from ..exceptions import PeptideTypeError
 
 class TestPeptide:
     def setup(self):
@@ -26,7 +26,7 @@ class TestPeptide:
         assert self.peptide.atoms[1].atom_type == 'SC'
 
     def test_exceptions(self):
-        with pytest.raises(ValueError):
+        with pytest.raises(PeptideTypeError):
             Peptide('AN')
 
         with pytest.raises(AttributeError):

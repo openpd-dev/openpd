@@ -4,6 +4,7 @@ import numpy as np
 from .. import Peptide, PDBLoader, getBond
 from .. import CONST_CA_CA_DISTANCE
 from ..unit import *
+from ..exceptions import PeptideTypeError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
@@ -18,7 +19,7 @@ class TestPDBLoader:
         with pytest.raises(ValueError):
             PDBLoader(os.path.join(cur_dir, 'data/exception.pd'))
 
-        with pytest.raises(ValueError):
+        with pytest.raises(PeptideTypeError):
             PDBLoader(os.path.join(cur_dir, 'data/exception.pdb'))
 
     def test_loadSequence(self):

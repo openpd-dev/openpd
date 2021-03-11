@@ -3,6 +3,7 @@ import numpy as np
 from .. import CenterConstraintForce, SequenceLoader, Ensemble
 from .. import isArrayEqual, getBond, getUnitVec
 from ..unit import *
+from ..exceptions import NonboundError, RebindError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
@@ -36,10 +37,10 @@ class TestCenterConstraintForce:
         with pytest.raises(AttributeError):
             self.force.potential_energy = 1
         
-        with pytest.raises(AttributeError):
+        with pytest.raises(NonboundError):
             self.force._testBound()
 
-        with pytest.raises(AttributeError):
+        with pytest.raises(RebindError):
             self.force.bindEnsemble(self.ensemble)
             self.force.bindEnsemble(self.ensemble)
 

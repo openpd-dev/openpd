@@ -1,21 +1,14 @@
-import os, json, codecs
+import os
 import numpy as np
 from scipy.interpolate import interp1d
 from . import Force
-from .. import getBond, getUnitVec
+from .. import getBond, getUnitVec, isStandardPeptide
 from ..unit import *
 from ..unit import Quantity
+from ..exceptions import RebindError, NotincludedInteractionError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/bond')
-
-# with codecs.open(os.path.join(force_field_dir, 'Ca-SC.json'), 'r', 'utf-8') as f:
-#     ca_sc_text = f.read()
-# with codecs.open(os.path.join(force_field_dir, 'Ca-Ca.json'), 'r', 'utf-8') as f:
-#     ca_ca_text = f.read()
-
-# CA_SC_JSON_FILE = json.loads(ca_sc_text)
-# CA_CA_JSON_FILE = json.loads(ca_ca_text)
 
 class PDFFBondForceField:
     def __init__(
@@ -31,9 +24,13 @@ class PDFFBondForceField:
             
         Raises
         ------
-        ValueError
+        openpd.exceptions.PeptideTypeError
+            When the peptide type is not in the standard peptide list
+            
+        openpd.exceptions.NotincludedInteractionError
             When the interaction is not contained in the force field folder
         """    
+        isStandardPeptide(peptide_type1, peptide_type2)
         if peptide_type1 == peptide_type2:
             self._key = peptide_type1
             self._name = peptide_type1 + ' Ca-SC bond'
@@ -43,7 +40,7 @@ class PDFFBondForceField:
         try:
             self._origin_data = np.load(os.path.join(force_field_dir, self._key + '.npz'))
         except:
-            raise ValueError(
+            raise NotincludedInteractionError(
                 '%s is not contained in PDFF Bond Force Field' 
                 %(self._name)    
             ) 
@@ -159,11 +156,11 @@ class PDFFBondForce(Force):
             
         Raises
         ------
-        AttributeError
-            When self is bound multi-times
+        openpd.exceptions.RebindError
+            When ``self`` is bound multi-times
         """        
         if self._is_bound == True:
-            raise AttributeError('Force has been bound to %s' %(self._ensemble))
+            raise RebindError('Force has been bound to %s' %(self._ensemble))
         self._is_bound = True
         self._ensemble = ensemble
         

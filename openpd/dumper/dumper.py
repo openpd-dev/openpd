@@ -1,3 +1,5 @@
+from ..exceptions import NonboundError, RebindError
+
 class Dumper:
     def __init__(self, output_file, dump_interval:int, is_overwrite=True) -> None:
         self._output_file = output_file
@@ -9,13 +11,13 @@ class Dumper:
         
     def _test_bound(self):
         if not self._is_bound:
-            raise AttributeError(
+            raise NonboundError(
                 'Dumper has not been bound to any Simulation!'
             )
             
     def bindSimulation(self, simulation):
         if self._is_bound == True:
-            raise AttributeError('Dumper has been bound to %s' %(self._simulation))
+            raise RebindError('Dumper has been bound to %s' %(self._simulation))
         self._simulation = simulation
         self._is_bound = True
         

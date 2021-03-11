@@ -3,6 +3,7 @@ import numpy as np
 from .. import PDFFBondForce, SequenceLoader, Ensemble
 from .. import isAlmostEqual, isArrayEqual, getBond, getUnitVec
 from ..unit import *
+from ..exceptions import NonboundError, RebindError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/bond')
@@ -33,10 +34,10 @@ class TestPDFFBondForce:
         with pytest.raises(AttributeError):
             self.force.force_field_vector = 1
         
-        with pytest.raises(AttributeError):
+        with pytest.raises(NonboundError):
             self.force._testBound()
 
-        with pytest.raises(AttributeError):
+        with pytest.raises(RebindError):
             self.force.bindEnsemble(self.ensemble)
             self.force.bindEnsemble(self.ensemble)
 

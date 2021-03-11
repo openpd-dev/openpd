@@ -1,4 +1,6 @@
 import numpy as np
+from .. import TRIPLE_LETTER_ABBREVIATION, SINGLE_LETTER_ABBREVIATION
+from ..exceptions import PeptideTypeError
 
 def isAlmostEqual(num1, num2, tolerance=1e-5):
     if np.abs(num1 - num2) > (np.abs(num1) if num1!=0 else 1) * tolerance :
@@ -28,4 +30,26 @@ def isArrayLambda(judgement, array):
     for index, element in enumerate(array):
         if not judgement(element):
             return False
+    return True
+
+def isStandardPeptide(*peptides):
+    for peptide in peptides:
+        peptide = peptide.upper()
+        if len(peptide) == 3:
+            if not peptide in TRIPLE_LETTER_ABBREVIATION:
+                raise PeptideTypeError(
+                    'Peptide type %s is not in the standard peptide list:\n %s' 
+                    %(peptide, TRIPLE_LETTER_ABBREVIATION)
+                )
+        elif len(peptide) == 1:
+            if not peptide in SINGLE_LETTER_ABBREVIATION:
+                raise PeptideTypeError(
+                    'Peptide type %s is not in the standard peptide list:\n %s' 
+                    %(peptide, SINGLE_LETTER_ABBREVIATION)
+                )
+        else:
+            raise PeptideTypeError(
+                'Peptide type should be 1 or 3 letters, instead of %d letters'
+                %(len(peptide))
+            )
     return True

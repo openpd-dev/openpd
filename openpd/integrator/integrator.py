@@ -1,12 +1,10 @@
-import threading
 import multiprocessing as mp
-from time import process_time_ns
 import numpy as np
-from math import ceil
 import openpd.unit as unit
 from .. import Ensemble
 from ..unit import *
 from ..unit import Quantity
+from ..exceptions import NonboundError, RebindError, DismatchedDimensionError
 
 class Integrator:
     def __init__(self, sim_interval=1) -> None:
@@ -50,18 +48,18 @@ class Integrator:
 
         Raises
         ------
-        AttributeError
+        openpd.exceptions.RebindError
             When bind ``Integrator`` multi-times
         """        
         if self._is_bound:
-            raise AttributeError('This integrator has been bonded, can not be bound again!')
+            raise RebindError('This integrator has been bonded, can not be bound again!')
         self._ensemble = ensemble
         self._system = ensemble.system
         self._is_bound = True
 
     def _testBound(self):
         if not self._is_bound:
-            raise AttributeError('Integrator has not been bound to any Simulation instance')
+            raise NonboundError('Integrator has not been bound to any Simulation instance')
 
     def setVelocityToTemperature(self, temperature):
         """
@@ -83,7 +81,7 @@ class Integrator:
         self._testBound()
         if isinstance(temperature, Quantity):
             if temperature.unit.base_dimension != unit.temperature:
-                raise ValueError(
+                raise DismatchedDimensionError(
                     'Dimension of parameter temperature should be s instead of %s' 
                     %(temperature.unit.base_dimension)
                 )
@@ -236,7 +234,7 @@ class Integrator:
         """        
         if isinstance(sim_interval, Quantity):
             if sim_interval.unit.base_dimension != unit.time:
-                raise ValueError(
+                raise DismatchedDimensionError(
                     'Dimension of parameter sim_interval should be s instead of %s' 
                     %(sim_interval.unit.base_dimension)
                 )

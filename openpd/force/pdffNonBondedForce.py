@@ -2,9 +2,10 @@ import os
 import numpy as np
 from scipy.interpolate import interp1d
 from . import Force
-from .. import getBond, getUnitVec, findAll
+from .. import getBond, getUnitVec, isStandardPeptide
 from ..unit import *
 from ..unit import Quantity
+from ..exceptions import RebindError, NotincludedInteractionError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/nonbonded')
@@ -25,12 +26,16 @@ class PDFFNonBondedForceField:
             
         Raises
         ------
-        ValueError
+        openpd.exceptions.PeptideTypeError
+            When the peptide type is not in the standard peptide list
+            
+        openpd.exceptions.NotincludedInteractionError
             When the interaction is not contained in the force field folder
 
         ValueError
             When ``cutoff_radius`` greater then 30 or 30 Angstrom
         """        
+        isStandardPeptide(peptide_type1, peptide_type2)
         try:
             self._name = peptide_type1 + '-' + peptide_type2
             self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npz'))
@@ -39,7 +44,7 @@ class PDFFNonBondedForceField:
                 self._name = peptide_type2 + '-' + peptide_type1
                 self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npz'))
             except:
-                raise ValueError(
+                raise NotincludedInteractionError(
                     '%s-%s interaction is not contained in %s' 
                     %(peptide_type1, peptide_type2, force_field_dir)    
                 )
@@ -201,11 +206,11 @@ class PDFFNonBondedForce(Force):
             
         Raises
         ------
-        AttributeError
-            When self is bound multi-times
+        openpd.exceptions.RebindError
+            When ``self`` is bound multi-times
         """        
         if self._is_bound == True:
-            raise AttributeError('Force has been bound to %s' %(self._ensemble))
+            raise RebindError('Force has been bound to %s' %(self._ensemble))
         
         self._is_bound = True
         self._ensemble = ensemble

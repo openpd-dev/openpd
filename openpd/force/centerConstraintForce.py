@@ -3,6 +3,7 @@ from . import Force
 from .. import getBond, getUnitVec
 from ..unit import *
 from ..unit import Quantity
+from ..exceptions import RebindError
 
 class CenterConstraintForce(Force):
     def __init__(
@@ -71,7 +72,7 @@ class CenterConstraintForce(Force):
             When self is bound multi-times
         """        
         if self._is_bound == True:
-            raise AttributeError('Force has been bound to %s' %(self._ensemble))
+            raise RebindError('Force has been bound to %s' %(self._ensemble))
         
         self._is_bound = True
         self._ensemble = ensemble

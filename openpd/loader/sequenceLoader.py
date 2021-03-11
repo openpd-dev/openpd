@@ -1,7 +1,9 @@
 import json, codecs
+from openpd.utils.judgement import isStandardPeptide
 from . import Loader
 from .. import Peptide, Chain, System
 from .. import SINGLE_LETTER_ABBREVIATION, TRIPLE_LETTER_ABBREVIATION, findFirst
+from ..exceptions import PeptideTypeError
 
 class SequenceLoader(Loader):
     def __init__(self, input_file_path, is_single_letter=False) -> None:
@@ -34,21 +36,24 @@ class SequenceLoader(Loader):
             for key, value in self.sequence_dict.items():
                 if key.upper().startswith('CHAIN'):
                     for i, peptide_type in enumerate(value):
-                        if not peptide_type.upper() in SINGLE_LETTER_ABBREVIATION:
-                            raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
-                                 %(peptide_type, SINGLE_LETTER_ABBREVIATION))
-                        else:
-                            self.sequence_dict[key][i] = TRIPLE_LETTER_ABBREVIATION[findFirst(peptide_type.upper(), SINGLE_LETTER_ABBREVIATION)]
+                        isStandardPeptide(peptide_type)
+                        if peptide_type in TRIPLE_LETTER_ABBREVIATION:
+                            raise PeptideTypeError('Peptide type %s is a triple letter abbreviation, try to use loader=SequenceLoader(file, is_single_letter=False)' 
+                                %(peptide_type))
+                        self.sequence_dict[key][i] = TRIPLE_LETTER_ABBREVIATION[findFirst(peptide_type.upper(), SINGLE_LETTER_ABBREVIATION)]
+                        # if not peptide_type.upper() in SINGLE_LETTER_ABBREVIATION:
+                        #     raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
+                        #          %(peptide_type, SINGLE_LETTER_ABBREVIATION))
+                        # else:
+                        #     self.sequence_dict[key][i] = TRIPLE_LETTER_ABBREVIATION[findFirst(peptide_type.upper(), SINGLE_LETTER_ABBREVIATION)]
         else:
             for key, value in self.sequence_dict.items():
                 if key.upper().startswith('CHAIN'):
                     for i, peptide_type in enumerate(value):
+                        isStandardPeptide(peptide_type)
                         if peptide_type in SINGLE_LETTER_ABBREVIATION:
-                            raise ValueError('Peptide type %s is a single letter abbreviation, try to use loader=SequenceLoader(file, is_single_letter=True)' 
+                            raise PeptideTypeError('Peptide type %s is a single letter abbreviation, try to use loader=SequenceLoader(file, is_single_letter=True)' 
                                 %(peptide_type))
-                        if not peptide_type in TRIPLE_LETTER_ABBREVIATION:
-                            raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
-                                 %(peptide_type, SINGLE_LETTER_ABBREVIATION))
 
     def createSystem(self):
         """
