@@ -1,6 +1,7 @@
 import pytest, os
 from .. import LogDumper
 from .. import SequenceLoader, ForceEncoder, VelocityVerletIntegrator, Simulation
+from ..exceptions import NonboundError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,7 +21,7 @@ class TestLogDumper:
         assert self.dumper.dump_interval == 100
         
     def test_exceptions(self):
-        with pytest.raises(AttributeError):
+        with pytest.raises(NonboundError):
             self.dumper._test_bound()
             
     def test_setTitle(self):
