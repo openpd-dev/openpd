@@ -1,5 +1,7 @@
+import pytest
 import numpy as np
-from .. import isAlmostEqual, isArrayEqual, isArrayAlmostEqual, isArrayLambda
+from .. import isAlmostEqual, isArrayEqual, isArrayAlmostEqual, isArrayLambda, isStandardPeptide
+from ..exceptions import PeptideTypeError
 
 def test_isAlmostEqual():
     a = 2
@@ -82,3 +84,37 @@ def test_isArrayLambda():
     a = np.array([1, 2, 3, 4, 5])
     assert isArrayLambda(lambda x:x>0, a)
     assert not isArrayLambda(lambda x:x<3, a)
+
+def test_isStandardPeptide():
+    assert isStandardPeptide('ASN')
+    assert isStandardPeptide('ASN', 'ASP')
+
+    assert isStandardPeptide('A')
+    assert isStandardPeptide('A', 'S')
+
+    assert isStandardPeptide('ASN', 'A', 'ASP')
+    assert isStandardPeptide('A', 'LEU', 'A')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('ASS')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('ASN', 'ASS')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('Z')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('A', 'Z')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('ASN', 'Z')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('A', 'ASZ')
+    
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('AS')
+
+    with pytest.raises(PeptideTypeError):
+        isStandardPeptide('ASN', 'AS')
