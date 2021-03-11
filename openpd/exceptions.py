@@ -22,5 +22,11 @@ class UnsupportedForceFieldError(Exception):
     """ 
     pass
 
+class NotincludedInteractionError(Exception):
+    pass
 
+class DimensionDismatchingError(Exception):
+    pass
 
+class DividingZeroError(Exception):
+    pass
