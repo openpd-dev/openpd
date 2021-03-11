@@ -3,7 +3,7 @@ import numpy as np
 from numpy import pi, floor
 from scipy.interpolate import interp1d
 from . import Force
-from .. import getTorsion, getNormVec
+from .. import getTorsion, getNormVec, isStandardPeptide
 from ..unit import *
 from ..exceptions import RebindError
 
@@ -28,7 +28,8 @@ class PDFFTorsionForceField:
         ------
         ValueError
             When the interaction is not contained in the force field folder
-        """        
+        """      
+        isStandardPeptide(peptide_type1, peptide_type2)  
         try:
             self._name = peptide_type1 + '-' + peptide_type2
             self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npy'))

@@ -2,7 +2,7 @@ import os
 import numpy as np
 from scipy.interpolate import interp1d
 from . import Force
-from .. import getBond, getUnitVec
+from .. import getBond, getUnitVec, isStandardPeptide
 from ..unit import *
 from ..unit import Quantity
 from ..exceptions import RebindError
@@ -24,9 +24,13 @@ class PDFFBondForceField:
             
         Raises
         ------
+        openpd.exceptions.PeptideTypeError
+            When the peptide type is not in the standard peptide list
+            
         ValueError
             When the interaction is not contained in the force field folder
         """    
+        isStandardPeptide(peptide_type1, peptide_type2)
         if peptide_type1 == peptide_type2:
             self._key = peptide_type1
             self._name = peptide_type1 + ' Ca-SC bond'

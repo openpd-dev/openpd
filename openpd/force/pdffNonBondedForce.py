@@ -2,7 +2,7 @@ import os
 import numpy as np
 from scipy.interpolate import interp1d
 from . import Force
-from .. import getBond, getUnitVec, findAll
+from .. import getBond, getUnitVec, isStandardPeptide
 from ..unit import *
 from ..unit import Quantity
 from ..exceptions import RebindError
@@ -26,12 +26,16 @@ class PDFFNonBondedForceField:
             
         Raises
         ------
+        openpd.exceptions.PeptideTypeError
+            When the peptide type is not in the standard peptide list
+            
         ValueError
             When the interaction is not contained in the force field folder
 
         ValueError
             When ``cutoff_radius`` greater then 30 or 30 Angstrom
         """        
+        isStandardPeptide(peptide_type1, peptide_type2)
         try:
             self._name = peptide_type1 + '-' + peptide_type2
             self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npz'))

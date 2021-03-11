@@ -5,6 +5,7 @@ from numpy import pi
 from .. import PDFFTorsionForceField
 from .. import isArrayEqual
 from ..unit import *
+from ..exceptions import PeptideTypeError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/torsion')
@@ -27,6 +28,13 @@ class TestPDFFTorsionForceField:
             
         with pytest.raises(AttributeError):
             self.force_field.derivative_width = 1
+
+        with pytest.raises(PeptideTypeError):
+            PDFFTorsionForceField('ASN', 'LU')
+
+        # not include A-A, A can pass isStandardPeptide
+        with pytest.raises(ValueError):
+            PDFFTorsionForceField('A', 'A')
 
     def test_getEnergy(self):
         asn_leu_force_field = np.load(os.path.join(force_field_dir, 'ASN-LEU.npy'))

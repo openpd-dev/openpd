@@ -1,3 +1,4 @@
+from openpd.exceptions import PeptideTypeError
 import pytest, os
 import numpy as np
 from .. import PDFFBondForceField
@@ -24,8 +25,12 @@ class TestPDFFBondForceField:
         with pytest.raises(AttributeError):
             self.force_field.name = 1
 
-        with pytest.raises(ValueError):
+        with pytest.raises(PeptideTypeError):
             PDFFBondForceField('AS', 'AS')
+
+        # not include A.npz, A can pass isStandardPeptide
+        with pytest.raises(ValueError):
+            PDFFBondForceField('A', 'A')
 
     def test_getEnergy(self):
         data = np.load(os.path.join(force_field_dir, 'ASN.npz'))
