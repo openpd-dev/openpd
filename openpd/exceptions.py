@@ -11,6 +11,16 @@ class RebindError(Exception):
     pass
 
 class PeptideTypeError(Exception):
+    """
+    PeptideTypeError related to the peptide type error contained in openpd.element.peptide module, openpd.loader, and openpd.force package
+    """ 
     pass
+
+class UnsupportedForceFieldError(Exception):
+    """
+    UnsupportedForceFieldError related to the unsupported force field error contained in openpd.forceEncoder module
+    """ 
+    pass
+
 
 
