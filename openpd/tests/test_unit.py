@@ -1,6 +1,6 @@
 import pytest
 from ..unit import BaseDimension, Unit
-from ..exceptions import DimensionDismatchingError
+from ..exceptions import DismatchedDimensionError
 
 class TestUnit:
     def setup(self):
@@ -47,7 +47,7 @@ class TestUnit:
         assert 1 + angstrom == angstrom
         assert angstrom + 1 == angstrom
 
-        with pytest.raises(DimensionDismatchingError):
+        with pytest.raises(DismatchedDimensionError):
             gram + angstrom
 
     def test_sub(self):
@@ -57,7 +57,7 @@ class TestUnit:
         assert 1 - angstrom == angstrom
         assert angstrom - 1 == angstrom
 
-        with pytest.raises(DimensionDismatchingError):
+        with pytest.raises(DismatchedDimensionError):
             gram - angstrom
 
     def test_mul(self):

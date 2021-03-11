@@ -25,8 +25,14 @@ class UnsupportedForceFieldError(Exception):
 class NotincludedInteractionError(Exception):
     pass
 
-class DimensionDismatchingError(Exception):
+class DismatchedDimensionError(Exception):
+    """
+    DismatchedDimensionError related to the dismatched dimension error contained in openpd.unit package and openpd.integrator.integrator module
+    """ 
     pass
 
 class DividingZeroError(Exception):
+    """
+    DividingZeroError related to the dividing zero error contained in openpd.unit.quantity module
+    """
     pass

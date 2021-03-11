@@ -1,7 +1,7 @@
 import pytest, os
 from .. import Integrator, SequenceLoader, ForceEncoder
 from ..unit import *
-from ..exceptions import NonboundError, RebindError
+from ..exceptions import NonboundError, RebindError, DismatchedDimensionError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,10 +23,10 @@ class TestIntegrator:
         with pytest.raises(AttributeError):
             self.integrator.ensemble = 1
 
-        with pytest.raises(ValueError):
+        with pytest.raises(DismatchedDimensionError):
             Integrator(1*kilogram)
 
-        with pytest.raises(ValueError):
+        with pytest.raises(DismatchedDimensionError):
             self.integrator.sim_interval = 1 * kilogram
         
         with pytest.raises(NonboundError):

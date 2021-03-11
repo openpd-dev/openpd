@@ -4,7 +4,7 @@ import openpd.unit as unit
 from .. import Ensemble
 from ..unit import *
 from ..unit import Quantity
-from ..exceptions import NonboundError, RebindError
+from ..exceptions import NonboundError, RebindError, DismatchedDimensionError
 
 class Integrator:
     def __init__(self, sim_interval=1) -> None:
@@ -81,7 +81,7 @@ class Integrator:
         self._testBound()
         if isinstance(temperature, Quantity):
             if temperature.unit.base_dimension != unit.temperature:
-                raise ValueError(
+                raise DismatchedDimensionError(
                     'Dimension of parameter temperature should be s instead of %s' 
                     %(temperature.unit.base_dimension)
                 )
@@ -234,7 +234,7 @@ class Integrator:
         """        
         if isinstance(sim_interval, Quantity):
             if sim_interval.unit.base_dimension != unit.time:
-                raise ValueError(
+                raise DismatchedDimensionError(
                     'Dimension of parameter sim_interval should be s instead of %s' 
                     %(sim_interval.unit.base_dimension)
                 )

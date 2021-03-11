@@ -2,7 +2,7 @@ import numpy as np
 from copy import deepcopy
 from math import sqrt
 from . import Unit
-from ..exceptions import DimensionDismatchingError, DividingZeroError
+from ..exceptions import DismatchedDimensionError, DividingZeroError
 from openpd.utils.judgement import isAlmostEqual
 
 class Quantity:
@@ -80,7 +80,7 @@ class Quantity:
             If ``self.unit.base_dimension != target_unit.unit.base_dimension``. E.g ``(10*meter).convertTo(second)``
         """        
         if self.unit.base_dimension != target_unit.unit.base_dimension:
-            raise DimensionDismatchingError(
+            raise DismatchedDimensionError(
                 'Dimension %s and %s is different, can not convert'
                 %(self.unit.base_dimension, target_unit.unit.base_dimension)
             )
@@ -117,7 +117,7 @@ class Quantity:
     def __lt__(self, other) -> bool:
         if isinstance(other, Quantity):
             if self.unit.base_dimension != other.unit.base_dimension:
-                raise DimensionDismatchingError(
+                raise DismatchedDimensionError(
                     'Dimension %s and %s is different, can not compare'
                     %(self.unit.base_dimension, other.unit.base_dimension)
                 )
@@ -132,7 +132,7 @@ class Quantity:
     def __le__(self, other) -> bool:
         if isinstance(other, Quantity):
             if self.unit.base_dimension != other.unit.base_dimension:
-                raise DimensionDismatchingError(
+                raise DismatchedDimensionError(
                     'Dimension %s and %s is different, can not compare'
                     %(self.unit.base_dimension, other.unit.base_dimension)
                 )
@@ -147,7 +147,7 @@ class Quantity:
     def __gt__(self, other) -> bool:
         if isinstance(other, Quantity):
             if self.unit.base_dimension != other.unit.base_dimension:
-                raise DimensionDismatchingError(
+                raise DismatchedDimensionError(
                     'Dimension %s and %s is different, can not compare'
                     %(self.unit.base_dimension, other.unit.base_dimension)
                 )
@@ -162,7 +162,7 @@ class Quantity:
     def __ge__(self, other) -> bool:
         if isinstance(other, Quantity):
             if self.unit.base_dimension != other.unit.base_dimension:
-                raise DimensionDismatchingError(
+                raise DismatchedDimensionError(
                     'Dimension %s and %s is different, can not compare'
                     %(self.unit.base_dimension, other.unit.base_dimension)
                 )
