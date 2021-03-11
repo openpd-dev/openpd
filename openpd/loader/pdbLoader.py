@@ -2,7 +2,8 @@ import numpy as np
 from . import Loader
 from ..unit import *
 from .. import Peptide, Chain, System
-from .. import TRIPLE_LETTER_ABBREVIATION, uniqueList, mergeSameNeighbor, findAll
+from .. import uniqueList, mergeSameNeighbor, findAll
+from ..utils import isStandardPeptide
 
 back_bone_atom = ['N', 'C', 'O', 'CA', 'H', 'H1', 'H2']
 element_mass = {
@@ -138,18 +139,15 @@ class PDBLoader(Loader):
 
         Raises
         ------
-        ValueError
-            When the peptide type is not in the standard peptide list.
+        openpd.exceptions.PeptideTypeError
+            When the peptide type is not in the standard peptide list
         """        
         self.sequence_dict = {}
         self.chain_names = uniqueList(self._chain_name)
         for chain_name in self.chain_names:
             sequence = mergeSameNeighbor([self._res_name[i] for i, j in enumerate(self._chain_name) if j==chain_name])
             sequence_res_id = mergeSameNeighbor([self._res_id[i] for i, j in enumerate(self._chain_name) if j==chain_name])
-            for peptide in sequence:
-                if not peptide in TRIPLE_LETTER_ABBREVIATION:
-                    raise ValueError('Peptide type %s is not in the standard peptide list:\n %s' 
-                    %(peptide, TRIPLE_LETTER_ABBREVIATION))
+            isStandardPeptide(*sequence)
             self.sequence_dict[chain_name] = sequence
             self.sequence_dict[chain_name + 'res_id'] = sequence_res_id
 

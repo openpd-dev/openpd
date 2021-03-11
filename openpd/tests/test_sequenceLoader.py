@@ -1,8 +1,8 @@
 import os, pytest
-
 from .. import SequenceLoader, Peptide, getBond
 from .. import CONST_CA_CA_DISTANCE
 from ..unit import *
+from ..exceptions import PeptideTypeError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
@@ -14,24 +14,25 @@ class TestSequenceLoader:
         self.loader = None
 
     def test_exceptions(self):
+        # File type
         with pytest.raises(ValueError):
-            SequenceLoader(os.path.join(cur_dir, 'data/tripleNormal.jsn'), is_single_letter=True)
+            SequenceLoader(os.path.join(cur_dir, 'data/tripleNormal.jsn'), is_single_letter=False)
 
-        # Having wrong single abbreviation in input file
-        with pytest.raises(ValueError):
-            SequenceLoader(os.path.join(cur_dir, 'data/singleException.json'), is_single_letter=True)
-        
         # Using single letter abbrivaition file without specifying is_single_letter=True
-        with pytest.raises(ValueError):
+        with pytest.raises(PeptideTypeError):
             SequenceLoader(os.path.join(cur_dir, 'data/singleNormal.json'), is_single_letter=False)
 
-        # Having wrong triple abbreviation in input file
-        with pytest.raises(ValueError):
-            SequenceLoader(os.path.join(cur_dir, 'data/tripleException.json'), is_single_letter=True)
+        # Having wrong single abbreviation in input file
+        with pytest.raises(PeptideTypeError):
+            SequenceLoader(os.path.join(cur_dir, 'data/singleException.json'), is_single_letter=True)
 
         # Using triple letter abbrivaition file with specifying is_single_letter=True
-        with pytest.raises(ValueError):
+        with pytest.raises(PeptideTypeError):
             SequenceLoader(os.path.join(cur_dir, 'data/tripleNormal.json'), is_single_letter=True)
+
+        # Having wrong triple abbreviation in input file
+        with pytest.raises(PeptideTypeError):
+            SequenceLoader(os.path.join(cur_dir, 'data/tripleException.json'), is_single_letter=False)
 
     def test_loadSequence(self):
         loader = SequenceLoader(os.path.join(cur_dir, 'data/singleNormal.json'), is_single_letter=True)
