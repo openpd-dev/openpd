@@ -3,6 +3,7 @@ import numpy as np
 from .. import ForceEncoder, SequenceLoader, Ensemble
 from .. import isArrayEqual
 from ..unit import *
+from ..exceptions import UnsupportedForceFieldError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,7 +21,7 @@ class TestForceEncoder:
         pass
 
     def test_exceptions(self):
-        with pytest.raises(ValueError):
+        with pytest.raises(UnsupportedForceFieldError):
             ForceEncoder(self.system, 'a')
 
     def test_createNonBondedForce(self):

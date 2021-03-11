@@ -1,13 +1,9 @@
-"""
-    ForceEncoder is used to create several necessary and only necessary force
-"""
-
-import numpy as np
 import os
 from . import System, Ensemble
-from .force import *
 from . import RIGISTERED_FORCE_FIELDS
 from .unit import *
+from .force import *
+from .exceptions import UnsupportedForceFieldError
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 class ForceEncoder:
@@ -18,7 +14,7 @@ class ForceEncoder:
     ) -> None:
         self._system = system
         if not force_field_name.lower() in RIGISTERED_FORCE_FIELDS:
-            raise ValueError('Force field %s is not supported by OpenPD, \n rigistered force field list: %s'
+            raise UnsupportedForceFieldError('Force field %s is not supported by OpenPD, \n rigistered force field list: %s'
                 %(force_field_name, RIGISTERED_FORCE_FIELDS))
         self._force_field_name = force_field_name
         self._force_field_folder = os.path.join(cur_dir, 'data', force_field_name)
