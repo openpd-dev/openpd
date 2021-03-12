@@ -3,7 +3,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Build Status](https://img.shields.io/travis/openpd-dev/openpd/main.svg?label=Travis%20CI)](https://www.travis-ci.com/github/openpd-dev/openpd)
 [![codecov](https://codecov.io/gh/openpd-dev/openpd/branch/main/graph/badge.svg?token=2O1CV31X7S)](https://codecov.io/gh/openpd-dev/openpd)
-[![Documentation Status](https://readthedocs.org/projects/openpd-doc/badge/?version=latest)](https://openpd.net/en/latest/?badge=latest) 
+[![Documentation Status](https://readthedocs.org/projects/openpd/badge/?version=latest)](https://openpd.net/en/latest/?badge=latest) 
 [![PyPi Version](https://img.shields.io/pypi/v/openpd.svg)](https://pypi.org/project/openpd/) 
 
 ## Introduction
