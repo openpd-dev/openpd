@@ -49,7 +49,7 @@ The user can also build OpenPD locally by following steps below:
 .. code-block:: console
     :linenos:
 
-    git clone https://github.com/zhenyuwei99/openpd.git
+    git clone https://github.com/openpd-dev/openpd.git
 
 2. Build OpenPD:
    
