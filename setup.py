@@ -25,7 +25,7 @@ setup(
     url='https://openpd.net/en/latest/',
     project_urls={
         "Documentation": "https://openpd.net/en/latest/",
-        "Source Code": "https://github.com/zhenyuwei99/openpd",
+        "Source Code": "https://github.com/openpd-dev/openpd",
     },
     packages=find_packages(),
     package_data={
