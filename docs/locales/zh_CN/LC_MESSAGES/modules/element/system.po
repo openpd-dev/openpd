@@ -1,0 +1,230 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, Southeast University and Zhenyu Wei
+# This file is distributed under the same license as the OpenPD package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPD 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-12 11:44+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: ../../src/modules/element/system.rst:3
+msgid "openpd.element.System class"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:6
+msgid "Overview"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:8
+msgid ""
+"``openpd.element.System`` is the ultima class for model representation. A"
+" ``System`` instance is consists of a series of ``Chain`` instances."
+msgstr ""
+
+#: ../../src/modules/element/system.rst:10
+msgid ""
+"Meanwhile, the ``System`` will also create a ``Topology`` instance during"
+" the instantiation and adding topology information when call "
+"``System.addChains()`` method."
+msgstr ""
+
+#: ../../src/modules/element/system.rst:14
+msgid ":doc:`topology` page"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:17
+msgid "Class methods"
+msgstr ""
+
+#: of openpd.element.system.System:1
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: of openpd.element.system.System.addChains:1
+msgid "addChains adds chains to the System"
+msgstr ""
+
+#: of openpd.element.system.System.addChains
+msgid "Parameters"
+msgstr ""
+
+#: of openpd.element.system.System.addChains:3
+msgid "one or serval Chain instance"
+msgstr ""
+
+#: of openpd.element.system.System.num_atoms:1
+msgid "num_atoms gets the number of atoms in the system"
+msgstr ""
+
+#: of openpd.element.system.System.atoms openpd.element.system.System.chains
+#: openpd.element.system.System.coordinate openpd.element.system.System.force
+#: openpd.element.system.System.mass openpd.element.system.System.num_atoms
+#: openpd.element.system.System.num_chains
+#: openpd.element.system.System.num_peptides
+#: openpd.element.system.System.peptides openpd.element.system.System.topology
+#: openpd.element.system.System.velocity
+msgid "Returns"
+msgstr ""
+
+#: of openpd.element.system.System.num_atoms:3
+msgid "the number of atoms in the system"
+msgstr ""
+
+#: of openpd.element.system.System.atoms openpd.element.system.System.chains
+#: openpd.element.system.System.coordinate openpd.element.system.System.force
+#: openpd.element.system.System.mass openpd.element.system.System.num_atoms
+#: openpd.element.system.System.num_chains
+#: openpd.element.system.System.num_peptides
+#: openpd.element.system.System.peptides openpd.element.system.System.topology
+#: openpd.element.system.System.velocity
+msgid "Return type"
+msgstr ""
+
+#: of openpd.element.system.System.atoms:1
+msgid "atoms gets a ``list`` contain all atoms in the system"
+msgstr ""
+
+#: of openpd.element.system.System.atoms:3
+msgid "list contain all atoms in the system"
+msgstr ""
+
+#: of openpd.element.system.System.num_peptides:1
+msgid "num_peptides gets the number of peptides in the system"
+msgstr ""
+
+#: of openpd.element.system.System.num_peptides:3
+msgid "the number of peptides in the system"
+msgstr ""
+
+#: of openpd.element.system.System.peptides:1
+msgid "peptides gets a ``list`` contain all peptide in the system"
+msgstr ""
+
+#: of openpd.element.system.System.peptides:3
+msgid "list contain all peptides in the system"
+msgstr ""
+
+#: of openpd.element.system.System.num_chains:1
+msgid "num_chains gets the number of chains in the system"
+msgstr ""
+
+#: of openpd.element.system.System.num_chains:3
+msgid "the number of chains in the system"
+msgstr ""
+
+#: of openpd.element.system.System.chains:1
+msgid "chains gets a ``list`` contain all peptide in the system"
+msgstr ""
+
+#: of openpd.element.system.System.chains:3
+msgid "list contain all chains in the system"
+msgstr ""
+
+#: of openpd.element.system.System.topology:1
+msgid "topology gets the topology of the system"
+msgstr ""
+
+#: of openpd.element.system.System.topology:3
+msgid "the topology of the system"
+msgstr ""
+
+#: of openpd.element.system.System.mass:1
+msgid "mass gets the velocity of all atoms in the system"
+msgstr ""
+
+#: of openpd.element.system.System.mass:3
+msgid "the mass of all atoms in the system"
+msgstr ""
+
+#: of openpd.element.system.System.coordinate:1
+msgid "coordinate gets the coordinate of all atoms in the system"
+msgstr ""
+
+#: of openpd.element.system.System.coordinate:3
+msgid "the coordinate of all atoms in the system"
+msgstr ""
+
+#: of openpd.element.system.System.velocity:1
+msgid "velocity gets the velocity of all atoms in the system"
+msgstr ""
+
+#: of openpd.element.system.System.velocity:3
+msgid "the velocity of all atoms in the system"
+msgstr ""
+
+#: of openpd.element.system.System.force:1
+msgid "force gets the velocity of all atoms in the system"
+msgstr ""
+
+#: of openpd.element.system.System.force:3
+msgid "the force of all atoms in the system"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:26
+msgid ""
+"The ``chain_id`` of added ``chain`` will be changed to follow the adding "
+"order, so do their affiliated ``peptide``."
+msgstr ""
+
+#: ../../src/modules/element/system.rst:30
+msgid "Read-only properties:"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:32
+msgid "``num_atoms``"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:33
+msgid "``atoms``"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:34
+msgid "``num_peptides``"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:35
+msgid "``peptides``"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:36
+msgid "``num_chains``"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:37
+msgid "``chains``"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:39
+msgid "Editable properties:"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:41
+msgid "``coordinate``"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:44
+msgid "Example"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:47
+msgid "Instantiation"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:49
+msgid "**Input**:"
+msgstr ""
+
+#: ../../src/modules/element/system.rst:78
+msgid "**Output**:"
+msgstr ""
+

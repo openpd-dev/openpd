@@ -1,0 +1,250 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, Southeast University and Zhenyu Wei
+# This file is distributed under the same license as the OpenPD package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPD 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-12 11:44+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: ../../src/modules/unit/baseDimension.rst:3
+msgid "openpd.unit.BaseDimension class"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:6
+msgid "Overview"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:8
+msgid ""
+"``openpd.unit.BaseDimension`` determine the dimension of a unit. For "
+"example, a velocity unit, no matter which unit is used, has the dimension"
+" of :math:`L/T`."
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:12
+msgid "``openpd.unit.baseDimension`` has 5 basic dimension:"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:14
+msgid ":math:`L`: Length, SI unit: m"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:15
+msgid ":math:`M`: Mass, SI unit: kg"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:16
+msgid ":math:`T`: Time, SI unit: s"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:17
+msgid ":math:`C`: Charge, SI unit: coulomb"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:18
+msgid ":math:`Mol`: Amount of substance, SI unit: mol"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:20
+msgid ""
+"The quantity operation results will automatically turn to ``<float>`` "
+"while the results are dimensionless."
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:24
+msgid "Class methods"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension:1
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension
+msgid "Parameters"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension:1
+msgid "dimension of length, by default 0"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension:3
+msgid "dimension of time, by default 0"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension:5
+msgid "dimension of mass, by default 0"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension:7
+msgid "dimension of temperature, by default 0"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension:9
+msgid "dimension of charge, by default 0"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension:11
+msgid "dimension of amount of substance, by default 0"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.sqrt:1
+msgid "sqrt returns square root of Quantity"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.charge_dimension
+#: openpd.unit.baseDimension.BaseDimension.isDimensionLess
+#: openpd.unit.baseDimension.BaseDimension.length_dimension
+#: openpd.unit.baseDimension.BaseDimension.mass_dimension
+#: openpd.unit.baseDimension.BaseDimension.mol_dimension
+#: openpd.unit.baseDimension.BaseDimension.name
+#: openpd.unit.baseDimension.BaseDimension.sqrt
+#: openpd.unit.baseDimension.BaseDimension.temperature_dimension
+#: openpd.unit.baseDimension.BaseDimension.time_dimension
+msgid "Returns"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.sqrt:3
+msgid "square root of ``self``"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.charge_dimension
+#: openpd.unit.baseDimension.BaseDimension.isDimensionLess
+#: openpd.unit.baseDimension.BaseDimension.length_dimension
+#: openpd.unit.baseDimension.BaseDimension.mass_dimension
+#: openpd.unit.baseDimension.BaseDimension.mol_dimension
+#: openpd.unit.baseDimension.BaseDimension.name
+#: openpd.unit.baseDimension.BaseDimension.sqrt
+#: openpd.unit.baseDimension.BaseDimension.temperature_dimension
+#: openpd.unit.baseDimension.BaseDimension.time_dimension
+msgid "Return type"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.isDimensionLess:1
+msgid "isDimensionLess judges wether ``self`` is a dimensionless"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.isDimensionLess:3
+msgid "If dimension less, return True Else: return False"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.length_dimension:1
+msgid "length_dimension gets the dimension of length"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.length_dimension:3
+msgid "dimension of length"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.time_dimension:1
+msgid "time_dimension gets the dimension of time"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.time_dimension:3
+msgid "dimension of time"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.mass_dimension:1
+msgid "mass_dimension gets the dimension of mass"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.mass_dimension:3
+msgid "dimension of mass"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.temperature_dimension:1
+msgid "temperature_dimension gets the dimension of temperature"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.temperature_dimension:3
+msgid "dimension of temperature"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.charge_dimension:1
+msgid "charge_dimension gets the dimension of charge"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.charge_dimension:3
+msgid "dimension of charge"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.mol_dimension:1
+msgid "mol_dimension gets the dimension of amount of substance"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.mol_dimension:3
+msgid "dimension of amount of substance"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.name:1
+msgid "name gets the name of ``self``"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.name:3
+msgid ""
+"The name of ``BaseDimension`` is consist with SI unit. For example, "
+"``BaseDimension(length_dimension=1, time_dimension=-1)`` has name 'm/s'"
+msgstr ""
+
+#: of openpd.unit.baseDimension.BaseDimension.name:6
+msgid "name of BaseDimension"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:32
+msgid "Read-only properties:"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:34
+msgid "``length_dimension``"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:35
+msgid "``time_dimension``"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:36
+msgid "``mass_dimension``"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:37
+msgid "``temperature_dimension``"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:38
+msgid "``charge_dimension``"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:39
+msgid "``mol_dimension``"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:40
+msgid "``name``"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:43
+msgid "Example"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:46
+msgid "Instantiation"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:48
+msgid "**Input**:"
+msgstr ""
+
+#: ../../src/modules/unit/baseDimension.rst:61
+msgid "**Output**:"
+msgstr ""
+

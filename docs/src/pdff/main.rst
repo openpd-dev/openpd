@@ -59,7 +59,7 @@ As the distance between :math:`SC` atoms of two different peptides is a proper c
 
 .. image:: ./images/nonbonded.png
     :align: center
-    :width: 650
+    :width: 550
 
 -------------------------------------
 
@@ -69,7 +69,15 @@ For each peptides-pair, :math:`200` trajectories with different bias potentials,
 Bond interaction
 ================
 
+Introduction
+============
 
+PDFF Bond interaction describe the potential of bonds that connect atoms (:math:`SC`\ s and :math:`C_\alpha`\ s) in PD simulation. In PDFF, the :math:`C_\alpha - C\alpha` bonds between different peptides are treated in the same way, which is proved by AAMD results. While the :math:`C_\alpha - SC` bonds of different peptides correspond to different force filed data file. :math:`21` free energy surfaces are contained in PDFF for bond interaction.
+
+AAMD details
+============
+
+For the :math:`C_\alpha - SC` bonds, the collective variable is the distance between the :math:`C_\alpha` atoms and center of mass of the side chain atoms of a single peptide, while the distance between two :math:`C_\alpha` atoms of two connected peptide is the CV of :math:`C_\alpha - SC` bonds. :math:`100` trajectories with different bias potentials, the centers of which spread evenly in :math:`[1, 6] A`, have been obtained, yielding a :math:`200 ns` trajectory in total. Similar to the AAMD of PDFF Non-bonded interaction, 
 
 ======================
 Torsion interaction

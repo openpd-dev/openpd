@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, Southeast University and Zhenyu Wei
+# This file is distributed under the same license as the OpenPD package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPD 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-12 11:29+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: ../../src/index.rst:38
+msgid "Quick start"
+msgstr "快速上手"
+
+#: ../../src/index.rst:48
+msgid "Peptide Dynamics Force Field"
+msgstr ""
+
+#: ../../src/index.rst:57
+msgid "Tutorials"
+msgstr "教程"
+
+#: ../../src/index.rst:69
+msgid "Package & Class indices"
+msgstr "包&类索引"
+
+#: ../../src/index.rst:87
+msgid "Appendices"
+msgstr "附录"
+
+#: ../../src/index.rst:8
+msgid "OpenPD Documentation"
+msgstr "OpenPD手册"
+
+#: ../../src/index.rst:10
+msgid ""
+"OpenPD, standing for **Open** **P**\\ eptide **D**\\ ynamics, is a python"
+" package, distributed freely under the terms of GNU Public License "
+"Version 3 (GPLv3), for peptide dynamics simulation. It was designed to "
+"simulate the folding dynamics of protein efficiently with the assistance "
+"of **P**\\ eptide **D**\\ ynamics **F**\\ orce **F**\\ ield (PDFF), which"
+" is a solvent considered, high-level coarse-grained force field focusing "
+"on the peptide interaction."
+msgstr "OpenPD (**Open** **P**\\ eptide **D**\\ ynamics) 是一种针对肽动力学(Peptide Dynamics)模拟的python toolkit，并根据GPLv3协议开源。OpenPD通过使用 **P**\\ eptide **D**\\ ynamics **F**\\ orce **F**\\ ield (PDFF)对蛋白质折叠的动力学性质进行高效的模拟"
+
+#: ../../src/index.rst:15
+msgid ":ref:`pdff_overview` for the details of PDFF."
+msgstr ""
+
+#: ../../src/index.rst:17
+msgid ""
+"This document is part of the OpenPD distribution, which can be found in "
+"our `GitHub site <https://github.com/zhenyuwei99/openpd>`_. Users can "
+"also build the document manually in PDF format by following steps in :ref"
+":`build-doc` or click the ``version`` button at the right-bottom of "
+"browser."
+msgstr ""
+
+#: ../../src/index.rst:20
+msgid ""
+"OpenPD is developed and maintained by Zhenyu Wei (zhenyuwei99@gmail.com),"
+" from Yunfei Chen's group in Southeast University. As a newly developed "
+"program, we always welcome developers to contact us or discuss in our "
+"`GitHub site <https://github.com/zhenyuwei99/openpd>`_"
+msgstr ""
+
+#: ../../src/index.rst:22
+msgid "The document is organized in four parts:"
+msgstr ""
+
+#: ../../src/index.rst:24
+msgid ""
+"The :ref:`Quick Start <quickstart>` part contains our program's "
+"introduction and the installation suggestions."
+msgstr ""
+
+#: ../../src/index.rst:25
+msgid ""
+"The :ref:`Peptide Dynamics Force Field <pdff>` part describes the "
+"component of PDFF and their developing procedure."
+msgstr ""
+
+#: ../../src/index.rst:26
+msgid ""
+"The :ref:`Tutorials <tutorials>` part shows several primary example codes"
+" to giving users a directive intuition of workflow and features of OpenPD"
+msgstr ""
+
+#: ../../src/index.rst:27
+msgid ""
+"The :ref:`Module indices <module>` part giving a detailed description of "
+"all packages and classes in OpenPD."
+msgstr ""
+
+#: ../../src/index.rst:31
+msgid ""
+"Each section in :ref:`Module indices <module>` part provides one or "
+"several examples, which are a good resource for the new user besides the "
+":ref:`Tutorials <tutorials>` part."
+msgstr ""
+
+#: ../../src/index.rst:32
+msgid ""
+"Once users are familiar with OpenPD, the :ref:`Module indices <module>` "
+"part will be useful for a quick code check."
+msgstr ""
+
+#: ../../src/index.rst:36
+msgid "Contents"
+msgstr ""
+

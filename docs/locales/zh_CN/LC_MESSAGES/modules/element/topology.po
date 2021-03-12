@@ -1,0 +1,255 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, Southeast University and Zhenyu Wei
+# This file is distributed under the same license as the OpenPD package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPD 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-12 11:44+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: ../../src/modules/element/topology.rst:3
+msgid "openpd.element.Topology class"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:9
+msgid "Overview"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:11
+msgid ""
+"``openpd.element.Topology`` is designed to store all the topology "
+"information of ``System``"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:13
+#: ../../src/modules/element/topology.rst:37
+msgid ":doc:`system` page"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:23
+msgid ""
+"The topology of ``System`` contains atoms, bonds, angles, and torsions. "
+"In ``Topology``, the bonds, angles, and torsions are all defined as a "
+"``list`` of ``Atom``. For example, a bond has the form: ``[atom1, "
+"atom2]``."
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:25
+msgid ""
+"In OpenPD, the work of generating topology is accomplished based on "
+"several rules:"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:27
+msgid ""
+"Rule of **bonds**: the :math:`i`\\ th peptide and :math:`i+1`\\ th "
+"peptide has 3 bonds: one :math:`C_\\alpha - C_\\alpha` bond, and two "
+":math:`SC-C\\alpha` bonds. E.g: Bond :math:`1-0,\\ 0-2,\\ 2-3`."
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:28
+msgid ""
+"Rule of **angles**: the :math:`i`\\ th peptide and :math:`i+1`\\ th "
+"peptide has 2 angles: :math:`\\angle SC-C_\\alpha-C_\\alpha` and "
+":math:`\\angle C_\\alpha-C_\\alpha-SC`. E.g: :math:`\\angle 324,\\ "
+"\\angle 245`."
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:29
+msgid ""
+"Rule of **torsions**:  the :math:`i`\\ th peptide and :math:`i+1`\\ th "
+"peptide has 1 torsion: :math:`\\angle SC-C_\\alpha-C_\\alpha-SC`. E.g: "
+":math:`^2\\angle 5467`"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:33
+msgid ""
+"As ``Topology`` is always binding to a ``System`` instance and the "
+"topology rule is simple, the user will hardly create it manually, which "
+"is accomplished while adding ``Chain`` to the ``system``."
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:40
+msgid "Class methods"
+msgstr ""
+
+#: of openpd.element.topology.Topology:1
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: of openpd.element.topology.Topology.addChains:1
+msgid "addChains adds chains to the Topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.addChains
+msgid "Parameters"
+msgstr ""
+
+#: of openpd.element.topology.Topology.addChains:3
+msgid "one or serval Chain instance"
+msgstr ""
+
+#: of openpd.element.topology.Topology.num_atoms:1
+msgid "num_atoms gets the number of atoms in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.angles
+#: openpd.element.topology.Topology.atoms
+#: openpd.element.topology.Topology.bonds
+#: openpd.element.topology.Topology.num_angles
+#: openpd.element.topology.Topology.num_atoms
+#: openpd.element.topology.Topology.num_bonds
+#: openpd.element.topology.Topology.num_torsions
+#: openpd.element.topology.Topology.torsions
+msgid "Returns"
+msgstr ""
+
+#: of openpd.element.topology.Topology.num_atoms:3
+msgid "the number of atoms in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.angles
+#: openpd.element.topology.Topology.atoms
+#: openpd.element.topology.Topology.bonds
+#: openpd.element.topology.Topology.num_angles
+#: openpd.element.topology.Topology.num_atoms
+#: openpd.element.topology.Topology.num_bonds
+#: openpd.element.topology.Topology.num_torsions
+#: openpd.element.topology.Topology.torsions
+msgid "Return type"
+msgstr ""
+
+#: of openpd.element.topology.Topology.atoms:1
+msgid "atoms gets a ``list`` contain all atoms in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.atoms:3
+msgid "list contain all atoms in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.num_bonds:1
+msgid "num_bonds gets the number of bonds in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.num_bonds:3
+msgid "the number of bonds in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.bonds:1
+msgid "bonds gets a ``list`` contain all bonds in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.bonds:3
+msgid "a bond is also a list of atom like [atom1, atom2]"
+msgstr ""
+
+#: of openpd.element.topology.Topology.bonds:5
+msgid "list contain all bonds in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.num_angles:1
+msgid "num_angles gets the number of angles in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.num_angles:3
+msgid "the number of angles in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.angles:1
+msgid "angles gets a ``list`` contain all angles in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.angles:3
+msgid ""
+"an angle is also a list of atom like [atom1, atom2, atom3] for "
+":math:`\\angle 123`"
+msgstr ""
+
+#: of openpd.element.topology.Topology.angles:5
+msgid "list contain all angles in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.num_torsions:1
+msgid "num_torsions gets the number of torsions in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.num_torsions:3
+msgid "the number of torsions in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.torsions:1
+msgid "torison gets a ``list`` contain all torsions in the topology"
+msgstr ""
+
+#: of openpd.element.topology.Topology.torsions:3
+msgid ""
+"a torsion is also a list of atom like [atom1, atom2, atom3, atom4] for "
+":math:`^2\\angle 1234`"
+msgstr ""
+
+#: of openpd.element.topology.Topology.torsions:5
+msgid "list contain all torsions in the topology"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:49
+msgid "Read-only properties:"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:51
+msgid "``num_atoms``"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:52
+msgid "``atoms``"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:53
+msgid "``num_bonds``"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:54
+msgid "``bonds``"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:55
+msgid "``num_angles``"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:56
+msgid "``angles``"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:57
+msgid "``num_torsions``"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:58
+msgid "``torsions``"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:61
+msgid "Example"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:64
+msgid "Instantiation"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:66
+msgid "**Input**:"
+msgstr ""
+
+#: ../../src/modules/element/topology.rst:84
+msgid "**Output**:"
+msgstr ""
+

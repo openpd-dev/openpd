@@ -40,12 +40,18 @@ extensions = [
     'sphinxcontrib.bibtex'
 ]
 
+# Autoapi
 autosummary_generate = True
 autodoc_default_flags = ['members', 'inherited-members']
 autodoc_member_order = 'bysource'
 autoclass_content = 'both'
 
+# Reference
 bibtex_bibfiles = ['refs.bib']
+
+# i18n
+locale_dirs = ['../locales/']   
+gettext_compact = False    
 # Add any paths that contain templates here, relative to this directory.
 # templates_path = ['_templates']
 

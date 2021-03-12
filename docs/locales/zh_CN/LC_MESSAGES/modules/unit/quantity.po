@@ -1,0 +1,196 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, Southeast University and Zhenyu Wei
+# This file is distributed under the same license as the OpenPD package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPD 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-12 11:44+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: ../../src/modules/unit/quantity.rst:3
+msgid "openpd.unit.Quantity class"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:6
+msgid "Overview"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:8
+msgid ""
+"``openpd.unit.Quantity`` is designed to represent a physical quantity "
+"(value with unit), having two attributes:"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:10
+msgid "``value``: the value of physical quantity"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:11
+msgid "``unit``: the unit of physical quantity"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:13
+msgid "All the predefined units are all ``Quantity`` instances."
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:15
+msgid "The math operations are full defined for ``Quantity``, including:"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:17
+msgid "``__eq__``"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:18
+msgid "``__add__``, ``__radd__``, ``__iadd__``"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:19
+msgid "``__sub__``, ``__rsub__``, ``__isub__``"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:20
+msgid "``__mul__``, ``__rmul__``, ``__imul__``"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:21
+msgid "``__truediv__``, ``__rtruediv__``, ``__itruediv__``"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:24
+msgid "Class methods"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity:1
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity openpd.unit.quantity.Quantity.convertTo
+msgid "Parameters"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity:1
+msgid "the value of quantity"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity:3
+msgid "the unit of quantity"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.isDimensionLess:1
+msgid "isDimensionLess judges wether ``self`` is dimensionless"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.convertTo
+#: openpd.unit.quantity.Quantity.isDimensionLess
+#: openpd.unit.quantity.Quantity.judgeAndReturn
+#: openpd.unit.quantity.Quantity.sqrt
+msgid "Returns"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.isDimensionLess:3
+msgid ""
+"- True, the quantity is dimensionless - False, the quantity isn't "
+"dimensionless"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.isDimensionLess:5
+msgid "True, the quantity is dimensionless"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.isDimensionLess:6
+msgid "False, the quantity isn't dimensionless"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.convertTo
+#: openpd.unit.quantity.Quantity.isDimensionLess
+#: openpd.unit.quantity.Quantity.judgeAndReturn
+#: openpd.unit.quantity.Quantity.sqrt
+msgid "Return type"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.judgeAndReturn:1
+msgid ""
+"judgeAndReturn returns different value depends on the result of "
+"``self.isDimensionLess()``"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.judgeAndReturn:3
+msgid ""
+"- If ``self.isDiemsionLess() == True``, return the ``self.value * "
+"self.unit.relative_value`` - If ``self.isDiemsionLess() == False``, "
+"return ``deepcopy(self)``"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.judgeAndReturn:5
+msgid ""
+"If ``self.isDiemsionLess() == True``, return the ``self.value * "
+"self.unit.relative_value``"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.judgeAndReturn:6
+msgid "If ``self.isDiemsionLess() == False``, return ``deepcopy(self)``"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.convertTo:1
+msgid "convertTo converts ``self`` to the unit of ``target_unit``"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.convertTo:3
+msgid "the unit defined by openpd or users"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.convertTo:6
+msgid "Quantity with the same absolute value but new unit"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.convertTo
+msgid "Raises"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.convertTo:9
+msgid ""
+"If ``self.unit.base_dimension != target_unit.unit.base_dimension``. E.g "
+"``(10*meter).convertTo(second)``"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.sqrt:1
+msgid "sqrt returns square root of Quantity"
+msgstr ""
+
+#: of openpd.unit.quantity.Quantity.sqrt:3
+msgid "square root of ``self``"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:31
+msgid "Example"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:34
+msgid "Instantiation"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:36
+#: ../../src/modules/unit/quantity.rst:59
+msgid "**Input**:"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:49
+#: ../../src/modules/unit/quantity.rst:74
+msgid "**Output**:"
+msgstr ""
+
+#: ../../src/modules/unit/quantity.rst:57
+msgid "Math operations"
+msgstr ""
+

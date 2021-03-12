@@ -1,0 +1,266 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, Southeast University and Zhenyu Wei
+# This file is distributed under the same license as the OpenPD package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPD 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-12 11:44+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: ../../src/modules/element/atom.rst:3
+msgid "openpd.element.Atom class"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:6
+msgid "Introduction"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:8
+msgid ""
+"``openpd.element.Atom`` is designed to store atoms' information, as the "
+"most fundamental class of ``openpd.element`` package."
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:10
+msgid "The ``openpd.element.Atom`` is defined by two parameter:"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:12
+msgid "The name of atom;"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:13
+msgid "The mass of atom;"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:15
+msgid ""
+"These two parameter are the determinative identification of atom in "
+"OpenPD."
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:19
+msgid ""
+"Meanwhile, the peptide type also affects the interaction of atoms in "
+"PDFF.  However, this can be determined only after create a ``Peptide`` "
+"instance. So, the user will hardly have an opportunity and need to create"
+" a ``Atom`` instance by themselves as this work has been accomplished "
+"when creating a ``Peptide`` instance."
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:23
+msgid ":ref:`pdff_overview`"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:24
+msgid ":doc:`peptide`"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:27
+msgid "Class methods"
+msgstr ""
+
+#: of openpd.element.atom.Atom:1
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: of openpd.element.atom.Atom
+msgid "Parameters"
+msgstr ""
+
+#: of openpd.element.atom.Atom:1 openpd.element.atom.Atom.atom_type:3
+msgid "the type of atom"
+msgstr ""
+
+#: of openpd.element.atom.Atom:3
+msgid "the mass of atom. Unit default to be ``amu`` is float is provided"
+msgstr ""
+
+#: of openpd.element.atom.Atom
+msgid "Raises"
+msgstr ""
+
+#: of openpd.element.atom.Atom:6
+msgid ""
+"When the dimension of input ``mass`` is Quantity and != "
+"``BaseDimension(mass=1)``"
+msgstr ""
+
+#: of openpd.element.atom.Atom.atom_type:1
+msgid "atom_type gets atom_type"
+msgstr ""
+
+#: of openpd.element.atom.Atom.atom_id openpd.element.atom.Atom.atom_type
+#: openpd.element.atom.Atom.coordinate openpd.element.atom.Atom.force
+#: openpd.element.atom.Atom.kinetic_energy openpd.element.atom.Atom.mass
+#: openpd.element.atom.Atom.peptide_type
+#: openpd.element.atom.Atom.potential_energy openpd.element.atom.Atom.velocity
+msgid "Returns"
+msgstr ""
+
+#: of openpd.element.atom.Atom.atom_id openpd.element.atom.Atom.atom_type
+#: openpd.element.atom.Atom.coordinate openpd.element.atom.Atom.force
+#: openpd.element.atom.Atom.kinetic_energy openpd.element.atom.Atom.mass
+#: openpd.element.atom.Atom.peptide_type
+#: openpd.element.atom.Atom.potential_energy openpd.element.atom.Atom.velocity
+msgid "Return type"
+msgstr ""
+
+#: of openpd.element.atom.Atom.atom_id:1
+msgid "atom_id gets atom_id"
+msgstr ""
+
+#: of openpd.element.atom.Atom.atom_id:3
+msgid "Default value: ``atom_id=0``"
+msgstr ""
+
+#: of openpd.element.atom.Atom.atom_id:5
+msgid "the id of atom"
+msgstr ""
+
+#: of openpd.element.atom.Atom.mass:1
+msgid "mass gets mass"
+msgstr ""
+
+#: of openpd.element.atom.Atom.mass:3
+msgid "mass of atom"
+msgstr ""
+
+#: of openpd.element.atom.Atom.peptide_type:1
+msgid "peptide_type gets peptide_type"
+msgstr ""
+
+#: of openpd.element.atom.Atom.peptide_type:3
+msgid "Default value: ``peptide_type=None``"
+msgstr ""
+
+#: of openpd.element.atom.Atom.peptide_type:5
+msgid "type of the parent peptide"
+msgstr ""
+
+#: of openpd.element.atom.Atom.coordinate:1
+msgid "coordinate gets atom's coordinate"
+msgstr ""
+
+#: of openpd.element.atom.Atom.coordinate:3
+msgid "The coordinate default to be ``np.array([0, 0, 0]) * angstrom``"
+msgstr ""
+
+#: of openpd.element.atom.Atom.coordinate:5
+msgid "coordinate"
+msgstr ""
+
+#: of openpd.element.atom.Atom.velocity:1
+msgid "velocity gets atom's velocity"
+msgstr ""
+
+#: of openpd.element.atom.Atom.velocity:3
+msgid ""
+"The velocity default to be ``np.array([0, 0, 0]) * angstrom / "
+"femtosecond``"
+msgstr ""
+
+#: of openpd.element.atom.Atom.velocity:5
+msgid "velocity"
+msgstr ""
+
+#: of openpd.element.atom.Atom.force:1
+msgid "velocity gets atom's force"
+msgstr ""
+
+#: of openpd.element.atom.Atom.force:3
+msgid ""
+"The force default to be ``np.array([0, 0, 0]) * "
+"kilojoule_permol_over_angstrom``"
+msgstr ""
+
+#: of openpd.element.atom.Atom.force:5
+msgid "force"
+msgstr ""
+
+#: of openpd.element.atom.Atom.potential_energy:1
+msgid "potential_energy get atom's potential energy"
+msgstr ""
+
+#: of openpd.element.atom.Atom.potential_energy:3
+msgid "the potential energy of atom"
+msgstr ""
+
+#: of openpd.element.atom.Atom.kinetic_energy:1
+msgid "kinetic_energy get atom's kinetic energy"
+msgstr ""
+
+#: of openpd.element.atom.Atom.kinetic_energy:3
+msgid "the kinetic energy of atom"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:36
+msgid "Read-only properties:"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:38
+msgid "``atom_type``"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:39
+msgid "``mass``"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:41
+msgid "Editable properties:"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:43
+msgid "``atom_id``"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:44
+msgid "``peptide_type``"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:45
+msgid "``coordinate``"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:46
+msgid "``velocity``"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:47
+msgid "``potential_energy``"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:48
+msgid "``kinetic_energy``"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:49
+msgid "``force``"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:52
+msgid "Examples"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:55
+msgid "Instantiation"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:57
+msgid "**Input**:"
+msgstr ""
+
+#: ../../src/modules/element/atom.rst:79
+msgid "**Output**:"
+msgstr ""
+

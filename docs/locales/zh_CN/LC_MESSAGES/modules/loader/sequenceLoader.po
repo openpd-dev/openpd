@@ -1,0 +1,144 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, Southeast University and Zhenyu Wei
+# This file is distributed under the same license as the OpenPD package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPD 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-12 11:44+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: ../../src/modules/loader/sequenceLoader.rst:3
+msgid "openpd.loader.SequenceLoader class"
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:6
+msgid "Overview"
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:8
+msgid ""
+"``openpd.loader.PDBLoader`` is designed to load a *.json* file and create"
+" a ``System`` instance."
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:10
+msgid "The *.json* file have the form like:"
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:27
+msgid ""
+"Each element that describes the peptide sequence in the *.json* file is a"
+" string list whose name starts with **Chain** (case insensitive), like:"
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:29
+msgid "\"Chain 1\""
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:30
+msgid "\"CHAIN a\""
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:31
+msgid "\"chain #\""
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:33
+msgid ""
+"The word after **Chain** only plays the role of identification, while the"
+" order of chain solely depends on the writing order."
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:35
+msgid ""
+"The elements that do not start with  **Chain** will not be loaded into "
+"``loader``."
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:39
+msgid ""
+"Both three letter abbreviation and single letter abbreviation are "
+"supported in *.json* file by specific ``pd.SequenceLoader(pdb_file, "
+"is_single_letter=True)``. However, mixture styles like"
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:47
+msgid "or"
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:56
+msgid "are not supported."
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:60
+msgid "Class methods"
+msgstr ""
+
+#: of openpd.loader.sequenceLoader.SequenceLoader:1
+msgid "Bases: :class:`openpd.loader.loader.Loader`"
+msgstr ""
+
+#: of openpd.loader.sequenceLoader.SequenceLoader
+msgid "Parameters"
+msgstr ""
+
+#: of openpd.loader.sequenceLoader.SequenceLoader:1
+msgid "The path of the input *.json* file"
+msgstr ""
+
+#: of openpd.loader.sequenceLoader.SequenceLoader:3
+msgid ""
+"The flag of wether the *.json* file is writened in single letter "
+"abbreviation, by default False"
+msgstr ""
+
+#: of openpd.loader.sequenceLoader.SequenceLoader.loadSequence:1
+msgid "loadSequence overloads Loader.loadsequence()"
+msgstr ""
+
+#: of openpd.loader.sequenceLoader.SequenceLoader.loadSequence
+msgid "Raises"
+msgstr ""
+
+#: of openpd.loader.sequenceLoader.SequenceLoader.loadSequence:3
+msgid "When the peptide type is not in the standard peptide list."
+msgstr ""
+
+#: of openpd.loader.sequenceLoader.SequenceLoader.createSystem:1
+msgid "createSystem creates and returns a ``System`` instance"
+msgstr ""
+
+#: of openpd.loader.sequenceLoader.SequenceLoader.createSystem
+msgid "Returns"
+msgstr ""
+
+#: of openpd.loader.sequenceLoader.SequenceLoader.createSystem:3
+msgid ""
+"A ``System`` instance that has the same topology and peptide sequence "
+"with input *.pdb* file"
+msgstr ""
+
+#: of openpd.loader.sequenceLoader.SequenceLoader.createSystem
+msgid "Return type"
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:68
+msgid "Example"
+msgstr ""
+
+#: ../../src/modules/loader/sequenceLoader.rst:72
+msgid ""
+"The usage of ``SequenceLoader`` is discussed in :ref:`using-"
+"sequenceLoader`."
+msgstr ""
+

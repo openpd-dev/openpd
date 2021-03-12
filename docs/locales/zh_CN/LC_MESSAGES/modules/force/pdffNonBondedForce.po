@@ -1,0 +1,300 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021, Southeast University and Zhenyu Wei
+# This file is distributed under the same license as the OpenPD package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPD 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-12 11:44+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:3
+msgid "openpd.force.PDFFNonBondedForce class"
+msgstr ""
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:6
+msgid "Introduction"
+msgstr ""
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:10
+msgid "Class methods"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField:1
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.bindEnsemble
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculateAtomForce
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculatePairEnergy
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.getEnergy
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.getForce
+msgid "Parameters"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField:1
+msgid "The type of peptide 1"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField:3
+msgid "The type of peptide 2"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField:5
+msgid "the cutoff radius, by default 12"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField:7
+msgid "the derivative width for the calculation of force, by default 0.0001"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.bindEnsemble
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField
+msgid "Raises"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField:10
+msgid "When the peptide type is not in the standard peptide list"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField:11
+msgid "When the interaction is not contained in the force field folder"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField:12
+msgid "When ``cutoff_radius`` greater then 30 or 30 Angstrom"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.getEnergy:1
+msgid "getEnergy calculates the energy in specific coordinate"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.getEnergy:3
+msgid "The coordinate of the wanted energy"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculateAtomForce
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculatePairEnergy
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculatePotentialEnergy
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.cutoff_radius
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.force_field_matrix
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.num_peptides
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.potential_energy
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.cutoff_radius
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.derivative_width
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.getEnergy
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.getForce
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.name
+msgid "Returns"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.getEnergy:6
+msgid "The energy in giving coordinate"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculateAtomForce
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculatePairEnergy
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculatePotentialEnergy
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.cutoff_radius
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.force_field_matrix
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.num_peptides
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.potential_energy
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.cutoff_radius
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.derivative_width
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.getEnergy
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.getForce
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.name
+msgid "Return type"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.getForce:1
+msgid "getForce calculates the force in specific coordinate"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.getForce:3
+msgid "The coordinate of the wanted force"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.getForce:6
+msgid "The force in giving coordinate"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.name:1
+msgid "name gets the name of force field"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.name:3
+msgid "the name of force field"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.cutoff_radius:1
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.cutoff_radius:1
+msgid "cutoff_radius gets the cutoff radius of force field"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.cutoff_radius:3
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.cutoff_radius:3
+msgid "the cutoff radius of force field"
+msgstr ""
+
+#: of
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.derivative_width:1
+msgid "derivative_width gets the derivative width for the calculation of force"
+msgstr ""
+
+#: of
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForceField.derivative_width:3
+msgid "the derivative width for the calculation of force"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce:1
+msgid "Bases: :class:`openpd.force.force.Force`"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce:1
+msgid "the id of force, by default 0"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce:3
+msgid "the group of force, by default 0"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce:5
+msgid "the cutoff radius, by default ``12 * angstrom``"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce:7
+msgid "the derivative width used to calculate force, by default 0.0001"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.bindEnsemble:1
+msgid ""
+"bindEnsemble overloads ``Force.bindEnsemble()`` to bind "
+"``PDFFNonBondedForce`` to an ``Ensemble`` instance"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.bindEnsemble:3
+msgid ""
+"Then, all the information needed will be extracted from ``ensemble`` and "
+"``self.setEnergyMatrix()`` will be called to set ``self._energy_matrix``"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.bindEnsemble:5
+msgid "An``Ensemble`` instance."
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.bindEnsemble:8
+msgid "When ``self`` is bound multi-times"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculatePairEnergy:1
+msgid "calculatePairEnergy calculates the potential energy between two peptides"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculatePairEnergy:3
+msgid "the id of peptide 1"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculatePairEnergy:5
+msgid "the id of peptide 2"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculatePairEnergy:8
+msgid "The potential energy between two peptides"
+msgstr ""
+
+#: of
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculatePotentialEnergy:1
+msgid "calculatePotentialEnergy calculates the potential energy of all peptides"
+msgstr ""
+
+#: of
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculatePotentialEnergy:3
+#: openpd.force.pdffNonBondedForce.PDFFNonBondedForce.potential_energy:3
+msgid "The potential energy of all peptides"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculateAtomForce:1
+msgid "calculateAtomForce calculates the force acts on atom"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculateAtomForce:3
+msgid "The id of atom"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.calculateAtomForce:6
+msgid "the force acts on atom"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.num_peptides:1
+msgid "num_peptides gets the number of peptides of ``PDFFNonBondedForce``"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.num_peptides:3
+msgid "the number of peptides"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.potential_energy:1
+msgid "potential_energy gets the potential energy of all peptides"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.force_field_matrix:1
+msgid "force_field_matrix gets the force field matrix"
+msgstr ""
+
+#: of openpd.force.pdffNonBondedForce.PDFFNonBondedForce.force_field_matrix:3
+msgid "force field matrix"
+msgstr ""
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:19
+msgid "Read-only properties of ``PDFFNonBondedForceField``:"
+msgstr ""
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:21
+msgid "``name``"
+msgstr ""
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:22
+#: ../../src/modules/force/pdffNonBondedForce.rst:27
+msgid "``cutoff_radius``"
+msgstr ""
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:23
+msgid "``derivative_width``"
+msgstr ""
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:25
+msgid "Read-only properties of ``PDFFNonBondedForce``:"
+msgstr ""
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:28
+msgid "``num_peptides``"
+msgstr ""
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:29
+msgid "``potential_energy``"
+msgstr ""
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:30
+msgid "``force_field_matrix``"
+msgstr ""
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:33
+msgid "Examples"
+msgstr ""
+
+#: ../../src/modules/force/pdffNonBondedForce.rst:36
+msgid "Instantiation"
+msgstr ""
+
