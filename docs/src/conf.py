@@ -75,7 +75,7 @@ html_theme = "sphinx_material"
 # so a file named "default.css" will overwrite the builtin "default.css".
 # html_static_path = ['_static']
 html_theme_options = {
-    'repo_url': 'https://github.com/zhenyuwei99/openpd',
+    'repo_url': 'https://github.com/openpd-dev/openpd',
     'repo_name': 'OpenPD',
     'repo_type': 'github',
     'logo_icon': '&#xe869',
