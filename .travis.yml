@@ -7,7 +7,7 @@ notifications:
 sudo: false 
 env:
   global:
-    - CODECOV_TOKEN: cbbdc9a4-93c2-485c-b5fc-ecfb2892cf4e
+    - CODECOV_TOKEN: aa0c1c94-91a8-4af8-94f8-e2b5a08e30a7
 
 before_install: 
   - pip install numpy 
