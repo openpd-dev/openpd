@@ -8,6 +8,7 @@ class Dumper:
             io.close()
         self._dump_interval = dump_interval
         self._is_bound = False
+        self._simulation = None
         
     def _test_bound(self):
         if not self._is_bound:

@@ -2,7 +2,6 @@
 import numpy as np
 import openpd.unit as unit
 from numpy.lib.scimath import arccos
-from numpy.linalg import inv
 from . import isArrayLambda
 from openpd.unit import *
 

@@ -1,4 +1,4 @@
-import os, pickle
+import os
 import numpy as np
 from numpy import pi, floor
 from scipy.interpolate import interp1d

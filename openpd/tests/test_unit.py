@@ -58,7 +58,7 @@ class TestUnit:
         assert angstrom - 1 == angstrom
 
         with pytest.raises(DismatchedDimensionError):
-            gram - angstrom
+            _ = gram - angstrom
 
     def test_mul(self):
         angstrom = Unit(BaseDimension(length_dimension=1), 1e-10)

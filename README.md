@@ -1,7 +1,7 @@
 # OpenPD: Opened Peptide Dynamics package
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Build Status](https://img.shields.io/travis/openpd-dev/openpd/main.svg?label=Travis%20CI)](https://www.travis-ci.com/github/openpd-dev/openpd)
+[![Build Status](https://img.shields.io/travis/com/openpd-dev/openpd/main.svg?label=Travis%20CI)](https://www.travis-ci.com/github/openpd-dev/openpd)
 [![codecov](https://codecov.io/gh/openpd-dev/openpd/branch/main/graph/badge.svg?token=2O1CV31X7S)](https://codecov.io/gh/openpd-dev/openpd)
 [![Documentation Status](https://readthedocs.org/projects/openpd/badge/?version=latest)](https://openpd.net/en/latest/?badge=latest) 
 [![PyPi Version](https://img.shields.io/pypi/v/openpd.svg)](https://pypi.org/project/openpd/) 
@@ -24,6 +24,6 @@ The OpenPD distribution includes following files and folders:
 | tutorials |  Folder contains tutorial notebook  |
 | setup.py  |     Build script for setuptools     |
 
-## Need help?
+## Need help
 
 To get more information, please check out the project [documentation](https://openpd.net/en/latest).

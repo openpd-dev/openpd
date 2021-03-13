@@ -22,7 +22,7 @@ class SystemVisualizer:
         #ax = Axes3D(fig)
         ax = fig.add_subplot(111, projection='3d')
         color = []
-        for peptide in self.system.peptides:
+        for _ in self.system.peptides:
             color.extend(['navy', 'brown'])
         ax.scatter3D(
             [i.value for i in self.system.coordinate[0::2, 0]], 
