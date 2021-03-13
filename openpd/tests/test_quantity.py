@@ -314,7 +314,7 @@ class TestQuantity:
         quantity1 = np.array([1, 2]) * angstrom
         quantity2 = np.array([2, 1]) * second
         with pytest.raises(DismatchedDimensionError):
-            _ = quantity1 - quantity2
+            quantity1 - quantity2
 
     def test_mul(self):
         # __mul__
@@ -417,16 +417,16 @@ class TestQuantity:
         # divide 0
         with pytest.raises(DividingZeroError):
             quantity = 1 * nanometer
-            _ = quantity / 0
+            quantity / 0
 
         with pytest.raises(DividingZeroError):
             quantity = 0 * nanometer
-            _ = 1 / quantity
+            1 / quantity
 
         with pytest.raises(DividingZeroError):
             quantity1 = 0 * nanometer
             quantity2 = 1 * second
-            _ = quantity2 / quantity1
+            quantity2 / quantity1
 
     def test_pow(self):
         quantity = np.array([1, 2, 3, 4]) * angstrom

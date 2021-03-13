@@ -14,13 +14,12 @@ GNU Public License Version 3 (GPLv3), for peptide dynamics simulation. It was de
 
    :ref:`pdff_overview` for the details of PDFF.
 
-This document is part of the OpenPD distribution, which can be found in our `GitHub site <https://github.com/openpd-dev/openpd>`_. Users can also build the document manually in PDF format by following steps in :ref:`build-doc` or click the ``version`` button at the right-bottom of browser.
+This document is part of the OpenPD distribution, which can be found in our `GitHub site <https://github.com/zhenyuwei99/openpd>`_. Users can also build the document manually in PDF format by following steps in :ref:`build-doc` or click the ``version`` button at the right-bottom of browser.
 
 
-OpenPD is developed and maintained by Zhenyu Wei (zhenyuwei99@gmail.com), from Yunfei Chen's group in Southeast University. As a newly developed program, we always welcome developers to contact us or discuss in our `GitHub site <https://github.com/openpd-dev/openpd>`_
+OpenPD is developed and maintained by Zhenyu Wei (zhenyuwei99@gmail.com), from Yunfei Chen's group in Southeast University. As a newly developed program, we always welcome developers to contact us or discuss in our `GitHub site <https://github.com/zhenyuwei99/openpd>`_
 
 The document is organized in four parts:
-
 
 (1) The :ref:`Quick Start <quickstart>` part contains our program's introduction and the installation suggestions.
 (#) The :ref:`Peptide Dynamics Force Field <pdff>` part describes the component of PDFF and their developing procedure.
@@ -88,9 +87,8 @@ Contents
 .. toctree::
    :maxdepth: 1
    :numbered: 1
-   :caption: Appendices
+   :caption: References
    :name: references
    :includehidden:
 
-   appendices/error
-   appendices/references
+   references

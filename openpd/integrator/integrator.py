@@ -179,7 +179,7 @@ class Integrator:
                 args=(atom.atom_id, force_group, return_dict)
             ))
             jobs[-1].start()
-        _ = [p.join() for p in jobs]
+        [p.join() for p in jobs]
         for atom in self._system.atoms:
             atom.force = return_dict[atom.atom_id]
         manager.shutdown()

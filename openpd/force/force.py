@@ -3,7 +3,6 @@ from ..exceptions import NonboundError
 class Force(object):
     def __init__(self, force_id, force_group) -> None:
         """
-        
         Parameters
         ----------
         force_id : int
@@ -15,7 +14,6 @@ class Force(object):
         self._force_id = force_id
         self._force_group = force_group
         self._is_bound = False
-        self._ensemble = None
         
     def bindEnsemble(self, ensemble):
         """

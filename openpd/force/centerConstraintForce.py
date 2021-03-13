@@ -12,7 +12,6 @@ class CenterConstraintForce(Force):
         elastic_constant=100*kilojoule_permol/angstrom**2
     ) -> None:
         """
-        
         Parameters
         ----------
         force_id : int, optional

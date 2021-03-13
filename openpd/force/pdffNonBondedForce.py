@@ -13,7 +13,6 @@ force_field_dir = os.path.join(cur_dir, '../data/pdff/nonbonded')
 class PDFFNonBondedForceField:
     def __init__(self, peptide_type1, peptide_type2, cutoff_radius=12):
         """
-        
         Parameters
         ----------
         peptide_type1 : str

@@ -40,18 +40,12 @@ extensions = [
     'sphinxcontrib.bibtex'
 ]
 
-# Autoapi
 autosummary_generate = True
 autodoc_default_flags = ['members', 'inherited-members']
 autodoc_member_order = 'bysource'
 autoclass_content = 'both'
 
-# Reference
 bibtex_bibfiles = ['refs.bib']
-
-# i18n
-locale_dirs = ['../locales/']   
-gettext_compact = False    
 # Add any paths that contain templates here, relative to this directory.
 # templates_path = ['_templates']
 
@@ -75,7 +69,7 @@ html_theme = "sphinx_material"
 # so a file named "default.css" will overwrite the builtin "default.css".
 # html_static_path = ['_static']
 html_theme_options = {
-    'repo_url': 'https://github.com/openpd-dev/openpd',
+    'repo_url': 'https://github.com/zhenyuwei99/openpd',
     'repo_name': 'OpenPD',
     'repo_type': 'github',
     'logo_icon': '&#xe869',

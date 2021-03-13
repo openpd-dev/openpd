@@ -41,42 +41,9 @@ In OpenPD, many frequently used units have already been defined, as shown below.
 
     quantity = 1 * unit.nanometer
 
+The import code is also discussed in :ref:`import-unit-package` . 
 
-.. seealso::
-
-    - :ref:`import-style for openpd.unit package <import-unit-package>`
-    - :ref:`How to define a custom unit?<self-defined-unit>`
-
-Default unit list 
-======================
-
-The default units for each dimension, the relative value of which are not necessary to be ``1``, in OpenPD are shown in table below:
-
-.. table:: 
-    :widths: 40 60
-
-    +---------------------+------------------------------------+
-    |      Dimension      |                Unit                |
-    +=====================+====================================+
-    | Length              | ``angstrom``                       |
-    +---------------------+------------------------------------+
-    | Mass                | ``amu``                            |
-    +---------------------+------------------------------------+
-    | Time                | ``femtosecond``                    |
-    +---------------------+------------------------------------+
-    | Temperature         | ``kelvin``                         |
-    +---------------------+------------------------------------+
-    | Charge              | ``e``                              |
-    +---------------------+------------------------------------+
-    | Amount of substance | ``mol``                            |
-    +---------------------+------------------------------------+
-    | Energy              | ``kilojoule_permol``               |
-    +---------------------+------------------------------------+
-    | Force               | ``kilojoule_permol_over_angstrom`` |
-    +---------------------+------------------------------------+
-    | Power               | ``watt``                           |
-    +---------------------+------------------------------------+
-
+Meanwhile, the user can also define the custom unit by following codes in :ref:`self-defined-unit`
 
 Base units
 ----------
@@ -125,3 +92,34 @@ Mixture units
     +-----------+------------------------+---------------------------------------+--------------+
     |           | ``hartree``            |                                       |              |
     +-----------+------------------------+---------------------------------------+--------------+
+
+
+Default unit list 
+======================
+
+The default units for each dimension, the relative value of which are not necessary to be ``1``, in OpenPD are shown in table below:
+
+.. table:: 
+    :widths: 40 60
+
+    +---------------------+------------------------------------+
+    |      Dimension      |                Unit                |
+    +=====================+====================================+
+    | Length              | ``angstrom``                       |
+    +---------------------+------------------------------------+
+    | Mass                | ``amu``                            |
+    +---------------------+------------------------------------+
+    | Time                | ``femtosecond``                    |
+    +---------------------+------------------------------------+
+    | Temperature         | ``kelvin``                         |
+    +---------------------+------------------------------------+
+    | Charge              | ``e``                              |
+    +---------------------+------------------------------------+
+    | Amount of substance | ``mol``                            |
+    +---------------------+------------------------------------+
+    | Energy              | ``kilojoule_permol``               |
+    +---------------------+------------------------------------+
+    | Force               | ``kilojoule_permol_over_angstrom`` |
+    +---------------------+------------------------------------+
+    | Power               | ``watt``                           |
+    +---------------------+------------------------------------+

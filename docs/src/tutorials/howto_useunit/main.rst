@@ -409,7 +409,7 @@ Define a constant Unit
 -------------------------
 .. note:: 
 
-    The definition of constants is different from other units. The constants always have the ``quantity.relative_value=1`` and ``quantity.value`` corresponds to the real value of their definition, as we treat them as the criterion of the corresponding dimension. As the existence of such dimension is used as a unit converter, such as :math:`Energy/Temperature`, the constants themselves are better choices for the criterions than the simple operation of SI units. 
+    The definition of constants is different from other units. The constants always have the ``quantity.relative_value=1`` as we treat them as the criterion in their dimension instead of the simple operation of SI units. And ``quantity.value`` corresponds to the real value of their definition
 
 **Input**:
 

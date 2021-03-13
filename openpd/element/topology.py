@@ -1,4 +1,5 @@
 from . import Chain
+from .. import CONST_CA_CA_DISTANCE
 class Topology:
     def __init__(self) -> None:
         self._atoms = []

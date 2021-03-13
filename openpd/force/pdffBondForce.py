@@ -15,7 +15,6 @@ class PDFFBondForceField:
         self, peptide_type1, peptide_type2,
     ):
         """
-        
         Parameters
         ----------
         peptide_type1 : str

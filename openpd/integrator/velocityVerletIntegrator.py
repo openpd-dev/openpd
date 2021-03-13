@@ -1,3 +1,4 @@
+from time import process_time_ns
 from . import Integrator
 from .. import Ensemble
 from ..unit import *

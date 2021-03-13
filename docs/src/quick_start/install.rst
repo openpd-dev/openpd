@@ -4,14 +4,14 @@ Install OpenPD
 
 1. OpenPD is distributed by PyPI (https://pypi.org/project/openpd). The user can install it through:
 
-.. code-block:: console
+.. code-block:: bash
     :linenos:
 
     pip install openpd
 
 2. After that, run the tests by following:
 
-.. code-block:: console
+.. code-block:: bash
     :linenos:
 
     python -m openpd.runTest
@@ -24,14 +24,14 @@ If no error message is popped out, the installation is completed.
 
 For testing with multiprocessors, user can run tests by:
 
-.. code-block:: console
+.. code-block:: bash
     :linenos:
 
     python -m openpd.runTest -n <number of processes>
 
 For example:
 
-.. code-block:: console
+.. code-block:: bash
     :linenos:
 
     python -m openpd.runTest -n 4
@@ -46,14 +46,14 @@ The user can also build OpenPD locally by following steps below:
 
 1. Download the tarball from github:
 
-.. code-block:: console
+.. code-block:: bash
     :linenos:
 
-    git clone https://github.com/openpd-dev/openpd.git
+    git clone https://github.com/zhenyuwei99/openpd.git
 
 2. Build OpenPD:
    
-.. code-block:: console
+.. code-block:: bash
     :linenos:
 
     cd <openpd source dir>
@@ -61,7 +61,7 @@ The user can also build OpenPD locally by following steps below:
 
 .. note::
 
-    .. code-block:: console
+    .. code-block:: bash
         :linenos:
 
         python setup.py install
@@ -70,7 +70,7 @@ The user can also build OpenPD locally by following steps below:
 
 3. Test OpenPD:
 
-.. code-block:: console
+.. code-block:: bash
     :linenos:
 
     cd ..
@@ -78,7 +78,7 @@ The user can also build OpenPD locally by following steps below:
 
 4. Remove OpenPD:
 
-.. code-block:: console
+.. code-block:: bash
     :linenos:
 
     cd <openpd source dir>
