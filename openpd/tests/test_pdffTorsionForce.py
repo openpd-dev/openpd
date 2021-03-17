@@ -71,11 +71,10 @@ class TestPDFFTorsionForce:
         ensemble = Ensemble(system)
         self.force.bindEnsemble(ensemble)
         
-        origin_coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
-        asn_leu_energy = np.load(os.path.join(force_field_dir, 'ASN-LEU.npy'))
+        asn_leu = np.load(os.path.join(force_field_dir, 'ASN-LEU.npz'))
         assert (
-            self.force.force_field_vector[0].getEnergy(origin_coord[2]) / kilojoule_permol ==
-            pytest.approx(asn_leu_energy[2])
+            self.force.force_field_vector[0].getEnergy(asn_leu['energy_coord'][2]) / kilojoule_permol ==
+            pytest.approx(asn_leu['energy_data'][2])
         )
 
     def test_calculateTorsionEnergy(self):

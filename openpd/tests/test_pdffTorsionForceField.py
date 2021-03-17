@@ -19,8 +19,6 @@ class TestPDFFTorsionForceField:
 
     def test_attributes(self):
         assert self.force_field.name == 'ASN-LEU'
-        assert isArrayEqual(self.force_field._energy_coord, np.arange(-pi, pi+0.001, 0.001))
-        assert self.force_field.derivative_width == 0.0001
 
     def test_exceptions(self):
         with pytest.raises(AttributeError):
@@ -37,21 +35,19 @@ class TestPDFFTorsionForceField:
             PDFFTorsionForceField('A', 'A')
 
     def test_getEnergy(self):
-        asn_leu_force_field = np.load(os.path.join(force_field_dir, 'ASN-LEU.npy'))
-        coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
+        asn_leu = np.load(os.path.join(force_field_dir, 'ASN-LEU.npz'))
         assert (
-            self.force_field.getEnergy(coord[2]) / kilojoule_permol ==
-            pytest.approx(asn_leu_force_field[2])
+            self.force_field.getEnergy(asn_leu['energy_coord'][2]) / kilojoule_permol ==
+            pytest.approx(asn_leu['energy_data'][2])
         )
+        self.force_field.getEnergy(np.pi)
+        self.force_field.getEnergy(-np.pi)
         
     def test_getForce(self):
-        coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
+        asn_leu = np.load(os.path.join(force_field_dir, 'ASN-LEU.npz'))
         assert isAlmostEqual(
-            self.force_field.getForce(coord[2]),
-            - (
-                self.force_field.getEnergy(coord[2]+0.5*self.force_field.derivative_width) - 
-                self.force_field.getEnergy(coord[2]-0.5*self.force_field.derivative_width)
-            ) / self.force_field.derivative_width / angstrom
+            self.force_field.getForce(asn_leu['force_coord'][300]),
+            asn_leu['force_data'][300]
         )
         
         self.force_field.getForce(np.pi)
