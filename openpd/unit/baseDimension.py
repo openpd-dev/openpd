@@ -68,7 +68,7 @@ class BaseDimension:
                     else:
                         self._name = '1/'
                 if dimension > 1:
-                    self._name += names[i] + '^%d*' %dimension
+                    self._name += names[i] + '^%d*' %(dimension) if isinstance(dimension, int) else names[i] + '^%.1f*' %(dimension)
                 elif dimension == 1:
                     self._name += names[i] + '*'
                 elif dimension == 0:
@@ -76,7 +76,7 @@ class BaseDimension:
                 elif dimension == -1:
                     self._name += names[i] + '*'
                 elif dimension < -1:
-                    self._name += names[i] + '^%d*' %(-dimension)
+                    self._name += names[i] + '^%d*' %(-dimension) if isinstance(dimension, int) else names[i] + '^%.1f*' %(-dimension)
 
             self._name = self._name[:-1] # Get rid of the last *
 
