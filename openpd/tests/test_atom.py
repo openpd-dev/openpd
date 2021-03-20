@@ -26,6 +26,10 @@ class TestAtom:
         assert self.atom.peptide_type == None
         self.atom.peptide_type = 'ASN'
         assert self.atom.peptide_type == 'ASN'
+        
+        assert self.atom.peptide_id == 0
+        self.atom.peptide_id = 1
+        assert self.atom.peptide_id == 1
 
         # Test of coordinate
         assert isArrayEqual(self.atom._coordinate, np.zeros([3]))

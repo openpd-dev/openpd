@@ -15,6 +15,8 @@ class TestPeptide:
         assert self.peptide.peptide_id == 0
         self.peptide.peptide_id = 1
         assert self.peptide.peptide_id == 1
+        for atom in self.peptide.atoms:
+            assert atom.peptide_id == 1
 
         assert self.peptide.chain_id == 0
         self.peptide.chain_id = 1
