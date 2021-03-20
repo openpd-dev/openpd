@@ -16,7 +16,6 @@ class TestPDFFTorsionForce:
         self.force = None
 
     def test_attributes(self):
-        assert self.force._derivative_width == 0.0001
         assert self.force.num_torsions == 0
         assert self.force._potential_energy == 0
         assert self.force.force_field_vector == None

@@ -115,22 +115,9 @@ class PDFFTorsionForceField:
         """        
         return self._name
 
-    @property
-    def derivative_width(self):
-        """
-        derivative_width gets the derivative width for the calculation of force
-
-        Returns
-        -------
-        float
-            the derivative width for the calculation of force
-        """        
-        return self._derivative_width
-
 class PDFFTorsionForce(Force):
     def __init__(
-        self, force_id=0, force_group=0,
-        derivative_width=0.0001
+        self, force_id=0, force_group=0
     ) -> None:
         """
         Parameters
@@ -143,7 +130,6 @@ class PDFFTorsionForce(Force):
             the derivative width used to calculate force, by default 0.0001
         """        
         super().__init__(force_id, force_group)
-        self._derivative_width = derivative_width
         
         self._num_torsions = 0
         self._potential_energy = 0

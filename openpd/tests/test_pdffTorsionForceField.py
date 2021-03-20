@@ -23,9 +23,6 @@ class TestPDFFTorsionForceField:
     def test_exceptions(self):
         with pytest.raises(AttributeError):
             self.force_field.name = 1
-            
-        with pytest.raises(AttributeError):
-            self.force_field.derivative_width = 1
 
         with pytest.raises(PeptideTypeError):
             PDFFTorsionForceField('ASN', 'LU')

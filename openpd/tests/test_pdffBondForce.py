@@ -45,9 +45,9 @@ class TestPDFFBondForce:
         self.force.bindEnsemble(self.ensemble)
         assert self.force.force_field_vector.shape[0] == 3
         asn_potential = np.load(os.path.join(force_field_dir, 'ASN.npz'))
-        assert self.force.force_field_vector[0].getEnergy(asn_potential['energy_coord'][10]) == asn_potential['energy_data'][10]
+        assert self.force.force_field_vector[0].getEnergy(asn_potential['energy_coord'][10])/kilojoule_permol == pytest.approx(asn_potential['energy_data'][10])
         ca_potential = np.load(os.path.join(force_field_dir, 'CA-CA.npz'))
-        assert self.force.force_field_vector[1].getEnergy(ca_potential['energy_coord'][10]) == ca_potential['energy_data'][10]
+        assert self.force.force_field_vector[1].getEnergy(ca_potential['energy_coord'][10])/kilojoule_permol == pytest.approx(ca_potential['energy_data'][10])
 
     def test_calculateBondEnergy(self):
         self.force.bindEnsemble(self.ensemble)
