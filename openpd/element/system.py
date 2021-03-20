@@ -24,7 +24,6 @@ class System:
         self._chains.append(deepcopy(chain))
         self._chains[-1].chain_id = self._num_chains
         for peptide in self._chains[-1].peptides:
-            peptide.chain_id = self._num_chains
             peptide.peptide_id = self._num_peptides
             self._num_peptides += 1
         for atom in self._chains[-1].atoms:

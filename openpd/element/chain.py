@@ -58,6 +58,8 @@ class Chain:
     @chain_id.setter
     def chain_id(self, chain_id:int):
         self._chain_id = chain_id
+        for peptide in self._peptides:
+            peptide.chain_id = chain_id
 
     @property
     def num_atoms(self):
