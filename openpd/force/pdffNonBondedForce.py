@@ -246,6 +246,9 @@ class PDFFNonBondedForce(Force):
             The potential energy between two peptides
         """        
         self._testBound()
+        if self._is_scale_14 and np.abs(peptide_id1-peptide_id2) == 1:
+            # Skip neighbor SC
+            return 0 * kilojoule_permol
         return self._force_field_matrix[peptide_id1, peptide_id2].getEnergy(
             getBond(
                 self._peptides[peptide_id1].atoms[1].coordinate, self._peptides[peptide_id2].atoms[1].coordinate
