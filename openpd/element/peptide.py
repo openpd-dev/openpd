@@ -53,7 +53,7 @@ class Peptide:
     def _addAtom(self, atom:Atom):
         self._atoms.append(deepcopy(atom))
         self._atoms[-1].peptide_type = self._peptide_type
-        self._atoms[-1].peptide_type = self._peptide_id
+        self._atoms[-1].peptide_id = self._peptide_id
         self._atoms[-1].atom_id = self._num_atoms
         self._num_atoms += 1
     
