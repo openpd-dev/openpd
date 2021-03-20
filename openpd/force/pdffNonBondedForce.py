@@ -145,7 +145,7 @@ class PDFFNonBondedForceField:
 class PDFFNonBondedForce(Force):
     def __init__(
         self, force_id=0, force_group=0,
-        cutoff_radius=12, is_scale_14=False
+        cutoff_radius=12, is_scale_14=True
     ) -> None:
         """
         Parameters
@@ -292,23 +292,24 @@ class PDFFNonBondedForce(Force):
             force = np.zeros(3) * kilojoule_permol_over_angstrom
             target_peptide_id = int((target_atom.atom_id - 1) / 2)
             # All SC atoms
-            for peptide_id, atom in enumerate(self._atoms[1::2]):
-                if self._is_scale_14:
-                    bond_length = getBond(target_atom.coordinate, atom.coordinate)
+            if self._is_scale_14:
+                for peptide_id, atom in enumerate(self._atoms[1::2]):
                     if(
-                        atom.atom_id != target_atom.atom_id and 
-                        atom.peptide_id and
-                        bond_length <= self._cutoff_radius
+                        np.abs(peptide_id-target_atom.peptide_id) == 1 or
+                        peptide_id == target_atom.peptide_id
                     ):
+                        continue # Skip neighbor SC
+                    bond_length = getBond(target_atom.coordinate, atom.coordinate)
+                    if bond_length <= self._cutoff_radius:
                         vec = getUnitVec(atom.coordinate - target_atom.coordinate)
                         single_force = self._force_field_matrix[target_peptide_id, peptide_id].getForce(bond_length) 
                         force += 0.5 * single_force * vec
-                else:
+            else:
+                for peptide_id, atom in enumerate(self._atoms[1::2]):
+                    if peptide_id == target_atom.peptide_id:
+                        continue # Skip neighbor SC
                     bond_length = getBond(target_atom.coordinate, atom.coordinate)
-                    if(
-                        atom.atom_id != target_atom.atom_id and 
-                        bond_length <= self._cutoff_radius
-                    ):
+                    if bond_length <= self._cutoff_radius:
                         vec = getUnitVec(atom.coordinate - target_atom.coordinate)
                         single_force = self._force_field_matrix[target_peptide_id, peptide_id].getForce(bond_length) 
                         force += 0.5 * single_force * vec
