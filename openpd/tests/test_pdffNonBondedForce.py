@@ -105,6 +105,17 @@ class TestPDFFNonBondedForce:
 
         assert isAlmostEqual(
             self.force.calculatePotentialEnergy(),
+            asn_tyr_force_field.getEnergy(bond02) 
+        ) 
+        assert isAlmostEqual(
+            self.force.potential_energy,
+            asn_tyr_force_field.getEnergy(bond02)
+        ) 
+
+        self.force._is_scale_14 = False
+
+        assert isAlmostEqual(
+            self.force.calculatePotentialEnergy(),
             (
                 asn_leu_force_field.getEnergy(bond01) +
                 asn_tyr_force_field.getEnergy(bond02) + 
@@ -142,7 +153,9 @@ class TestPDFFNonBondedForce:
         else:
             force15 = np.zeros([3]) * kilocalorie_permol_over_angstrom
 
-        force = (force13+force15) 
+        assert isArrayAlmostEqual(self.force.calculateAtomForce(atom_id=1), force15)
 
+        self.force._is_scale_14 = False
+        force = (force13+force15) 
         assert isArrayAlmostEqual(self.force.calculateAtomForce(atom_id=1), force)
 

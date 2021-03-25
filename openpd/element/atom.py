@@ -3,6 +3,8 @@ import numpy as np
 import openpd.unit as unit
 from ..unit import *
 from ..unit import Quantity
+
+
 class Atom:
     def __init__(self, atom_type:str, mass) -> None:
         """
@@ -26,6 +28,7 @@ class Atom:
             mass = mass * amu
         self._mass = mass
         self._peptide_type = None
+        self._peptide_id = 0
         self._coordinate = np.zeros([3]) * angstrom
         self._velocity = np.zeros([3]) * angstrom / femtosecond
         self._kinetic_energy = 0 * kilojoule_permol
@@ -104,6 +107,24 @@ class Atom:
     def peptide_type(self, peptide_type:str):  
         self._peptide_type = peptide_type
     
+    @property
+    def peptide_id(self):
+        """
+        peptide_id gets peptide_id
+
+        Default value: ``peptide_id=0``
+
+        Returns
+        -------
+        str
+            id of the parent peptide
+        """          
+        return self._peptide_id
+
+    @peptide_id.setter
+    def peptide_id(self, peptide_id):
+        self._peptide_id = peptide_id
+
     @property
     def coordinate(self):
         """

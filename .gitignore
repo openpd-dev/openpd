@@ -4,6 +4,7 @@
 # Ignore output file of test
 openpd/tests/output/*.pds
 openpd/tests/output/*.log
+openpd/tests/output/*.xyz
 
 # Ignore origin data folder
 origin_data/*

@@ -33,6 +33,7 @@ test_order = [
      'simulation',
      'logDumper',
      'snapshotDumper',
+     'xyzDumper'
      'snapshotVisualizer'
 ]
 

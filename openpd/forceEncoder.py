@@ -10,7 +10,7 @@ class ForceEncoder:
     def __init__(
         self, system:System, 
         force_field_name:str='pdff',
-        cutoff_radius=12, derivative_width=0.0001
+        cutoff_radius=12
     ) -> None:
         self._system = system
         if not force_field_name.lower() in RIGISTERED_FORCE_FIELDS:
@@ -19,7 +19,6 @@ class ForceEncoder:
         self._force_field_name = force_field_name
         self._force_field_folder = os.path.join(cur_dir, 'data', force_field_name)
         self._cutoff_radius = cutoff_radius
-        self._derivative_width = derivative_width
 
     def __repr__(self) -> str:
         return ('<ForceEncoder object: encoding %s forcefield at 0x%x>' 
@@ -43,8 +42,7 @@ class ForceEncoder:
 
     def _createNonBondedForce(self):
         force = PDFFNonBondedForce(
-            cutoff_radius=self._cutoff_radius,
-            derivative_width=self._derivative_width
+            cutoff_radius=self._cutoff_radius
         )
         return force
 
@@ -53,9 +51,7 @@ class ForceEncoder:
         return force
 
     def _createTorsionForce(self):
-        force = PDFFTorsionForce(
-            derivative_width=self._derivative_width
-        )
+        force = PDFFTorsionForce()
         return force
 
     def _createCenterConstraintForce(self):

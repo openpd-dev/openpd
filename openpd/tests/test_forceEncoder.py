@@ -48,12 +48,12 @@ class TestForceEncoder:
         force = self.encoder._createTorsionForce()
         force.bindEnsemble(self.encoder.ensemble)
         
-        origin_coord = np.load(os.path.join(cur_dir, '../data/pdff/torsion/coord.npy'))
-        asn_leu_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/torsion/ASN-LEU.npy'))
-        assert force.force_field_vector[0].getEnergy(origin_coord[50]) == pytest.approx(asn_leu_energy_vector[50], 1e-3)
+
+        asn_leu = np.load(os.path.join(cur_dir, '../data/pdff/torsion/ASN-LEU.npz'))
+        assert force.force_field_vector[0].getEnergy(asn_leu['energy_coord'][50]) == pytest.approx(asn_leu['energy_data'][50], 1e-3)
         
-        leu_tyr_energy_vector = np.load(os.path.join(cur_dir, '../data/pdff/torsion/LEU-TYR.npy'))
-        assert force.force_field_vector[1].getEnergy(origin_coord[50]) == pytest.approx(leu_tyr_energy_vector[50], 1e-3)
+        leu_tyr = np.load(os.path.join(cur_dir, '../data/pdff/torsion/LEU-TYR.npz'))
+        assert force.force_field_vector[1].getEnergy(leu_tyr['energy_coord'][50]) == pytest.approx(leu_tyr['energy_data'][50], 1e-3)
 
     def test_createCenterConstraintForce(self):
         self.encoder.ensemble = Ensemble(self.encoder._system)

@@ -49,11 +49,13 @@ from openpd.integrator import Integrator
 from openpd.integrator import VerletIntegrator, LeapFrogIntegrator, VelocityVerletIntegrator
 from openpd.integrator import BrownianIntegrator, MCMCIntegrator
 
-from openpd.dumper import Dumper, LogDumper, SnapshotDumper, PDBDumper
+from openpd.dumper import Dumper, LogDumper, SnapshotDumper, PDBDumper, XYZDumper
 
 from openpd.simulation import Simulation
 
 from openpd.visualizer import SystemVisualizer, SnapshotVisualizer
+
+import openpd.benchmark as benchmark
 
 __all__ = [
     'Atom', 'Peptide', 'Chain', 'System', 'Topology',
@@ -68,7 +70,7 @@ __all__ = [
     'Integrator',
     'VerletIntegrator', 'LeapFrogIntegrator', 'VelocityVerletIntegrator',
     'BrownianIntegrator', 'MCMCIntegrator',
-    'Dumper', 'LogDumper', 'SnapshotDumper', 'PDBDumper',
+    'Dumper', 'LogDumper', 'SnapshotDumper', 'PDBDumper', 'XYZDumper',
     'Simulation',
     'SystemVisualizer', 'SnapshotVisualizer'
 ]

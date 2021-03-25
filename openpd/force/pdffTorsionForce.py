@@ -12,8 +12,7 @@ force_field_dir = os.path.join(cur_dir, '../data/pdff/torsion')
 
 class PDFFTorsionForceField:
     def __init__(
-        self, peptide_type1, peptide_type2, 
-        derivative_width=0.0001
+        self, peptide_type1, peptide_type2
     ): 
         """
         Parameters
@@ -32,22 +31,17 @@ class PDFFTorsionForceField:
         isStandardPeptide(peptide_type1, peptide_type2)  
         try:
             self._name = peptide_type1 + '-' + peptide_type2
-            self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npy'))
+            self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npz'))
         except:
             try:
                 self._name = peptide_type2 + '-' + peptide_type1
-                self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npy'))
+                self._origin_data = np.load(os.path.join(force_field_dir, self._name + '.npz'))
             except:
                 raise NotincludedInteractionError(
                     '%s-%s interaction is not contained in %s' 
                     %(peptide_type1, peptide_type2, force_field_dir)    
                 )
                 
-        self._derivative_width = derivative_width
-        
-        self._origin_coord = np.load(os.path.join(force_field_dir, 'coord.npy'))
-        self._energy_coord = np.arange(-pi, pi+0.001, 0.001)
-        self._guessData()
         self._setEnergyInterpolate()
         self._setForceInterpolate()
     
@@ -59,22 +53,23 @@ class PDFFTorsionForceField:
 
     __str__ = __repr__
 
-    def _guessData(self):
-        f = interp1d(self._origin_coord, self._origin_data, kind='cubic')
-        self._energy_data = f(self._energy_coord)
-
     def _setEnergyInterpolate(self):
-        self._energy_interp = interp1d(self._energy_coord, self._energy_data, kind='cubic')
-        
-    def _setForceInterpolate(self):
-        self._force_coord = np.arange(-pi, pi+self._derivative_width, self._derivative_width)
-        energy_coord = np.hstack([
-            self._force_coord[-1] + self._derivative_width * 0.5,
-            self._force_coord + self._derivative_width * 0.5
-        ])
-        self._force_data = (self._energy_interp(energy_coord[1:]) - self._energy_interp(energy_coord[:-1])) / self._derivative_width
+        coord = np.array(self._origin_data['energy_coord'])
+        coord[0] = -np.pi - 0.000001
+        coord[-1] = np.pi + 0.000001
+        self._energy_interp = interp1d(
+            coord, 
+            self._origin_data['energy_data'], kind='cubic'
+        )
 
-        self._force_interp = interp1d(self._force_coord, -self._force_data, kind='cubic')
+    def _setForceInterpolate(self):
+        coord = np.array(self._origin_data['force_coord'])
+        coord[0] = -np.pi - 0.000001
+        coord[-1] = np.pi + 0.000001
+        self._force_interp = interp1d(
+            coord, 
+            self._origin_data['force_data'], kind='cubic'
+        )
         
     def getEnergy(self, coord):
         """
@@ -120,22 +115,9 @@ class PDFFTorsionForceField:
         """        
         return self._name
 
-    @property
-    def derivative_width(self):
-        """
-        derivative_width gets the derivative width for the calculation of force
-
-        Returns
-        -------
-        float
-            the derivative width for the calculation of force
-        """        
-        return self._derivative_width
-
 class PDFFTorsionForce(Force):
     def __init__(
-        self, force_id=0, force_group=0,
-        derivative_width=0.0001
+        self, force_id=0, force_group=0
     ) -> None:
         """
         Parameters
@@ -148,7 +130,6 @@ class PDFFTorsionForce(Force):
             the derivative width used to calculate force, by default 0.0001
         """        
         super().__init__(force_id, force_group)
-        self._derivative_width = derivative_width
         
         self._num_torsions = 0
         self._potential_energy = 0

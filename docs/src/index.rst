@@ -87,8 +87,8 @@ Contents
 .. toctree::
    :maxdepth: 1
    :numbered: 1
-   :caption: References
-   :name: references
+   :caption: Appendix
+   :name: appendix
    :includehidden:
 
-   references
+   appendix/reference
