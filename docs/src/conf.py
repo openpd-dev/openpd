@@ -73,7 +73,7 @@ html_theme_options = {
     'repo_url': 'https://github.com/zhenyuwei99/openpd',
     'repo_name': 'OpenPD',
     'repo_type': 'github',
-    'touch_icon': './logo/openpd.svg',
+    'touch_icon': './logo/openpd_logo.png',
     'nav_title': '',
     'globaltoc_depth': -1,
     'color_primary': 'indigo'
