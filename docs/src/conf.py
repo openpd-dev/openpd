@@ -45,7 +45,7 @@ autodoc_default_flags = ['members', 'inherited-members']
 autodoc_member_order = 'bysource'
 autoclass_content = 'both'
 
-bibtex_bibfiles = ['refs.bib']
+bibtex_bibfiles = ['./appendix/refs.bib']
 # Add any paths that contain templates here, relative to this directory.
 # templates_path = ['_templates']
 
@@ -68,12 +68,13 @@ html_theme = "sphinx_material"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 # html_static_path = ['_static']
+html_logo = './_static/openpd_logo.png'
 html_theme_options = {
     'repo_url': 'https://github.com/zhenyuwei99/openpd',
     'repo_name': 'OpenPD',
     'repo_type': 'github',
-    'logo_icon': '&#xe869',
-    'nav_title': ' ',
+    'touch_icon': './logo/openpd.svg',
+    'nav_title': '',
     'globaltoc_depth': -1,
     'color_primary': 'indigo'
 }
