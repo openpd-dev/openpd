@@ -6,6 +6,7 @@ from .. import isStandardPeptide
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 template_dir = os.path.join(cur_dir, '../data/template/')
 
+
 class Peptide:
     def __init__(self, peptide_type:str, peptide_id=0, chain_id=0): 
         """
