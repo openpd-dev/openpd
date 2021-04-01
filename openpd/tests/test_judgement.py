@@ -50,6 +50,12 @@ def test_isArrayEqual():
     assert isArrayEqual(list1, list2)
     assert not isArrayEqual(list1, list3)
 
+    list1 = np.ones([3, 3, 3])
+    list2 = np.ones([3, 3, 3])
+    assert isArrayEqual(list1, list2)
+    list2[1, 1, 1] = 0
+    assert not isArrayEqual(list1, list2)
+
 def test_isArrayAlmostEqual():
     list1 = [0, 2, 3, 4.5, 6]
     list2 = [1e-6, 2, 3, 4.5, 6]
@@ -75,6 +81,13 @@ def test_isArrayAlmostEqual():
     assert not isArrayAlmostEqual(np.array(list1), list5)
     assert not isArrayAlmostEqual(list1, np.array(list5))
     assert not isArrayAlmostEqual(np.array(list1), np.array(list5))
+
+    list1 = np.ones([3, 3, 3])
+    list2 = np.ones([3, 3, 3])
+    assert isArrayAlmostEqual(list1, list2)
+    list2[1, 1, 1] = 1 + 1e-6
+    assert isArrayAlmostEqual(list1, list2)
+    assert not isArrayAlmostEqual(list1, list2, 1e-7)
 
 def test_isArrayLambda():
     a = [1, 2, 3, 4, 5]
