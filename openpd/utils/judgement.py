@@ -9,6 +9,10 @@ def isAlmostEqual(num1, num2, tolerance=1e-5):
         return True
 
 def isArrayEqual(array1, array2):
+    if isinstance(array1, np.ndarray):
+        array1 = array1.flatten()
+    if isinstance(array2, np.ndarray):
+        array2 = array2.flatten()
     if len(array1) != len(array2):
         return False
     for index, element in enumerate(array1):
@@ -17,6 +21,10 @@ def isArrayEqual(array1, array2):
     return True
 
 def isArrayAlmostEqual(array1, array2, tolerance=1e-5):
+    if isinstance(array1, np.ndarray):
+        array1 = array1.flatten()
+    if isinstance(array2, np.ndarray):
+        array2 = array2.flatten()
     if len(array1) != len(array2):
         return False
     for index, element in enumerate(array1):

@@ -1,6 +1,7 @@
 import pytest
 
 test_order = [
+     'baseDimension',
      'unit',
      'quantity',
      'unitDefinition',
@@ -9,7 +10,6 @@ test_order = [
      'geometry',
      'unique',
      'math',
-     'baseDimension',
      'atom',
      'peptide',
      'chain',
