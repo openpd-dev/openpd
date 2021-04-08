@@ -1,3 +1,4 @@
+import math
 import multiprocessing as mp
 import numpy as np
 import openpd.unit as unit
@@ -26,6 +27,7 @@ class Integrator:
         
         self._sim_interval = sim_interval
         self._is_bound = False # This will turn to True in Simulation.__init__()
+        self._ensemble = None
 
     def __repr__(self):
         return (
@@ -144,48 +146,26 @@ class Integrator:
         updateForce updates the force acts on all ``Atom``
 
         This method needs to be overloaded for all subclass
-
-        Raises
-        ------
-        NotImplementedError
-            When the subclass does not overload this method
         """  
-        # Single CPU
-        # forces = self._ensemble.getForcesByGroup(force_group)
-        # self._system.force = np.zeros([self._system.num_atoms, 3]) * kilojoule_permol_over_angstrom
-        # for atom in self._system.atoms:
-        #     # atom.force = np.zeros(3) * kilojoule_permol_over_angstrom
-        #     for force in forces:
-        #         atom.force += force.calculateAtomForce(atom.atom_id)
-        
-        # self._system.force = np.zeros([self._system.num_atoms, 3]) * kilojoule_permol_over_angstrom
-        # pool = mp.Pool(self._system.num_atoms)
-        # res = [pool.apply_async(
-        #         self._ensemble.calculateAtomForce,
-        #         args=(atom.atom_id, force_group)
-        #     ) for atom in self._system.atoms]
-        # #res = [p.get() for p in res]
-        # pool.close()
-        # pool.join()
-        # res = [p.get() for p in res]
-        # self._system.force = np.array(res)
+        num_processes = mp.cpu_count() if self._system.num_atoms > mp.cpu_count() else self._system.num_atoms
+        atom_ranges = np.array_split([atom.atom_id for atom in self._system.atoms], num_processes)
 
+        jobs = []
         manager = mp.Manager()
         return_dict = manager.dict()
-        jobs = []
-        for atom in self._system.atoms:
+        for atom_range in atom_ranges:            
             jobs.append(mp.Process(
                 target=self._calculateAtomForce,
-                args=(atom.atom_id, force_group, return_dict)
+                args=(atom_range, force_group, return_dict)
             ))
             jobs[-1].start()
         [p.join() for p in jobs]
         for atom in self._system.atoms:
             atom.force = return_dict[atom.atom_id]
-        manager.shutdown()
 
-    def _calculateAtomForce(self, atom_id, force_group, return_dict):
-        return_dict[atom_id] = self._ensemble.calculateAtomForce(atom_id, force_group)
+    def _calculateAtomForce(self, atom_range, force_group, return_dict):
+        for atom_id in atom_range:
+            return_dict[atom_id] = self._ensemble.calculateAtomForce(atom_id, force_group)
 
     def step(self, num_steps:int):
         """
