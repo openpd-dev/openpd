@@ -87,12 +87,6 @@ class Atom:
     
     @atom_id.setter
     def atom_id(self, atom_id:int):  
-        # Chain could also call the setter method of atom_id
-        if self._parent_molecule != None and self._parent_molecule.parent_chain != None:
-            raise EditBoundAttributeError(
-                'Atom has been bound to the molecule %s (id=%d) of chain %s, the atom_id can not be edited'
-                %(self._parent_molecule.molecule_name, self._parent_molecule.molecule_id, self._parent_molecule.chain_id)
-            )  
         self._atom_id = atom_id
 
     @property
@@ -148,7 +142,7 @@ class Atom:
         if self._parent_molecule == None:
             raise NonboundError(
                 'Atom has not been bound to any molecule'
-            )      
+            )     
         return self._parent_molecule.molecule_id
 
     @property

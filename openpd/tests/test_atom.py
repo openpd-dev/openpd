@@ -89,14 +89,7 @@ class TestAtom:
 
         with pytest.raises(NonboundError):
             self.atom.molecule_id
-
-        with pytest.raises(EditBoundAttributeError):
-            molecule = Molecule('CLA')
-            molecule.addAtoms(self.atom)
-            chain = Chain(0)
-            chain.addMolecules(molecule)
-            chain.molecules[0].atoms[0].atom_id = 1
-
+            
         with pytest.raises(ValueError):
             self.atom.coordinate = [2, 2]
         
