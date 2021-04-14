@@ -10,8 +10,8 @@ contact : zhenyuwei99@gmail.com
 copyright : (C)Copyright 2021-2021, Zhenyu Wei and Southeast University
 '''
 
-from . import Chain
-from .. import CONST_CA_CA_DISTANCE
+from . import Atom, Chain
+
 class Topology:
     def __init__(self) -> None:
         self._atoms = []
@@ -29,45 +29,21 @@ class Topology:
 
     __str__ = __repr__
     
-    @staticmethod
-    def _judgeTopologyType(chain: Chain):
-        if chain.num_atoms / chain.num_peptides == 2:
-            return 'coarse grained'
-        else:
-            return 'all atom'
+    def addAtom(self, atom: Atom):
+        self._atoms.append(atom)
+        self._num_atoms += 1
 
-    # note: Topology only record the topology information, didn't change any instance attributes
-    def _addChain(self, chain: Chain):
-        if self._judgeTopologyType(chain) == 'coarse grained':
-            for i, peptide in enumerate(chain.peptides[:-1]):
-                self._bonds.append([peptide.atoms[0], peptide.atoms[1]]) # Ca-Sc bond
-                self._bonds.append([peptide.atoms[0], chain.peptides[i+1].atoms[0]]) # Ca-Ca bond
-                self._num_bonds += 2
+    def addBond(self, atom1: Atom, atom2: Atom):
+        self._bonds.append([atom1, atom2])
+        self._num_bonds += 1
 
-                self._angles.append([peptide.atoms[1], peptide.atoms[0], chain.peptides[i+1].atoms[0]]) # Sc - Ca - Ca
-                self._angles.append([peptide.atoms[0], chain.peptides[i+1].atoms[0], chain.peptides[i+1].atoms[1]]) # Ca - Ca - Sc
-                self._num_angles += 2
-
-                self._torsions.append([peptide.atoms[1], peptide.atoms[0], chain.peptides[i+1].atoms[0], chain.peptides[i+1].atoms[1]])
-                self._num_torsions += 1
-            self._bonds.append([chain.peptides[-1].atoms[0], chain.peptides[-1].atoms[1], chain.peptides[-1].ca_sc_dist]) 
-            self._num_bonds += 1
-            self._atoms.extend(chain.atoms)
-            self._num_atoms += chain.num_atoms
-        else:
-            pass
-
-    def addChains(self, *chains):
-        """
-        addChains adds chains to the Topology
-
-        Parameters
-        ----------
-        *chains : 
-            one or serval Chain instance
-        """  
-        for chain in chains:
-            self._addChain(chain)
+    def addAngle(self, atom1: Atom, atom2: Atom, atom3: Atom):
+        self._angles.append([atom1, atom2, atom3])
+        self._num_angles += 1
+    
+    def addTorsion(self, atom1: Atom, atom2: Atom, atom3: Atom, atom4: Atom):
+        self._torsions.append([atom1, atom2, atom3, atom4])
+        self._num_torsions += 1
 
     @property
     def num_atoms(self):
