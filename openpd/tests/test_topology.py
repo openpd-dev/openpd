@@ -1,7 +1,6 @@
 import pytest
 
-from .. import Peptide, Chain, Topology
-from .. import CONST_CA_CA_DISTANCE
+from .. import Atom, Topology
 
 class TestTopology:
     def setup(self):
@@ -44,29 +43,43 @@ class TestTopology:
 
         with pytest.raises(AttributeError):
             self.topology.torsions = 1
+            
+    def test_addAtom(self):
+        atom1 = Atom('CA', 12)
+        self.topology.addAtom(atom1)
 
-    def test_addChain(self):
-        chain = Chain(0)
-        chain.addPeptides(Peptide('ASN'), Peptide('ASP'), Peptide('ASN'))
+        assert self.topology.num_atoms == 1
+        assert self.topology.atoms == [atom1]
 
-        self.topology._addChain(chain)
+    def test_addBond(self):
+        atom1 = Atom('CA', 12)
+        atom2 = Atom('CA', 12)
+        self.topology.addBond(atom1, atom2)
 
-        assert self.topology.num_atoms == 6
-        assert self.topology.atoms == chain.atoms
-        assert self.topology.num_bonds == 5
-        assert self.topology.num_angles == 4
-        assert self.topology.num_torsions == 2
+        assert self.topology.num_bonds == 1
+        assert self.topology.bonds[0][0] == atom1
+        assert self.topology.bonds[0][1] == atom2
 
-        self.topology._addChain(chain)
+    def test_addAngle(self):
+        atom1 = Atom('CA', 12)
+        atom2 = Atom('CA', 12)
+        atom3 = Atom('CA', 12)
+        self.topology.addAngle(atom1, atom2, atom3)
 
-        assert self.topology.num_atoms == 12
-        assert self.topology.num_bonds == 10
-        assert self.topology.num_angles == 8
-        assert self.topology.num_torsions == 4
+        assert self.topology.num_angles == 1
+        assert self.topology.angles[0][0] == atom1
+        assert self.topology.angles[0][1] == atom2
+        assert self.topology.angles[0][2] == atom3
 
-        for i in range(50):
-            self.topology._addChain(chain)
-            assert self.topology.num_atoms == 12 + (i+1) * 6
-            assert self.topology.num_bonds == 10 + (i+1) * 5
-            assert self.topology.num_angles == 8 + (i+1) * 4
-            assert self.topology.num_torsions == 4 + (i+1) * 2
+    def test_addTorsion(self):
+        atom1 = Atom('CA', 12)
+        atom2 = Atom('CA', 12)
+        atom3 = Atom('CA', 12)
+        atom4 = Atom('CA', 12)
+        self.topology.addTorsion(atom1, atom2, atom3, atom4)
+
+        assert self.topology.num_torsions == 1
+        assert self.topology.torsions[0][0] == atom1
+        assert self.topology.torsions[0][1] == atom2
+        assert self.topology.torsions[0][2] == atom3
+        assert self.topology.torsions[0][3] == atom4
