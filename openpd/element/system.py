@@ -32,7 +32,7 @@ class System:
 
     __str__ = __repr__
         
-    def _addChain(self, chain:Chain):
+    def _addChain(self, chain: Chain):
         self._chains.append(deepcopy(chain))
         self._chains[-1].chain_id = self._num_chains
         for molecule in self._chains[-1].molecules:
