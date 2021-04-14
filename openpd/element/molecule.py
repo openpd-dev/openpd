@@ -25,21 +25,21 @@ class Molecule:
         self._num_atoms = 0
 
     def __repr__(self) -> str:
-        return ('<Peptide object: id %d, name %s, of chain %d of 0x%x>' 
+        return ('<Molecule object: id %d, name %s, of chain %d of 0x%x>' 
             %(self._molecule_id, self._molecule_name, self._chain_id, id(self)))
 
     __str__ = __repr__
 
     def _addAtom(self, atom: Atom):
         if self._parent_chain != None:
-            raise EditBoundAttributeError(
-                'Molecule has been bound to Chain %d, attribute of which can not be edited!'
+            raise ModifiedBoundMoleculeError(
+                'Molecule has been bound to Chain %d, cannot add more atoms!'
                 %(self._parent_chain.chain_id)
             )
         self._atoms.append(deepcopy(atom))
         self._atoms[-1].atom_id = self._num_atoms
         self._num_atoms += 1
-        self._atoms[-1].parent_molecule = self  # This should be the last due to the EditBoundAttributeError
+        self._atoms[-1].parent_molecule = self  # This should be the last due to the ModifiedBoundMoleculeError
 
     def addAtoms(self, *atoms):
         for atom in atoms:

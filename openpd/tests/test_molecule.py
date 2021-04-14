@@ -11,7 +11,7 @@ copyright : (C)Copyright 2021-2021, Zhenyu Wei and Southeast University
 '''
 import pytest
 from .. import Atom, Molecule, Chain
-from ..exceptions import EditBoundAttributeError, NonboundError, PeptideTypeError
+from ..exceptions import *
 
 class TestPeptide:
     def setup(self):
@@ -50,7 +50,7 @@ class TestPeptide:
         with pytest.raises(NonboundError):
             self.molecule.chain_id
 
-        with pytest.raises(EditBoundAttributeError):
+        with pytest.raises(ModifiedBoundMoleculeError):
             chain = Chain(0)
             chain.addMolecules(self.molecule)
             chain.molecules[0].addAtoms(1)
