@@ -5,9 +5,13 @@ __copyright__ = "Copyright 2021-2021, Southeast University and Zhenyu Wei"
 __license__ = "GPLv3"
 
 from .atom import Atom
+from .molecule import Molecule
 from .peptide import Peptide
 from .chain import Chain
 from .topology import Topology
 from .system import System
 
-__all__ = ['Topology', 'Atom', 'Peptide', 'Chain', 'System']
+__all__ = [
+    'Topology', 
+    'Atom', 'Molecule', 'Peptide', 'Chain', 'System'
+]

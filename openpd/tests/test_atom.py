@@ -1,9 +1,22 @@
+#!/usr/bin/env python
+# -*-coding:utf-8 -*-
+'''
+file: test_atom.py
+created time : 2021/02/04
+last edit time : 2021/04/14
+author : Zhenyu Wei 
+version : 1.0
+contact : zhenyuwei99@gmail.com
+copyright : (C)Copyright 2021-2021, Zhenyu Wei and Southeast University
+'''
+
 import pytest
 import numpy as np
 
-from .. import Atom, isArrayEqual
+from .. import Atom, Molecule, Chain, isArrayEqual
 from ..unit import *
 from ..unit import Quantity
+from ..exceptions import *
 
 class TestAtom:
     def setup(self):
@@ -23,14 +36,12 @@ class TestAtom:
         assert isinstance(self.atom.mass, Quantity)
         assert self.atom.mass == 12 * amu
 
-        assert self.atom.peptide_type == None
-        self.atom.peptide_type = 'ASN'
-        assert self.atom.peptide_type == 'ASN'
-        
-        assert self.atom.peptide_id == 0
-        self.atom.peptide_id = 1
-        assert self.atom.peptide_id == 1
-
+        molecule = Molecule('CLA')
+        molecule.molecule_id = 1
+        self.atom.parent_molecule = molecule
+        assert id(self.atom.parent_molecule) == id(molecule)
+        assert self.atom.molecule_id == 1
+        assert self.atom.molecule_name == 'CLA'
         # Test of coordinate
         assert isArrayEqual(self.atom._coordinate, np.zeros([3]))
         self.atom.coordinate = [1, 1, 1]
@@ -73,6 +84,12 @@ class TestAtom:
         with pytest.raises(AttributeError):
             self.atom.mass = 1
 
+        with pytest.raises(NonboundError):
+            self.atom.molecule_name 
+
+        with pytest.raises(NonboundError):
+            self.atom.molecule_id
+            
         with pytest.raises(ValueError):
             self.atom.coordinate = [2, 2]
         

@@ -28,9 +28,6 @@ class TestPeptide:
         assert self.peptide.atoms[1].atom_type == 'SC'
 
     def test_exceptions(self):
-        with pytest.raises(PeptideTypeError):
-            Peptide('AN')
-
         with pytest.raises(AttributeError):
             self.peptide.peptide_type = 1
 

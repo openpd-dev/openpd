@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 
-from .. import Peptide, Chain, System
+from .. import Atom, Molecule, Chain, System
 
 class TestSystem:
     def setup(self):
@@ -14,8 +14,8 @@ class TestSystem:
         assert self.system.num_atoms == 0
         assert self.system.atoms == []
 
-        assert self.system.num_peptides == 0
-        assert self.system.peptides == []
+        assert self.system.num_molecules == 0
+        assert self.system.molecules == []
 
         assert self.system.num_chains == 0
         assert self.system.chains == []
@@ -35,13 +35,10 @@ class TestSystem:
             self.system.atoms = 1
 
         with pytest.raises(AttributeError):
-            self.system.num_peptides = 1
+            self.system.num_molecules = 1
         
         with pytest.raises(AttributeError):
-            self.system.num_peptides = 1
-        
-        with pytest.raises(AttributeError):
-            self.system.peptides = 1
+            self.system.molecules = 1
 
         with pytest.raises(AttributeError):
             self.system.num_chains = 1
@@ -56,60 +53,59 @@ class TestSystem:
             self.system.coordinate = np.array([1, 1, 1])
 
     def test_addChain(self):
-        peptide0 = Peptide('ASN')
-        peptide1 = Peptide('ASP')
+        molecule0 = Molecule('ASN')
+        molecule1 = Molecule('ASP')
+
+        atom1 = Atom('CA', 12)
+        atom2 = Atom('SC', 192)
+        molecule0.addAtoms(atom1, atom2)
+        molecule1.addAtoms(atom1, atom2)
 
         chain = Chain(0)
-        chain.addPeptides(peptide1, peptide1, peptide0)
+        chain.addMolecules(molecule1, molecule0, molecule1)
+
+        assert chain.num_molecules == 3
+        assert chain.num_atoms == 6
         
         self.system.addChains(chain)
 
         assert self.system.num_atoms == 6
-        assert self.system.num_peptides == 3
+        assert self.system.num_molecules == 3
         assert self.system.num_chains == 1
 
         assert self.system.chains[0].chain_id == 0
-        for peptide in self.system.chains[0].peptides:
-            assert peptide.chain_id == 0
-        assert self.system.topology.num_atoms == 6
-        assert self.system.topology.num_bonds == 5
-        assert self.system.topology.num_angles == 4
-        assert self.system.topology.num_torsions == 2
+        for molecule in self.system.chains[0].molecules:
+            assert molecule.chain_id == 0
 
     def test_addChains(self):
-        peptide0 = Peptide('ASN')
-        peptide1 = Peptide('ASP')
+        molecule0 = Molecule('ASN')
+        molecule1 = Molecule('ASP')
+
+        atom1 = Atom('CA', 12)
+        atom2 = Atom('SC', 192)
+        molecule0.addAtoms(atom1, atom2)
+        molecule1.addAtoms(atom1, atom2)
 
         chain0 = Chain(0)
         chain1 = Chain(2)
 
-        chain0.addPeptides(peptide1, peptide1, peptide0)
-        chain1.addPeptides(peptide0, peptide1, peptide0)
+        chain0.addMolecules(molecule1, molecule1, molecule0)
+        chain1.addMolecules(molecule0, molecule1, molecule0)
 
         self.system.addChains(chain0, chain1)
 
         assert self.system.num_atoms == 12
-        assert self.system.num_peptides == 6
+        assert self.system.num_molecules == 6
         assert self.system.num_chains == 2
 
         assert self.system.chains[0].chain_id == 0
-        for peptide in self.system.chains[0].peptides:
-            assert peptide.chain_id == 0
+        for molecule in self.system.chains[0].molecules:
+            assert molecule.chain_id == 0
         assert self.system.chains[1].chain_id == 1
-        for peptide in self.system.chains[1].peptides:
-            assert peptide.chain_id == 1
-
-        assert self.system.topology.num_atoms == 12
-        assert self.system.topology.num_bonds == 10
-        assert self.system.topology.num_angles == 8
-        assert self.system.topology.num_torsions == 4
+        for molecule in self.system.chains[1].molecules:
+            assert molecule.chain_id == 1
 
         for i in range(50):
             self.system.addChains(chain0)
-            for peptide in self.system.chains[-1].peptides:
-                assert peptide.chain_id == i + 2
-
-            assert self.system.topology.num_atoms == 12 + (i+1) * 6
-            assert self.system.topology.num_bonds == 10 + (i+1) * 5
-            assert self.system.topology.num_angles == 8 + (i+1) * 4
-            assert self.system.topology.num_torsions == 4 + (i+1) * 2
+            for molecule in self.system.chains[-1].molecules:
+                assert molecule.chain_id == i + 2

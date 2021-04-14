@@ -172,7 +172,7 @@ class PDFFTorsionForce(Force):
             self._torison_types.append([
                 torsion[1].peptide_type, 
                 torsion[2].peptide_type
-            ]) # Parent Peptide of 2 Ca Atom
+            ]) # Parent Molecule of 2 Ca Atom
         self._setForceFieldVector()
 
     def _setForceFieldVector(self):

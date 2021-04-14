@@ -14,7 +14,7 @@ class Peptide:
         ----------
 
         peptide_type : str
-            the type of peptide, both triple and single letter abbreviation of standard peptide are supported, like 'ALA'  and 'A'
+            the type of peptide, both triple and single letter abbreviation of standard peptide are supported, like 'ALA' and 'A'
 
         peptide_id : int, optional
             the id of peptide, by default 0
