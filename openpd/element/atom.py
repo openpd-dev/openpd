@@ -15,6 +15,7 @@ import numpy as np
 import openpd.unit as unit
 from ..unit import *
 from ..unit import Quantity
+from ..exceptions import *
 
 
 class Atom:
@@ -39,8 +40,7 @@ class Atom:
         else:
             mass = mass * amu
         self._mass = mass
-        self._peptide_type = None
-        self._peptide_id = 0
+        self._parent_molecule = None
         self._coordinate = np.zeros([3]) * angstrom
         self._velocity = np.zeros([3]) * angstrom / femtosecond
         self._kinetic_energy = 0 * kilojoule_permol
@@ -86,7 +86,13 @@ class Atom:
         return self._atom_id
     
     @atom_id.setter
-    def atom_id(self, atom_id:int):    
+    def atom_id(self, atom_id:int):  
+        # Chain could also call the setter method of atom_id
+        if self._parent_molecule != None and self._parent_molecule.parent_chain != None:
+            raise EditBoundAttributeError(
+                'Atom has been bound to the molecule %s (id=%d) of chain %s, the atom_id can not be edited'
+                %(self._parent_molecule.molecule_name, self._parent_molecule.molecule_id, self._parent_molecule.chain_id)
+            )  
         self._atom_id = atom_id
 
     @property
@@ -102,9 +108,17 @@ class Atom:
         return self._mass
 
     @property
-    def peptide_type(self):
+    def parent_molecule(self):
+        return self._parent_molecule
+
+    @parent_molecule.setter
+    def parent_molecule(self, molecule):
+        self._parent_molecule = molecule
+
+    @property
+    def molecule_name(self):
         """
-        peptide_type gets peptide_type
+        molecule_name gets molecule_name
 
         Default value: ``peptide_type=None``
 
@@ -113,14 +127,14 @@ class Atom:
         str
             type of the parent peptide
         """          
-        return self._peptide_type
-
-    @peptide_type.setter
-    def peptide_type(self, peptide_type:str):  
-        self._peptide_type = peptide_type
+        if self._parent_molecule == None:
+            raise NonboundError(
+                'Atom has not been bound to any molecule'
+            )
+        return self._parent_molecule.molecule_name
     
     @property
-    def peptide_id(self):
+    def molecule_id(self):
         """
         peptide_id gets peptide_id
 
@@ -130,12 +144,12 @@ class Atom:
         -------
         str
             id of the parent peptide
-        """          
-        return self._peptide_id
-
-    @peptide_id.setter
-    def peptide_id(self, peptide_id):
-        self._peptide_id = peptide_id
+        """    
+        if self._parent_molecule == None:
+            raise NonboundError(
+                'Atom has not been bound to any molecule'
+            )      
+        return self._parent_molecule.molecule_id
 
     @property
     def coordinate(self):
