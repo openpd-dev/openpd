@@ -173,7 +173,7 @@ class PDFFBondForce(Force):
             self._bond_types.append([
                 bond[0].peptide_type,
                 bond[1].peptide_type
-            ]) # Peptide type of two atoms, if the same, Ca-SC, not Ca-Ca
+            ]) # Molecule type of two atoms, if the same, Ca-SC, not Ca-Ca
         self._setForceFieldVector()
 
     def _setForceFieldVector(self):
