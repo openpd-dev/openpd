@@ -32,7 +32,6 @@ class ModifiedBoundMoleculeError(Exception):
     """
     ModifiedBoundMoleculeError raises when edited the attribute of a bound instance
     Used in:
-    - openpd.element.atom
     - openpd.element.molecule
     """
 
@@ -41,7 +40,7 @@ class PeptideTypeError(Exception):
     PeptideTypeError related to the peptide type error
     Used in
     - openpd.element.peptide 
-    - openpd.loader 
+    - openpd.loader
     - openpd.force package
     """ 
     pass
