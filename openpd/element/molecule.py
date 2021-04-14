@@ -55,11 +55,6 @@ class Molecule:
 
     @molecule_id.setter
     def molecule_id(self, molecule_id: int):
-        if self._parent_chain != None:
-            raise EditBoundAttributeError(
-                'Molecule has been bound to Chain %d, attribute of which can not be edited!'
-                %(self._parent_chain.chain_id)
-            )
         self._molecule_id = molecule_id
 
     @property

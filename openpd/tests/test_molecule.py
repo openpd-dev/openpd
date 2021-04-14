@@ -55,11 +55,6 @@ class TestPeptide:
             chain.addMolecules(self.molecule)
             chain.molecules[0].addAtoms(1)
 
-        with pytest.raises(EditBoundAttributeError):
-            chain = Chain(0)
-            chain.addMolecules(self.molecule)
-            chain.molecules[0].molecule_id = 1
-
     def test_addAtom(self):
         atom = Atom('CA', 12)
         self.molecule.addAtoms(atom)
