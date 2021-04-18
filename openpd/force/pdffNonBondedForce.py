@@ -5,7 +5,7 @@ from . import Force
 from .. import getBond, getUnitVec, isStandardPeptide
 from ..unit import *
 from ..unit import Quantity
-from ..exceptions import RebindError, NotincludedInteractionError
+from ..exceptions import *
 
 cur_dir = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
 force_field_dir = os.path.join(cur_dir, '../data/pdff/nonbonded')

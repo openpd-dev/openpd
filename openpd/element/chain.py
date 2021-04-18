@@ -1,5 +1,17 @@
+#!/usr/bin/env python
+# -*-coding:utf-8 -*-
+'''
+file: chain.py
+created time : 2021/01/17
+last edit time : 2021/04/14
+author : Zhenyu Wei 
+version : 1.0
+contact : zhenyuwei99@gmail.com
+copyright : (C)Copyright 2021-2021, Zhenyu Wei and Southeast University
+'''
+
 from copy import deepcopy
-from . import Peptide
+from . import Molecule
 
 class Chain:
     def __init__(self, chain_id=0):
@@ -12,36 +24,36 @@ class Chain:
             the id of chain, by default 0
         """        
         self._chain_id = chain_id
-        self._peptides = []
+        self._molecules = []
         self._num_atoms = 0
-        self._num_peptides = 0
+        self._num_molecules = 0
 
     def __repr__(self) -> str:
-        return ('<Chain object: id %d, with %d peptides, at 0x%x>' 
-            %(self._chain_id, self._num_peptides, id(self)))
+        return ('<Chain object: id %d, with %d molecules, at 0x%x>' 
+            %(self._chain_id, self._num_molecules, id(self)))
 
     __str__ = __repr__
 
-    def _addPeptide(self, peptide:Peptide):
-        self._peptides.append(deepcopy(peptide))
-        self._peptides[-1].chain_id = self._chain_id
-        self._peptides[-1].peptide_id = self._num_peptides
-        for atom in self._peptides[-1].atoms:
+    def _addMolecule(self, molecule: Molecule):
+        self._molecules.append(deepcopy(molecule))
+        self._molecules[-1].molecule_id = self._num_molecules
+        for atom in self._molecules[-1].atoms:
             atom.atom_id = self._num_atoms
             self._num_atoms += 1
-        self._num_peptides += 1
+        self._num_molecules += 1
+        self._molecules[-1].parent_chain = self
 
-    def addPeptides(self, *peptides):
+    def addMolecules(self, *molecules):
         """
-        addPeptides adds peptides to the Chain
+        addPeptides adds molecules to the Chain
 
         Parameters
         ----------
-        *peptides : 
-            one or serval Peptide instance
+        *molecules : 
+            one or serval Molecule instance
         """        
-        for peptide in peptides:
-            self._addPeptide(peptide)
+        for molecule in molecules:
+            self._addMolecule(molecule)
     
     @property
     def chain_id(self):
@@ -58,8 +70,6 @@ class Chain:
     @chain_id.setter
     def chain_id(self, chain_id:int):
         self._chain_id = chain_id
-        for peptide in self._peptides:
-            peptide.chain_id = chain_id
 
     @property
     def num_atoms(self):
@@ -84,30 +94,30 @@ class Chain:
             list contain all atoms in the chain
         """    
         atoms = []
-        for peptide in self._peptides:
-            atoms.extend(peptide.atoms)
+        for molecule in self._molecules:
+            atoms.extend(molecule.atoms)
         return atoms
 
     @property 
-    def num_peptides(self):
+    def num_molecules(self):
         """
-        num_peptides gets the number of peptides in the chain
+        num_molecules gets the number of molecules in the chain
 
         Returns
         -------
         int
-            the number of peptides in the chain
+            the number of molecules in the chain
         """       
-        return self._num_peptides
+        return self._num_molecules
 
     @property
-    def peptides(self):
+    def molecules(self):
         """
-        peptides gets a ``list`` contain all peptide in the chain
+        molecules gets a ``list`` contain all molecules in the chain
 
         Returns
         -------
-        list(Peptide)
-            list contain all peptides in the chain
+        list(Molecule)
+            list contain all molecules in the chain
         """    
-        return self._peptides
+        return self._molecules

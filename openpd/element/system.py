@@ -1,3 +1,15 @@
+#!/usr/bin/env python
+# -*-coding:utf-8 -*-
+'''
+file: system.py
+created time : 2021/02/03
+last edit time : 2021/04/14
+author : Zhenyu Wei 
+version : 1.0
+contact : zhenyuwei99@gmail.com
+copyright : (C)Copyright 2021-2021, Zhenyu Wei and Southeast University
+'''
+
 import numpy as np
 from copy import deepcopy
 
@@ -11,26 +23,25 @@ class System:
         self._topology = Topology()
     
         self._num_atoms = 0
-        self._num_peptides = 0
+        self._num_molecules = 0
         self._num_chains = 0
 
     def __repr__(self) -> str:
-        return ('<System object: %d chains, %d peptides, %d atoms at 0x0x%x>' 
-            %(self._num_chains, self._num_peptides, self._num_atoms, id(self)))
+        return ('<System object: %d chains, %d molecules, %d atoms at 0x0x%x>' 
+            %(self._num_chains, self._num_molecules, self._num_atoms, id(self)))
 
     __str__ = __repr__
         
-    def _addChain(self, chain:Chain):
+    def _addChain(self, chain: Chain):
         self._chains.append(deepcopy(chain))
         self._chains[-1].chain_id = self._num_chains
-        for peptide in self._chains[-1].peptides:
-            peptide.peptide_id = self._num_peptides
-            self._num_peptides += 1
+        for molecule in self._chains[-1].molecules:
+            molecule.molecule_id = self._num_molecules
+            self._num_molecules += 1
         for atom in self._chains[-1].atoms:
             atom.atom_id = self._num_atoms
             self._num_atoms += 1
         self._num_chains += 1
-        self._topology._addChain(self._chains[-1])
 
     def addChains(self, *chains):
         """
@@ -72,31 +83,31 @@ class System:
         return atoms
         
     @property
-    def num_peptides(self):
+    def num_molecules(self):
         """
-        num_peptides gets the number of peptides in the system
+        num_molecules gets the number of molecules in the system
 
         Returns
         -------
         int
-            the number of peptides in the system
+            the number of molecules in the system
         """       
-        return self._num_peptides
+        return self._num_molecules
     
     @property
-    def peptides(self):
+    def molecules(self):
         """
-        peptides gets a ``list`` contain all peptide in the system
+        molecules gets a ``list`` contain all molecule in the system
 
         Returns
         -------
-        list(Peptide)
-            list contain all peptides in the system
+        list(Molecule)
+            list contain all molecules in the system
         """    
-        peptides = []
+        molecules = []
         for chain in self._chains:
-            peptides.extend(chain.peptides)
-        return peptides
+            molecules.extend(chain.molecules)
+        return molecules
 
     @property
     def num_chains(self):
@@ -113,7 +124,7 @@ class System:
     @property
     def chains(self):
         """
-        chains gets a ``list`` contain all peptide in the system
+        chains gets a ``list`` contain all molecule in the system
 
         Returns
         -------
