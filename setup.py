@@ -45,7 +45,8 @@ setup(
         'matplotlib',
         'pytest',
         'pytest-xdist',
-        'scipy'
+        'scipy',
+        'wget'
     ],
     python_requires='>=3.7'
 )
